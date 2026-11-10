@@ -58,7 +58,7 @@ jobs:
       - name: Infer and verify websites for hospitals with none
         if: ${{ github.event_name == 'schedule' || inputs.find_websites }}
         continue-on-error: true
-        run: python scripts/find_websites.py --workers 48 && python -m hpthub registry
+        run: python scripts/find_websites.py --workers 64 --minutes 40 && python -m hpthub registry
       - run: python -m hpthub discover --limit "${{ inputs.limit || '100' }}" --workers "${{ inputs.workers || '32' }}"
       - run: python -m hpthub site
       - name: Commit results

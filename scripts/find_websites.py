@@ -30,7 +30,9 @@ import re
 import socket
 import sys
 from collections import defaultdict
-from concurrent.futures import ThreadPoolExecutor
+import os
+import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -95,10 +97,22 @@ def resolves(domain: str) -> bool:
     return False
 
 
+def _get(sess, url: str, max_bytes: int):
+    """fetch_text with a hard 30 s deadline, so a slow-drip server can't hold a worker."""
+    one = ThreadPoolExecutor(max_workers=1)
+    fut = one.submit(http.fetch_text, sess, url, max_bytes=max_bytes, timeout=15)
+    try:
+        return fut.result(timeout=30)
+    except TimeoutError:
+        return None
+    finally:
+        one.shutdown(wait=False)
+
+
 def page_text(sess, domain: str) -> str:
     for h in ("www." + domain, domain):
-        f = http.fetch_text(sess, f"https://{h}/", max_bytes=1_500_000, timeout=20)
-        if f.status == 200 and f.body:
+        f = _get(sess, f"https://{h}/", 1_500_000)
+        if f and f.status == 200 and f.body:
             t = http.decode_text(f.body)
             t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S | re.I)
             t = re.sub(r"<[^>]+>", " ", t)
@@ -137,8 +151,8 @@ def name_shown(text: str, name: str) -> bool:
 def hpt_names(sess, domain: str, h) -> str:
     """Location name in the domain's live cms-hpt.txt that matches the hospital ('' if none)."""
     for host in ("www." + domain, domain):
-        f = http.fetch_text(sess, f"https://{host}/cms-hpt.txt", max_bytes=5_000_000, timeout=20)
-        if f.status == 200 and f.body and b"<html" not in f.body[:2000].lower():
+        f = _get(sess, f"https://{host}/cms-hpt.txt", 5_000_000)
+        if f and f.status == 200 and f.body and b"<html" not in f.body[:2000].lower():
             for e in hpttxt.parse(http.decode_text(f.body)).entries:
                 if hospital_score(h["name"], h["city"], e.location_name) >= 0.8:
                     return e.location_name
@@ -207,6 +221,7 @@ def check(sess, h, cross: list[tuple[str, str, float]], dom_states: dict[str, se
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=32)
+    ap.add_argument("--minutes", type=float, default=30, help="stop checking after this long")
     a = ap.parse_args()
     reg = pd.read_csv(REG_DIR / "hospitals.csv", dtype=str).fillna("")
     targets = reg[(reg["domains"] == "") & (reg["hpt_exempt"].str.lower() != "true")]
@@ -218,10 +233,23 @@ def main():
         for d in ds.split():
             dom_states[d].add(st)
     sess = http.session(retries=1)
-    with ThreadPoolExecutor(max_workers=a.workers) as ex:
-        res = list(ex.map(lambda h: (h["ccn"], check(sess, h, cross.get(h["ccn"], []), dom_states)),
-                          [h for _, h in targets.iterrows()]))
-    found = {c: r for c, r in res if r}
+    ex = ThreadPoolExecutor(max_workers=a.workers)
+    futs = {ex.submit(check, sess, h, cross.get(h["ccn"], []), dom_states): h["ccn"] for _, h in targets.iterrows()}
+    found, t0 = {}, time.time()
+    try:
+        for i, fut in enumerate(as_completed(futs, timeout=a.minutes * 60), 1):
+            try:
+                r = fut.result()
+            except Exception as e:  # one bad website must not stop the run
+                print(f"  {futs[fut]}: {e}")
+                r = None
+            if r:
+                found[futs[fut]] = r
+            if i % 50 == 0:
+                print(f"  {i}/{len(futs)} hospitals checked, {len(found)} found ({time.time() - t0:.0f}s)", flush=True)
+    except TimeoutError:
+        print(f"time limit reached; {sum(f.done() for f in futs)}/{len(futs)} hospitals checked")
+    ex.shutdown(wait=False, cancel_futures=True)
     print(f"{len(found)} websites found and verified")
 
     ev = REG_DIR / "inferred_websites.csv"
@@ -248,7 +276,8 @@ def main():
         w.writeheader()
         for k in sorted(rows):
             w.writerow(rows[k])
-    print(f"{len(found)} inferred leads -> {p}, evidence -> {ev}")
+    print(f"{len(found)} inferred leads -> {p}, evidence -> {ev}", flush=True)
+    os._exit(0)  # don't wait for checks still stuck on slow websites
 
 
 if __name__ == "__main__":

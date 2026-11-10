@@ -164,6 +164,8 @@ OVERPASS = """[out:json][timeout:900];
 (nwr["amenity"="hospital"]["website"](area.a);nwr["amenity"="hospital"]["contact:website"](area.a);
  nwr["healthcare"="hospital"]["website"](area.a);nwr["healthcare"="hospital"]["contact:website"](area.a););
 out center tags;"""
+OVERPASS_ENDPOINTS = ("https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter",
+                      "https://overpass.private.coffee/api/interpreter")
 ZCTA_URL = "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2024_Gazetteer/2024_Gaz_zcta_national.zip"
 UA = {"User-Agent": "hpt-hub/0.1 (open hospital price transparency research; +https://github.com/Moqri-Lab/hospitals)"}
 
@@ -200,9 +202,22 @@ def osm(_path: str = "") -> dict[str, str]:
     from hpthub.discover import name_score
     from hpthub.registry import load_cms
 
-    r = requests.post("https://overpass-api.de/api/interpreter", data={"data": OVERPASS}, headers=UA, timeout=1000)
-    r.raise_for_status()
-    els = r.json()["elements"]
+    import time
+    els = None
+    for attempt in range(3):
+        for ep in OVERPASS_ENDPOINTS:
+            try:
+                r = requests.post(ep, data={"data": OVERPASS}, headers=UA, timeout=1000)
+                r.raise_for_status()
+                els = r.json()["elements"]
+                break
+            except Exception as ex:  # busy or rate-limited mirror: try the next one
+                print(f"{ep}: {ex}")
+        if els is not None:
+            break
+        time.sleep(60 * (attempt + 1))
+    if els is None:
+        raise SystemExit("no Overpass server answered")
     print(f"{len(els)} OpenStreetMap hospitals with a website")
     zc = zip_centroids()
     cms = load_cms()
