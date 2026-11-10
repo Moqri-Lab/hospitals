@@ -45,6 +45,16 @@ comes from [`data/registry/system_domains.csv`](data/registry/system_domains.csv
 of its `location-name` entries matches the CMS hospital name (`match_status`:
 `matched`, `low-confidence`, `no-hpt-txt`, `no-domain`).
 
+### Leads from existing databases
+
+Existing open datasets are used only as **leads** for website domains
+([`data/registry/domain_leads.csv`](data/registry/domain_leads.csv), built by
+`scripts/import_domain_leads.py`). A lead never goes into the catalog by
+itself: it is kept only if the hospital's own live `cms-hpt.txt` confirms it.
+Current lead source: hostnames from the DoltHub/TPAFS
+[transparency-data](https://github.com/TPAFS/transparency-data) hospital links
+(CC-BY-SA-4.0).
+
 ## Run it
 
 ```bash

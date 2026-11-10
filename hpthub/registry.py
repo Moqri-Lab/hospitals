@@ -162,7 +162,7 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
-    "hpt_exempt", "system", "domains", "source",
+    "hpt_exempt", "system", "domains", "domain_source", "source",
 ]
 
 
@@ -186,21 +186,35 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
     df = df.copy()
     overrides = load_overrides()
     rules = load_system_rules()
+    leads = load_leads()
 
-    def domains(row) -> tuple[str, str]:
+    def domains(row) -> tuple[str, str, str]:
         if row["ccn"] in overrides:
-            return overrides[row["ccn"]], "override"
+            return overrides[row["ccn"]], "", "override"
         key = f"{row['name']} {row['state']}"
         for rx, doms, system in rules:
             if rx.search(key):
-                return doms, system
-        return "", ""
+                lead = leads.get(row["ccn"], ("", ""))[0].split()
+                extra = [d for d in lead if d not in doms.split()]
+                return " ".join(doms.split() + extra), system, "system-rule" + ("+lead" if extra else "")
+        if row["ccn"] in leads:
+            return leads[row["ccn"]][0], "", "lead:" + leads[row["ccn"]][1]
+        return "", "", ""
 
     res = df.apply(domains, axis=1, result_type="expand")
-    df["domains"], df["system"] = res[0], res[1]
+    df["domains"], df["system"], df["domain_source"] = res[0], res[1], res[2]
     df["beds"] = df["beds"].astype("Int64")
     df = df[REGISTRY_COLUMNS].sort_values(["beds", "ccn"], ascending=[False, True], na_position="last")
     return df.reset_index(drop=True)
+
+
+def load_leads() -> dict[str, tuple[str, str]]:
+    """Candidate domains from existing open datasets (see scripts/import_domain_leads.py)."""
+    p = REG_DIR / "domain_leads.csv"
+    if not p.exists():
+        return {}
+    with p.open(newline="") as f:
+        return {r["ccn"].zfill(6): (r["domains"].strip(), r["source"]) for r in csv.DictReader(f) if r.get("domains")}
 
 
 def load_system_rules() -> list[tuple[re.Pattern, str, str]]:
