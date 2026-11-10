@@ -17,6 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 from . import registry
+from .discover import plausible_size
 
 ROOT = registry.ROOT
 
@@ -60,7 +61,12 @@ def catalog() -> pd.DataFrame:
     locs = reg[reg["location_name"] != ""].groupby("ccn")["location_name"].apply(
         lambda s: len({x.strip() for v in s for x in v.split(";") if x.strip()}))
     reg["n_campuses"] = reg["ccn"].map(locs).fillna("").map(lambda v: str(int(v)) if v != "" else "")
-    reg["mrf_size_mb"] = reg["mrf_bytes"].map(_mb) if "mrf_bytes" in reg.columns else ""
+    if "mrf_bytes" in reg.columns:
+        ok = [plausible_size(float(b) if b not in ("", None) else None, ct)
+              for b, ct in zip(reg["mrf_bytes"], reg.get("mrf_content_type", [""] * len(reg)))]
+        reg["mrf_size_mb"] = [(_mb(b) if k else "") for b, k in zip(reg["mrf_bytes"], ok)]
+    else:
+        reg["mrf_size_mb"] = ""
     reg["mrf_last_modified"] = reg["mrf_last_modified"].map(_date)
     reg["checked_at"] = dt.date.today().isoformat()
     reg.loc[reg["match_status"] == "", "checked_at"] = ""

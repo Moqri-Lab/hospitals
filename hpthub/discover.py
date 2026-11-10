@@ -237,6 +237,14 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
     return pd.DataFrame(out)
 
 
+def plausible_size(n, content_type: str = "") -> bool:
+    """A HEAD Content-Length is trusted only if it looks like a real price file:
+    some servers answer HEAD with an HTML page or a tiny placeholder length."""
+    if n is None or n != n:  # None or NaN
+        return False
+    return int(n) >= 1024 and "html" not in (content_type or "").lower()
+
+
 def head_mrf(sess, url: str) -> dict:
     """Metadata for an MRF URL via HTTP HEAD only (the price data itself is never downloaded)."""
     rec = {"mrf_url": url, "mrf_http_status": None, "mrf_content_type": "", "mrf_bytes": None,
@@ -247,6 +255,8 @@ def head_mrf(sess, url: str) -> dict:
         rec.update(mrf_http_status=r.status_code, mrf_content_type=r.headers.get("Content-Type", ""),
                    mrf_bytes=int(cl) if cl and cl.isdigit() else None,
                    mrf_last_modified=r.headers.get("Last-Modified", ""), mrf_final_url=r.url)
+        if not plausible_size(rec["mrf_bytes"], rec["mrf_content_type"]):
+            rec["mrf_bytes"] = None
     except Exception as e:  # noqa: BLE001
         rec["mrf_error"] = f"{type(e).__name__}: {str(e)[:150]}"
     return rec
