@@ -14,11 +14,11 @@ USER_AGENT = (
 )
 
 
-def session() -> requests.Session:
+def session(retries: int = 3) -> requests.Session:
     s = requests.Session()
     s.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
     # Be patient with rate limits: honour Retry-After and back off (2s, 4s, 8s).
-    retry = Retry(total=3, backoff_factor=2, status_forcelist=(429, 500, 502, 503, 504),
+    retry = Retry(total=retries, backoff_factor=2, status_forcelist=(429, 500, 502, 503, 504),
                   allowed_methods=("GET", "HEAD"), respect_retry_after_header=True)
     adapter = HTTPAdapter(max_retries=retry, pool_connections=32, pool_maxsize=32)
     s.mount("http://", adapter)
@@ -40,13 +40,13 @@ class Fetched:
 
 
 def fetch_head(sess: requests.Session, url: str, max_bytes: int = 2_000_000,
-               timeout: float = 30.0) -> Fetched:
+               timeout: float = 30.0, verify: bool | str = True) -> Fetched:
     """GET a URL but read at most ``max_bytes`` of the (decoded) body.
 
     Used only for small discovery files (cms-hpt.txt), never for price files.
     """
     try:
-        with sess.get(url, stream=True, timeout=timeout, allow_redirects=True) as r:
+        with sess.get(url, stream=True, timeout=timeout, allow_redirects=True, verify=verify) as r:
             chunks, n, truncated = [], 0, False
             for chunk in r.iter_content(chunk_size=65536):
                 chunks.append(chunk)
@@ -67,6 +67,60 @@ def fetch_head(sess: requests.Session, url: str, max_bytes: int = 2_000_000,
             )
     except requests.RequestException as e:
         return Fetched(url, url, None, "", None, "", b"", False, error=type(e).__name__ + ": " + str(e)[:200])
+
+
+_AIA_BUNDLES: dict[str, str] = {}
+
+
+def aia_bundle(host: str) -> str | None:
+    """CA bundle that adds the intermediate certificate a server forgot to send.
+
+    Browsers fetch a missing intermediate from the certificate's "Authority
+    Information Access" URL; Python does not. We do the same thing here, so
+    the certificate is still fully verified against the normal CA store."""
+    if host in _AIA_BUNDLES:
+        return _AIA_BUNDLES[host]
+    import ssl
+    import tempfile
+
+    import certifi
+    from cryptography import x509
+    from cryptography.hazmat.primitives.serialization import Encoding
+    from cryptography.x509.oid import AuthorityInformationAccessOID, ExtensionOID
+
+    bundle = None
+    try:
+        leaf = x509.load_pem_x509_certificate(ssl.get_server_certificate((host, 443), timeout=15).encode())
+        aia = leaf.extensions.get_extension_for_oid(ExtensionOID.AUTHORITY_INFORMATION_ACCESS).value
+        urls = [d.access_location.value for d in aia if d.access_method == AuthorityInformationAccessOID.CA_ISSUERS]
+        pems = []
+        for u in urls[:2]:
+            raw = requests.get(u, timeout=15, headers={"User-Agent": USER_AGENT}).content
+            try:
+                cert = x509.load_der_x509_certificate(raw)
+            except ValueError:
+                cert = x509.load_pem_x509_certificate(raw)
+            pems.append(cert.public_bytes(Encoding.PEM).decode())
+        if pems:
+            f = tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False)
+            f.write(open(certifi.where()).read() + "\n" + "\n".join(pems))
+            f.close()
+            bundle = f.name
+    except Exception:  # noqa: BLE001
+        bundle = None
+    _AIA_BUNDLES[host] = bundle
+    return bundle
+
+
+def fetch_text(sess: requests.Session, url: str, max_bytes: int = 2_000_000, timeout: float = 30.0) -> Fetched:
+    """fetch_head, retrying once with the missing intermediate certificate on a TLS error."""
+    f = fetch_head(sess, url, max_bytes=max_bytes, timeout=timeout)
+    if f.error and "SSL" in f.error and "CERTIFICATE_VERIFY_FAILED" in f.error:
+        from urllib.parse import urlparse
+        bundle = aia_bundle(urlparse(url).hostname or "")
+        if bundle:
+            f = fetch_head(sess, url, max_bytes=max_bytes, timeout=timeout, verify=bundle)
+    return f
 
 
 def decode_text(body: bytes) -> str:

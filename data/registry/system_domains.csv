@@ -1,4 +1,5 @@
 pattern,domains,system
+\bbaptist beaumont\b,bhset.net,Baptist Hospitals of SE Texas
 \badventhealth\b,adventhealth.com,AdventHealth
 \bascension\b,healthcare.ascension.org ascension.org,Ascension
 \bhca\b|\bmedical city\b|\btristar\b|\bhealthone\b|\bsunrise hospital\b|\bmountainview hospital\b|\bsouthern hills\b|\bsky ridge\b|\bovert?land park reg|\bresearch medical center\b|\bcenterpoint medical\b|\bst david'?s\b|\bnorth austin medical\b|\bcorpus christi medical center\b|\brio grande regional\b|\blas palmas\b|\bwesley medical center\b|\bchandler regional\b,hcahealthcare.com,HCA Healthcare
@@ -273,7 +274,6 @@ pattern,domains,system
 \bcovenant medical center\b.*\bTX\b,covenanthealth.org,Covenant Health TX
 \but health east texas\b,uthet.com ardenthealth.com,UT Health East Texas
 \bparis regional\b,parisregionalhealth.com,Paris Regional
-\bbaptist beaumont\b,bhset.net,Baptist Hospitals of SE Texas
 \bvalleywise\b,valleywisehealth.org,Valleywise
 \bhonorhealth\b,honorhealth.com,HonorHealth
 \btucson medical\b,tmcaz.com,TMC

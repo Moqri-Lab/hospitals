@@ -102,6 +102,17 @@ def access_issue(status, error: str, body: bytes = b"") -> str:
     return "connection failed" if e else ""
 
 
+def hospital_score(name: str, city: str, loc: str) -> float:
+    """name_score plus a bonus when the location name mentions the hospital's city
+    (e.g. "Corewell Health Dearborn" for "Beaumont Hospital - Dearborn")."""
+    sc = name_score(name, loc)
+    c = re.sub(r"[^a-z0-9 ]", " ", (city or "").lower()).split()
+    l = " " + " ".join(re.sub(r"[^a-z0-9 ]", " ", (loc or "").lower()).split()) + " "
+    if c and f" {' '.join(c)} " in l:
+        sc = min(1.0, sc + 0.15)
+    return round(sc, 3)
+
+
 def fetch_archive(sess, host: str):
     """Latest Internet Archive (Wayback Machine) copy of https://<host>/cms-hpt.txt.
 
@@ -109,7 +120,7 @@ def fetch_archive(sess, host: str):
     (body, archived_url, YYYY-MM-DD) or None."""
     try:
         r = sess.get("https://archive.org/wayback/available",
-                     params={"url": f"{host}/cms-hpt.txt"}, timeout=30)
+                     params={"url": f"{host}/cms-hpt.txt"}, timeout=20)
         snap = r.json().get("archived_snapshots", {}).get("closest") or {}
     except Exception:  # noqa: BLE001
         return None
@@ -117,7 +128,7 @@ def fetch_archive(sess, host: str):
         return None
     ts = snap["timestamp"]
     raw = f"https://web.archive.org/web/{ts}id_/https://{host}/cms-hpt.txt"
-    f = http.fetch_head(sess, raw, max_bytes=5_000_000, timeout=60)
+    f = http.fetch_head(sess, raw, max_bytes=5_000_000, timeout=30)
     if f.status != 200 or not f.body or b"<html" in f.body[:2000].lower():
         return None
     return f.body, f"https://web.archive.org/web/{ts}/https://{host}/cms-hpt.txt", f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}"
@@ -126,7 +137,7 @@ def fetch_archive(sess, host: str):
 _CC_INDEXES: list[str] = []
 
 
-def fetch_commoncrawl(sess, host: str, n_indexes: int = 2):
+def fetch_commoncrawl(sess, host: str, n_indexes: int = 1):
     """Latest Common Crawl capture of https://<host>/cms-hpt.txt (public web archive).
 
     Looks the URL up in the newest crawl indexes and reads just that one WARC
@@ -189,9 +200,9 @@ def fetch_domain(sess, domain: str, archive: bool = False) -> dict:
     f, url, attempts = None, "", []
     for host in hosts:
         url = f"https://{host}/cms-hpt.txt"
-        f = http.fetch_head(sess, url, max_bytes=5_000_000, timeout=20)
+        f = http.fetch_text(sess, url, max_bytes=5_000_000, timeout=20)
         if f.error and ("Timeout" in f.error or "timed out" in f.error):
-            f = http.fetch_head(sess, url, max_bytes=5_000_000, timeout=90)  # slow sites
+            f = http.fetch_text(sess, url, max_bytes=5_000_000, timeout=90)  # slow sites
         attempts.append(access_issue(f.status, f.error, f.body))
         if not attempts[-1]:
             break
@@ -279,16 +290,17 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
     # Other registry hospitals on the same domain compete for each entry, so a
     # system's file for "Hospital B" isn't attached to "Hospital A".
     universe = reg if universe is None else universe
-    rivals: dict[str, list[tuple[str, str]]] = {}
+    rivals: dict[str, list[tuple[str, str, str]]] = {}
     for _, u in universe.iterrows():
         for d in str(u["domains"]).split():
-            rivals.setdefault(d, []).append((u["ccn"], u["name"]))
+            rivals.setdefault(d, []).append((u["ccn"], u["name"], u.get("city", "")))
     best_owner: dict[tuple[str, str], float] = {}
 
     def owner_score(d: str, loc: str, ccn: str) -> float:
         key = (d, loc, ccn)
         if key not in best_owner:
-            best_owner[key] = max((name_score(n, loc) for c, n in rivals.get(d, []) if c != ccn), default=0.0)
+            best_owner[key] = max((hospital_score(n, ci, loc) for c, n, ci in rivals.get(d, []) if c != ccn),
+                                  default=0.0)
         return best_owner[key]
 
     overrides = load_location_overrides()
@@ -321,7 +333,7 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
             if g is None:
                 continue
             for _, e in g.iterrows():
-                scored.append((name_score(h["name"], e["location_name"]), d, e))
+                scored.append((hospital_score(h["name"], h.get("city", ""), e["location_name"]), d, e))
         if not scored:
             tried = [d for d in doms if d in blocked] or doms
             out.append({**base, "hpt_txt_domain": tried[0] if tried else "", "match_score": None,
@@ -341,9 +353,26 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
             # If this CCN is the only registry hospital using the domain, every
             # entry on it that no other hospital claims belongs to it (e.g. a
             # system filing under one CCN, or a renamed hospital).
-            sole = [t for t in scored if len([c for c, _ in rivals.get(t[1], [])]) <= 1]
+            sole = [t for t in scored if len(rivals.get(t[1], [])) <= 1]
             if sole:
                 good, status = sole, "matched-sole"
+        if not good and h.get("city"):
+            # The only entry on a domain naming this hospital's city, when no other
+            # registry hospital on that domain is in the same city.
+            def in_city(loc: str, city: str) -> bool:
+                c = " ".join(re.sub(r"[^a-z0-9 ]", " ", city.lower()).split())
+                return bool(c) and f" {c} " in " " + " ".join(re.sub(r"[^a-z0-9 ]", " ", str(loc).lower()).split()) + " "
+            for d in doms:
+                g = by_domain.get(d)
+                if g is None:
+                    continue
+                hits = [e for _, e in g.iterrows() if in_city(e["location_name"], h["city"])]
+                same_city = [c for c, _, ci in rivals.get(d, []) if c != h["ccn"]
+                             and str(ci).strip().lower() == str(h["city"]).strip().lower()]
+                if len({e["mrf_url"] for e in hits}) == 1 and not same_city:
+                    good = [(hospital_score(h["name"], h["city"], e["location_name"]), d, e) for e in hits]
+                    status = "matched-city"
+                    break
         chosen = good or scored[:1]
         by_url: dict[str, list] = {}
         for sc, d, e in chosen:
@@ -424,9 +453,9 @@ def archive_pass(reg: pd.DataFrame, dom_df: pd.DataFrame, ent_df: pd.DataFrame,
     if not todo:
         return dom_df, ent_df
     print(f"trying archive copies for {len(todo)} unreadable domains", flush=True)
-    sess = http.session()
+    sess = http.session(retries=1)
     new_entries = []
-    with ThreadPoolExecutor(max_workers=min(workers, 8)) as ex:
+    with ThreadPoolExecutor(max_workers=min(workers, 16)) as ex:
         res = dict(zip(todo, ex.map(lambda d: archived_copy(sess, d), todo)))
     for d, alt in res.items():
         if not alt:
