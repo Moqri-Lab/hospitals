@@ -123,6 +123,45 @@ def fetch_archive(sess, host: str):
     return f.body, f"https://web.archive.org/web/{ts}/https://{host}/cms-hpt.txt", f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}"
 
 
+_CC_INDEXES: list[str] = []
+
+
+def fetch_commoncrawl(sess, host: str, n_indexes: int = 4):
+    """Latest Common Crawl capture of https://<host>/cms-hpt.txt (public web archive).
+
+    Looks the URL up in the newest crawl indexes and reads just that one WARC
+    record with an HTTP Range request. Returns (body, record_url, YYYY-MM-DD) or None."""
+    import gzip
+    import json as _json
+    try:
+        if not _CC_INDEXES:
+            _CC_INDEXES.extend(c["cdx-api"] for c in sess.get("https://index.commoncrawl.org/collinfo.json",
+                                                              timeout=30).json())
+        for api in _CC_INDEXES[:n_indexes]:
+            r = sess.get(api, params={"url": f"{host}/cms-hpt.txt", "output": "json"}, timeout=60)
+            if r.status_code != 200 or not r.text.strip():
+                continue
+            caps = [_json.loads(x) for x in r.text.strip().splitlines()]
+            caps = [c for c in caps if str(c.get("status")) == "200"]
+            if not caps:
+                continue
+            c = max(caps, key=lambda c: c["timestamp"])
+            off, ln = int(c["offset"]), int(c["length"])
+            w = sess.get(f"https://data.commoncrawl.org/{c['filename']}",
+                         headers={"Range": f"bytes={off}-{off + ln - 1}"}, timeout=60)
+            rec = gzip.decompress(w.content)
+            # WARC headers, blank line, HTTP headers, blank line, body
+            parts = rec.split(b"\r\n\r\n", 2)
+            body = parts[2] if len(parts) == 3 else b""
+            if not body or b"<html" in body[:2000].lower():
+                continue
+            ts = c["timestamp"]
+            return body, f"{api}?url={host}/cms-hpt.txt", f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}"
+    except Exception:  # noqa: BLE001
+        return None
+    return None
+
+
 def fetch_domain(sess, domain: str, archive: bool = True) -> dict:
     """Fetch cms-hpt.txt from the domain root, trying both the bare and www. host.
 
@@ -166,6 +205,14 @@ def fetch_domain(sess, domain: str, archive: bool = True) -> dict:
             if arc:
                 f.body, f.status = arc[0], 200
                 rec.update(source=f"Internet Archive {arc[2]}", url=arc[1])
+            else:
+                for host in hosts:
+                    arc = fetch_commoncrawl(sess, host)
+                    if arc:
+                        break
+                if arc:
+                    f.body, f.status = arc[0], 200
+                    rec.update(source=f"Common Crawl {arc[2]}", url=arc[1])
         rec["bytes"] = len(f.body)
     entries = []
     if f.status == 200 and f.body:
