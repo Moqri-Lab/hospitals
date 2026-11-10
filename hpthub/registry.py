@@ -162,7 +162,8 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
-    "hpt_exempt", "system", "domains", "domain_source", "domain_sources", "source",
+    "hpt_exempt", "system", "domains", "domain_source",
+    "web_manual", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "source",
 ]
 
 LEAD_SOURCE_NAMES = {
@@ -230,30 +231,19 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
     res = df.apply(domains, axis=1, result_type="expand")
     df["domains"], df["system"], df["domain_source"] = res[0], res[1], res[2]
 
-    # Every source that names each of the hospital's domains, e.g.
-    # "adventhealth.com: system rule (AdventHealth); Wikidata Q123; TPAFS/DoltHub ..."
+    # One column per website source, keyed by CCN: the domain(s) each source gives.
     lead_rows, wd = load_lead_rows(), load_wikidata_ids()
 
-    def sources(row) -> str:
-        parts = []
+    def per_source(row) -> list[str]:
+        ccn = row["ccn"]
         key = f"{row['name']} {row['state']}"
-        for d in str(row["domains"]).split():
-            srcs = []
-            if d in overrides.get(row["ccn"], "").split():
-                srcs.append("manual (data/registry/domains.csv)")
-            for rx, doms, system in rules:
-                if rx.search(key):
-                    if d in doms.split():
-                        srcs.append(f"system rule ({system})")
-                    break
-            for src, ld in lead_rows.get(row["ccn"], []):
-                if d in ld:
-                    name = LEAD_SOURCE_NAMES.get(src, src)
-                    srcs.append(f"{name} {wd[row['ccn']]}" if src == "wikidata" and row["ccn"] in wd else name)
-            parts.append(f"{d}: " + "; ".join(srcs or ["unknown"]))
-        return " | ".join(parts)
+        rule = next((doms for rx, doms, _ in rules if rx.search(key)), "")
+        leads_by = {src: " ".join(d) for src, d in lead_rows.get(ccn, [])}
+        return [overrides.get(ccn, ""), rule, leads_by.get("wikidata", ""), wd.get(ccn, ""),
+                leads_by.get("tpafs", ""), leads_by.get("sutton", "")]
 
-    df["domain_sources"] = df.apply(sources, axis=1)
+    cols = ["web_manual", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf"]
+    df[cols] = df.apply(per_source, axis=1, result_type="expand")
     df["beds"] = df["beds"].astype("Int64")
     df = df[REGISTRY_COLUMNS].sort_values(["beds", "ccn"], ascending=[False, True], na_position="last")
     return df.reset_index(drop=True)
