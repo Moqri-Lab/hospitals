@@ -165,7 +165,7 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
     "hpt_exempt", "system", "domains", "domain_source",
-    "web_manual", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "source",
+    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "source",
 ]
 
 LEAD_SOURCE_NAMES = {
@@ -245,7 +245,7 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
         return [overrides.get(ccn, ""), rule, leads_by.get("wikidata", ""), wd.get(ccn, ""),
                 leads_by.get("tpafs", ""), leads_by.get("sutton", "")]
 
-    cols = ["web_manual", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf"]
+    cols = ["web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf"]
     df[cols] = df.apply(per_source, axis=1, result_type="expand")
     df["beds"] = df["beds"].astype("Int64")
     df = df[REGISTRY_COLUMNS].sort_values(["beds", "ccn"], ascending=[False, True], na_position="last")

@@ -1,4 +1,4 @@
-ccn,name,address,city,state,zip,facility_type,ownership,beds,hpt_exempt,system,domains,domain_source,web_manual,web_system_rule,web_wikidata,wikidata_id,web_tpafs,web_hpf,source
+ccn,name,address,city,state,zip,facility_type,ownership,beds,hpt_exempt,system,domains,domain_source,web_claude,web_system_rule,web_wikidata,wikidata_id,web_tpafs,web_hpf,source
 100007,Adventhealth Orlando,601 E Rollins St,Orlando,FL,32803,Acute Care Hospitals,Voluntary non-profit - Private,3289,False,AdventHealth,adventhealth.com,system-rule,,adventhealth.com,adventhealth.com,Q3145309,adventhealth.com,adventhealth.com,cms-hgi+pos
 33019F,Northport Va Medical Center,79 Middleville Road,Northport,NY,11768,Acute Care - Veterans Administration,Veterans Health Administration,2272,True,,,,,,,,,,cms-hgi+pos
 330101,New York-Presbyterian Hospital,525 East 68Th Street,New York,NY,10065,Acute Care Hospitals,Voluntary non-profit - Private,2262,False,NewYork-Presbyterian,nyp.org,system-rule,,nyp.org,,,nyp.org,nyp.org,cms-hgi+pos
