@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About the Catalog</title>
+<base target="_blank">
+<style>
+:root{--passbg:#e6f4ec;--failbg:#fde8e6;--blockbg:#fdf0dc;--bg:#fbfaf8;--fg:#1d1d1b;--muted:#6b6a66;--line:#e4e2dc;--card:#fff;--accent:#0b6e4f;--warn:#a35a00;--bad:#b42318;--chip:#f1efea}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#ecebe6;--muted:#a3a19a;--line:#2e2d2a;--card:#1c1c1a;--accent:#4cc79a;--warn:#e0a24a;--bad:#f07167;--chip:#262522;--passbg:#14301f;--failbg:#3a1a17;--blockbg:#3a2a12}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:24px 16px 8px;max-width:1400px;margin:auto}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;max-width:1400px;margin:auto}
+input,select{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;font:inherit}
+input[type=search]{flex:1 1 260px}
+label{display:flex;gap:6px;align-items:center;color:var(--muted)}
+.stats{max-width:1400px;margin:auto;padding:0 16px 8px;color:var(--muted)}
+.wrap{max-width:1400px;margin:auto;padding:0 16px 32px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--card);cursor:pointer;white-space:nowrap;font-weight:600;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+.chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);font-size:12px;white-space:nowrap}
+.flag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap}.flag.pass{background:var(--passbg);color:var(--accent)}.flag.fail{background:var(--failbg);color:var(--bad)}.flag.blocked{background:var(--blockbg);color:var(--warn)}.flag.unknown{background:var(--chip);color:var(--muted)}
+tr.pass td:first-child{box-shadow:inset 4px 0 var(--accent)}tr.fail td:first-child{box-shadow:inset 4px 0 var(--bad)}tr.blocked td:first-child{box-shadow:inset 4px 0 var(--warn)}
+.ok{color:var(--accent)}.low{color:var(--warn)}.no{color:var(--bad)}
+.small{font-size:12px;color:var(--muted)}
+table{table-layout:auto}
+td{font-size:13px}
+td.clip{max-width:240px}
+td.clip a,td.clip span.t{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td.loc{min-width:300px;max-width:420px}
+.file{margin-bottom:4px}.file .small a{color:var(--muted)}
+details.locs summary{cursor:pointer;list-style:none;color:var(--accent)}
+details.locs summary::-webkit-details-marker{display:none}
+details.locs ul{margin:4px 0 0;padding-left:16px}
+td.hosp{min-width:180px;max-width:260px}
+td.chk{min-width:150px;max-width:200px}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;padding-top:16px}
+.top h1{margin:0}
+.nav{display:flex;flex-wrap:wrap;gap:14px;font-size:13px}
+.pager{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;max-width:1400px;margin:-20px auto 0;padding:0 16px 24px;color:var(--muted)}
+.pager button{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font:inherit;cursor:pointer}
+.pager button:disabled{opacity:.4;cursor:default}
+.sources{max-width:1400px;margin:8px auto 0;padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.sources summary{cursor:pointer;font-weight:600}
+.sources ul{margin:8px 0 0;padding-left:18px}.sources li{margin:4px 0}
+@media (min-width:1432px){.sources{margin:8px auto 0}}
+footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-size:12px}
+
+.mapbox{max-width:1400px;margin:8px auto 0;padding:0 16px}
+.mapwrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px}
+#usmap{display:grid;grid-template-columns:repeat(12,minmax(26px,44px));grid-auto-rows:minmax(26px,40px);gap:3px}
+#usmap .st{border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:600;cursor:pointer;line-height:1.1;border:2px solid transparent}
+#usmap .st small{font-weight:400;font-size:10px;opacity:.85}
+#usmap .st.sel{border-color:var(--fg)}
+.legend{font-size:12px;color:var(--muted);max-width:300px}
+.legend .sw{display:inline-block;width:22px;height:12px;border-radius:2px;vertical-align:middle}
+
+.colmenu{position:relative}.colmenu summary{cursor:pointer;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px;color:var(--fg)}
+.colmenu summary::-webkit-details-marker{display:none}
+.colmenu .menu{position:absolute;right:0;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;box-shadow:0 6px 20px #0002;min-width:220px}
+.colmenu .menu label{display:flex;gap:8px;padding:3px 0;color:var(--fg);white-space:nowrap}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>About the hospital price file catalog</h1>
+  <nav class="nav"><a href="./" target="_self">← Map and table</a><a href="exempt.html" target="_self">Exempt hospitals</a><a href="https://github.com/Moqri-Lab/hospitals">GitHub</a></nav>
+</header>
+<div style="max-width:1400px;margin:12px auto 0;padding:0 16px"><div class="sources">
+  <p style="margin:0 0 8px">Every CMS-certified US hospital, with the price files listed in its <code>cms-hpt.txt</code>. Links only: no price data is downloaded. Code and data: <a href="https://github.com/Moqri-Lab/hospitals">Moqri-Lab/hospitals</a>.</p>
+  <b>Sources and definitions</b>
+  <ul>
+    <li><b>Hospital list</b>: CMS <a href="https://data.cms.gov/provider-data/dataset/xubh-q36u">Hospital General Information</a> (data.cms.gov dataset xubh-q36u, July 2026 release; <a href="https://data.cms.gov/provider-data/sites/default/files/resources/893c372430d9d71a1c52737d01239d47_1785189955/Hospital_General_Information.csv">CSV</a>, <a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/hospital/HOSPITAL_Data_Dictionary.pdf">data dictionary</a>). 5,419 Medicare-certified hospitals, one row per CMS Certification Number (CCN).</li>
+    <li><b>Bed count</b>: <code>BED_CNT</code> (total beds) from the CMS <a href="https://data.cms.gov/search?keywords=Provider%20of%20Services%20File">Provider of Services file</a>, hospital extract Q3 2026 (<a href="https://data.cms.gov/sites/default/files/2026-10/e5a8afbb-a1f4-4d3b-bdb9-3968e194da0e/Hospital_and_other.DATA.Q3_2026.csv">CSV</a>), active providers only, joined on CCN. Beds are reported <b>per CCN</b>, and one CCN can cover several campuses (see the "Campuses" column, counted from the hospital's own cms-hpt.txt).</li>
+    <li><b>Price file links</b>: each hospital's own <code>cms-hpt.txt</code>, which CMS requires at the root of the hospital website (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180">45 CFR 180</a>, <a href="https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency">CMS Hospital Price Transparency</a>, <a href="https://github.com/CMSgov/hospital-price-transparency">CMS file specification</a>). Format, size and date come from an HTTP HEAD request; price files are never downloaded.</li>
+    <li><b>Website leads</b> (candidates only, each verified against the live cms-hpt.txt): health-system <a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/system_domains.csv">name rules</a> and hostnames from the open <a href="https://github.com/TPAFS/transparency-data">TPAFS / DoltHub transparency-data</a> hospital links (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>), official websites (<code>P856</code>) of US hospitals in <a href="https://www.wikidata.org">Wikidata</a>, the open knowledge base behind Wikipedia (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>; matched items with links in <a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/wikidata_hospitals.csv">wikidata_hospitals.csv</a>), and other open, public lists of hospital price-file pages (full attribution in the <a href="https://github.com/Moqri-Lab/hospitals#leads-from-existing-databases">README</a>).</li>
+    <li><b>Name in cms-hpt.txt</b>: the location name the hospital itself uses for this price file in its <code>cms-hpt.txt</code> (it can differ from the CMS name, e.g. after a rebrand); the link opens the hospital's price transparency page. One CMS hospital can have several names or files.</li>
+    <li><b>Web columns</b>: the website each source gives for the hospital (one column per source, joined on CCN, the CMS provider ID; ✓ = this source gave the website whose cms-hpt.txt was read): a health-system rule, <a href="https://www.wikidata.org">Wikidata</a> (item linked), <a href="https://github.com/TPAFS/transparency-data">TPAFS/DoltHub</a> <a href="https://hospitalpricingfiles.org">hospitalpricingfiles.org</a> (HPF.org), or "Claude": a website Claude (AI) found by reviewing hospitals no other source got right, usually ones now run by a different system (<a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/domains.csv">domains.csv</a>, with a note for each). A website is used only if its own cms-hpt.txt names the hospital.</li>
+    <li><b>cms-hpt.txt access</b>: CMS requires every hospital to post <code>cms-hpt.txt</code> at its website root so its price files can be found automatically (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-B/section-180.50">45 CFR 180.50</a>). When a site refuses our automated request (for example HTTP 403 from bot protection), times out or has a broken certificate, the reason is shown in red as a possible accessibility problem. We do not bypass bot protection; instead the file is read from the latest public archive copy, <a href="https://web.archive.org">Internet Archive</a> or <a href="https://commoncrawl.org">Common Crawl</a> (dated and linked), or from a copy saved in a browser.</li>
+    <li><b>cms-hpt.txt compliance</b> (green / red / amber): checks only the requirement that each hospital post a machine-readable <code>cms-hpt.txt</code> at its website root listing its price file (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-B/section-180.50">45 CFR 180.50(d)(6)</a>); it does not judge the price files themselves. <span style="color:var(--accent)">Compliant</span>: a live cms-hpt.txt lists the hospital. <span style="color:var(--bad)">Not compliant</span>: the hospital's website has no cms-hpt.txt, its file omits the hospital, or every price file it lists for the hospital returns HTTP 404 (checked with a HEAD request, which a few servers answer differently from a download). <span style="color:var(--warn)">Inaccessible</span> (amber): we could not confirm either way, because the website refuses automated requests (for example bot protection returning HTTP 403, though the file may open in a browser), the website is unknown or uncertain, or there was a network error; the reason is shown under the flag. A failure is only counted when we are sure the website is the hospital's (it lists the hospital, or two independent sources agree). This is an automated check, not a legal determination.</li>
+    <li><b>Confidence</b> (0-100) that a price file belongs to the CMS hospital. Base, by match method: name match = name similarity x 100; reviewed by Claude = 85; only entry naming the hospital's city = 70; only hospital on that website = 65; low-confidence = similarity x 60. Plus 5 for each extra independent source giving the same website (up to +15); minus 10 if the cms-hpt.txt came from a public archive, minus 5 if from a saved copy. High = 80 and up, medium = 60-79, low = under 60.</li>
+    <li><b>Exempt</b>: federally owned or operated hospitals (VA, DoD and Indian Health Service) are deemed compliant and are not crawled. State forensic hospitals that treat only people in penal custody are also deemed compliant; state psychiatric hospitals are listed as "possibly exempt" on the <a href="exempt.html" target="_self">exempt hospitals page</a>, because public data does not say which are purely forensic. Tribally operated hospitals are not exempt (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-A/section-180.30">45 CFR 180.30(b)</a>). <a href="exempt.html" target="_self">Exempt and possibly exempt hospitals →</a></li>
+  </ul>
+  <p style="margin:12px 0 0">Downloads: <a href="data/catalog.csv">catalog.csv</a> · <a href="data/registry/hospitals.csv">hospitals.csv</a> · <a href="data/discovery/hpt_txt_entries.csv">all cms-hpt.txt entries</a> · <a href="data/discovery/domains.csv">domains checked</a>.</p>
+</div>
+</div>
+<footer style="margin-top:16px"></footer>
+</body>
+</html>
