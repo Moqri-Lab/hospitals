@@ -43,7 +43,10 @@ class Fetched:
 
 def fetch_head(sess: requests.Session, url: str, max_bytes: int = 2_000_000,
                timeout: float = 30.0) -> Fetched:
-    """GET a URL but read at most ``max_bytes`` of the (decoded) body."""
+    """GET a URL but read at most ``max_bytes`` of the (decoded) body.
+
+    Used only for small discovery files (cms-hpt.txt), never for price files.
+    """
     try:
         with sess.get(url, stream=True, timeout=timeout, allow_redirects=True) as r:
             chunks, n, truncated = [], 0, False
@@ -90,20 +93,13 @@ def decode_text(body: bytes) -> str:
     return body.decode("utf-8", errors="replace")
 
 
-def open_local_or_url(path_or_url: str, sess: requests.Session | None = None):
-    """Return a binary file-like object for a local path or a full URL download."""
-    if path_or_url.startswith(("http://", "https://")):
-        sess = sess or session()
-        r = sess.get(path_or_url, stream=True, timeout=120)
-        r.raise_for_status()
-        r.raw.decode_content = True
-        raw = r.raw
-        if path_or_url.lower().endswith(".gz"):
-            return gzip.GzipFile(fileobj=raw)
-        return raw
-    if path_or_url.lower().endswith(".gz"):
-        return gzip.open(path_or_url, "rb")
-    return open(path_or_url, "rb")
+def open_local(path: str):
+    """Open a local MRF (optionally .gz). URLs are refused: the hub never downloads price data."""
+    if path.startswith(("http://", "https://")):
+        raise ValueError("hpthub does not download price files; pass a local path")
+    if path.lower().endswith(".gz"):
+        return gzip.open(path, "rb")
+    return open(path, "rb")
 
 
-__all__ = ["session", "fetch_head", "maybe_decompress", "decode_text", "open_local_or_url", "Fetched"]
+__all__ = ["session", "fetch_head", "maybe_decompress", "decode_text", "open_local", "Fetched"]

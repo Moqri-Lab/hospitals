@@ -2,7 +2,9 @@
 
 It checks a file against the CMS Hospital Price Transparency templates
 (v2.0-v2.2 and v3.0, CSV tall / CSV wide / JSON) by reading only the head of
-the file, so even multi-GB files can be screened quickly. It is not a
+a *local* file, so even multi-GB files can be screened quickly. By project
+policy the hub never downloads price data; this module only works on files a
+researcher already has on disk. It is not a
 replacement for the official CMS validator, but it catches the issues that
 matter for research use: wrong format, missing required headers, invalid
 enumerations, non-numeric prices and stale or missing dates.
@@ -391,19 +393,4 @@ def validate_path(path: str | Path, max_bytes: int = 20_000_000, max_rows: int =
     truncated = len(body) > max_bytes
     rep = validate_bytes(body[:max_bytes], str(p), truncated=truncated, max_rows=max_rows)
     rep.content_length = p.stat().st_size
-    return rep
-
-
-def validate_url(url: str, sess=None, max_bytes: int = 5_000_000, max_rows: int = 2000) -> Report:
-    sess = sess or http.session()
-    f = http.fetch_head(sess, url, max_bytes=max_bytes, timeout=60)
-    if f.status != 200:
-        rep = Report(source=url, http_status=f.status, format="unknown")
-        rep.errors.append(f.error or f"HTTP {f.status}")
-        return rep
-    rep = validate_bytes(f.body, f.final_url or url, truncated=f.truncated, max_rows=max_rows)
-    rep.source = url
-    rep.http_status = f.status
-    rep.content_length = f.content_length
-    rep.last_modified = f.last_modified
     return rep

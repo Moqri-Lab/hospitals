@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pandas as pd
@@ -43,33 +42,23 @@ def cmd_discover(a):
         tmp.unlink(missing_ok=True)
 
 
+def _local_only(src: str) -> str:
+    if src.startswith(("http://", "https://")):
+        sys.exit("hpthub never downloads price files: download the MRF yourself and pass a local path")
+    return src
+
+
 def cmd_validate(a):
-    if a.source:
-        rep = (validate.validate_url(a.source) if a.source.startswith("http")
-               else validate.validate_path(a.source))
-        print(json.dumps(rep.as_row(), indent=2, default=str))
-        sys.exit(0 if rep.status == "valid" else 1)
-    m = pd.read_csv(discover.DISC_DIR / "hospital_mrfs.csv", dtype=str, keep_default_na=False)
-    urls = sorted({u for u in m["mrf_url"] if u.startswith("http")})
-    if a.limit:
-        urls = urls[: a.limit]
-    print(f"validating {len(urls)} MRF URLs (head of each file)")
-    sess = http.session()
-    with ThreadPoolExecutor(max_workers=a.workers) as ex:
-        reps = list(ex.map(lambda u: validate.validate_url(u, sess, max_bytes=a.max_bytes), urls))
-    out = pd.DataFrame([r.as_row() for r in reps])
-    path = ROOT / "data" / "validation" / "mrf_validation.csv"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    out.to_csv(path, index=False)
-    print(out["status"].value_counts().to_string())
-    print(f"-> {path}")
+    rep = validate.validate_path(_local_only(a.source))
+    print(json.dumps(rep.as_row(), indent=2, default=str))
+    sys.exit(0 if rep.status == "valid" else 1)
 
 
 def cmd_normalize(a):
     from . import normalize
-    meta = {"ccn": a.ccn, "mrf_url": a.source if a.source.startswith("http") else None}
-    with http.open_local_or_url(a.source) as f:
-        n = normalize.normalize(f, Path(a.out), meta=meta, max_rows=a.max_rows)
+    with http.open_local(_local_only(a.source)) as f:
+        n = normalize.normalize(f, Path(a.out), meta={"ccn": a.ccn, "mrf_url": a.mrf_url},
+                                max_rows=a.max_rows)
     print(f"{n} rows -> {a.out}")
 
 
@@ -99,17 +88,15 @@ def main(argv=None):
     s.add_argument("--include-exempt", action="store_true", help="include VA/DoD hospitals")
     s.set_defaults(fn=cmd_discover)
 
-    s = sub.add_parser("validate", help="validate one MRF (path/URL) or all discovered MRFs")
-    s.add_argument("source", nargs="?")
-    s.add_argument("--limit", type=int)
-    s.add_argument("--workers", type=int, default=8)
-    s.add_argument("--max-bytes", type=int, default=5_000_000)
+    s = sub.add_parser("validate", help="validate a local MRF file against the CMS template")
+    s.add_argument("source", help="local path (price files are never downloaded)")
     s.set_defaults(fn=cmd_validate)
 
-    s = sub.add_parser("normalize", help="normalize one MRF (path/URL) to Parquet")
-    s.add_argument("source")
+    s = sub.add_parser("normalize", help="normalize a local MRF file to Parquet")
+    s.add_argument("source", help="local path (price files are never downloaded)")
     s.add_argument("--out", required=True)
     s.add_argument("--ccn")
+    s.add_argument("--mrf-url", help="original URL, stored as metadata only")
     s.add_argument("--max-rows", type=int)
     s.set_defaults(fn=cmd_normalize)
 

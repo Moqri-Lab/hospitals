@@ -61,3 +61,10 @@ def test_normalize_same_totals(tmp_path, name):
 def test_name_score():
     assert name_score("Barnes Jewish Hospital", "Barnes-Jewish Hospital") > 0.8
     assert name_score("Barnes Jewish Hospital", "Christian Hospital") < 0.5
+
+
+def test_never_downloads_price_files():
+    from hpthub import http
+    with pytest.raises(ValueError):
+        http.open_local("https://example.org/12-3456789_x_standardcharges.csv")
+    assert not hasattr(validate, "validate_url")

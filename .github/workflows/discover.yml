@@ -1,0 +1,44 @@
+# Refresh the CMS registry and crawl cms-hpt.txt for the largest N hospitals.
+# Only cms-hpt.txt files are fetched; price files (MRFs) get an HTTP HEAD for
+# metadata and are never downloaded.
+name: discover
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Number of largest hospitals to crawl"
+        default: "10"
+      refresh_cms:
+        description: "Re-download CMS Hospital General Information + POS first"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "17 6 * * 1"   # weekly, Monday 06:17 UTC
+permissions:
+  contents: write
+concurrency:
+  group: discover
+  cancel-in-progress: false
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Refresh CMS files
+        if: ${{ github.event_name == 'schedule' || inputs.refresh_cms }}
+        run: python -m hpthub cms-download
+      - run: python -m hpthub registry
+      - run: python -m hpthub discover --limit "${{ inputs.limit || '100' }}"
+      - run: python -m hpthub site
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data site/data.json
+          git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F)"
+          git push
