@@ -74,32 +74,46 @@ def crawl(domains: list[str], workers: int = 16) -> tuple[pd.DataFrame, pd.DataF
     return pd.DataFrame(dom_rows), pd.DataFrame(entry_rows)
 
 
+ENTRY_FIELDS = ["location_name", "source_page_url", "mrf_url", "contact_name", "contact_email",
+                "issues"]
+
+
 def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
           threshold: float = 0.55) -> pd.DataFrame:
-    """For each hospital pick the best cms-hpt.txt entry on any of its domains."""
-    found = set(domains_df.loc[domains_df["found"] == True, "domain"])  # noqa: E712
+    """One row per (hospital, cms-hpt.txt entry) that names this hospital.
+
+    Every entry on the hospital's domains scoring >= ``threshold`` is kept (a
+    hospital can publish several price files). If none passes, the single best
+    entry is kept as ``low-confidence`` so a human can check it.
+    """
+    found = set(domains_df.loc[domains_df["found"].astype(str) == "True", "domain"]) if len(domains_df) else set()
     by_domain = {d: g for d, g in entries.groupby("domain")} if len(entries) else {}
     out = []
     for _, h in reg.iterrows():
-        doms = [d for d in h["domains"].split() if d]
-        best, best_score, best_dom = None, -1.0, ""
+        doms = [d for d in str(h["domains"]).split() if d]
+        base = {"ccn": h["ccn"], "hpt_txt_found": any(d in found for d in doms)}
+        scored = []
         for d in doms:
             g = by_domain.get(d)
             if g is None:
                 continue
             for _, e in g.iterrows():
-                s = name_score(h["name"], e["location_name"])
-                if s > best_score:
-                    best, best_score, best_dom = e, s, d
-        row = {"ccn": h["ccn"], "name": h["name"], "state": h["state"], "beds": h["beds"],
-               "hpt_txt_domain": best_dom, "hpt_txt_found": any(d in found for d in doms),
-               "location_name": "", "mrf_url": "", "source_page_url": "", "match_score": None,
-               "match_status": "no-domain" if not doms else "no-hpt-txt"}
-        if best is not None:
-            row.update(location_name=best["location_name"], mrf_url=best["mrf_url"],
-                       source_page_url=best["source_page_url"], match_score=best_score,
-                       match_status="matched" if best_score >= threshold else "low-confidence")
-        out.append(row)
+                scored.append((name_score(h["name"], e["location_name"]), d, e))
+        if not scored:
+            out.append({**base, "hpt_txt_domain": "", "match_score": None,
+                        "match_status": "no-domain" if not doms else "no-hpt-txt",
+                        **{f: "" for f in ENTRY_FIELDS}})
+            continue
+        scored.sort(key=lambda t: -t[0])
+        good = [t for t in scored if t[0] >= threshold]
+        seen = set()
+        for sc, d, e in (good or scored[:1]):
+            if e["mrf_url"] in seen:
+                continue
+            seen.add(e["mrf_url"])
+            out.append({**base, "hpt_txt_domain": d, "match_score": sc,
+                        "match_status": "matched" if good else "low-confidence",
+                        **{f: e.get(f, "") for f in ENTRY_FIELDS}})
     return pd.DataFrame(out)
 
 
@@ -116,6 +130,25 @@ def head_mrf(sess, url: str) -> dict:
     except Exception as e:  # noqa: BLE001
         rec["mrf_error"] = f"{type(e).__name__}: {str(e)[:150]}"
     return rec
+
+
+_FORMATS = (("json", "json"), ("csv", "csv"), ("zip", "zip"), ("xlsx", "xlsx"), ("xls", "xls"),
+            ("xml", "xml"), ("txt", "txt"), ("gz", "gzip"))
+
+
+def mrf_format(url: str, content_type: str = "") -> str:
+    """Best guess of the price file's format from its URL extension, else its Content-Type."""
+    from urllib.parse import unquote, urlparse
+    path = unquote(urlparse(url).path).lower()
+    for ext, fmt in _FORMATS:
+        if path.endswith("." + ext) or path.endswith(f".{ext}.gz"):
+            return fmt
+    ct = (content_type or "").lower()
+    for key, fmt in (("json", "json"), ("csv", "csv"), ("zip", "zip"), ("spreadsheet", "xlsx"),
+                     ("excel", "xls"), ("xml", "xml"), ("html", "html"), ("text/plain", "txt")):
+        if key in ct:
+            return fmt
+    return ""
 
 
 def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
@@ -144,6 +177,12 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
         urls = sorted({u for u in m["mrf_url"] if isinstance(u, str) and u.startswith("http")})
         if urls:
             m = m.merge(head_all(urls), on="mrf_url", how="left")
+        else:
+            for c in ("mrf_http_status", "mrf_content_type", "mrf_bytes", "mrf_last_modified",
+                      "mrf_final_url", "mrf_error"):
+                m[c] = None
+        m["mrf_format"] = [mrf_format(u, ct) if isinstance(u, str) and u else ""
+                           for u, ct in zip(m["mrf_url"], m["mrf_content_type"].fillna(""))]
     DISC_DIR.mkdir(parents=True, exist_ok=True)
     paths = {
         "domains": DISC_DIR / "domains.csv",
@@ -151,8 +190,7 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
         "hospital_mrfs": DISC_DIR / "hospital_mrfs.csv",
     }
     dom_df.sort_values("domain").to_csv(paths["domains"], index=False)
-    ent_df.drop(columns=["contact_email"], errors="ignore").sort_values(["domain", "location_name"]) \
-        .to_csv(paths["entries"], index=False)
+    ent_df.sort_values(["domain", "location_name"]).to_csv(paths["entries"], index=False)
     m.to_csv(paths["hospital_mrfs"], index=False)
     print(m["match_status"].value_counts().to_string())
     return paths

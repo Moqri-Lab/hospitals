@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import gzip
-import io
-import zlib
 from dataclasses import dataclass
 
 import requests
@@ -71,19 +68,6 @@ def fetch_head(sess: requests.Session, url: str, max_bytes: int = 2_000_000,
         return Fetched(url, url, None, "", None, "", b"", False, error=type(e).__name__ + ": " + str(e)[:200])
 
 
-def maybe_decompress(body: bytes) -> tuple[bytes, str]:
-    """Undo an extra gzip layer (some hosts serve .csv.gz). Zip is reported, not opened."""
-    if body[:2] == b"\x1f\x8b":
-        try:
-            d = zlib.decompressobj(16 + zlib.MAX_WBITS)
-            return d.decompress(body), "gzip"
-        except zlib.error:
-            pass
-    if body[:4] == b"PK\x03\x04":
-        return body, "zip"
-    return body, ""
-
-
 def decode_text(body: bytes) -> str:
     for enc in ("utf-8-sig", "cp1252", "latin-1"):
         try:
@@ -93,13 +77,4 @@ def decode_text(body: bytes) -> str:
     return body.decode("utf-8", errors="replace")
 
 
-def open_local(path: str):
-    """Open a local MRF (optionally .gz). URLs are refused: the hub never downloads price data."""
-    if path.startswith(("http://", "https://")):
-        raise ValueError("hpthub does not download price files; pass a local path")
-    if path.lower().endswith(".gz"):
-        return gzip.open(path, "rb")
-    return open(path, "rb")
-
-
-__all__ = ["session", "fetch_head", "maybe_decompress", "decode_text", "open_local", "Fetched"]
+__all__ = ["session", "fetch_head", "decode_text", "Fetched"]

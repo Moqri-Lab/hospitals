@@ -1,9 +1,17 @@
-"""Build ``site/data.json`` for the static hospital browser (site/index.html)."""
+"""Build the catalog: one row per (hospital, price file).
+
+Outputs
+- ``data/catalog.csv``: full catalog (every registry hospital; crawled ones have
+  their cms-hpt.txt fields and price-file link, format, size and date)
+- ``CATALOG.md``: the crawled hospitals as a Markdown table, readable on GitHub
+- ``site/data.json``: data for the browsable table in ``site/index.html``
+"""
 
 from __future__ import annotations
 
 import datetime as dt
 import json
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import pandas as pd
@@ -12,39 +20,85 @@ from . import registry
 
 ROOT = registry.ROOT
 
+CATALOG_COLUMNS = [
+    "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "system",
+    "hpt_exempt", "hpt_txt_domain", "hpt_txt_found", "location_name", "source_page_url", "mrf_url",
+    "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
+    "contact_email", "match_status", "match_score", "checked_at",
+]
+
 
 def _read(p: Path) -> pd.DataFrame:
     return pd.read_csv(p, dtype=str, keep_default_na=False) if p.exists() else pd.DataFrame()
 
 
-def build(out: Path | None = None) -> Path:
+def _date(v: str) -> str:
+    try:
+        return parsedate_to_datetime(v).date().isoformat() if v else ""
+    except (TypeError, ValueError):
+        return v
+
+
+def _mb(v: str) -> str:
+    try:
+        return f"{int(float(v)) / 1e6:.1f}" if v not in ("", None) else ""
+    except ValueError:
+        return ""
+
+
+def catalog() -> pd.DataFrame:
     reg = registry.load()
     mrfs = _read(ROOT / "data" / "discovery" / "hospital_mrfs.csv")
-    val = _read(ROOT / "data" / "validation" / "mrf_validation.csv")
-
     if not mrfs.empty:
-        keep = ["ccn", "hpt_txt_domain", "hpt_txt_found", "location_name", "mrf_url", "source_page_url",
-                "match_score", "match_status"]
-        reg = reg.merge(mrfs[keep], on="ccn", how="left")
-    if not val.empty:
-        v = val.rename(columns={"source": "mrf_url"})[
-            ["mrf_url", "status", "format", "version", "last_updated_on", "n_errors", "n_warnings",
-             "errors", "warnings", "n_payer_plans", "content_length"]]
-        v = v.rename(columns={"status": "mrf_status", "format": "mrf_format", "version": "mrf_version",
-                              "errors": "mrf_errors", "warnings": "mrf_warnings"})
-        reg = reg.merge(v, on="mrf_url", how="left")
+        mrfs = mrfs.drop(columns=[c for c in ("name", "state", "beds") if c in mrfs.columns])
+        reg = reg.merge(mrfs, on="ccn", how="left")
     reg = reg.fillna("")
-    cols = [c for c in ["ccn", "name", "city", "state", "facility_type", "ownership", "beds", "system",
-                        "hpt_exempt", "hpt_txt_domain", "hpt_txt_found", "location_name", "mrf_url",
-                        "source_page_url", "match_status", "mrf_status", "mrf_format", "mrf_version",
-                        "last_updated_on", "n_payer_plans", "content_length", "n_errors", "mrf_errors",
-                        "mrf_warnings"] if c in reg.columns]
+    for c in CATALOG_COLUMNS:
+        if c not in reg.columns:
+            reg[c] = ""
+    reg["mrf_size_mb"] = reg["mrf_bytes"].map(_mb) if "mrf_bytes" in reg.columns else ""
+    reg["mrf_last_modified"] = reg["mrf_last_modified"].map(_date)
+    reg["checked_at"] = dt.date.today().isoformat()
+    reg.loc[reg["match_status"] == "", "checked_at"] = ""
+    return reg[CATALOG_COLUMNS]
+
+
+def _md_link(url: str, text: str) -> str:
+    return f"[{text}]({url})" if url else ""
+
+
+def build() -> Path:
+    cat = catalog()
+    cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
+
+    crawled = cat[cat["match_status"] != ""]
+    lines = [
+        "# Hospital price file catalog",
+        "",
+        f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals crawled so far "
+        f"(largest first). Full table: [`data/catalog.csv`](data/catalog.csv). "
+        "Price files are listed, never downloaded.",
+        "",
+        "| # | Hospital | City, State | Beds | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |",
+        "|---|---|---|---:|---|---|---|---|---:|---|---|---|",
+    ]
+    for i, r in enumerate(crawled.itertuples(index=False), 1):
+        txt = _md_link(f"https://{r.hpt_txt_domain}/cms-hpt.txt", r.hpt_txt_domain) if r.hpt_txt_domain else "not found"
+        fname = r.mrf_url.rstrip("/").split("/")[-1].split("?")[0][:40] if r.mrf_url else ""
+        contact = r.contact_name + (f" ({r.contact_email})" if r.contact_email else "")
+        cells = [str(i), f"{r.name} (CCN {r.ccn})", f"{r.city}, {r.state}", r.beds, txt,
+                 _md_link(r.source_page_url, r.location_name) or r.location_name,
+                 _md_link(r.mrf_url, fname or "link"), r.mrf_format, r.mrf_size_mb, r.mrf_last_modified,
+                 contact, r.match_status]
+        lines.append("| " + " | ".join(str(c).replace("|", "\\|") for c in cells) + " |")
+    (ROOT / "CATALOG.md").write_text("\n".join(lines) + "\n")
+
     payload = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "columns": cols,
-        "rows": reg[cols].values.tolist(),
+        "columns": CATALOG_COLUMNS,
+        "rows": cat.values.tolist(),
     }
-    out = out or ROOT / "site" / "data.json"
+    out = ROOT / "site" / "data.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, separators=(",", ":")))
     return out

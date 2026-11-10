@@ -1,11 +1,7 @@
-from pathlib import Path
+import pandas as pd
 
-import pytest
-
-from hpthub import hpttxt, validate, normalize
-from hpthub.discover import name_score
-
-FIX = Path(__file__).parent / "fixtures"
+from hpthub import hpttxt
+from hpthub.discover import match, mrf_format, name_score
 
 
 def test_parse_hpt_txt():
@@ -27,35 +23,21 @@ contact-email: jane@westmercy.org
     assert not f.entries[0].issues
 
 
+def test_parse_hpt_txt_lenient():
+    txt = "Location_Name = A Hospital\r\nMRF-URL: https://a.org/x.zip\r\nlocation-name: B Hospital\r\nmrf-url: https://a.org/y.csv"
+    f = hpttxt.parse(txt)
+    assert [e.location_name for e in f.entries] == ["A Hospital", "B Hospital"]
+    assert "missing contact-name" in f.entries[0].issues
+
+
 def test_parse_hpt_txt_rejects_html():
     assert not hpttxt.parse("<!DOCTYPE html><html>404</html>").ok
 
 
-@pytest.mark.parametrize("name,fmt,version", [
-    ("v3_tall.csv", "csv-tall", "3.0.0"), ("v3_wide.csv", "csv-wide", "3.0.0"), ("v3.json", "json", "3.0.0"),
-    ("v2_tall.csv", "csv-tall", "2.0.0"), ("v2_wide.csv", "csv-wide", "2.0.0"), ("v2.json", "json", "2.0.0"),
-])
-def test_cms_examples_are_valid(name, fmt, version):
-    r = validate.validate_path(FIX / name)
-    assert (r.format, r.version, r.status) == (fmt, version, "valid"), r.errors
-
-
-def test_invalid_csv_is_flagged():
-    text = (FIX / "v3_tall.csv").read_text(encoding="utf-8-sig").replace(",outpatient,", ",OP,", 1)
-    r = validate.validate_bytes(text.encode(), "x.csv")
-    assert r.status == "invalid" and any("setting" in e for e in r.errors)
-
-
-@pytest.mark.parametrize("name", ["v3_tall.csv", "v3_wide.csv", "v3.json"])
-def test_normalize_same_totals(tmp_path, name):
-    import pyarrow.parquet as pq
-    out = tmp_path / "o.parquet"
-    with open(FIX / name, "rb") as f:
-        n = normalize.normalize(f, out)
-    t = pq.read_table(out).to_pandas()
-    assert n == len(t) > 0
-    assert round(t["negotiated_dollar"].sum(), 2) == 112889.7
-    assert set(t["payer_name"].dropna()) == {"Platform Health Insurance", "Region Health Insurance"}
+def test_mrf_format():
+    assert mrf_format("https://a.org/12_x_standardcharges.json") == "json"
+    assert mrf_format("https://a.org/files/x%20standardcharges.CSV?sv=1") == "csv"
+    assert mrf_format("https://a.org/download?id=7", "application/zip") == "zip"
 
 
 def test_name_score():
@@ -63,8 +45,13 @@ def test_name_score():
     assert name_score("Barnes Jewish Hospital", "Christian Hospital") < 0.5
 
 
-def test_never_downloads_price_files():
-    from hpthub import http
-    with pytest.raises(ValueError):
-        http.open_local("https://example.org/12-3456789_x_standardcharges.csv")
-    assert not hasattr(validate, "validate_url")
+def test_match_picks_best_location():
+    reg = pd.DataFrame([{"ccn": "260032", "name": "Barnes Jewish Hospital", "state": "MO", "beds": "1737",
+                         "domains": "bjc.org"}])
+    doms = pd.DataFrame([{"domain": "bjc.org", "found": True}])
+    ent = pd.DataFrame([
+        {"domain": "bjc.org", "location_name": "Christian Hospital", "mrf_url": "u1", "source_page_url": ""},
+        {"domain": "bjc.org", "location_name": "Barnes-Jewish Hospital", "mrf_url": "u2", "source_page_url": ""},
+    ])
+    m = match(reg, doms, ent)
+    assert list(m["mrf_url"]) == ["u2"] and m.loc[0, "match_status"] == "matched"
