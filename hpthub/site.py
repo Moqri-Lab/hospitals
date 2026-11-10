@@ -25,7 +25,7 @@ CATALOG_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
     "hpt_exempt", "exempt_note", "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
     "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
-    "contact_email", "match_status", "match_score", "confidence", "confidence_level", "checked_at",
+    "contact_email", "match_status", "match_score", "confidence", "confidence_level", "txt_check", "txt_check_reason", "checked_at",
 ]
 
 
@@ -79,6 +79,9 @@ def catalog() -> pd.DataFrame:
     conf = reg.apply(confidence, axis=1, result_type="expand") if len(reg) else None
     if conf is not None:
         reg["confidence"], reg["confidence_level"] = conf[0], conf[1]
+    chk = {c: txt_check(g) for c, g in reg[reg["match_status"] != ""].groupby("ccn")}
+    reg["txt_check"] = reg["ccn"].map(lambda c: chk.get(c, ("", ""))[0])
+    reg["txt_check_reason"] = reg["ccn"].map(lambda c: chk.get(c, ("", ""))[1])
     reg["checked_at"] = dt.date.today().isoformat()
     reg.loc[reg["match_status"] == "", "checked_at"] = ""
     return reg[CATALOG_COLUMNS]
@@ -119,6 +122,51 @@ def confidence(r) -> tuple[str, str]:
         base -= 5
     v = int(round(max(0, min(100, base))))
     return str(v), "high" if v >= 80 else "medium" if v >= 60 else "low"
+
+
+def txt_check(g: pd.DataFrame) -> tuple[str, str]:
+    """Hospital-level check of the cms-hpt.txt requirement (45 CFR 180.50(d)(6)).
+
+    Only checks that a machine-readable cms-hpt.txt is publicly reachable at the
+    website root and lists this hospital; it says nothing about price-file content.
+    pass: a live cms-hpt.txt lists the hospital (confidence >= 60)
+    fail: the site refused automated access, has no cms-hpt.txt, or its file does not list the hospital
+    unknown: no website known, uncertain match, or a network problem on our side
+    """
+    r = g.iloc[0]
+    st = set(g["match_status"])
+    if not any(st):
+        return "", ""
+    src = str(r.get("hpt_txt_source", ""))
+    iss = str(r.get("hpt_txt_access_issue", ""))
+    conf = pd.to_numeric(g["confidence"], errors="coerce").max()
+    matched = any(x.startswith("matched") for x in st)
+    dom = r["hpt_txt_domain"]
+    # how many independent sources give the website we checked; a failure is only
+    # blamed on the hospital when we are sure the website is really theirs
+    agree = sum(1 for c in WEB_SOURCE_COLS if dom and dom in str(r.get(c, "")).split())
+    sure = matched or agree >= 2
+    if matched and src in ("live", "") and not iss and conf >= 60:
+        return "pass", "a live cms-hpt.txt at the website root lists this hospital"
+    bad_access = iss.startswith(("refused", "rate-limited", "returned a web page"))
+    no_txt = "no-hpt-txt" in st or iss.startswith("no cms-hpt.txt")
+    if (bad_access or no_txt) and not sure:
+        return "unknown", f"{dom}: {iss or 'no cms-hpt.txt'}, but we are not sure this is the hospital's website"
+    if bad_access:
+        extra = f" (it does list the hospital in an archived copy: {src})" if matched and src.startswith(("Internet", "Common")) \
+            else " (it lists the hospital in a copy saved from a browser)" if matched and src == "saved copy" else ""
+        return "fail", f"{dom} {iss}{extra}"
+    if no_txt:
+        return "fail", f"no cms-hpt.txt at the root of {dom}"
+    if "not-listed" in st:
+        return "fail", "the website's cms-hpt.txt does not list this hospital"
+    if "no-domain" in st:
+        return "unknown", "hospital website not known yet"
+    if "low-confidence" in st and not matched:
+        return "unknown", "uncertain match; needs review"
+    if iss:
+        return "unknown", f"could not check: {iss}"
+    return "unknown", "could not check"
 
 
 def _md_link(url: str, text: str) -> str:
