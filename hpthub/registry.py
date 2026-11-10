@@ -164,7 +164,7 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
-    "hpt_exempt", "system", "domains", "domain_source",
+    "hpt_exempt", "exempt_note", "system", "domains", "domain_source",
     "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "source",
 ]
 
@@ -208,7 +208,23 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
     df["beds"] = pd.to_numeric(df["beds"], errors="coerce")
     ft = df["facility_type"].str.lower()
     # Federal (VA / DoD) hospitals are deemed compliant under 45 CFR 180.30(b).
-    df["hpt_exempt"] = ft.str.contains("veterans|defense", regex=True)
+    # 45 CFR 180.30(b): federally owned or operated hospitals (VA, DoD, Indian Health
+    # Service) are deemed compliant; so are state forensic hospitals that treat only
+    # people in the custody of penal authorities. Tribally operated hospitals and other
+    # state-run hospitals are not exempt.
+    own = df["ownership"].str.lower()
+    nm = df["name"].str.lower()
+    ihs = own.str.contains("federal") & nm.str.contains(
+        r"\bindian\b|\bphs\b|p h s|\bihs\b|service unit|navajo|crownpoint|chinle|kayenta|zuni|huhu kam|alaska native",
+        regex=True) & ~nm.str.contains(r"authority|alaska native|huhu kam", regex=True)  # tribally run
+    df["hpt_exempt"] = ft.str.contains("veterans|defense", regex=True) | ihs
+    df["exempt_note"] = ""
+    df.loc[ft.str.contains("veterans"), "exempt_note"] = "exempt: federal (VA), 45 CFR 180.30(b)"
+    df.loc[ft.str.contains("defense"), "exempt_note"] = "exempt: federal (DoD), 45 CFR 180.30(b)"
+    df.loc[ihs, "exempt_note"] = "exempt: federal (Indian Health Service), 45 CFR 180.30(b)"
+    state_psych = own.str.contains("state") & ft.str.contains("psych")
+    df.loc[state_psych, "exempt_note"] = ("possibly exempt: state psychiatric hospital; exempt only if it is a "
+                                          "forensic hospital treating solely people in penal custody, 45 CFR 180.30(b)")
     if acute_only:
         df = df[(ft.str.contains("acute|children", regex=True)) & ~df["hpt_exempt"]]
     if min_beds:

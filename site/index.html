@@ -58,7 +58,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
     <li><b>Name in cms-hpt.txt</b>: the location name the hospital itself uses for this price file in its <code>cms-hpt.txt</code> (it can differ from the CMS name, e.g. after a rebrand); the link opens the hospital's price transparency page. One CMS hospital can have several names or files.</li>
     <li><b>Web columns</b>: the website each source gives for the hospital (one column per source, joined on CCN, the CMS provider ID; green = confirmed by that site's cms-hpt.txt): a health-system rule, <a href="https://www.wikidata.org">Wikidata</a> (item linked), <a href="https://github.com/TPAFS/transparency-data">TPAFS/DoltHub</a> <a href="https://hospitalpricingfiles.org">hospitalpricingfiles.org</a> (HPF.org), or "Claude": a website Claude (AI) found by reviewing hospitals no other source got right, usually ones now run by a different system (<a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/domains.csv">domains.csv</a>, with a note for each). A website is used only if its own cms-hpt.txt names the hospital.</li>
     <li><b>cms-hpt.txt access</b>: CMS requires every hospital to post <code>cms-hpt.txt</code> at its website root so its price files can be found automatically (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-B/section-180.50">45 CFR 180.50</a>). When a site refuses our automated request (for example HTTP 403 from bot protection), times out or has a broken certificate, the reason is shown in red as a possible accessibility problem. We do not bypass bot protection; instead the file is read from the latest public archive copy, <a href="https://web.archive.org">Internet Archive</a> or <a href="https://commoncrawl.org">Common Crawl</a> (dated and linked), or from a copy saved in a browser.</li>
-    <li>VA and DoD hospitals are marked exempt (federal hospitals are deemed compliant, <a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-A/section-180.30">45 CFR 180.30(b)</a>).</li>
+    <li><b>Exempt</b>: federally owned or operated hospitals (VA, DoD and Indian Health Service) are deemed compliant and are not crawled. State forensic hospitals that treat only people in penal custody are also deemed compliant; state psychiatric hospitals are marked "possibly exempt" because public data does not say which are purely forensic, and they are still crawled. Tribally operated hospitals are not exempt (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-A/section-180.30">45 CFR 180.30(b)</a>).</li>
   </ul>
 </details>
 <div class="controls">
@@ -75,7 +75,7 @@ let rows=[],sortKey="beds",sortDir=-1;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="mrf_size_mb"||k==="n_campuses";
 function cell(r,k){const v=r[k]??"";
-  if(k==="name")return `${esc(v)}<div class="small">${esc(r.facility_type)}</div>`;
+  if(k==="name")return `${esc(v)}<div class="small">${esc(r.facility_type)}</div>`+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="ccn")return `<span style="white-space:nowrap">${esc(v)}</span>`;
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
     const hit=d=>r.hpt_txt_domain&&d===r.hpt_txt_domain;
