@@ -130,7 +130,8 @@ def txt_check(g: pd.DataFrame) -> tuple[str, str]:
     Only checks that a machine-readable cms-hpt.txt is publicly reachable at the
     website root and lists this hospital; it says nothing about price-file content.
     pass: a live cms-hpt.txt lists the hospital (confidence >= 60)
-    fail: the site refused automated access, has no cms-hpt.txt, or its file does not list the hospital
+    blocked: the site refused automated access (the file may still open in a browser)
+    fail: no cms-hpt.txt at the website root, or its file does not list the hospital
     unknown: no website known, uncertain match, or a network problem on our side
     """
     r = g.iloc[0]
@@ -152,10 +153,10 @@ def txt_check(g: pd.DataFrame) -> tuple[str, str]:
     no_txt = "no-hpt-txt" in st or iss.startswith("no cms-hpt.txt")
     if (bad_access or no_txt) and not sure:
         return "unknown", f"{dom}: {iss or 'no cms-hpt.txt'}, but we are not sure this is the hospital's website"
-    if bad_access:
+    if bad_access:  # reported separately: the file may well open in a browser
         extra = f" (it does list the hospital in an archived copy: {src})" if matched and src.startswith(("Internet", "Common")) \
             else " (it lists the hospital in a copy saved from a browser)" if matched and src == "saved copy" else ""
-        return "fail", f"{dom} {iss}{extra}"
+        return "blocked", f"{dom} {iss}{extra}"
     if no_txt:
         return "fail", f"no cms-hpt.txt at the root of {dom}"
     if "not-listed" in st:
