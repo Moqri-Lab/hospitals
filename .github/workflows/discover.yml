@@ -16,6 +16,8 @@ on:
     - cron: "17 6 * * 1"   # weekly, Monday 06:17 UTC
 permissions:
   contents: write
+  pages: write
+  id-token: write
 concurrency:
   group: discover
   cancel-in-progress: false
@@ -42,3 +44,13 @@ jobs:
           git add data site/data.json CATALOG.md
           git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F)"
           git push
+      # Publishing needs Settings > Pages > Source = GitHub Actions; skip quietly until then.
+      - uses: actions/configure-pages@v5
+        id: pages
+        continue-on-error: true
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.pages.outcome == 'success'
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        if: steps.pages.outcome == 'success'
