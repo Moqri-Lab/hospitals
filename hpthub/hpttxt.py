@@ -77,8 +77,9 @@ def _norm_key(raw: str) -> str | None:
 
 def parse(text: str) -> HptFile:
     issues: list[str] = []
-    if text.startswith("﻿"):
-        text = text[1:]
+    text = text.replace("\x00", "")
+    text = re.sub("[\u200b\u200c\u200d\u2060\ufeff]", "", text).replace("\u00a0", " ")
+    text = re.sub("[\u2010-\u2015]", "-", text)
     head = text[:2000].lower()
     if "<html" in head or "<!doctype" in head:
         return HptFile([], ["fatal: response is HTML, not a cms-hpt.txt file"])

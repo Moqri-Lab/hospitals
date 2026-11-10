@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import datetime as dt
 import re
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -268,6 +269,22 @@ ENTRY_FIELDS = ["location_name", "source_page_url", "mrf_url", "contact_name", "
                 "issues"]
 
 
+def loc_cover(name: str, city: str, loc: str, common: frozenset = frozenset()) -> int:
+    """How many distinctive words of a cms-hpt.txt location name appear in a hospital's
+    name or city (``common``: words such as a system brand shared by many entries)."""
+    words = _tokens(_norm_name(name)) | _tokens(name) | _tokens(city)
+    return sum(1 for t in _tokens(_norm_name(clean_location(loc))) - _STOP - common if t in words)
+
+
+def common_words(locs) -> frozenset:
+    """Words found in over 30% of a domain's location names (brand words like "ascension")."""
+    locs = list(locs)
+    if len(locs) < 3:
+        return frozenset()
+    cnt = Counter(t for l in locs for t in _tokens(_norm_name(clean_location(l))))
+    return frozenset(t for t, n in cnt.items() if n >= 2 and n > 0.3 * len(locs))
+
+
 def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
           threshold: float = 0.55, universe: pd.DataFrame | None = None) -> pd.DataFrame:
     """One row per (hospital, cms-hpt.txt entry) that names this hospital.
@@ -287,6 +304,7 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
         bad = (domains_df["found"].astype(str) != "True") & unreachable
         blocked = set(domains_df.loc[bad, "domain"])
     by_domain = {d: g for d, g in entries.groupby("domain")} if len(entries) else {}
+    common = {d: common_words(g["location_name"]) for d, g in by_domain.items()}
     # Other registry hospitals on the same domain compete for each entry, so a
     # system's file for "Hospital B" isn't attached to "Hospital A".
     universe = reg if universe is None else universe
@@ -296,12 +314,19 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
             rivals.setdefault(d, []).append((u["ccn"], u["name"], u.get("city", "")))
     best_owner: dict[tuple[str, str], float] = {}
 
-    def owner_score(d: str, loc: str, ccn: str) -> float:
+    def owner_score(d: str, loc: str, ccn: str) -> tuple[float, int]:
         key = (d, loc, ccn)
         if key not in best_owner:
-            best_owner[key] = max((hospital_score(n, ci, loc) for c, n, ci in rivals.get(d, []) if c != ccn),
-                                  default=0.0)
+            best_owner[key] = max(((hospital_score(n, ci, loc), loc_cover(n, ci, loc, common.get(d, frozenset())))
+                                   for c, n, ci in rivals.get(d, []) if c != ccn), default=(0.0, 0))
         return best_owner[key]
+
+    def owns(sc: float, d: str, loc: str, h) -> bool:
+        """This hospital keeps the entry unless a rival on the domain scores higher
+        and names at least as many of the entry's distinctive words (so
+        "Saint Thomas Rutherford" stays with the Rutherford hospital)."""
+        rs, rc = owner_score(d, loc, h["ccn"])
+        return sc >= rs or loc_cover(h["name"], h.get("city", ""), loc, common.get(d, frozenset())) > rc
 
     overrides = load_location_overrides()
     out = []
@@ -342,8 +367,7 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
                         **{f: "" for f in ENTRY_FIELDS}})
             continue
         scored.sort(key=lambda t: -t[0])
-        good = [t for t in scored if t[0] >= threshold
-                and t[0] >= owner_score(t[1], t[2]["location_name"], h["ccn"])]
+        good = [t for t in scored if t[0] >= threshold and owns(t[0], t[1], t[2]["location_name"], h)]
         if good:
             # keep entries close to the best one (or sharing its price file)
             top = good[0][0]

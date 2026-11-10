@@ -124,6 +124,12 @@ def fetch_text(sess: requests.Session, url: str, max_bytes: int = 2_000_000, tim
 
 
 def decode_text(body: bytes) -> str:
+    # UTF-16 files (BOM, or NUL bytes between ASCII letters) are common from Windows tools
+    if body[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        return body.decode("utf-16", errors="replace")
+    if len(body) > 8 and body[:200].count(b"\x00") > len(body[:200]) // 4:
+        enc = "utf-16-le" if body[1:2] == b"\x00" else "utf-16-be"
+        return body.decode(enc, errors="replace")
     for enc in ("utf-8-sig", "cp1252", "latin-1"):
         try:
             return body.decode(enc)

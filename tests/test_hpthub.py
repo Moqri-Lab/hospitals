@@ -140,3 +140,26 @@ def test_txt_check():
     # a single source for the website is not enough to blame the hospital
     assert run(match_status="no-hpt-txt", mrf_url="", web_wikidata="", hpt_txt_access_issue="no cms-hpt.txt (HTTP 404)") == "unknown"
     assert run(match_status="no-domain", mrf_url="", hpt_txt_domain="") == "unknown"
+
+
+def test_utf16_cms_hpt_txt():
+    from hpthub import http, hpttxt
+    t = "location-name: A\r\nsource-page-url: https://a\r\nmrf-url: https://a/x.csv\r\ncontact-name: B\r\ncontact-email: b@a\r\n"
+    for body in (t.encode("utf-16"), t.encode("utf-16-le")):
+        assert len(hpttxt.parse(http.decode_text(body)).entries) == 1
+
+
+def test_rival_tiebreak_by_distinctive_words():
+    from hpthub.discover import loc_cover, common_words
+    common = common_words(["Ascension Saint Thomas Rutherford", "Ascension Saint Thomas Midtown", "Ascension Via Christi"])
+    loc = "Ascension Saint Thomas Rutherford"
+    assert loc_cover("Saint Thomas Rutherford Hospital", "Murfreesboro", loc, common) > \
+        loc_cover("Ascension Saint Thomas Hospital", "Nashville", loc, common)
+
+
+def test_dead_hosts():
+    import pandas as pd
+    from hpthub.site import dead_hosts
+    df = pd.DataFrame({"mrf_url": [f"https://x.org/{i}.csv" for i in range(5)] + ["https://y.org/a.csv", "https://y.org/b.csv"],
+                       "mrf_http_status": ["404.0"] * 5 + ["404.0", "200.0"]})
+    assert dead_hosts(df) == {"x.org"}

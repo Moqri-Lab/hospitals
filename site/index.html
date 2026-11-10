@@ -73,15 +73,14 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <nav class="nav"><a href="about.html" target="_self">About and sources</a><a href="exempt.html" target="_self">Exempt hospitals</a><a href="https://github.com/Moqri-Lab/hospitals">GitHub</a></nav>
 </header>
 <section class="mapbox"><div class="mapwrap">
-  <div id="usmap" role="img" aria-label="Map of US states shaded by share of crawled hospitals that are cms-hpt.txt compliant"></div>
-  <div class="legend"><b style="color:var(--fg)">Compliant hospitals by state</b><br>Share of crawled hospitals in each state whose cms-hpt.txt lists them (green flag). Number = percent compliant; hover for counts; click a state to filter the table.<div id="legend" style="margin-top:8px"></div><div style="margin-top:6px">Only the largest hospitals have been crawled so far, so small states may have few or none.</div></div>
+  <div id="usmap" role="img" aria-label="Map of US states shaded by share of hospitals that are cms-hpt.txt compliant"></div>
+  <div class="legend"><b style="color:var(--fg)">Compliant hospitals by state</b><br>Share of hospitals in each state whose cms-hpt.txt lists them (green flag). Number = percent compliant; hover for counts; click a state to filter the table.<div id="legend" style="margin-top:8px"></div></div>
 </div></section>
 <div class="controls">
   <input type="search" id="q" placeholder="Search hospital, city, system, CCN (provider ID)…">
   <select id="state"><option value="">All states</option></select>
   <select id="ftype"><option value="">All types</option></select>
   <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Inaccessible</option><option value="fail">Not compliant</option></select>
-  <label><input type="checkbox" id="crawled" checked> Crawled only</label>
   <details class="colmenu"><summary>Columns ▾</summary><div class="menu" id="colmenu"></div></details>
 </div>
 <div class="stats" id="stats">Loading…</div>
@@ -139,15 +138,15 @@ function drawMap(){
   const sel=document.getElementById("state").value;
   document.getElementById("usmap").innerHTML=Object.entries(TILES).map(([st,[r,c]])=>{const o=by[st];
     const pct=o?Math.round(100*o.pass/o.n):null,bg=o?binColor(pct):"var(--chip)",fg=o&&(pct>=95||pct<50)?"#fff":"#1d1d1b";
-    const tip=o?`${st}: ${o.pass} of ${o.n} crawled hospitals compliant (${pct}%); ${o.amber} inaccessible, ${o.fail} not compliant`:`${st}: no hospitals crawled yet`;
+    const tip=o?`${st}: ${o.pass} of ${o.n} hospitals compliant (${pct}%); ${o.amber} inaccessible, ${o.fail} not compliant`:`${st}: no data`;
     return `<div class="st${sel===st?" sel":""}" data-st="${st}" title="${tip}" style="grid-row:${r+1};grid-column:${c+1};background:${bg};color:${o?fg:"var(--muted)"}">${st}<small>${o?pct+"%":"–"}</small></div>`}).join("");
-  document.getElementById("legend").innerHTML=BINS.map(([t,c],i)=>`<span class="sw" style="background:${c}"></span> ${i===0?"under 50%":t+"%"+(i<BINS.length-1?"–"+(BINS[i+1][0]-1)+"%":"+")}`).reverse().join("<br>")+'<br><span class="sw" style="background:var(--chip)"></span> not crawled yet';
+  document.getElementById("legend").innerHTML=BINS.map(([t,c],i)=>`<span class="sw" style="background:${c}"></span> ${i===0?"under 50%":t+"%"+(i<BINS.length-1?"–"+(BINS[i+1][0]-1)+"%":"+")}`).reverse().join("<br>")+'<br><span class="sw" style="background:var(--chip)"></span> no data';
 }
 document.getElementById("usmap").onclick=e=>{const t=e.target.closest(".st");if(!t)return;const s=document.getElementById("state");s.value=s.value===t.dataset.st?"":t.dataset.st;page=0;render()};
 document.getElementById("pager").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;page=+b.dataset.p;render();document.querySelector(".controls").scrollIntoView({behavior:"smooth"})};
 function render(){
-  const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,cr=document.getElementById("crawled").checked,ty=document.getElementById("ftype").value,ck=document.getElementById("fcheck").value;
-  let f=hosps.filter(r=>r.hpt_exempt!=="True"&&(!ty||r.facility_type===ty)&&(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!cr||r.match_status)&&(!q||[r.name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q)));
+  const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,ty=document.getElementById("ftype").value,ck=document.getElementById("fcheck").value;
+  let f=hosps.filter(r=>r.hpt_exempt!=="True"&&(!ty||r.facility_type===ty)&&(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!q||[r.name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q)));
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
   const files=f.reduce((n,r)=>n+r.files.length,0);
   drawMap();
@@ -170,7 +169,7 @@ document.getElementById("colmenu").addEventListener("click",e=>{if(e.target.id!=
   try{localStorage.removeItem("hpt-cols")}catch(_){};document.querySelectorAll("#colmenu input").forEach(i=>i.checked=shown.includes(i.dataset.col));drawHead();render()});
 drawHead();
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;page=0;render()};
-["q","state","crawled","ftype","fcheck"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{page=0;render()}));
+["q","state","ftype","fcheck"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{page=0;render()}));
 fetch("data.json").then(r=>r.json()).then(d=>{
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();

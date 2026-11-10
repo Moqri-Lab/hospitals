@@ -81,7 +81,8 @@ def catalog() -> pd.DataFrame:
     conf = reg.apply(confidence, axis=1, result_type="expand") if len(reg) else None
     if conf is not None:
         reg["confidence"], reg["confidence_level"] = conf[0], conf[1]
-    chk = {c: txt_check(g) for c, g in reg[reg["match_status"] != ""].groupby("ccn")}
+    dead = dead_hosts(reg)
+    chk = {c: txt_check(g, dead) for c, g in reg[reg["match_status"] != ""].groupby("ccn")}
     reg["txt_check"] = reg["ccn"].map(lambda c: chk.get(c, ("", ""))[0])
     reg["txt_check_reason"] = reg["ccn"].map(lambda c: chk.get(c, ("", ""))[1])
     reg["checked_at"] = dt.date.today().isoformat()
@@ -126,7 +127,23 @@ def confidence(r) -> tuple[str, str]:
     return str(v), "high" if v >= 80 else "medium" if v >= 60 else "low"
 
 
-def txt_check(g: pd.DataFrame) -> tuple[str, str]:
+def dead_hosts(df: pd.DataFrame, min_files: int = 5) -> set[str]:
+    """Price-file servers that answered HTTP 404 to the HEAD request for every one of
+    at least ``min_files`` different files. A whole server "missing" every file more
+    likely means it does not answer HEAD requests, so these are not counted as failures."""
+    f = df[df.get("mrf_url", pd.Series("", index=df.index)).astype(str) != ""].drop_duplicates("mrf_url")
+    if not len(f):
+        return set()
+    host = f["mrf_url"].map(lambda u: urlparse(u).netloc.lower())
+    code = f["mrf_http_status"].astype(str).str.split(".").str[0]
+    out = set()
+    for h, c in code.groupby(host):
+        if len(c) >= min_files and c.isin(["404", "410"]).all():
+            out.add(h)
+    return out
+
+
+def txt_check(g: pd.DataFrame, dead: set[str] = frozenset()) -> tuple[str, str]:
     """Hospital-level check of the cms-hpt.txt requirement (45 CFR 180.50(d)(6)).
 
     Only checks that a machine-readable cms-hpt.txt is publicly reachable at the
@@ -156,6 +173,10 @@ def txt_check(g: pd.DataFrame) -> tuple[str, str]:
         # without a file name may only answer GET, which we never send.
         is_file = any(re.search(r"\.(csv|json|zip|xlsx?|xml|txt|gz)$", urlparse(u).path, re.I)
                       for u in files["mrf_url"])
+        hosts = {urlparse(u).netloc.lower() for u in files["mrf_url"]}
+        if is_file and hosts <= set(dead):
+            return "unknown", (f"price file link answered HTTP {codes[0]} to a HEAD request, as did every other "
+                               "price file on that server; the server may not answer HEAD requests")
         if is_file:
             return "fail", (f"its cms-hpt.txt lists this hospital, but the price file link returns HTTP {codes[0]} "
                             "(checked with an HTTP HEAD request)")
