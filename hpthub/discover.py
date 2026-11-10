@@ -103,7 +103,29 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
     return pd.DataFrame(out)
 
 
-def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 16) -> dict[str, Path]:
+def head_mrf(sess, url: str) -> dict:
+    """Metadata for an MRF URL via HTTP HEAD only (the price data itself is never downloaded)."""
+    rec = {"mrf_url": url, "mrf_http_status": None, "mrf_content_type": "", "mrf_bytes": None,
+           "mrf_last_modified": "", "mrf_final_url": "", "mrf_error": ""}
+    try:
+        r = sess.head(url, allow_redirects=True, timeout=30)
+        cl = r.headers.get("Content-Length")
+        rec.update(mrf_http_status=r.status_code, mrf_content_type=r.headers.get("Content-Type", ""),
+                   mrf_bytes=int(cl) if cl and cl.isdigit() else None,
+                   mrf_last_modified=r.headers.get("Last-Modified", ""), mrf_final_url=r.url)
+    except Exception as e:  # noqa: BLE001
+        rec["mrf_error"] = f"{type(e).__name__}: {str(e)[:150]}"
+    return rec
+
+
+def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
+    sess = http.session()
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        return pd.DataFrame(list(ex.map(lambda u: head_mrf(sess, u), urls)))
+
+
+def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 16,
+        head: bool = True) -> dict[str, Path]:
     reg = registry.load(reg_path)
     if limit:
         reg = reg.head(limit)
@@ -118,6 +140,10 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
         ent_df = pd.DataFrame(columns=["domain", "location_name", "source_page_url", "mrf_url",
                                        "contact_name", "contact_email", "issues"])
     m = match(reg, dom_df, ent_df)
+    if head:
+        urls = sorted({u for u in m["mrf_url"] if isinstance(u, str) and u.startswith("http")})
+        if urls:
+            m = m.merge(head_all(urls), on="mrf_url", how="left")
     DISC_DIR.mkdir(parents=True, exist_ok=True)
     paths = {
         "domains": DISC_DIR / "domains.csv",
