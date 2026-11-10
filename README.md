@@ -24,15 +24,19 @@ can fetch the files they need themselves.
 
 ## Sources
 
-All hospital data comes from official CMS releases:
+| What | Source | Link |
+|---|---|---|
+| Hospital list (5,419 hospitals, CCN, name, address, type, ownership) | CMS Hospital General Information, data.cms.gov dataset `xubh-q36u`, July 2026 release | [dataset](https://data.cms.gov/provider-data/dataset/xubh-q36u) · [CSV](https://data.cms.gov/provider-data/sites/default/files/resources/893c372430d9d71a1c52737d01239d47_1785189955/Hospital_General_Information.csv) · [dictionary](https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/hospital/HOSPITAL_Data_Dictionary.pdf) |
+| Bed count (`BED_CNT`, total beds, active providers) | CMS Provider of Services file, hospital extract, Q3 2026 (2026-07-01 to 2026-09-30) | [search](https://data.cms.gov/search?keywords=Provider%20of%20Services%20File) · [CSV](https://data.cms.gov/sites/default/files/2026-10/e5a8afbb-a1f4-4d3b-bdb9-3968e194da0e/Hospital_and_other.DATA.Q3_2026.csv) |
+| Price-file links, locations, contacts | Each hospital's own `cms-hpt.txt` (required by CMS since 2025) | [45 CFR 180](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180) · [CMS HPT](https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency) · [CMS spec](https://github.com/CMSgov/hospital-price-transparency) |
+| Price-file format, size, date | HTTP `HEAD` of each price-file URL (no download) | — |
+| Website leads (candidates only, verified live) | Health-system name rules; hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) | [rules](data/registry/system_domains.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) |
 
-- **Hospital General Information** ([data.cms.gov `xubh-q36u`](https://data.cms.gov/provider-data/dataset/xubh-q36u)):
-  the list of Medicare-certified hospitals.
-- **Provider of Services file, hospital extract** (data.cms.gov, latest
-  quarter): bed counts, joined on CCN, active providers only.
-- **`cms-hpt.txt`**: since 2025, every hospital must publish this file at the
-  root of its website ([CMS guidance](https://www.cms.gov/hospital-price-transparency/resources)).
-  It lists each location's price file and a contact.
+**Beds are per CCN.** CMS reports beds for each certification number, and one
+CCN can cover several campuses (AdventHealth Orlando's 3,289 beds span
+multiple campuses). The catalog's `n_campuses` column counts the distinct
+`cms-hpt.txt` location names attached to each CCN, and "largest first" means
+largest CCN by POS `BED_CNT`.
 
 VA and DoD hospitals are marked `hpt_exempt`, because federal hospitals are
 deemed compliant (45 CFR 180.30(b)). They are skipped by default when

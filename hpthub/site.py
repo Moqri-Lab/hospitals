@@ -21,7 +21,7 @@ from . import registry
 ROOT = registry.ROOT
 
 CATALOG_COLUMNS = [
-    "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "system",
+    "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
     "hpt_exempt", "hpt_txt_domain", "hpt_txt_found", "location_name", "source_page_url", "mrf_url",
     "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
     "contact_email", "match_status", "match_score", "checked_at",
@@ -56,6 +56,10 @@ def catalog() -> pd.DataFrame:
     for c in CATALOG_COLUMNS:
         if c not in reg.columns:
             reg[c] = ""
+    # campuses = distinct cms-hpt.txt location names attached to the CCN
+    locs = reg[reg["location_name"] != ""].groupby("ccn")["location_name"].apply(
+        lambda s: len({x.strip() for v in s for x in v.split(";") if x.strip()}))
+    reg["n_campuses"] = reg["ccn"].map(locs).fillna("").map(lambda v: str(int(v)) if v != "" else "")
     reg["mrf_size_mb"] = reg["mrf_bytes"].map(_mb) if "mrf_bytes" in reg.columns else ""
     reg["mrf_last_modified"] = reg["mrf_last_modified"].map(_date)
     reg["checked_at"] = dt.date.today().isoformat()
@@ -77,9 +81,12 @@ def build() -> Path:
         "",
         f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals crawled so far "
         f"(largest first). Full table: [`data/catalog.csv`](data/catalog.csv). "
-        "Price files are listed, never downloaded.",
+        "Price files are listed, never downloaded. Sources: CMS [Hospital General Information]"
+        "(https://data.cms.gov/provider-data/dataset/xubh-q36u), bed counts (`BED_CNT`, per CCN) from the CMS "
+        "Provider of Services file Q3 2026, price-file links from each hospital's own `cms-hpt.txt`. "
+        "See [README](README.md#sources).",
         "",
-        "| # | Hospital | City, State | Beds | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |",
+        "| # | Hospital | City, State | Beds (CCN) | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |",
         "|---|---|---|---:|---|---|---|---|---:|---|---|---|",
     ]
     for i, r in enumerate(crawled.itertuples(index=False), 1):

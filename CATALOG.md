@@ -1,8 +1,8 @@
 # Hospital price file catalog
 
-100 of 5419 CMS hospitals crawled so far (largest first). Full table: [`data/catalog.csv`](data/catalog.csv). Price files are listed, never downloaded.
+100 of 5419 CMS hospitals crawled so far (largest first). Full table: [`data/catalog.csv`](data/catalog.csv). Price files are listed, never downloaded. Sources: CMS [Hospital General Information](https://data.cms.gov/provider-data/dataset/xubh-q36u), bed counts (`BED_CNT`, per CCN) from the CMS Provider of Services file Q3 2026, price-file links from each hospital's own `cms-hpt.txt`. See [README](README.md#sources).
 
-| # | Hospital | City, State | Beds | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |
+| # | Hospital | City, State | Beds (CCN) | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |
 |---|---|---|---:|---|---|---|---|---:|---|---|---|
 | 1 | Adventhealth Orlando (CCN 100007) | Orlando, FL | 3289 | not found |  |  |  |  |  |  | blocked |
 | 2 | New York-Presbyterian Hospital (CCN 330101) | New York, NY | 2262 | [nyp.org](https://nyp.org/cms-hpt.txt) | [NewYork-Presbyterian Allen Hospital; NewYork-Presbyterian Westchester; NewYork-Presbyterian Lower Manhattan Hospital; NewYork-Presbyterian Brooklyn Methodist Hospital; NewYork-Presbyterian Westchester Behavioral Health; NewYork-Presbyterian Weill Cornell Medical Center; NewYork-Presbyterian Columbia University Irving Medical Center](https://www.nyp.org/patients-visitors/paying-for-care/hospital-price-transparency/standard-charges) | [133957095_NewYork-Presbyterian-Hospital_](https://nyp.widen.net/content/hisgjrgpuk/original/133957095_NewYork-Presbyterian-Hospital_standardcharges.json.zip) | zip | 4.0 | 2026-10-09 | Lauren Marino (lam9070@nyp.org) | matched |
