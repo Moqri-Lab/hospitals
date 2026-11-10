@@ -68,6 +68,17 @@ hostnames from the DoltHub/TPAFS
 [nathansutton/hospital-price-transparency](https://github.com/nathansutton/hospital-price-transparency)
 (Apache-2.0; its URL list comes from [hospitalpricingfiles.org](https://hospitalpricingfiles.org)).
 
+### Confidence
+
+`confidence` (0-100) in `data/catalog.csv` says how sure the catalog is that a
+price file belongs to the CMS hospital. Base, by match method: name match =
+name similarity x 100; reviewed by Claude (`matched-manual`) = 85; only entry
+naming the hospital's city (`matched-city`) = 70; only hospital on that website
+(`matched-sole`) = 65; `low-confidence` = similarity x 60. Plus 5 for each extra
+independent source giving the same website (up to +15); minus 10 if the
+cms-hpt.txt came from a public archive, minus 5 if from a saved copy.
+`confidence_level`: high >= 80, medium 60-79, low < 60. See `hpthub/site.py`.
+
 ## Run it
 
 ```bash

@@ -25,7 +25,7 @@ CATALOG_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
     "hpt_exempt", "exempt_note", "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
     "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
-    "contact_email", "match_status", "match_score", "checked_at",
+    "contact_email", "match_status", "match_score", "confidence", "confidence_level", "checked_at",
 ]
 
 
@@ -76,9 +76,49 @@ def catalog() -> pd.DataFrame:
     else:
         reg["mrf_size_mb"] = ""
     reg["mrf_last_modified"] = reg["mrf_last_modified"].map(_date)
+    conf = reg.apply(confidence, axis=1, result_type="expand") if len(reg) else None
+    if conf is not None:
+        reg["confidence"], reg["confidence_level"] = conf[0], conf[1]
     reg["checked_at"] = dt.date.today().isoformat()
     reg.loc[reg["match_status"] == "", "checked_at"] = ""
     return reg[CATALOG_COLUMNS]
+
+
+WEB_SOURCE_COLS = ("web_system_rule", "web_wikidata", "web_tpafs", "web_hpf", "web_claude")
+
+
+def confidence(r) -> tuple[str, str]:
+    """0-100 confidence that a price file belongs to this CMS hospital.
+
+    base, by how the cms-hpt.txt entry was matched:
+      matched         name similarity x 100 (similarity >= 0.55)
+      matched-manual  85 (entry chosen on review)
+      matched-city    70 (only entry naming the hospital's city)
+      matched-sole    65 (only registry hospital on that website)
+      low-confidence  name similarity x 60
+    +5 for each additional independent source that gives the same website (max +15)
+    -10 if the cms-hpt.txt came from a public archive, -5 if from a saved copy
+    Levels: high >= 80, medium 60-79, low < 60.
+    """
+    st = r["match_status"]
+    if not st.startswith("matched") and st != "low-confidence":
+        return "", ""
+    try:
+        sc = float(r["match_score"])
+    except (TypeError, ValueError):
+        sc = 0.0
+    base = {"matched": sc * 100, "matched-manual": 85, "matched-city": 70,
+            "matched-sole": 65}.get(st, sc * 60)
+    dom = r["hpt_txt_domain"]
+    agree = sum(1 for c in WEB_SOURCE_COLS if dom and dom in str(r.get(c, "")).split())
+    base += 5 * min(3, max(0, agree - 1))
+    src = str(r.get("hpt_txt_source", ""))
+    if src.startswith(("Internet Archive", "Common Crawl")):
+        base -= 10
+    elif src == "saved copy":
+        base -= 5
+    v = int(round(max(0, min(100, base))))
+    return str(v), "high" if v >= 80 else "medium" if v >= 60 else "low"
 
 
 def _md_link(url: str, text: str) -> str:
