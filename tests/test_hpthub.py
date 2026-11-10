@@ -55,3 +55,17 @@ def test_match_picks_best_location():
     ])
     m = match(reg, doms, ent)
     assert list(m["mrf_url"]) == ["u2"] and m.loc[0, "match_status"] == "matched"
+
+
+def test_match_respects_other_hospitals_on_domain():
+    reg = pd.DataFrame([
+        {"ccn": "330101", "name": "New York-Presbyterian Hospital", "state": "NY", "beds": "2262", "domains": "nyp.org"},
+        {"ccn": "330055", "name": "New York-Presbyterian/Queens", "state": "NY", "beds": "535", "domains": "nyp.org"},
+    ])
+    doms = pd.DataFrame([{"domain": "nyp.org", "found": True}])
+    ent = pd.DataFrame([
+        {"domain": "nyp.org", "location_name": "NewYork-Presbyterian Weill Cornell Medical Center", "mrf_url": "main", "source_page_url": ""},
+        {"domain": "nyp.org", "location_name": "NewYork-Presbyterian Queens", "mrf_url": "queens", "source_page_url": ""},
+    ])
+    m = match(reg.head(1), doms, ent, universe=reg)
+    assert list(m["mrf_url"]) == ["main"]

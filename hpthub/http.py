@@ -17,7 +17,7 @@ USER_AGENT = (
 def session() -> requests.Session:
     s = requests.Session()
     s.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
-    retry = Retry(total=2, backoff_factor=1.0, status_forcelist=(429, 500, 502, 503, 504),
+    retry = Retry(total=1, backoff_factor=0.5, status_forcelist=(429, 500, 502, 503, 504),
                   allowed_methods=("GET", "HEAD"))
     adapter = HTTPAdapter(max_retries=retry, pool_connections=32, pool_maxsize=32)
     s.mount("http://", adapter)

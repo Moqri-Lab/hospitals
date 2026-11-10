@@ -27,22 +27,33 @@ def _tokens(s: str) -> set[str]:
 
 
 def name_score(a: str, b: str) -> float:
-    """0..1 similarity tuned for hospital names (distinctive tokens weigh most)."""
+    """0..1 similarity tuned for hospital names (distinctive tokens weigh most).
+
+    Tokens are matched against the other name with spaces removed too, so
+    "New York-Presbyterian" matches "NewYork-Presbyterian".
+    """
     ta, tb = _tokens(a), _tokens(b)
     if not ta or not tb:
         return 0.0
-    da, db = ta - _STOP, tb - _STOP
-    if da and db:
-        overlap = len(da & db) / min(len(da), len(db))
-    else:
-        overlap = len(ta & tb) / min(len(ta), len(tb))
+    sa = re.sub(r"[^a-z0-9]", "", (a or "").lower())
+    sb = re.sub(r"[^a-z0-9]", "", (b or "").lower())
+    da, db = (ta - _STOP) or ta, (tb - _STOP) or tb
+    hit_a = sum(1 for t in da if t in tb or (len(t) >= 3 and t in sb)) / len(da)
+    hit_b = sum(1 for t in db if t in ta or (len(t) >= 3 and t in sa)) / len(db)
+    overlap = (hit_a + hit_b) / 2
     seq = SequenceMatcher(None, " ".join(sorted(ta)), " ".join(sorted(tb))).ratio()
     return round(0.7 * overlap + 0.3 * seq, 3)
 
 
 def fetch_domain(sess, domain: str) -> dict:
-    url = f"https://{domain}/cms-hpt.txt"
-    f = http.fetch_head(sess, url, max_bytes=5_000_000, timeout=25)
+    """Fetch cms-hpt.txt from the domain root, trying both the bare and www. host."""
+    hosts = [domain] + ([f"www.{domain}"] if not domain.startswith("www.") else [domain[4:]])
+    f, url = None, ""
+    for host in hosts:
+        url = f"https://{host}/cms-hpt.txt"
+        f = http.fetch_head(sess, url, max_bytes=5_000_000, timeout=20)
+        if f.status == 200 and f.body and "<html" not in f.body[:2000].decode("latin-1").lower():
+            break
     rec = {
         "domain": domain, "url": url, "final_url": f.final_url, "http_status": f.status,
         "content_type": f.content_type, "bytes": len(f.body), "error": f.error,
@@ -79,7 +90,7 @@ ENTRY_FIELDS = ["location_name", "source_page_url", "mrf_url", "contact_name", "
 
 
 def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
-          threshold: float = 0.55) -> pd.DataFrame:
+          threshold: float = 0.55, universe: pd.DataFrame | None = None) -> pd.DataFrame:
     """One row per (hospital, cms-hpt.txt entry) that names this hospital.
 
     Every entry on the hospital's domains scoring >= ``threshold`` is kept (a
@@ -88,6 +99,21 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
     """
     found = set(domains_df.loc[domains_df["found"].astype(str) == "True", "domain"]) if len(domains_df) else set()
     by_domain = {d: g for d, g in entries.groupby("domain")} if len(entries) else {}
+    # Other registry hospitals on the same domain compete for each entry, so a
+    # system's file for "Hospital B" isn't attached to "Hospital A".
+    universe = reg if universe is None else universe
+    rivals: dict[str, list[tuple[str, str]]] = {}
+    for _, u in universe.iterrows():
+        for d in str(u["domains"]).split():
+            rivals.setdefault(d, []).append((u["ccn"], u["name"]))
+    best_owner: dict[tuple[str, str], float] = {}
+
+    def owner_score(d: str, loc: str, ccn: str) -> float:
+        key = (d, loc, ccn)
+        if key not in best_owner:
+            best_owner[key] = max((name_score(n, loc) for c, n in rivals.get(d, []) if c != ccn), default=0.0)
+        return best_owner[key]
+
     out = []
     for _, h in reg.iterrows():
         doms = [d for d in str(h["domains"]).split() if d]
@@ -105,7 +131,8 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
                         **{f: "" for f in ENTRY_FIELDS}})
             continue
         scored.sort(key=lambda t: -t[0])
-        good = [t for t in scored if t[0] >= threshold]
+        good = [t for t in scored if t[0] >= threshold
+                and t[0] >= owner_score(t[1], t[2]["location_name"], h["ccn"])]
         seen = set()
         for sc, d, e in (good or scored[:1]):
             if e["mrf_url"] in seen:
@@ -172,7 +199,7 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
     if ent_df.empty:
         ent_df = pd.DataFrame(columns=["domain", "location_name", "source_page_url", "mrf_url",
                                        "contact_name", "contact_email", "issues"])
-    m = match(reg, dom_df, ent_df)
+    m = match(reg, dom_df, ent_df, universe=registry.load())
     if head:
         urls = sorted({u for u in m["mrf_url"] if isinstance(u, str) and u.startswith("http")})
         if urls:

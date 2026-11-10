@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hospital Price Files</title>
+<style>
+:root{--bg:#fbfaf8;--fg:#1d1d1b;--muted:#6b6a66;--line:#e4e2dc;--card:#fff;--accent:#0b6e4f;--warn:#a35a00;--bad:#b42318;--chip:#f1efea}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#ecebe6;--muted:#a3a19a;--line:#2e2d2a;--card:#1c1c1a;--accent:#4cc79a;--warn:#e0a24a;--bad:#f07167;--chip:#262522}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:24px 16px 8px;max-width:1400px;margin:auto}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;max-width:1400px;margin:auto}
+input,select{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;font:inherit}
+input[type=search]{flex:1 1 260px}
+label{display:flex;gap:6px;align-items:center;color:var(--muted)}
+.stats{max-width:1400px;margin:auto;padding:0 16px 8px;color:var(--muted)}
+.wrap{max-width:1400px;margin:auto;padding:0 16px 32px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--card);cursor:pointer;white-space:nowrap;font-weight:600;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+.chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);font-size:12px;white-space:nowrap}
+.ok{color:var(--accent)}.low{color:var(--warn)}.no{color:var(--bad)}
+.small{font-size:12px;color:var(--muted)}
+footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Hospital price file catalog</h1>
+  <div class="sub">Every CMS-certified US hospital, with the price files listed in its <code>cms-hpt.txt</code>. Links only, no price data is downloaded. Source: <a href="https://github.com/Moqri-Lab/hospitals">Moqri-Lab/hospitals</a>.</div>
+</header>
+<div class="controls">
+  <input type="search" id="q" placeholder="Search hospital, city, system, CCN…">
+  <select id="state"><option value="">All states</option></select>
+  <label><input type="checkbox" id="crawled" checked> Crawled only</label>
+</div>
+<div class="stats" id="stats">Loading…</div>
+<div class="wrap"><table><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table></div>
+<footer id="foot"></footer>
+<script>
+const COLS=[["name","Hospital"],["city","City"],["state","St"],["beds","Beds"],["system","System"],["hpt_txt_domain","cms-hpt.txt"],["location_name","Location (txt)"],["mrf_url","Price file"],["mrf_format","Format"],["mrf_size_mb","MB"],["mrf_last_modified","Modified"],["contact_name","Contact"],["match_status","Match"]];
+let rows=[],sortKey="beds",sortDir=-1;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num=k=>k==="beds"||k==="mrf_size_mb";
+function cell(r,k){const v=r[k]??"";
+  if(k==="name")return `${esc(v)}<div class="small">CCN ${esc(r.ccn)} · ${esc(r.facility_type)}</div>`;
+  if(k==="hpt_txt_domain")return v?`<a href="https://${esc(v)}/cms-hpt.txt" target="_blank" rel="noopener">${esc(v)}</a>`:(r.match_status?'<span class="no">not found</span>':"");
+  if(k==="location_name")return r.source_page_url?`<a href="${esc(r.source_page_url)}" target="_blank" rel="noopener">${esc(v)}</a>`:esc(v);
+  if(k==="mrf_url"){if(!v)return"";const f=decodeURIComponent(v.split("?")[0].split("/").pop()).slice(0,48);return `<a href="${esc(v)}" target="_blank" rel="noopener">${esc(f||"link")}</a>`}
+  if(k==="mrf_format")return v?`<span class="chip">${esc(v)}</span>`:"";
+  if(k==="contact_name")return esc(v)+(r.contact_email?`<div class="small">${esc(r.contact_email)}</div>`:"");
+  if(k==="match_status"){const c=v==="matched"?"ok":v==="low-confidence"?"low":"no";return v?`<span class="${c}">${esc(v)}</span>`:""}
+  return esc(v)}
+function render(){
+  const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,cr=document.getElementById("crawled").checked;
+  let f=rows.filter(r=>(!st||r.state===st)&&(!cr||r.match_status)&&(!q||[r.name,r.city,r.system,r.ccn,r.location_name,r.hpt_txt_domain].join(" ").toLowerCase().includes(q)));
+  f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
+  const hosp=new Set(f.map(r=>r.ccn)).size,files=f.filter(r=>r.mrf_url).length;
+  document.getElementById("stats").textContent=`${hosp.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown`;
+  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>"<tr>"+COLS.map(([k])=>`<td class="${num(k)?"num":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
+}
+document.getElementById("head").innerHTML=COLS.map(([k,l])=>`<th data-k="${k}">${l}</th>`).join("");
+document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;render()};
+["q","state","crawled"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+fetch("data.json").then(r=>r.json()).then(d=>{
+  rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
+  [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
+  document.getElementById("foot").textContent=`Updated ${d.generated_at}. Hospital list: CMS Hospital General Information + Provider of Services. Download the full table as data/catalog.csv in the repository.`;
+  render()}).catch(()=>{document.getElementById("stats").textContent="Could not load data.json"});
+</script>
+</body>
+</html>
