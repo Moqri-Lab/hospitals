@@ -31,7 +31,8 @@ table{table-layout:auto}
 td{font-size:13px}
 td.clip{max-width:240px}
 td.clip a,td.clip span.t{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-td.loc{min-width:220px;max-width:300px}
+td.loc{min-width:300px;max-width:420px}
+.file{margin-bottom:4px}.file .small a{color:var(--muted)}
 details.locs summary{cursor:pointer;list-style:none;color:var(--accent)}
 details.locs summary::-webkit-details-marker{display:none}
 details.locs ul{margin:4px 0 0;padding-left:16px}
@@ -70,17 +71,16 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 <div class="wrap"><table><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table></div>
 <footer id="foot"></footer>
 <script>
-const COLS=[["ccn","CCN"],["name","Hospital"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_system_rule","Web: system rule"],["web_wikidata","Web: Wikidata"],["web_tpafs","Web: TPAFS"],["web_hpf","Web: HPF.org"],["web_claude","Web: Claude"],["hpt_txt_domain","cms-hpt.txt"],["location_name","Name in cms-hpt.txt"],["mrf_url","Price file"],["mrf_format","Format"],["mrf_size_mb","MB"],["mrf_last_modified","Modified"],["contact_name","Contact"],["match_status","Match"]];
-let rows=[],sortKey="beds",sortDir=-1;
+const COLS=[["ccn","CCN"],["name","Hospital"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_system_rule","Web: system rule"],["web_wikidata","Web: Wikidata"],["web_tpafs","Web: TPAFS"],["web_hpf","Web: HPF.org"],["web_claude","Web: Claude"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["match_status","Match"]];
+let rows=[],hosps=[],sortKey="beds",sortDir=-1;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const num=k=>k==="beds"||k==="mrf_size_mb"||k==="n_campuses";
+const num=k=>k==="beds"||k==="n_files"||k==="n_campuses";
 function cell(r,k){const v=r[k]??"";
   if(k==="name")return `${esc(v)}<div class="small">${esc(r.facility_type)}</div>`+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="ccn")return `<span style="white-space:nowrap">${esc(v)}</span>`;
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
-    const hit=d=>r.hpt_txt_domain&&d===r.hpt_txt_domain;
-    let h=ds.map(d=>`<span class="t${hit(d)?" ok":""}" title="${hit(d)?"confirmed by its cms-hpt.txt":""}">${esc(d)}</span>`).join("");
-    if(k==="web_wikidata"&&r.wikidata_id)h+=`<a class="small" href="https://www.wikidata.org/wiki/${esc(r.wikidata_id)}">${esc(r.wikidata_id)}</a>`;
+    let h=ds.map(d=>d===r.hpt_txt_domain?`<span class="ok" title="${esc(d)}: the website whose cms-hpt.txt was read">✓</span>`:`<span class="t" title="${esc(d)}">${esc(d)}</span>`).join(" ");
+    if(k==="web_wikidata"&&r.wikidata_id)h+=` <a class="small" href="https://www.wikidata.org/wiki/${esc(r.wikidata_id)}">${esc(r.wikidata_id)}</a>`;
     return h}
   if(k==="hpt_txt_domain"){const m=r.match_status,src=r.hpt_txt_source||"",iss=r.hpt_txt_access_issue||"";
     const link=v?`<a href="https://${esc(v)}/cms-hpt.txt" title="https://${esc(v)}/cms-hpt.txt">${esc(v)}</a>`:"";
@@ -92,29 +92,36 @@ function cell(r,k){const v=r[k]??"";
     else if(!iss&&m==="no-domain")out+=`<span class="t small no">website unknown</span>`;
     else if(!iss&&m==="no-hpt-txt")out+=`<span class="t small no">no cms-hpt.txt</span>`;
     return out}
-  if(k==="location_name"){const L=String(v).split(";").map(x=>x.trim()).filter(Boolean);if(!L.length)return"";
-    const first=r.source_page_url?`<a href="${esc(r.source_page_url)}" target="_blank" rel="noopener" title="${esc(L[0])}">${esc(L[0])}</a>`:esc(L[0]);
-    if(L.length===1)return first;
-    return `${first}<details class="locs"><summary>+${L.length-1} more location${L.length>2?"s":""}</summary><ul>${L.slice(1).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`}
-  if(k==="mrf_url"){if(!v)return"";let f=v.split("?")[0].split("/").pop();try{f=decodeURIComponent(f)}catch(e){}return `<a href="${esc(v)}" target="_blank" rel="noopener" title="${esc(v)}">${esc(f||"link")}</a>`}
-  if(k==="mrf_format")return v?`<span class="chip">${esc(v)}</span>`:"";
+  if(k==="n_files"){const F=r.files;if(!F.length)return"";
+    const one=x=>{let f=x.mrf_url.split("?")[0].split("/").pop();try{f=decodeURIComponent(f)}catch(e){}
+      const L=String(x.location_name).split(";").map(y=>y.trim()).filter(Boolean);
+      const nm=L.length?(x.source_page_url?`<a href="${esc(x.source_page_url)}" title="${esc(L.join("; "))}">${esc(L[0])}</a>`:`<span title="${esc(L.join("; "))}">${esc(L[0])}</span>`)+(L.length>1?` <span class="small" title="${esc(L.slice(1).join("; "))}">+${L.length-1}</span>`:""):"";
+      const meta=[x.mrf_format?`<span class="chip">${esc(x.mrf_format)}</span>`:"",x.mrf_size_mb?`${esc(x.mrf_size_mb)} MB`:"",esc(x.mrf_last_modified)].filter(Boolean).join(" · ");
+      return `<div class="file">${nm}<div class="small"><a href="${esc(x.mrf_url)}" title="${esc(x.mrf_url)}">${esc(f.length>34?f.slice(0,31)+"…":f||"link")}</a>${meta?" · "+meta:""}</div></div>`};
+    const head=F.slice(0,2).map(one).join("");
+    return head+(F.length>2?`<details class="locs"><summary>+${F.length-2} more price file${F.length>3?"s":""}</summary>${F.slice(2).map(one).join("")}</details>`:"")}
   if(k==="contact_name")return `<span class="t" title="${esc(v)}">${esc(v)}</span>`+(r.contact_email?`<span class="t small" title="${esc(r.contact_email)}">${esc(r.contact_email)}</span>`:"");
-  if(k==="match_status"){const c=v==="matched"?"ok":v==="low-confidence"?"low":"no";return v?`<span class="${c}">${esc(v)}</span>`:""}
+  if(k==="match_status"){return [...new Set(r.files.length?r.files.map(x=>x.match_status):[v])].filter(Boolean).map(m=>`<span class="t ${m.startsWith("matched")?"ok":m==="low-confidence"?"low":"no"}">${esc(m)}</span>`).join("")}
+  if(k==="contact_name"){const C=[...new Map((r.files.length?r.files:[r]).filter(x=>x.contact_name||x.contact_email).map(x=>[x.contact_name+"|"+x.contact_email,x])).values()];
+    return C.slice(0,2).map(x=>`<span class="t" title="${esc(x.contact_name)}">${esc(x.contact_name)}</span>`+(x.contact_email?`<span class="t small" title="${esc(x.contact_email)}">${esc(x.contact_email)}</span>`:"")).join("")+(C.length>2?`<span class="small">+${C.length-2} more</span>`:"")}
   return esc(v)}
 function render(){
   const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,cr=document.getElementById("crawled").checked;
-  let f=rows.filter(r=>r.hpt_exempt!=="True"&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!cr||r.match_status)&&(!q||[r.name,r.city,r.system,r.ccn,r.location_name,r.hpt_txt_domain].join(" ").toLowerCase().includes(q)));
+  let f=hosps.filter(r=>r.hpt_exempt!=="True"&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!cr||r.match_status)&&(!q||[r.name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q)));
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
-  const hosp=new Set(f.map(r=>r.ccn)).size,files=f.filter(r=>r.mrf_url).length;
-  document.getElementById("stats").textContent=`${hosp.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown (exempt and possibly exempt hospitals are on a separate page)`;
-  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>"<tr>"+COLS.map(([k])=>`<td class="${num(k)?"num":k==="mrf_url"||k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="location_name"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
+  const files=f.reduce((n,r)=>n+r.files.length,0);
+  document.getElementById("stats").textContent=`${f.length.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown (exempt and possibly exempt hospitals are on a separate page)`;
+  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>"<tr>"+COLS.map(([k])=>`<td class="${k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
 }
-const TIPS={"ccn": "CMS Certification Number, the Medicare provider ID", "beds": "Total beds for the CCN (CMS Provider of Services); one CCN can cover several campuses", "n_campuses": "Distinct locations listed under this CCN in the hospital's cms-hpt.txt", "hpt_txt_domain": "Website whose cms-hpt.txt was read, and whether it could be read", "location_name": "The location-name the hospital itself gives in its cms-hpt.txt for this price file (click for the hospital's price transparency page)", "mrf_url": "The machine-readable price file listed in cms-hpt.txt (link only, never downloaded)", "match_status": "How the CMS hospital was matched to the cms-hpt.txt entry", "web_claude": "Website found by Claude (AI) on review; still verified by its cms-hpt.txt", "web_system_rule": "Website from a health-system name rule", "web_wikidata": "Official website (P856) from Wikidata", "web_tpafs": "Website from TPAFS/DoltHub transparency-data", "web_hpf": "Website from hospitalpricingfiles.org"};
+const TIPS={"ccn": "CMS Certification Number, the Medicare provider ID", "beds": "Total beds for the CCN (CMS Provider of Services); one CCN can cover several campuses", "n_campuses": "Distinct locations listed under this CCN in the hospital's cms-hpt.txt", "hpt_txt_domain": "Website whose cms-hpt.txt was read, and whether it could be read", "location_name": "The location-name the hospital itself gives in its cms-hpt.txt for this price file (click for the hospital's price transparency page)", "n_files": "Each price file the hospital lists in its cms-hpt.txt, under the location name the hospital gives it (links only, never downloaded)", "match_status": "How the CMS hospital was matched to the cms-hpt.txt entry", "web_claude": "Website found by Claude (AI) on review; still verified by its cms-hpt.txt", "web_system_rule": "Website from a health-system name rule", "web_wikidata": "Official website (P856) from Wikidata", "web_tpafs": "Website from TPAFS/DoltHub transparency-data", "web_hpf": "Website from hospitalpricingfiles.org"};
 document.getElementById("head").innerHTML=COLS.map(([k,l])=>`<th data-k="${k}" title="${esc(TIPS[k]||"")}">${l}</th>`).join("");
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;render()};
 ["q","state","crawled"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 fetch("data.json").then(r=>r.json()).then(d=>{
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
+  const by=new Map();
+  for(const r of rows){if(!by.has(r.ccn))by.set(r.ccn,{...r,files:[]});if(r.mrf_url)by.get(r.ccn).files.push(r)}
+  hosps=[...by.values()];hosps.forEach(h=>h.n_files=h.files.length);
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
   document.getElementById("foot").textContent=`Updated ${d.generated_at}. Hospital list: CMS Hospital General Information + Provider of Services. `;
   document.getElementById("foot").insertAdjacentHTML("beforeend",' Downloads: <a href="data/catalog.csv">catalog.csv</a> · <a href="data/registry/hospitals.csv">hospitals.csv</a> · <a href="data/discovery/hpt_txt_entries.csv">all cms-hpt.txt entries</a> · <a href="data/discovery/domains.csv">domains checked</a>.');
