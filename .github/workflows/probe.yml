@@ -1,0 +1,50 @@
+# One-off diagnostics: try every legitimate, honest route to read one cms-hpt.txt.
+# No browser impersonation and no bot-protection bypass.
+name: probe
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: "Host, e.g. www.orlandohealth.com"
+        required: true
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      HOST: ${{ inputs.host }}
+      UA: "hpt-hub/0.1 (open hospital price transparency research registry; +https://github.com/Moqri-Lab/hospitals)"
+    steps:
+      - name: Live, honest UA, with headers
+        run: |
+          for h in "$HOST" "${HOST#www.}"; do
+            for path in /cms-hpt.txt /CMS-HPT.TXT; do
+              echo "== https://$h$path"
+              curl -sS -A "$UA" -D - -o body.txt --max-time 60 "https://$h$path" | head -30 || true
+              echo "-- body:"; head -c 600 body.txt; echo
+            done
+          done
+      - name: Live, curl default UA, then wait out rate limit (Retry-After) and retry
+        run: |
+          for i in 1 2 3; do
+            code=$(curl -sS -o body.txt -w "%{http_code}" -D hdr.txt --max-time 60 "https://$HOST/cms-hpt.txt" || echo 000)
+            echo "attempt $i: $code"; grep -i "retry-after\|server\|x-vercel\|cf-ray\|akamai" hdr.txt || true
+            [ "$code" = 200 ] && { head -c 2000 body.txt; break; }
+            ra=$(grep -i '^retry-after:' hdr.txt | tr -dc '0-9'); sleep $(( ${ra:-30} > 120 ? 120 : ${ra:-30} ))
+          done
+      - name: Live over HTTP/1.1 and plain http
+        run: |
+          curl -sS --http1.1 -A "$UA" -o /dev/null -w "http1.1: %{http_code}\n" --max-time 60 "https://$HOST/cms-hpt.txt" || true
+          curl -sS -A "$UA" -o /dev/null -w "plain http: %{http_code} -> %{redirect_url}\n" --max-time 60 "http://$HOST/cms-hpt.txt" || true
+      - name: Internet Archive (all captures)
+        run: |
+          curl -sS --max-time 120 "https://web.archive.org/cdx/search/cdx?url=${HOST#www.}/cms-hpt.txt&matchType=exact&output=json&fl=timestamp,original,statuscode,mimetype,length&collapse=digest" | tail -15
+      - name: Common Crawl (latest 6 crawls)
+        run: |
+          for api in $(curl -sS https://index.commoncrawl.org/collinfo.json | python3 -c "import sys,json;print(' '.join(c['cdx-api'] for c in json.load(sys.stdin)[:6]))"); do
+            echo "== $api"; curl -sS --max-time 60 "$api?url=$HOST/cms-hpt.txt&output=json" | head -3
+          done
+      - name: archive.today
+        run: curl -sS -A "$UA" -o /dev/null -w "archive.today: %{http_code} %{redirect_url}\n" --max-time 60 "https://archive.ph/newest/https://$HOST/cms-hpt.txt" || true
