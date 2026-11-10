@@ -126,7 +126,7 @@ def fetch_archive(sess, host: str):
 _CC_INDEXES: list[str] = []
 
 
-def fetch_commoncrawl(sess, host: str, n_indexes: int = 4):
+def fetch_commoncrawl(sess, host: str, n_indexes: int = 2):
     """Latest Common Crawl capture of https://<host>/cms-hpt.txt (public web archive).
 
     Looks the URL up in the newest crawl indexes and reads just that one WARC
@@ -138,7 +138,7 @@ def fetch_commoncrawl(sess, host: str, n_indexes: int = 4):
             _CC_INDEXES.extend(c["cdx-api"] for c in sess.get("https://index.commoncrawl.org/collinfo.json",
                                                               timeout=30).json())
         for api in _CC_INDEXES[:n_indexes]:
-            r = sess.get(api, params={"url": f"{host}/cms-hpt.txt", "output": "json"}, timeout=60)
+            r = sess.get(api, params={"url": f"{host}/cms-hpt.txt", "output": "json"}, timeout=30)
             if r.status_code != 200 or not r.text.strip():
                 continue
             caps = [_json.loads(x) for x in r.text.strip().splitlines()]
@@ -162,13 +162,30 @@ def fetch_commoncrawl(sess, host: str, n_indexes: int = 4):
     return None
 
 
-def fetch_domain(sess, domain: str, archive: bool = True) -> dict:
+def _hosts(domain: str) -> list[str]:
+    return [domain] + ([f"www.{domain}"] if not domain.startswith("www.") else [domain[4:]])
+
+
+def archived_copy(sess, domain: str):
+    """(source, url, body) from the Internet Archive, else Common Crawl, else None."""
+    for host in _hosts(domain):
+        arc = fetch_archive(sess, host)
+        if arc:
+            return f"Internet Archive {arc[2]}", arc[1], arc[0]
+    for host in _hosts(domain):
+        arc = fetch_commoncrawl(sess, host)
+        if arc:
+            return f"Common Crawl {arc[2]}", arc[1], arc[0]
+    return None
+
+
+def fetch_domain(sess, domain: str, archive: bool = False) -> dict:
     """Fetch cms-hpt.txt from the domain root, trying both the bare and www. host.
 
     If the live file can't be read, fall back to a committed saved copy, then to
     the Internet Archive's latest copy. The reason the live fetch failed is kept
     in ``access_issue`` either way."""
-    hosts = [domain] + ([f"www.{domain}"] if not domain.startswith("www.") else [domain[4:]])
+    hosts = _hosts(domain)
     f, url, attempts = None, "", []
     for host in hosts:
         url = f"https://{host}/cms-hpt.txt"
@@ -193,26 +210,11 @@ def fetch_domain(sess, domain: str, archive: bool = True) -> dict:
     }
     if issue:
         snap = SNAPSHOT_DIR / f"{domain}.txt"
-        arc = None
-        if snap.exists():
-            f.body, f.status = snap.read_bytes(), 200
-            rec.update(source="saved copy", url=f"snapshot:{snap.name}")
-        elif archive:
-            for host in hosts:
-                arc = fetch_archive(sess, host)
-                if arc:
-                    break
-            if arc:
-                f.body, f.status = arc[0], 200
-                rec.update(source=f"Internet Archive {arc[2]}", url=arc[1])
-            else:
-                for host in hosts:
-                    arc = fetch_commoncrawl(sess, host)
-                    if arc:
-                        break
-                if arc:
-                    f.body, f.status = arc[0], 200
-                    rec.update(source=f"Common Crawl {arc[2]}", url=arc[1])
+        alt = ("saved copy", f"snapshot:{snap.name}", snap.read_bytes()) if snap.exists() else \
+            (archived_copy(sess, domain) if archive else None)
+        if alt:
+            rec.update(source=alt[0], url=alt[1])
+            f.body, f.status = alt[2], 200
         rec["bytes"] = len(f.body)
     entries = []
     if f.status == 200 and f.body:
@@ -235,7 +237,7 @@ def crawl(domains: list[str], workers: int = 16) -> tuple[pd.DataFrame, pd.DataF
             dom_rows.append(res["domain"])
             entry_rows.extend(res["entries"])
             if i % 50 == 0:
-                print(f"  {i}/{len(domains)} domains checked")
+                print(f"  {i}/{len(domains)} domains checked", flush=True)
     return pd.DataFrame(dom_rows), pd.DataFrame(entry_rows)
 
 
@@ -407,6 +409,40 @@ def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
         return pd.DataFrame(list(ex.map(lambda u: head_mrf(sess, u), urls)))
 
 
+def archive_pass(reg: pd.DataFrame, dom_df: pd.DataFrame, ent_df: pd.DataFrame,
+                 workers: int = 16) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """For hospitals where no live cms-hpt.txt could be read, try public archive
+    copies (Internet Archive, then Common Crawl) of their unreadable domains."""
+    found = set(dom_df.loc[dom_df["found"] == True, "domain"])  # noqa: E712
+    issue = dom_df.set_index("domain")["access_issue"].to_dict()
+    todo = []
+    for ds in reg["domains"]:
+        doms = ds.split()
+        if doms and not any(d in found for d in doms):
+            todo += [d for d in doms if d not in todo and issue.get(d)
+                     and issue[d] != "website address does not resolve"]
+    if not todo:
+        return dom_df, ent_df
+    print(f"trying archive copies for {len(todo)} unreadable domains", flush=True)
+    sess = http.session()
+    new_entries = []
+    with ThreadPoolExecutor(max_workers=min(workers, 8)) as ex:
+        res = dict(zip(todo, ex.map(lambda d: archived_copy(sess, d), todo)))
+    for d, alt in res.items():
+        if not alt:
+            continue
+        parsed = hpttxt.parse(http.decode_text(alt[2]))
+        i = dom_df.index[dom_df["domain"] == d][0]
+        dom_df.loc[i, ["source", "url", "bytes", "n_entries", "parse_issues", "found"]] = [
+            alt[0], alt[1], len(alt[2]), len(parsed.entries), "; ".join(parsed.issues), parsed.ok]
+        if parsed.ok:
+            new_entries += [dict(domain=d, **e.as_dict()) for e in parsed.entries]
+    print(f"  {sum(1 for a in res.values() if a)} read from archives", flush=True)
+    if new_entries:
+        ent_df = pd.concat([ent_df, pd.DataFrame(new_entries)], ignore_index=True)
+    return dom_df, ent_df
+
+
 def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 16,
         head: bool = True) -> dict[str, Path]:
     reg = registry.load(reg_path)
@@ -417,8 +453,9 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
         for d in ds.split():
             if d not in domains:
                 domains.append(d)
-    print(f"checking {len(domains)} domains for {len(reg)} hospitals")
+    print(f"checking {len(domains)} domains for {len(reg)} hospitals", flush=True)
     dom_df, ent_df = crawl(domains, workers=workers)
+    dom_df, ent_df = archive_pass(reg, dom_df, ent_df, workers=workers)
     if ent_df.empty:
         ent_df = pd.DataFrame(columns=["domain", "location_name", "source_page_url", "mrf_url",
                                        "contact_name", "contact_email", "issues"])
