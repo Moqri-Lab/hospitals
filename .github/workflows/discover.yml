@@ -16,7 +16,11 @@ on:
         description: "Parallel requests (different sites)"
         default: "32"
       refresh_leads:
-        description: "Re-import website leads from Wikidata first"
+        description: "Re-import website leads from Wikidata and OpenStreetMap first"
+        type: boolean
+        default: false
+      find_websites:
+        description: "Infer and verify websites for hospitals no source covers"
         type: boolean
         default: false
   schedule:
@@ -46,7 +50,15 @@ jobs:
       - name: Refresh Wikidata website leads
         if: ${{ github.event_name == 'schedule' || inputs.refresh_leads }}
         run: python scripts/import_domain_leads.py wikidata
+      - name: Refresh OpenStreetMap website leads
+        if: ${{ github.event_name == 'schedule' || inputs.refresh_leads }}
+        continue-on-error: true
+        run: python scripts/import_domain_leads.py osm
       - run: python -m hpthub registry
+      - name: Infer and verify websites for hospitals with none
+        if: ${{ github.event_name == 'schedule' || inputs.find_websites }}
+        continue-on-error: true
+        run: python scripts/find_websites.py --workers 48 && python -m hpthub registry
       - run: python -m hpthub discover --limit "${{ inputs.limit || '100' }}" --workers "${{ inputs.workers || '32' }}"
       - run: python -m hpthub site
       - name: Commit results

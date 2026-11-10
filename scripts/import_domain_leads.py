@@ -19,9 +19,17 @@ Currently supported:
          matched Wikidata item IDs are saved in data/registry/wikidata_hospitals.csv
          so every lead can be traced back to its Wikidata page.
 
+  osm    OpenStreetMap (ODbL, https://www.openstreetmap.org/copyright): hospitals
+         (amenity=hospital / healthcare=hospital) in the US and Puerto Rico with a
+         website tag, from the Overpass API. Each one is matched to a CMS hospital by
+         name within 25 km (CMS ZIP located with the Census ZCTA gazetteer) or by
+         its address ZIP; ambiguous matches are dropped. Matched OSM objects are
+         saved in data/registry/osm_hospitals.csv.
+
 Usage: python scripts/import_domain_leads.py tpafs path/to/machine_readable_links.csv
        python scripts/import_domain_leads.py sutton path/to/dim/urls
        python scripts/import_domain_leads.py wikidata
+       python scripts/import_domain_leads.py osm
 """
 
 import csv
@@ -151,10 +159,105 @@ def wikidata(_path: str = "") -> dict[str, str]:
     return {c: " ".join(d[:3]) for c, (_, _, d) in best.items()}
 
 
+OVERPASS = """[out:json][timeout:900];
+(area["ISO3166-1"="US"][admin_level=2];area["ISO3166-1"="PR"][admin_level=2];)->.a;
+(nwr["amenity"="hospital"]["website"](area.a);nwr["amenity"="hospital"]["contact:website"](area.a);
+ nwr["healthcare"="hospital"]["website"](area.a);nwr["healthcare"="hospital"]["contact:website"](area.a););
+out center tags;"""
+ZCTA_URL = "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2024_Gazetteer/2024_Gaz_zcta_national.zip"
+UA = {"User-Agent": "hpt-hub/0.1 (open hospital price transparency research; +https://github.com/Moqri-Lab/hospitals)"}
+
+
+def zip_centroids() -> dict[str, tuple[float, float]]:
+    import io
+    import zipfile
+    import requests
+    r = requests.get(ZCTA_URL, headers=UA, timeout=300)
+    r.raise_for_status()
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    txt = z.read(z.namelist()[0]).decode("latin-1").splitlines()
+    head = [h.strip() for h in txt[0].split("\t")]
+    i, la, lo = head.index("GEOID"), head.index("INTPTLAT"), head.index("INTPTLONG")
+    out = {}
+    for line in txt[1:]:
+        c = line.split("\t")
+        try:
+            out[c[i].strip()] = (float(c[la]), float(c[lo]))
+        except (ValueError, IndexError):
+            pass
+    return out
+
+
+def _km(a, b) -> float:
+    import math
+    la1, lo1, la2, lo2 = map(math.radians, (a[0], a[1], b[0], b[1]))
+    h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
+    return 12742 * math.asin(math.sqrt(h))
+
+
+def osm(_path: str = "") -> dict[str, str]:
+    import requests
+    from hpthub.discover import name_score
+    from hpthub.registry import load_cms
+
+    r = requests.post("https://overpass-api.de/api/interpreter", data={"data": OVERPASS}, headers=UA, timeout=1000)
+    r.raise_for_status()
+    els = r.json()["elements"]
+    print(f"{len(els)} OpenStreetMap hospitals with a website")
+    zc = zip_centroids()
+    cms = load_cms()
+    cms["zip5"] = cms["zip"].astype(str).str[:5]
+    pts = [(c, n, zc.get(z)) for c, n, z in zip(cms["ccn"], cms["name"], cms["zip5"])]
+    by_zip: dict[str, list] = {}
+    for c, n, z in zip(cms["ccn"], cms["name"], cms["zip5"]):
+        by_zip.setdefault(z, []).append((c, n))
+    best: dict[str, tuple[float, dict, list[str]]] = {}
+    for e in els:
+        t = e.get("tags", {})
+        names = [t.get(k, "") for k in ("name", "official_name", "alt_name", "old_name") if t.get(k)]
+        if not names:
+            continue
+        lat, lon = (e.get("lat"), e.get("lon")) if "lat" in e else (e.get("center", {}).get("lat"), e.get("center", {}).get("lon"))
+        site = t.get("website") or t.get("contact:website") or ""
+        doms = []
+        for h in candidate_hosts(site if "://" in site else "https://" + site):
+            d = base_domain(h)
+            if d not in doms:
+                doms.append(d)
+        if not doms:
+            continue
+        pool = {}
+        if lat is not None:
+            for c, n, p in pts:
+                if p and abs(p[0] - lat) < 0.3 and abs(p[1] - lon) < 0.4 and _km(p, (lat, lon)) <= 25:
+                    pool[c] = n
+        for c, n in by_zip.get(str(t.get("addr:postcode", ""))[:5], []):
+            pool[c] = n
+        if not pool:
+            continue
+        scored = sorted(((max(name_score(x, n) for x in names), c) for c, n in pool.items()), reverse=True)
+        top, ccn = scored[0]
+        if top < 0.75 or (len(scored) > 1 and scored[1][0] >= top - 0.05):
+            continue
+        it = {"osm": f"{e['type']}/{e['id']}", "name": names[0], "site": site}
+        if ccn not in best or top > best[ccn][0]:
+            best[ccn] = (top, it, doms)
+    rows = [{"ccn": c, "osm_id": it["osm"], "osm_name": it["name"],
+             "osm_url": f"https://www.openstreetmap.org/{it['osm']}", "website": it["site"],
+             "match_score": round(s, 3)} for c, (s, it, _) in sorted(best.items())]
+    out = REG_DIR / "osm_hospitals.csv"
+    with out.open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]) if rows else ["ccn"])
+        w.writeheader()
+        w.writerows(rows)
+    print(f"{len(rows)} CMS hospitals matched to OpenStreetMap -> {out}")
+    return {c: " ".join(d[:3]) for c, (_, _, d) in best.items()}
+
+
 def main():
     src = sys.argv[1]
     path = sys.argv[2] if len(sys.argv) > 2 else ""
-    leads = {"tpafs": tpafs, "sutton": sutton, "wikidata": wikidata}[src](path)
+    leads = {"tpafs": tpafs, "sutton": sutton, "wikidata": wikidata, "osm": osm}[src](path)
     p = REG_DIR / "domain_leads.csv"
     rows = {}
     if p.exists():

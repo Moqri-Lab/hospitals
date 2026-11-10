@@ -25,7 +25,7 @@ ROOT = registry.ROOT
 
 CATALOG_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
-    "hpt_exempt", "exempt_note", "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
+    "hpt_exempt", "exempt_note", "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "web_osm", "osm_id", "web_inferred", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
     "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
     "contact_email", "match_status", "match_score", "confidence", "confidence_level", "txt_check", "txt_check_reason", "checked_at",
 ]
@@ -90,7 +90,7 @@ def catalog() -> pd.DataFrame:
     return reg[CATALOG_COLUMNS]
 
 
-WEB_SOURCE_COLS = ("web_system_rule", "web_wikidata", "web_tpafs", "web_hpf", "web_claude")
+WEB_SOURCE_COLS = ("web_system_rule", "web_wikidata", "web_tpafs", "web_hpf", "web_osm", "web_inferred", "web_claude")
 
 
 def confidence(r) -> tuple[str, str]:

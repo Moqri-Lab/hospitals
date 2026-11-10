@@ -165,13 +165,15 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
     "hpt_exempt", "exempt_note", "system", "domains", "domain_source",
-    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "source",
+    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "web_osm", "osm_id", "web_inferred", "source",
 ]
 
 LEAD_SOURCE_NAMES = {
     "wikidata": "Wikidata",
     "tpafs": "TPAFS/DoltHub transparency-data",
     "sutton": "hospitalpricingfiles.org (via nathansutton/hospital-price-transparency)",
+    "osm": "OpenStreetMap",
+    "inferred": "inferred and verified (scripts/find_websites.py)",
 }
 
 
@@ -194,6 +196,14 @@ def load_wikidata_ids() -> dict[str, str]:
         return {}
     with p.open(newline="") as f:
         return {r["ccn"].zfill(6): r["wikidata_id"] for r in csv.DictReader(f) if r.get("wikidata_id")}
+
+
+def load_osm_ids() -> dict[str, str]:
+    p = REG_DIR / "osm_hospitals.csv"
+    if not p.exists():
+        return {}
+    with p.open(newline="") as f:
+        return {r["ccn"].zfill(6): r["osm_id"] for r in csv.DictReader(f) if r.get("osm_id")}
 
 
 def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) -> pd.DataFrame:
@@ -251,7 +261,7 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
     df["domains"], df["system"], df["domain_source"] = res[0], res[1], res[2]
 
     # One column per website source, keyed by CCN: the domain(s) each source gives.
-    lead_rows, wd = load_lead_rows(), load_wikidata_ids()
+    lead_rows, wd, osm = load_lead_rows(), load_wikidata_ids(), load_osm_ids()
 
     def per_source(row) -> list[str]:
         ccn = row["ccn"]
@@ -259,9 +269,11 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
         rule = next((doms for rx, doms, _ in rules if rx.search(key)), "")
         leads_by = {src: " ".join(d) for src, d in lead_rows.get(ccn, [])}
         return [overrides.get(ccn, ""), rule, leads_by.get("wikidata", ""), wd.get(ccn, ""),
-                leads_by.get("tpafs", ""), leads_by.get("sutton", "")]
+                leads_by.get("tpafs", ""), leads_by.get("sutton", ""), leads_by.get("osm", ""), osm.get(ccn, ""),
+                leads_by.get("inferred", "")]
 
-    cols = ["web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf"]
+    cols = ["web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf",
+            "web_osm", "osm_id", "web_inferred"]
     df[cols] = df.apply(per_source, axis=1, result_type="expand")
     df["beds"] = df["beds"].astype("Int64")
     df = df[REGISTRY_COLUMNS].sort_values(["beds", "ccn"], ascending=[False, True], na_position="last")
