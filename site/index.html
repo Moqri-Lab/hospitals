@@ -19,13 +19,22 @@ label{display:flex;gap:6px;align-items:center;color:var(--muted)}
 .stats{max-width:1400px;margin:auto;padding:0 16px 8px;color:var(--muted)}
 .wrap{max-width:1400px;margin:auto;padding:0 16px 32px;overflow-x:auto}
 table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 th{position:sticky;top:0;background:var(--card);cursor:pointer;white-space:nowrap;font-weight:600;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 td.num{text-align:right;font-variant-numeric:tabular-nums}
 a{color:var(--accent)}
 .chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);font-size:12px;white-space:nowrap}
 .ok{color:var(--accent)}.low{color:var(--warn)}.no{color:var(--bad)}
 .small{font-size:12px;color:var(--muted)}
+table{table-layout:auto}
+td{font-size:13px}
+td.clip{max-width:240px}
+td.clip a,td.clip span.t{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td.loc{min-width:220px;max-width:300px}
+details.locs summary{cursor:pointer;list-style:none;color:var(--accent)}
+details.locs summary::-webkit-details-marker{display:none}
+details.locs ul{margin:4px 0 0;padding-left:16px}
+td.hosp{min-width:180px;max-width:260px}
 .sources{max-width:1400px;margin:8px auto 0;padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
 .sources summary{cursor:pointer;font-weight:600}
 .sources ul{margin:8px 0 0;padding-left:18px}.sources li{margin:4px 0}
@@ -63,11 +72,14 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const num=k=>k==="beds"||k==="mrf_size_mb"||k==="n_campuses";
 function cell(r,k){const v=r[k]??"";
   if(k==="name")return `${esc(v)}<div class="small">CCN ${esc(r.ccn)} · ${esc(r.facility_type)}</div>`;
-  if(k==="hpt_txt_domain")return v?`<a href="https://${esc(v)}/cms-hpt.txt" target="_blank" rel="noopener">${esc(v)}</a>`:(r.match_status?'<span class="no">not found</span>':"");
-  if(k==="location_name")return r.source_page_url?`<a href="${esc(r.source_page_url)}" target="_blank" rel="noopener">${esc(v)}</a>`:esc(v);
-  if(k==="mrf_url"){if(!v)return"";const f=decodeURIComponent(v.split("?")[0].split("/").pop()).slice(0,48);return `<a href="${esc(v)}" target="_blank" rel="noopener">${esc(f||"link")}</a>`}
+  if(k==="hpt_txt_domain")return v?`<a href="https://${esc(v)}/cms-hpt.txt" target="_blank" rel="noopener">${esc(v)}</a>`:(r.match_status?`<span class="no">${r.match_status==="blocked"?"blocked":r.match_status==="no-domain"?"no website":"not found"}</span>`:"");
+  if(k==="location_name"){const L=String(v).split(";").map(x=>x.trim()).filter(Boolean);if(!L.length)return"";
+    const first=r.source_page_url?`<a href="${esc(r.source_page_url)}" target="_blank" rel="noopener" title="${esc(L[0])}">${esc(L[0])}</a>`:esc(L[0]);
+    if(L.length===1)return first;
+    return `${first}<details class="locs"><summary>+${L.length-1} more location${L.length>2?"s":""}</summary><ul>${L.slice(1).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`}
+  if(k==="mrf_url"){if(!v)return"";let f=v.split("?")[0].split("/").pop();try{f=decodeURIComponent(f)}catch(e){}return `<a href="${esc(v)}" target="_blank" rel="noopener" title="${esc(v)}">${esc(f||"link")}</a>`}
   if(k==="mrf_format")return v?`<span class="chip">${esc(v)}</span>`:"";
-  if(k==="contact_name")return esc(v)+(r.contact_email?`<div class="small">${esc(r.contact_email)}</div>`:"");
+  if(k==="contact_name")return `<span class="t" title="${esc(v)}">${esc(v)}</span>`+(r.contact_email?`<span class="t small" title="${esc(r.contact_email)}">${esc(r.contact_email)}</span>`:"");
   if(k==="match_status"){const c=v==="matched"?"ok":v==="low-confidence"?"low":"no";return v?`<span class="${c}">${esc(v)}</span>`:""}
   return esc(v)}
 function render(){
@@ -76,7 +88,7 @@ function render(){
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
   const hosp=new Set(f.map(r=>r.ccn)).size,files=f.filter(r=>r.mrf_url).length;
   document.getElementById("stats").textContent=`${hosp.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown`;
-  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>"<tr>"+COLS.map(([k])=>`<td class="${num(k)?"num":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
+  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>"<tr>"+COLS.map(([k])=>`<td class="${num(k)?"num":k==="mrf_url"||k==="contact_name"||k==="hpt_txt_domain"?"clip":k==="location_name"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
 }
 document.getElementById("head").innerHTML=COLS.map(([k,l])=>`<th data-k="${k}">${l}</th>`).join("");
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;render()};

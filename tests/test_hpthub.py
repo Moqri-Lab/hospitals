@@ -69,3 +69,18 @@ def test_match_respects_other_hospitals_on_domain():
     ])
     m = match(reg.head(1), doms, ent, universe=reg)
     assert list(m["mrf_url"]) == ["main"]
+
+
+def test_name_cleaning_and_abbreviations():
+    assert name_score("Uh Cleveland Medical Center", "University Hospitals Cleveland Medical Center") >= 0.8
+    assert name_score("Ochsner Medical Center Acute",
+                      "Ochsner Medical Center - (This file encompasses multiple facilities, including OMC – Jeff Hwy)") >= 0.7
+
+
+def test_sole_hospital_on_domain_gets_unclaimed_entries():
+    reg = pd.DataFrame([{"ccn": "330005", "name": "Kaleida Health", "state": "NY", "beds": "1", "domains": "kaleidahealth.org"}])
+    doms = pd.DataFrame([{"domain": "kaleidahealth.org", "found": True}])
+    ent = pd.DataFrame([{"domain": "kaleidahealth.org", "location_name": "Buffalo General Medical Center",
+                         "mrf_url": "u", "source_page_url": ""}])
+    m = match(reg, doms, ent)
+    assert m.loc[0, "match_status"] == "matched-sole"

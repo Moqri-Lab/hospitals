@@ -29,7 +29,37 @@ def _tokens(s: str) -> set[str]:
     return {t for t in s.split() if t}
 
 
+_ABBREV = [
+    (r"\buh\b", "university hospitals"), (r"\bo u\b", "ou"), (r"\bunc\b", "unc"),
+    (r"\buofl\b", "uofl"), (r"\bu of\b", "university of"), (r"\buniv\.?\b", "university"),
+    (r"\bmed ctr\b", "medical center"), (r"\bctr\b", "center"), (r"\bhosp\b", "hospital"),
+    (r"\bst\.?\s", "saint "), (r"\bmt\.?\s", "mount "), (r"\bchildren'?s\b", "childrens"),
+    (r",?\s*(the|inc\.?|llc)$", ""), (r"^the\s", ""),
+]
+
+
+def clean_location(name: str) -> str:
+    """Drop parenthetical notes and 'a facility of ...' suffixes used in cms-hpt.txt names."""
+    n = re.sub(r"\(.*?\)", " ", name or "")
+    n = re.sub(r",?\s+a (facility|department|campus) of .*$", "", n, flags=re.I)
+    return re.sub(r"\s+-\s*$", "", n).strip()
+
+
+def _norm_name(n: str) -> str:
+    n = (n or "").lower().strip()
+    for rx, rep in _ABBREV:
+        n = re.sub(rx, rep, n)
+    return n
+
+
 def name_score(a: str, b: str) -> float:
+    """Best of the raw score and the score after cleaning/abbreviation expansion."""
+    raw = _name_score(a, b)
+    norm = _name_score(_norm_name(a), _norm_name(clean_location(b)))
+    return max(raw, norm)
+
+
+def _name_score(a: str, b: str) -> float:
     """0..1 similarity tuned for hospital names (distinctive tokens weigh most).
 
     Tokens are matched against the other name with spaces removed too, so
@@ -93,6 +123,18 @@ def crawl(domains: list[str], workers: int = 16) -> tuple[pd.DataFrame, pd.DataF
     return pd.DataFrame(dom_rows), pd.DataFrame(entry_rows)
 
 
+def load_location_overrides() -> dict[str, list[str]]:
+    """Hand-reviewed CCN -> exact cms-hpt.txt location names ('' = hospital not listed)."""
+    import csv as _csv
+    p = registry.REG_DIR / "location_overrides.csv"
+    out: dict[str, list[str]] = {}
+    if p.exists():
+        with p.open(newline="", encoding="utf-8") as f:
+            for r in _csv.DictReader(f):
+                out.setdefault(r["ccn"].zfill(6), []).append(r["location_name"].strip())
+    return out
+
+
 ENTRY_FIELDS = ["location_name", "source_page_url", "mrf_url", "contact_name", "contact_email",
                 "issues"]
 
@@ -128,10 +170,30 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
             best_owner[key] = max((name_score(n, loc) for c, n in rivals.get(d, []) if c != ccn), default=0.0)
         return best_owner[key]
 
+    overrides = load_location_overrides()
     out = []
     for _, h in reg.iterrows():
         doms = [d for d in str(h["domains"]).split() if d]
         base = {"ccn": h["ccn"], "hpt_txt_found": any(d in found for d in doms)}
+        if h["ccn"] in overrides:
+            wanted = {n.lower() for n in overrides[h["ccn"]] if n}
+            hits = [(d, e) for d in doms for _, e in by_domain.get(d, pd.DataFrame()).iterrows()
+                    if str(e["location_name"]).strip().lower() in wanted]
+            if not wanted or hits:
+                if not hits:
+                    out.append({**base, "hpt_txt_domain": doms[0] if doms else "", "match_score": None,
+                                "match_status": "not-listed", **{f: "" for f in ENTRY_FIELDS}})
+                    continue
+                by_url: dict[str, list] = {}
+                for d, e in hits:
+                    by_url.setdefault(e["mrf_url"], []).append((d, e))
+                for url, group in by_url.items():
+                    d, e = group[0]
+                    row = {**base, "hpt_txt_domain": d, "match_score": 1.0, "match_status": "matched-manual",
+                           **{f: e.get(f, "") for f in ENTRY_FIELDS}}
+                    row["location_name"] = "; ".join(dict.fromkeys(g[1]["location_name"] for g in group))
+                    out.append(row)
+                continue
         scored = []
         for d in doms:
             g = by_domain.get(d)
@@ -148,6 +210,18 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
         scored.sort(key=lambda t: -t[0])
         good = [t for t in scored if t[0] >= threshold
                 and t[0] >= owner_score(t[1], t[2]["location_name"], h["ccn"])]
+        if good:
+            # keep entries close to the best one (or sharing its price file)
+            top = good[0][0]
+            good = [t for t in good if t[0] >= top - 0.12 or t[2]["mrf_url"] == good[0][2]["mrf_url"]]
+        status = "matched"
+        if not good:
+            # If this CCN is the only registry hospital using the domain, every
+            # entry on it that no other hospital claims belongs to it (e.g. a
+            # system filing under one CCN, or a renamed hospital).
+            sole = [t for t in scored if len([c for c, _ in rivals.get(t[1], [])]) <= 1]
+            if sole:
+                good, status = sole, "matched-sole"
         chosen = good or scored[:1]
         by_url: dict[str, list] = {}
         for sc, d, e in chosen:
@@ -155,7 +229,7 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
         for url, group in by_url.items():
             sc, d, e = group[0]
             row = {**base, "hpt_txt_domain": d, "match_score": sc,
-                   "match_status": "matched" if good else "low-confidence",
+                   "match_status": status if good else "low-confidence",
                    **{f: e.get(f, "") for f in ENTRY_FIELDS}}
             # several locations can share one price file; list them all
             row["location_name"] = "; ".join(dict.fromkeys(g[2]["location_name"] for g in group))

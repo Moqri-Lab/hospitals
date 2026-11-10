@@ -248,7 +248,7 @@ pattern,domains,system
 \bst bernards\b,stbernards.info,St. Bernards
 \bjefferson regional\b.*\bAR\b,jrmc.org,Jefferson Regional
 \barkansas children\b,archildrens.org,Arkansas Children's
-\bparkland\b,parklandhealth.org,Parkland
+\bparkland health & hospital\b|\bparkland\b.*\bTX\b,parklandhealth.org,Parkland
 \bharris health\b,harrishealth.org,Harris Health
 \bjps\b,jpshealthnet.org,JPS Health
 \butmb\b|\buniversity of texas medical branch\b,utmbhealth.com,UTMB

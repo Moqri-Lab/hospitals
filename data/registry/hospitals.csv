@@ -2251,7 +2251,7 @@ ccn,name,address,city,state,zip,facility_type,ownership,beds,hpt_exempt,system,d
 490127,Buchanan General Hospital,1535 Slate Creek Road,Grundy,VA,24614,Acute Care Hospitals,Voluntary non-profit - Private,134,False,,bgh.org,lead:sutton+tpafs,cms-hgi+pos
 050030,Oroville Hospital,2767 Olive Highway,Oroville,CA,95966,Acute Care Hospitals,Voluntary non-profit - Private,133,False,,,,cms-hgi+pos
 220073,Brown University Health Morton Hospital,88 Washington Street,Taunton,MA,02780,Acute Care Hospitals,Proprietary,133,False,,mortonhospital.org steward.org,lead:tpafs,cms-hgi+pos
-260163,Parkland Health Center,1101 W Liberty,Farmington,MO,63640,Acute Care Hospitals,Voluntary non-profit - Private,133,False,Parkland,parklandhealth.org bjc.org,system-rule+lead,cms-hgi+pos
+260163,Parkland Health Center,1101 W Liberty,Farmington,MO,63640,Acute Care Hospitals,Voluntary non-profit - Private,133,False,,bjc.org,lead:sutton+tpafs,cms-hgi+pos
 280125,Faith Health,2700 West Norfolk Ave,Norfolk,NE,68701,Acute Care Hospitals,Voluntary non-profit - Church,133,False,,,,cms-hgi+pos
 370018,Ascension St John Jane Phillips,3500 East Frank Phillips Boulevard,Bartlesville,OK,74006,Acute Care Hospitals,Voluntary non-profit - Private,133,False,Ascension,healthcare.ascension.org ascension.org,system-rule,cms-hgi+pos
 434003,South Dakota Human Services Center,3515 Broadway Ave   Post Office Box 7600,Yankton,SD,57078,Psychiatric,Government - State,133,False,,,,cms-hgi+pos
@@ -2855,7 +2855,7 @@ ccn,name,address,city,state,zip,facility_type,ownership,beds,hpt_exempt,system,d
 230037,Hillsdale Hospital,168 S Howell Street,Hillsdale,MI,49242,Acute Care Hospitals,Voluntary non-profit - Private,86,False,,hillsdalehospital.com,lead:sutton,cms-hgi+pos
 240020,Cambridge Medical Center,701 South Dellwood Avenue,Cambridge,MN,55008,Acute Care Hospitals,Voluntary non-profit - Private,86,False,,allinahealth.org,lead:tpafs,cms-hgi+pos
 240213,M Health Fairview Woodwinds Hospital,1925 Woodwinds Drive,Woodbury,MN,55125,Acute Care Hospitals,Voluntary non-profit - Private,86,False,M Health Fairview,mhealthfairview.org fvfiles.com,system-rule+lead,cms-hgi+pos
-300017,Parkland Medical Center,1 Parkland Drive,Derry,NH,03038,Acute Care Hospitals,Proprietary,86,False,Parkland,parklandhealth.org parklandmedicalcenter.com ehc.com,system-rule+lead,cms-hgi+pos
+300017,Parkland Medical Center,1 Parkland Drive,Derry,NH,03038,Acute Care Hospitals,Proprietary,86,False,,parklandmedicalcenter.com ehc.com,lead:sutton+tpafs,cms-hgi+pos
 340016,Harris Regional Hospital,68 Hospital Rd,Sylva,NC,28779,Acute Care Hospitals,Proprietary,86,False,,myharrisregional.com,lead:sutton+tpafs,cms-hgi+pos
 364047,Ridgeview Hospital,17872 Lincoln Highway,Middle Point,OH,45863,Psychiatric,Proprietary,86,False,,ridgeviewhospital.net,lead:sutton,cms-hgi+pos
 390272,Valley Forge Medical Center,1033 West Germantown Pike,Norristown,PA,19403,Acute Care Hospitals,Proprietary,86,False,,vfmc.net website-files.com,lead:sutton+tpafs,cms-hgi+pos
@@ -5319,7 +5319,7 @@ ccn,name,address,city,state,zip,facility_type,ownership,beds,hpt_exempt,system,d
 250784,Sharkey Issaquena Community Hospital,47 South Fourth St,Rolling Fork,MS,39159,Rural Emergency Hospital,Government - Local,1,False,,,,cms-hgi+pos
 250785,Progressive Health Group Of Houston,1002 East Madison Street,Houston,MS,38851,Rural Emergency Hospital,Proprietary,1,False,,,,cms-hgi+pos
 250786,Smith County  Emergency Hospital,347 Magnolia Drive,Raleigh,MS,39153,Rural Emergency Hospital,Government - Local,1,False,,,,cms-hgi+pos
-260779,Parkland Health Center - Bonne Terre,7245 Raider Road,Bonne Terre,MO,63628,Rural Emergency Hospital,Voluntary non-profit - Private,1,False,Parkland,parklandhealth.org,system-rule,cms-hgi+pos
+260779,Parkland Health Center - Bonne Terre,7245 Raider Road,Bonne Terre,MO,63628,Rural Emergency Hospital,Voluntary non-profit - Private,1,False,,,,cms-hgi+pos
 330800,Ira Davenport Memorial Hospital,7571 State Route 54,Bath,NY,14810,Rural Emergency Hospital,Voluntary non-profit - Private,1,False,,,,cms-hgi+pos
 330801,"Westfield Memorial Hospital, Inc",189 East Main Street,Westfield,NY,14787,Rural Emergency Hospital,Voluntary non-profit - Private,1,False,,,,cms-hgi+pos
 370784,Clinton Regional Hospital,100 N 30Th Street,Clinton,OK,73601,Rural Emergency Hospital,Voluntary non-profit - Private,1,False,,,,cms-hgi+pos
