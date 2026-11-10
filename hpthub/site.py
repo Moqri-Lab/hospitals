@@ -162,15 +162,14 @@ def txt_check(g: pd.DataFrame) -> tuple[str, str]:
         return "unknown", (f"price file link answered HTTP {codes[0]} to a HEAD request; it is an API link that may "
                            "only answer downloads, which this catalog never makes")
     if matched and src in ("live", "") and not iss and conf >= 60:
-        return "pass", "a live cms-hpt.txt at the website root lists this hospital"
+        return "pass", f"listed in {dom}/cms-hpt.txt"
     bad_access = iss.startswith(("refused", "rate-limited", "returned a web page"))
     no_txt = "no-hpt-txt" in st or iss.startswith("no cms-hpt.txt")
     if (bad_access or no_txt) and not sure:
-        return "unknown", f"{dom}: {iss or 'no cms-hpt.txt'}, but we are not sure this is the hospital's website"
+        return "unknown", f"{dom}: {iss or 'no cms-hpt.txt'}; not sure this is the hospital's website"
     if bad_access:  # reported separately: the file may well open in a browser
-        extra = f" (it does list the hospital in an archived copy: {src})" if matched and src.startswith(("Internet", "Common")) \
-            else " (it lists the hospital in a copy saved from a browser)" if matched and src == "saved copy" else ""
-        return "blocked", f"{dom} {iss}{extra}"
+        code = re.search(r"HTTP \d+", iss)
+        return "blocked", f"{dom} blocks automated requests" + (f" ({code.group(0)})" if code else "")
     if no_txt:
         return "fail", f"no cms-hpt.txt at the root of {dom}"
     if "not-listed" in st:
