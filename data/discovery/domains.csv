@@ -1,12 +1,12 @@
 domain,url,final_url,http_status,content_type,bytes,error,n_entries,parse_issues,found,checked_at
-adventhealth.com,https://www.adventhealth.com/cms-hpt.txt,https://www.adventhealth.com/cms-hpt.txt,403.0,text/html,393,,0,,False,2026-11-10T02:05:15+00:00
-baptisthealthsystem.com,https://www.baptisthealthsystem.com/cms-hpt.txt,https://www.baptisthealthsystem.com/cms-hpt.txt,403.0,text/html; charset=UTF-8,5717,,0,,False,2026-11-10T02:05:15+00:00
-bjc.org,https://bjc.org/cms-hpt.txt,https://www.bjc.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,5050,,16,,True,2026-11-10T02:05:15+00:00
-iuhealth.org,https://www.iuhealth.org/cms-hpt.txt,https://www.iuhealth.org/cms-hpt.txt,,,0,"ConnectionError: HTTPSConnectionPool(host='www.iuhealth.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ReadTimeoutError(""HTTPSConnectionPool(host='www.iuhealth.org', port=443): Read timed out.",0,,False,2026-11-10T02:06:35+00:00
-jacksonhealth.org,snapshot:jacksonhealth.org.txt,https://www.jacksonhealth.org/cms-hpt.txt,200.0,text/html; charset=UTF-8,1271,(live fetch failed; used snapshot),4,,True,2026-11-10T02:05:15+00:00
-mayoclinic.org,https://www.mayoclinic.org/cms-hpt.txt,https://www.mayoclinic.org/cms-hpt.txt,403.0,text/html,391,,0,,False,2026-11-10T02:05:15+00:00
-mhealthfairview.org,https://mhealthfairview.org/cms-hpt.txt,https://requiredlearning.fairview.org/price_transparency/mhf/cms-hpt.txt,200.0,text/plain,3827,,10,,True,2026-11-10T02:05:15+00:00
-nortonhealthcare.com,https://nortonhealthcare.com/cms-hpt.txt,https://nortonhealthcare.com/cms-hpt.txt,200.0,text/plain,3262,,9,,True,2026-11-10T02:05:15+00:00
-nyp.org,https://nyp.org/cms-hpt.txt,https://www.nyp.org/cms-hpt.txt,200.0,text/plain,3298,,9,,True,2026-11-10T02:05:15+00:00
-orlandohealth.com,https://www.orlandohealth.com/cms-hpt.txt,https://www.orlandohealth.com/cms-hpt.txt,,,0,"RetryError: HTTPSConnectionPool(host='www.orlandohealth.com', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ResponseError('too many 429 error responses'))",0,,False,2026-11-10T02:05:15+00:00
-tenethealth.com,https://www.tenethealth.com/cms-hpt.txt,https://www.tenethealth.com/cms-hpt.txt,404.0,text/html,10310,,0,,False,2026-11-10T02:05:15+00:00
+adventhealth.com,https://www.adventhealth.com/cms-hpt.txt,https://www.adventhealth.com/cms-hpt.txt,403.0,text/html,393,,0,,False,2026-11-10T02:07:45+00:00
+baptisthealthsystem.com,https://www.baptisthealthsystem.com/cms-hpt.txt,https://www.baptisthealthsystem.com/cms-hpt.txt,403.0,text/html; charset=UTF-8,5717,,0,,False,2026-11-10T02:07:45+00:00
+bjc.org,https://bjc.org/cms-hpt.txt,https://www.bjc.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,5050,,16,,True,2026-11-10T02:07:45+00:00
+iuhealth.org,https://www.iuhealth.org/cms-hpt.txt,https://www.iuhealth.org/cms-hpt.txt,,,0,"ConnectionError: HTTPSConnectionPool(host='www.iuhealth.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ReadTimeoutError(""HTTPSConnectionPool(host='www.iuhealth.org', port=443): Read timed out.",0,,False,2026-11-10T02:09:05+00:00
+jacksonhealth.org,snapshot:jacksonhealth.org.txt,https://www.jacksonhealth.org/cms-hpt.txt,200.0,text/html; charset=UTF-8,1271,(live fetch failed; used snapshot),4,,True,2026-11-10T02:07:45+00:00
+mayoclinic.org,https://www.mayoclinic.org/cms-hpt.txt,https://www.mayoclinic.org/cms-hpt.txt,403.0,text/html,391,,0,,False,2026-11-10T02:07:45+00:00
+mhealthfairview.org,https://mhealthfairview.org/cms-hpt.txt,https://requiredlearning.fairview.org/price_transparency/mhf/cms-hpt.txt,200.0,text/plain,3827,,10,,True,2026-11-10T02:07:45+00:00
+nortonhealthcare.com,https://nortonhealthcare.com/cms-hpt.txt,https://nortonhealthcare.com/cms-hpt.txt,200.0,text/plain,3262,,9,,True,2026-11-10T02:07:45+00:00
+nyp.org,https://nyp.org/cms-hpt.txt,https://www.nyp.org/cms-hpt.txt,200.0,text/plain,3298,,9,,True,2026-11-10T02:07:45+00:00
+orlandohealth.com,https://www.orlandohealth.com/cms-hpt.txt,https://www.orlandohealth.com/cms-hpt.txt,,,0,"RetryError: HTTPSConnectionPool(host='www.orlandohealth.com', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ResponseError('too many 429 error responses'))",0,,False,2026-11-10T02:07:45+00:00
+tenethealth.com,https://www.tenethealth.com/cms-hpt.txt,https://www.tenethealth.com/cms-hpt.txt,404.0,text/html,10310,,0,,False,2026-11-10T02:07:45+00:00
