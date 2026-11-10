@@ -2,7 +2,7 @@ name: pages
 on:
   push:
     branches: [main]
-    paths: ["site/**"]
+    paths: ["site/**", "data/**"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Add data files to the site
+        run: cp -r data site/data && cp CATALOG.md site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

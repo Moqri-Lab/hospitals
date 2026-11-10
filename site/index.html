@@ -70,7 +70,8 @@ document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)ret
 fetch("data.json").then(r=>r.json()).then(d=>{
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
-  document.getElementById("foot").textContent=`Updated ${d.generated_at}. Hospital list: CMS Hospital General Information + Provider of Services. Download the full table as data/catalog.csv in the repository.`;
+  document.getElementById("foot").textContent=`Updated ${d.generated_at}. Hospital list: CMS Hospital General Information + Provider of Services. `;
+  document.getElementById("foot").insertAdjacentHTML("beforeend",' Downloads: <a href="data/catalog.csv">catalog.csv</a> · <a href="data/registry/hospitals.csv">hospitals.csv</a> · <a href="data/discovery/hpt_txt_entries.csv">all cms-hpt.txt entries</a> · <a href="data/discovery/domains.csv">domains checked</a>.');
   render()}).catch(()=>{document.getElementById("stats").textContent="Could not load data.json"});
 </script>
 </body>

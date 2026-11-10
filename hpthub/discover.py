@@ -148,14 +148,18 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
         scored.sort(key=lambda t: -t[0])
         good = [t for t in scored if t[0] >= threshold
                 and t[0] >= owner_score(t[1], t[2]["location_name"], h["ccn"])]
-        seen = set()
-        for sc, d, e in (good or scored[:1]):
-            if e["mrf_url"] in seen:
-                continue
-            seen.add(e["mrf_url"])
-            out.append({**base, "hpt_txt_domain": d, "match_score": sc,
-                        "match_status": "matched" if good else "low-confidence",
-                        **{f: e.get(f, "") for f in ENTRY_FIELDS}})
+        chosen = good or scored[:1]
+        by_url: dict[str, list] = {}
+        for sc, d, e in chosen:
+            by_url.setdefault(e["mrf_url"], []).append((sc, d, e))
+        for url, group in by_url.items():
+            sc, d, e = group[0]
+            row = {**base, "hpt_txt_domain": d, "match_score": sc,
+                   "match_status": "matched" if good else "low-confidence",
+                   **{f: e.get(f, "") for f in ENTRY_FIELDS}}
+            # several locations can share one price file; list them all
+            row["location_name"] = "; ".join(dict.fromkeys(g[2]["location_name"] for g in group))
+            out.append(row)
     return pd.DataFrame(out)
 
 

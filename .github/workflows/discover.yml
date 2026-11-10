@@ -25,6 +25,8 @@ jobs:
   discover:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    environment:
+      name: github-pages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -48,6 +50,8 @@ jobs:
       - uses: actions/configure-pages@v5
         id: pages
         continue-on-error: true
+      - name: Add data files to the site
+        run: cp -r data site/data && cp CATALOG.md site/
       - uses: actions/upload-pages-artifact@v3
         if: steps.pages.outcome == 'success'
         with:
