@@ -65,18 +65,19 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 <div class="controls">
   <input type="search" id="q" placeholder="Search hospital, city, system, CCN (provider ID)…">
   <select id="state"><option value="">All states</option></select>
+  <select id="ftype"><option value="">All types</option></select>
   <label><input type="checkbox" id="crawled" checked> Crawled only</label>
 </div>
 <div class="stats"><span id="stats">Loading…</span> · <a href="exempt.html" target="_self">Exempt and possibly exempt hospitals →</a></div>
 <div class="wrap"><table><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table></div>
 <footer id="foot"></footer>
 <script>
-const COLS=[["ccn","CCN"],["name","Hospital"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_hpf","Web: HPF.org"],["web_claude","Web: Claude"]];
+const COLS=[["ccn","CCN"],["name","Hospital"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_hpf","Web: HPF.org"],["web_claude","Web: Claude"]];
 let rows=[],hosps=[],sortKey="beds",sortDir=-1;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses";
 function cell(r,k){const v=r[k]??"";
-  if(k==="name")return `${esc(v)}<div class="small">${esc(r.facility_type)}</div>`+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
+  if(k==="name")return `${esc(v)}`+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="ccn")return `<span style="white-space:nowrap">${esc(v)}</span>`;
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
     let h=ds.map(d=>d===r.hpt_txt_domain?`<span class="ok" title="${esc(d)}: the website whose cms-hpt.txt was read">✓</span>`:`<span class="t" title="${esc(d)}">${esc(d)}</span>`).join(" ");
@@ -106,8 +107,8 @@ function cell(r,k){const v=r[k]??"";
     return C.slice(0,2).map(x=>`<span class="t" title="${esc(x.contact_name)}">${esc(x.contact_name)}</span>`+(x.contact_email?`<span class="t small" title="${esc(x.contact_email)}">${esc(x.contact_email)}</span>`:"")).join("")+(C.length>2?`<span class="small">+${C.length-2} more</span>`:"")}
   return esc(v)}
 function render(){
-  const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,cr=document.getElementById("crawled").checked;
-  let f=hosps.filter(r=>r.hpt_exempt!=="True"&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!cr||r.match_status)&&(!q||[r.name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q)));
+  const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,cr=document.getElementById("crawled").checked,ty=document.getElementById("ftype").value;
+  let f=hosps.filter(r=>r.hpt_exempt!=="True"&&(!ty||r.facility_type===ty)&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!cr||r.match_status)&&(!q||[r.name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q)));
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
   const files=f.reduce((n,r)=>n+r.files.length,0);
   document.getElementById("stats").textContent=`${f.length.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown (exempt and possibly exempt hospitals are on a separate page)`;
@@ -116,12 +117,13 @@ function render(){
 const TIPS={"ccn": "CMS Certification Number, the Medicare provider ID", "beds": "Total beds for the CCN (CMS Provider of Services); one CCN can cover several campuses", "n_campuses": "Distinct locations listed under this CCN in the hospital's cms-hpt.txt", "hpt_txt_domain": "Website whose cms-hpt.txt was read, and whether it could be read", "location_name": "The location-name the hospital itself gives in its cms-hpt.txt for this price file (click for the hospital's price transparency page)", "n_files": "Each price file the hospital lists in its cms-hpt.txt, under the location name the hospital gives it (links only, never downloaded)", "match_status": "How the CMS hospital was matched to the cms-hpt.txt entry", "web_claude": "Website found by Claude (AI) on review; still verified by its cms-hpt.txt", "web_system_rule": "Website from a health-system name rule", "web_wikidata": "Official website (P856) from Wikidata", "web_tpafs": "Website from TPAFS/DoltHub transparency-data", "web_hpf": "Website from hospitalpricingfiles.org"};
 document.getElementById("head").innerHTML=COLS.map(([k,l])=>`<th data-k="${k}" title="${esc(TIPS[k]||"")}">${l}</th>`).join("");
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;render()};
-["q","state","crawled"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+["q","state","crawled","ftype"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 fetch("data.json").then(r=>r.json()).then(d=>{
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();
   for(const r of rows){if(!by.has(r.ccn))by.set(r.ccn,{...r,files:[]});if(r.mrf_url)by.get(r.ccn).files.push(r)}
   hosps=[...by.values()];hosps.forEach(h=>h.n_files=h.files.length);
+  [...new Set(hosps.filter(h=>h.hpt_exempt!=="True").map(h=>h.facility_type))].sort().forEach(t=>{const o=document.createElement("option");o.value=o.textContent=t;document.getElementById("ftype").appendChild(o)});
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
   document.getElementById("foot").textContent=`Updated ${d.generated_at}. Hospital list: CMS Hospital General Information + Provider of Services. `;
   document.getElementById("foot").insertAdjacentHTML("beforeend",' Downloads: <a href="data/catalog.csv">catalog.csv</a> · <a href="data/registry/hospitals.csv">hospitals.csv</a> · <a href="data/discovery/hpt_txt_entries.csv">all cms-hpt.txt entries</a> · <a href="data/discovery/domains.csv">domains checked</a>.');
