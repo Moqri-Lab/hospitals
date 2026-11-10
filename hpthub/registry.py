@@ -48,7 +48,9 @@ VENDOR_HOST_PATTERNS = [
     r"hospitalpricedisclosure\.com$", r"panaceainc\.com$", r"pricetransparency", r"cdmpricing",
     r"hospitalprices", r"apps\.para-hcfs\.com$", r"claraprice", r"turquoise", r"healthsparq",
     r"mrf\.", r"standardcharges", r"chargemaster", r"craneware", r"pricelist", r"sgprt",
-    r"carefinance\.", r"cms-hpt", r"patientrightsadvocate",
+    r"carefinance\.", r"cms-hpt", r"patientrightsadvocate", r"acquiadam\.com$", r"widen\.net$",
+    r"hubspotusercontent", r"akamaized\.net$", r"azurewebsites\.net$", r"digitaloceanspaces\.com$",
+    r"elevatepfs\.com$", r"hospitalpricingfiles", r"cloudflare", r"salesforce", r"force\.com$",
 ]
 _VENDOR_RE = re.compile("|".join(VENDOR_HOST_PATTERNS), re.I)
 
@@ -180,8 +182,9 @@ def load_lead_rows() -> dict[str, list[tuple[str, list[str]]]]:
     if p.exists():
         with p.open(newline="") as f:
             for r in csv.DictReader(f):
-                if r.get("domains"):
-                    out.setdefault(r["ccn"].zfill(6), []).append((r["source"], r["domains"].split()))
+                ds = [d for d in (r.get("domains") or "").split() if not is_vendor_host(d)]
+                if ds:
+                    out.setdefault(r["ccn"].zfill(6), []).append((r["source"], ds))
     return out
 
 
@@ -257,11 +260,12 @@ def load_leads() -> dict[str, tuple[str, str]]:
     out: dict[str, tuple[str, str]] = {}
     with p.open(newline="") as f:
         for r in csv.DictReader(f):
-            if not r.get("domains"):
+            ds = [d for d in (r.get("domains") or "").split() if not is_vendor_host(d)]
+            if not ds:
                 continue
             ccn = r["ccn"].zfill(6)
             doms, srcs = out.get(ccn, ("", ""))
-            merged = doms.split() + [d for d in r["domains"].split() if d not in doms.split()]
+            merged = doms.split() + [d for d in ds if d not in doms.split()]
             out[ccn] = (" ".join(merged), "+".join(x for x in (srcs, r["source"]) if x))
     return out
 
