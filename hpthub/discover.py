@@ -202,7 +202,8 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
             for _, e in g.iterrows():
                 scored.append((name_score(h["name"], e["location_name"]), d, e))
         if not scored:
-            out.append({**base, "hpt_txt_domain": "", "match_score": None,
+            tried = [d for d in doms if d in blocked] or doms
+            out.append({**base, "hpt_txt_domain": tried[0] if tried else "", "match_score": None,
                         "match_status": ("no-domain" if not doms else
                                          "blocked" if any(d in blocked for d in doms) else "no-hpt-txt"),
                         **{f: "" for f in ENTRY_FIELDS}})
