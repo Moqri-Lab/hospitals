@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
       - name: Add data files to the site
-        run: cp -r data site/data && cp CATALOG.md site/
+        run: cp -r data site/data && cp CATALOG.md site/ && python3 scripts/dir_index.py site/data
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

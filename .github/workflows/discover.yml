@@ -61,7 +61,7 @@ jobs:
         id: pages
         continue-on-error: true
       - name: Add data files to the site
-        run: cp -r data site/data && cp CATALOG.md site/
+        run: cp -r data site/data && cp CATALOG.md site/ && python3 scripts/dir_index.py site/data
       - uses: actions/upload-pages-artifact@v3
         if: steps.pages.outcome == 'success'
         with:
