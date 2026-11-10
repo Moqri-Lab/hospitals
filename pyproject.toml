@@ -1,0 +1,19 @@
+[project]
+name = "hpthub"
+version = "0.1.0"
+description = "Open registry, cms-hpt.txt crawler and validator for US hospital price transparency files"
+requires-python = ">=3.10"
+dependencies = ["requests>=2.31", "pandas>=2.0", "pyarrow>=14", "jsonschema>=4.20"]
+
+[project.optional-dependencies]
+dev = ["pytest", "duckdb"]
+
+[project.scripts]
+hpthub = "hpthub.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["hpthub"]

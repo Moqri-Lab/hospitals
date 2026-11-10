@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+data/cms/pos_raw.csv
+data/normalized/
+data/registry/.targets.csv
+.pytest_cache/

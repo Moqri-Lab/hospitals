@@ -1,0 +1,518 @@
+pattern,domains,system
+\badventhealth\b,adventhealth.com,AdventHealth
+\bascension\b,healthcare.ascension.org ascension.org,Ascension
+\bhca\b|\bmedical city\b|\btristar\b|\bhealthone\b|\bsunrise hospital\b|\bmountainview hospital\b|\bsouthern hills\b|\bsky ridge\b|\bovert?land park reg|\bresearch medical center\b|\bcenterpoint medical\b|\bst david'?s\b|\bnorth austin medical\b|\bcorpus christi medical center\b|\brio grande regional\b|\blas palmas\b|\bwesley medical center\b|\bchandler regional\b,hcahealthcare.com,HCA Healthcare
+\bhca florida\b,hcafloridahealthcare.com hcahealthcare.com,HCA Florida
+\bhca houston\b,hcahoustonhealthcare.com hcahealthcare.com,HCA Houston
+\bkaiser\b,healthy.kaiserpermanente.org kaiserpermanente.org,Kaiser Permanente
+\bprovidence\b(?!.*\b(RI|TX)\b),providence.org,Providence
+\bupmc\b|\bmagee womens\b,upmc.com,UPMC
+\bmemorial hermann\b,memorialhermann.org,Memorial Hermann
+\bhouston methodist\b,houstonmethodist.org,Houston Methodist
+\bbanner\b,bannerhealth.com,Banner Health
+\bmercyone\b,mercyone.org,MercyOne
+^mercy hospital\b.*\b(MO|AR|OK)\b|\bmercy hospital (st louis|south|springfield|joplin|fort smith|oklahoma city)\b,mercy.net,Mercy
+\bssm\b,ssmhealth.com,SSM Health
+\bchristus\b,christushealth.org,CHRISTUS Health
+\bchi health\b|\bchi st\b|\bchi-st\b|\bst\.? joseph'?s hospital and medical center\b|\bst\.? mary'?s medical center\b.*\bAZ\b|\bdignity\b|\bmercy (general|san juan) \b|\bmercy general hospital\b|\bmercy san juan\b|\bcalifornia hospital medical center\b|\bst\.? rose dominican\b|\bsaint rose dominican\b|\bst\.? joseph'?s medical center of stockton\b|\bnorthridge hospital\b|\bst\.? mary medical center\b.*\bCA\b|\bbakersfield memorial\b|\bglendale mem\b|\bcommunity hospital of san bernardino\b|\bsaint francis memorial\b,dignityhealth.org commonspirit.org,CommonSpirit
+\bnorthwell\b|\bns/lij\b|\blong island jewish\b|\bnorth shore university hospital\b|\blenox hill\b|\bstaten island university\b,northwell.edu,Northwell Health
+\bnyp\b|\bnew york-presbyterian\b,nyp.org,NewYork-Presbyterian
+\bmount sinai\b(?!.*\b(FL|IL)\b),mountsinai.org,Mount Sinai
+\bnyu langone\b|\blong island community hospital\b,nyulangone.org,NYU Langone
+\bbellevue hospital\b|\bkings county hospital\b|\bqueens hospital center\b|\belmhurst hospital\b|\bjacobi medical\b|\blincoln medical\b|\bwoodhull\b|\bmetropolitan hospital center\b|\bsouth brooklyn health\b,nychealthandhospitals.org,NYC Health + Hospitals
+\bcleveland clinic\b|\bhillcrest hospital\b.*\bOH\b|\bfairview hospital\b|\bakron general\b|\bmarymount hospital\b|\bsouthwest general\b,clevelandclinic.org my.clevelandclinic.org,Cleveland Clinic
+\bmayo clinic\b,mayoclinic.org,Mayo Clinic
+\bbaylor\b|\bbaylor scott\b,bswhealth.com,Baylor Scott & White
+\btexas health\b,texashealth.org,Texas Health Resources
+\bmethodist (richardson|dallas)\b,methodisthealthsystem.org,Methodist Health System
+\bmedstar\b,medstarhealth.org,MedStar Health
+\binova\b,inova.org,Inova
+\bsentara\b,sentara.com,Sentara
+\bnovant\b,novanthealth.org,Novant Health
+\batrium\b|\bcarolinas medical center\b|\bnorth carolina baptist\b|\bwake forest\b,atriumhealth.org,Atrium Health
+\bprisma\b,prismahealth.org,Prisma Health
+\bmusc\b,muschealth.org,MUSC Health
+\bunc\b|\brex hospital\b,unchealthcare.org uncmedicalcenter.org,UNC Health
+\bduke\b,dukehealth.org,Duke Health
+\becu health\b,ecuhealth.org,ECU Health
+\bwakemed\b,wakemed.org,WakeMed
+\bpiedmont\b,piedmont.org,Piedmont
+\bwellstar\b,wellstar.org,Wellstar
+\bemory\b,emoryhealthcare.org,Emory Healthcare
+\bnorthside hospital\b,northside.com,Northside
+\bhenry ford\b,henryford.com,Henry Ford Health
+\bbeaumont\b|\bcorewell\b|\bspectrum health\b,corewellhealth.org beaumont.org spectrumhealth.org,Corewell Health
+\btrinity health\b(?!.*\bND\b)|\bmercy health\b.*\b(MI)\b|\bsaint mary'?s hospital\b.*\bCT\b|\bst\.? francis hospital & medical center\b|\bsaint joseph regional medical center\b|\bmercy medical ctr\b.*\bMA\b,trinity-health.org,Trinity Health
+\bmclaren\b,mclaren.org,McLaren
+\bsparrow\b,uofmhealthsparrow.org sparrow.org,University of Michigan Health-Sparrow
+\buniversity of michigan\b,uofmhealth.org,Michigan Medicine
+\bbronson\b,bronsonhealth.com,Bronson
+\bmunson\b,munsonhealthcare.org,Munson
+\bdetroit receiving\b|\bharper university\b|\bsinai-grace\b|\bdmc\b,dmc.org,DMC
+\badvocate\b(?!.*\bGA\b),advocatehealth.com,Advocate Health
+\baurora\b,aurorahealthcare.org,Aurora
+\ballina\b|\babbott northwestern\b|\bmercy hospital\b.*\bMN\b,allinahealth.org,Allina
+\bhealthpartners\b|\bregions hospital\b|\bpark nicollet\b,healthpartners.com,HealthPartners
+\bnorthwestern\b,nm.org,Northwestern Medicine
+\bamita\b|\bpresence\b|\balexian brothers\b|\bsaint joseph medical center\b.*\bIL\b|\bst\.? alexius\b|\bholy family\b,ascension.org healthcare.ascension.org,Ascension Illinois
+\bfranciscan health\b,franciscanhealth.org,Franciscan Health
+\bindiana university health\b,iuhealth.org,IU Health
+\bohiohealth\b|\briverside methodist\b|\bgrant medical center\b,ohiohealth.com,OhioHealth
+\bmount carmel\b,mountcarmelhealth.com,Mount Carmel
+\bkettering\b,ketteringhealth.org,Kettering Health
+\bpremier\b|\bmiami valley\b|\batrium medical center\b,premierhealth.com,Premier Health
+\buh\b|\buniversity hospitals\b,uhhospitals.org,University Hospitals
+\bmercy health\b|\bmercy st vincent\b|\bst ritas\b|\bmh st elizabeth\b|\bhmhp\b|\bmercy health - lourdes\b|\bbethesda north\b|\bgood samaritan hospital\b.*\bOH\b,mercy.com bonsecours.com,Bon Secours Mercy Health
+\bbon secours\b,bonsecours.com,Bon Secours
+\bpromedica\b,promedica.org,ProMedica
+\bsumma\b,summahealth.org,Summa
+\bjefferson\b(?!.*\b(LA|AR)\b)|\bjefferson health\b,jeffersonhealth.org,Jefferson Health
+\bpenn presbyterian\b|\bhospital of univ of pennsylvania\b|\bpennsylvania hospital\b|\blancaster general\b|\bchester county hospital\b,pennmedicine.org,Penn Medicine
+\bgeisinger\b,geisinger.org,Geisinger
+\bwellspan\b,wellspan.org,WellSpan
+\blehigh valley\b,lvhn.org,Lehigh Valley Health Network
+\bst lukes hospital\b.*\bPA\b,sluhn.org,St. Luke's University Health Network
+\ballegheny general\b|\bwest penn hospital\b|\bforbes hospital\b|\bsaint vincent hospital\b.*\bPA\b,ahn.org,Allegheny Health Network
+\bhackensack\b|\bjersey shore university\b|\bjfk university\b|\braritan bay\b|\bocean medical\b|\briverview medical\b|\bpalisades\b|\bsouthern ocean\b,hackensackmeridianhealth.org,Hackensack Meridian
+\brwj\b|\brobert wood johnson\b|\bcooperman barnabas\b|\bnewark beth israel\b|\bmonmouth medical\b|\bclara maass\b|\bcommunity medical center\b.*\bNJ\b|\bjersey city medical\b|\btrinitas\b,rwjbh.org,RWJBarnabas Health
+\batlantic health\b|\bmorristown medical\b|\boverlook medical\b|\bnewton medical\b|\bchilton medical\b|\bhackettstown\b,atlantichealth.org,Atlantic Health
+\bvirtua\b,virtua.org,Virtua
+\binspira\b,inspirahealthnetwork.org,Inspira
+\bvalley hospital\b.*\bNJ\b,valleyhealth.com,Valley Health System
+\byale\b|\bbridgeport hospital\b|\bgreenwich hospital\b|\blawrence\b.*\bCT\b,ynhhs.org,Yale New Haven Health
+\bhartford hospital\b|\bhospital of central connecticut\b|\bst vincent'?s medical center\b.*\bCT\b,hartfordhealthcare.org,Hartford HealthCare
+\bdanbury hospital\b|\bnorwalk hospital\b|\bvassar brothers\b,nuvancehealth.org northwell.edu,Nuvance (Northwell)
+\bmass general\b|\bmassachusetts general\b|\bbrigham\b,massgeneralbrigham.org,Mass General Brigham
+\bbeth israel deaconess\b|\blahey\b,bilh.org bidmc.org,Beth Israel Lahey Health
+\bumass memorial\b,ummhealth.org,UMass Memorial
+\bbaystate\b,baystatehealth.org,Baystate
+\btufts medical\b|\bmelrosewakefield\b,tuftsmedicine.org,Tufts Medicine
+\brhode island hospital\b,brownhealth.org lifespan.org,Brown University Health
+\bkent county memorial\b,carenewengland.org,Care New England
+\bmainehealth\b,mainehealth.org,MaineHealth
+\bnorthern light\b,northernlighthealth.org,Northern Light
+\bvermont\b|\bfletcher allen\b,uvmhealth.org,UVM Health
+\bkaleida\b,kaleidahealth.org,Kaleida Health
+\brochester general\b|\bunity hospital\b.*\bNY\b,rochesterregional.org,Rochester Regional
+\bcatholic health\b|\bsisters of charity\b|\bmercy hospital of buffalo\b|\bgood samaritan hospital medical center\b|\bst francis hospital - the heart center\b|\bst catherine of siena\b|\bst joseph'?s hospital\b.*\bNY\b,chsli.org chsbuffalo.org,Catholic Health
+\bsuny\b|\bupstate\b|\bstony brook\b|\bdownstate\b,stonybrookmedicine.edu upstate.edu downstate.edu,SUNY
+\bjohns hopkins\b|\bsibley\b|\bhoward county\b|\bsuburban hospital\b,hopkinsmedicine.org,Johns Hopkins
+\buniversity of maryland\b|\bumd\b|\buniversity of md\b,umms.org,UMMS
+\bluminis\b,luminishealth.org,Luminis
+\btidalhealth\b,tidalhealth.org,TidalHealth
+\blifebridge\b|\bsinai hospital of baltimore\b,lifebridgehealth.org,LifeBridge
+\bvcu\b|\bmedical college of virginia\b,vcuhealth.org,VCU Health
+\bcarilion\b,carilionclinic.org,Carilion
+\bcjw\b|\bhenrico doctors\b|\blewisgale\b,hcavirginia.com hcahealthcare.com,HCA Virginia
+\briverside regional\b,riversideonline.com,Riverside Health
+\bvalley health\b|\bwinchester medical\b,valleyhealthlink.com,Valley Health
+\bcentra\b,centrahealth.com,Centra
+\bmary washington\b,marywashingtonhealthcare.com,Mary Washington Healthcare
+\bwvu\b|\bwest virginia university\b|\bcamden clark\b|\bunited hospital center\b,wvumedicine.org,WVU Medicine
+\bcharleston area medical\b,camc.org vandaliahealth.org,CAMC
+\bmountain health\b|\bcabell huntington\b|\bst marys medical center\b.*\bWV\b,mountainhealthnetwork.org,Mountain Health
+\bnorton\b,nortonhealthcare.com,Norton Healthcare
+\buofl\b|\buniversity of louisville\b,uoflhealth.org,UofL Health
+\bbaptist health\b.*\b(KY)\b|\bbaptist health (louisville|lexington|paducah|hardin|deaconess)\b,baptisthealth.com,Baptist Health KY
+\bbaptist health\b.*\b(AR)\b|\bbaptist health medical center-little rock\b|\bbaptist health - fort smith\b,baptist-health.com,Baptist Health AR
+\bbaptist health medical center - jacksonville\b,baptistjax.com,Baptist Jacksonville
+\bbaptist hospital of miami\b|\bsouth miami hospital\b|\bboca raton regional\b,baptisthealth.net,Baptist Health South Florida
+\bst elizabeth edgewood\b,stelizabeth.com,St. Elizabeth
+\bmemorial regional hospital\b|\bmemorial hospital (west|pembroke)\b,mhs.net,Memorial Healthcare System
+\bbroward health\b,browardhealth.org,Broward Health
+\bjackson health\b,jacksonhealth.org,Jackson Health
+\borlando health\b,orlandohealth.com,Orlando Health
+\btampa general\b,tgh.org,Tampa General
+\bst josephs hospital\b.*\bFL\b|\bmorton plant\b|\bmease\b|\bst anthonys\b|\bwinter haven hospital\b|\bbaycare\b,baycare.org,BayCare
+\blee memorial\b|\bgulf coast medical center\b|\bcape coral hospital\b,leehealth.org,Lee Health
+\buf health\b|\bshands\b,ufhealth.org,UF Health
+\bsarasota memorial\b,smh.com,Sarasota Memorial
+\blakeland regional\b,mylrh.org,Lakeland Regional Health
+\bhalifax\b,halifaxhealth.org,Halifax
+\bnaples community\b,nchmd.org,NCH
+\btallahassee memorial\b,tmh.org,TMH
+\bholmes regional\b,hf.org,Health First
+\bsacred heart hospital\b.*\bFL\b|\bascension sacred heart\b,ascension.org,Ascension FL
+\bbaptist hospital\b.*\bFL\b,ebaptisthealthcare.org,Baptist Health Care
+\bnicklaus\b,nicklauschildrens.org,Nicklaus
+\bmount sinai medical center of florida\b,msmc.com,Mount Sinai Miami
+\bjupiter medical\b,jupitermed.com,Jupiter Medical
+\bflagler hospital\b,flaglerhealth.org,Flagler
+\bvillages regional\b,uhsinc.com,UHS
+\bvalley hospital medical center\b|\bsummerlin\b|\bspring valley hospital\b|\bcentennial hills\b|\btexoma medical\b|\bwellington regional\b|\bpalmetto general\b|\bhialeah hospital\b|\bdoctors hosptal at renaissance\b|\bnorth shore medical center\b.*\bFL\b|\bdelray medical\b|\bgood samaritan medical center\b.*\bFL\b|\bst mary'?s medical center\b.*\bFL\b|\bbethesda hospital east\b,uhsinc.com tenethealth.com,UHS/Tenet
+\bbaptist medical center\b.*\bTX\b,baptisthealthsystem.com tenethealth.com,Baptist Health System (Tenet)
+\btenet\b|\bdetroit receiving\b|\bdesert regional\b|\bhemet global\b|\bsaint francis hospital\b.*\bTN\b|\bhospitals of providence\b|\bvhs\b|\bbrookwood\b|\bprinceton baptist\b|\bst\.? joseph medical center\b.*\bTX\b|\bmacneal\b|\bnorthwest medical center\b.*\bAZ\b|\bst\.? mary'?s hospital\b.*\bAZ\b,tenethealth.com,Tenet
+\bcommunity health systems\b|\bmerit health\b|\bgrandview medical\b|\bgadsden regional\b|\bnorthwest health\b|\bnorthwest medical center-springdale\b|\blaredo medical\b|\bnorth alabama medical\b|\bshore medical center\b|\bbon secours st marys\b,chs.net,CHS
+\bintermountain\b,intermountainhealthcare.org,Intermountain Health
+\bcentura\b|\bpenrose\b|\bst mary-corwin\b|\bporter\b.*\bCO\b,commonspirit.org adventhealth.com,CommonSpirit Colorado
+\buchealth\b|\buch-memorial\b|\buniversity of colorado hospital\b,uchealth.org,UCHealth
+\bdenver health\b,denverhealth.org,Denver Health
+\bsutter\b|\balta bates\b|\bcalifornia pacific\b,sutterhealth.org,Sutter Health
+\bscripps\b,scripps.org,Scripps
+\bsharp\b,sharp.com,Sharp
+\bucsf\b|\bzuckerberg\b,ucsfhealth.org,UCSF
+\bucla\b(?!.*\b(harbor|olive|lac)\b),uclahealth.org,UCLA
+\buc san diego\b,health.ucsd.edu,UC San Diego
+\buci\b,ucihealth.org,UCI
+\buc davis\b|\buniversity of california davis\b,health.ucdavis.edu,UC Davis
+\blac/|\blos angeles general\b,dhs.lacounty.gov,LA County DHS
+\bmemorialcare\b|\bmemorial care\b,memorialcare.org,MemorialCare
+\bpih health\b,pihhealth.org,PIH Health
+\badventist health\b|\bglendale adventist\b,adventisthealth.org,Adventist Health
+\bloma linda\b,lluh.org,Loma Linda
+\bcedars\b,cedars-sinai.org,Cedars-Sinai
+\bstanford\b|\bpackard\b,stanfordhealthcare.org stanfordchildrens.org,Stanford
+\bjohn muir\b,johnmuirhealth.com,John Muir
+\bcommunity regional medical\b|\bclovis community\b,communitymedical.org,Community Health System (Fresno)
+\bmultic?are\b|\btacoma general\b,multicare.org,MultiCare
+\bswedish medical center\b.*\bWA\b,swedish.org,Swedish
+\bpeacehealth\b|\bsacred heart medical center - riverbend\b,peacehealth.org,PeaceHealth
+\blegacy\b,legacyhealth.org,Legacy Health
+\bohsu\b,ohsu.edu,OHSU
+\buniversity of washington\b|\bharborview\b,uwmedicine.org,UW Medicine
+\bvirginia mason\b|\bst joseph medical center\b.*\bWA\b,vmfh.org,Virginia Mason Franciscan
+\bsanford\b,sanfordhealth.org,Sanford
+\bavera\b,avera.org,Avera
+\bessentia\b,essentiahealth.org,Essentia
+\bfairview\b|\bm health\b,mhealthfairview.org,M Health Fairview
+\bnorth memorial\b,northmemorial.com,North Memorial
+\bhennepin\b,hennepinhealthcare.org,Hennepin Healthcare
+\bcentracare\b,centracare.com,CentraCare
+\bmarshfield\b,marshfieldclinic.org,Marshfield
+\bgundersen\b,gundersenhealth.org emplify.org,Gundersen
+\bfroedtert\b,froedtert.com,Froedtert
+\bunitypoint\b|\btrinity rock island\b|\btrinity hospitals\b.*\bND\b,unitypoint.org,UnityPoint
+\buw health\b|\buniversity of wi\b,uwhealth.org,UW Health
+\baspirus\b,aspirus.org,Aspirus
+\bwaukesha memorial\b,prohealthcare.org,ProHealth Care
+\bcarle\b,carle.org,Carle
+\bosf\b|\bsaint francis medical center\b.*\bIL\b|\bst\.? marys hospital\b.*\bIL\b,osfhealthcare.org,OSF
+\bhshs\b|\bst johns hospital\b.*\bIL\b|\bst vincent hospital\b.*\bWI\b|\bst\.? elizabeth\b.*\bIL\b,hshs.org,HSHS
+\bmemorial medical center\b.*\bIL\b,memorial.health,Memorial Health
+\brush\b,rush.edu,Rush
+\buniversity of chicago\b|\bingalls\b,uchicagomedicine.org,UChicago Medicine
+\bloyola\b|\bgottlieb\b,loyolamedicine.org,Loyola
+\bnorthshore\b|\bswedish hospital\b.*\bIL\b,northshore.org endeavorhealth.org,Endeavor Health
+\bsilver cross\b,silvercross.org,Silver Cross
+\bstroger\b,cookcountyhealth.org,Cook County Health
+\bsaint luke'?s\b.*\bMO\b|\bst lukes hospital of kansas city\b,saintlukeskc.org,Saint Luke's
+\buniversity of kansas\b,kansashealthsystem.com,University of Kansas Health System
+\bbarnes\b|\bmissouri baptist\b|\bchristian hospital\b|\bst lukes hospital\b.*\bMO\b,bjc.org,BJC
+\bcox medical\b,coxhealth.com,CoxHealth
+\buniversity of missouri\b,muhealth.org,MU Health
+\bmosaic\b,mymosaiclifecare.org,Mosaic
+\bfreeman\b,freemanhealth.com,Freeman
+\bnebraska medical\b,nebraskamed.com,Nebraska Medicine
+\bnebraska methodist\b,bestcare.org,Methodist Health System
+\bbryan medical\b,bryanhealth.org,Bryan Health
+\bstormont\b,stormontvail.org,Stormont Vail
+\bintegris\b,integrisok.com,INTEGRIS
+\bo u medical\b|\bou health\b,ouhealth.com,OU Health
+\bhillcrest medical\b,hillcrest.com,Hillcrest
+\bsaint francis\b.*\bOK\b,saintfrancis.com,Saint Francis Health System
+\bnorman regional\b,normanregional.com,Norman Regional
+\bochsner\b,ochsner.org,Ochsner
+\bour lady of the lake\b|\bfmol\b|\bour lady of lourdes\b,fmolhs.org,FMOL
+\bwillis knighton\b,wkhs.com,Willis-Knighton
+\bbaton rouge general\b,brgeneral.org,Baton Rouge General
+\buniversity medical center new orleans\b|\btouro\b|\beast jefferson\b|\bwest jefferson\b,lcmchealth.org,LCMC Health
+\bvanderbilt\b,vumc.org,VUMC
+\bmethodist hospitals of memphis\b,methodisthealth.org,Methodist Le Bonheur
+\bbaptist memorial\b|\bbmh-golden\b|\bmississippi baptist\b,baptistonline.org,Baptist Memorial
+\bregional one\b,regionalonehealth.org,Regional One
+\berlanger\b,erlanger.org,Erlanger
+\bcovenant\b.*\bTN\b|\bfort sanders\b|\bparkwest\b|\bmethodist medical center of oak ridge\b,covenanthealth.com,Covenant Health
+"\buniversity health system, inc\b",utmedicalcenter.org,UT Medical Center
+\bballad\b|\bjohnson city medical\b|\bwellmont\b,balladhealth.org,Ballad Health
+\bwest tennessee\b|\bjackson-madison\b,wth.org,West Tennessee Healthcare
+\bblount memorial\b,blountmemorial.org,Blount Memorial
+\buniversity of alabama hospital\b|\bmedical west\b,uabmedicine.org,UAB Medicine
+\bhuntsville hospital\b|\bdecatur morgan\b,huntsvillehospital.org,Huntsville Hospital
+\bdch\b,dchsystem.com,DCH
+\binfirmary\b.*\bAL\b|\bmobile infirmary\b,infirmaryhealth.org,Infirmary Health
+\busa health\b,usahealthsystem.com,USA Health
+\beast alabama\b,eamc.org,EAMC
+\bsoutheast health\b,southeasthealth.org,Southeast Health
+\bjackson hospital\b,jackson.org,Jackson Hospital
+\bchildren'?s hospital of alabama\b,childrensal.org,Children's of Alabama
+\bst\.? vincent'?s (birmingham|east)\b,ascension.org,Ascension AL
+\buniversity of mississippi\b,umc.edu,UMMC
+\bnorth mississippi\b,nmhs.net,NMHS
+\bforrest general\b,forrestgeneral.com,Forrest General
+\bsinging river\b,singingriverhealthsystem.com,Singing River
+\bmemorial hospital at gulfport\b,gulfportmemorial.com,Memorial Gulfport
+\bst dominic\b,stdom.com fmolhs.org,St. Dominic
+\buams\b|\buniversity of arkansas\b,uamshealth.com,UAMS
+\bwashington regional\b,wregional.com,Washington Regional
+\bwhite county medical\b,unitybyfusion.com,Unity Health
+\bst bernards\b,stbernards.info,St. Bernards
+\bjefferson regional\b.*\bAR\b,jrmc.org,Jefferson Regional
+\barkansas children\b,archildrens.org,Arkansas Children's
+\bparkland\b,parklandhealth.org,Parkland
+\bharris health\b,harrishealth.org,Harris Health
+\bjps\b,jpshealthnet.org,JPS Health
+\butmb\b|\buniversity of texas medical branch\b,utmbhealth.com,UTMB
+\bsouthwestern\b,utswmed.org utsouthwestern.edu,UT Southwestern
+\buniversity health system\b.*\bTX\b,universityhealth.com,University Health
+\bmethodist hospital\b,sahealth.com,Methodist Healthcare San Antonio
+\btexas childrens\b,texaschildrens.org,Texas Children's
+\bchildrens medical ctr of dallas\b,childrens.com,Children's Health
+\bcook childrens\b,cookchildrens.org,Cook Children's
+\bchildren'?s hospital of san antonio\b,chofsa.org,Children's Hospital of San Antonio
+\bsouth texas health\b,southtexashealthsystem.com uhsinc.com,UHS
+\bwoman'?s hospital of texas\b|\bwomans hospital of texas\b,womanshospital.com hcahealthcare.com,HCA
+\bhendrick\b,hendrickhealth.org,Hendrick
+\bshannon\b,shannonhealth.com,Shannon
+\bmidland memorial\b,midlandhealth.org,Midland Health
+\bmedical center hospital\b,mchodessa.com,Medical Center Health System
+\bunited regional\b,unitedregional.org,United Regional
+\bnorthwest texas\b,nwths.com,Northwest Texas
+\bbsa hospital\b,bsahs.org,BSA
+\buniversity medical center\b.*\bTX\b,umchealthsystem.com,UMC Lubbock
+\buniversity medical center of el paso\b,umcelpaso.org,UMC El Paso
+\bcovenant medical center\b.*\bTX\b,covenanthealth.org,Covenant Health TX
+\but health east texas\b,uthet.com ardenthealth.com,UT Health East Texas
+\bparis regional\b,parisregionalhealth.com,Paris Regional
+\bbaptist beaumont\b,bhset.net,Baptist Hospitals of SE Texas
+\bvalleywise\b,valleywisehealth.org,Valleywise
+\bhonorhealth\b,honorhealth.com,HonorHealth
+\btucson medical\b,tmcaz.com,TMC
+\bphoenix children\b,phoenixchildrens.org,Phoenix Children's
+\byuma regional\b,onrmc.org,Onvida Health
+\brenown\b,renown.org,Renown
+\buniversity medical center\b.*\bNV\b,umcsn.com,UMC
+\bsaint mary'?s regional medical center\b.*\bNV\b,saintmarysreno.com,Saint Mary's
+\bpresbyterian hospital\b.*\bNM\b,phs.org,Presbyterian
+\bunm\b,unmhealth.org,UNM Health
+\bst\.? luke'?s regional medical center\b.*\bID\b,stlukesonline.org,St. Luke's
+\bsaint alphonsus\b,saintalphonsus.org trinity-health.org,Saint Alphonsus
+\bkootenai\b,kh.org,Kootenai Health
+\beastern idaho\b,eirmc.org hcahealthcare.com,EIRMC
+\bst\.? george regional\b,intermountainhealthcare.org,Intermountain Health
+\bbillings clinic\b,billingsclinic.com,Billings Clinic
+\bbenefis\b,benefis.org,Benefis
+\bmonument health\b,monument.health,Monument Health
+\buniversity of utah\b,healthcare.utah.edu,U of U Health
+\bqueens medical\b,queens.org,Queen's
+\basante\b,asante.org,Asante
+\bsalem hospital\b,salemhealth.org,Salem Health
+\bkaiser sunnyside\b,kaiserpermanente.org,Kaiser
+\bdeaconess medical center\b.*\bWA\b,multicare.org,MultiCare
+\bevergreenhealth\b,evergreenhealth.com,EvergreenHealth
+\bvalley medical center\b.*\bWA\b,valleymed.org,Valley Medical
+\bsanta clara valley\b,scvmc.scvh.org hhs.sccgov.org,Santa Clara Valley Healthcare
+\bhighland hospital\b,alamedahealthsystem.org,Alameda Health System
+\barrowhead regional\b,arrowheadregional.org,ARMC
+\briverside university health\b,ruhealth.org,RUHS
+\briverside community hospital\b|\blos robles\b|\bgood samaritan hospital\b.*\bCA\b|\bwest hills\b,hcahealthcare.com,HCA Far West
+\bkaweah\b,kaweahhealth.org,Kaweah
+\bel camino\b,elcaminohealth.org,El Camino
+\bhuntington hospital\b.*\bCA\b,huntingtonhealth.org cedars-sinai.org,Huntington
+\bpalomar\b,palomarhealth.org,Palomar
+\btri-city medical\b,tricitymed.org,Tri-City
+\bgrossmont\b,sharp.com,Sharp
+\bhoag\b,hoag.org,Hoag
+\btorrance memorial\b,torrancememorial.org cedars-sinai.org,Torrance Memorial
+\bsanta barbara cottage\b,cottagehealth.org,Cottage
+\bsaint agnes medical\b,samc.com trinity-health.org,Saint Agnes
+\bpomona valley\b,pvhmc.org,PVHMC
+\bsan antonio regional\b,sarh.org,SARH
+\bvalley presbyterian\b,valleypres.org,Valley Presbyterian
+\bhollywood presbyterian\b,hollywoodpresbyterian.com,Hollywood Presbyterian
+\bcentinela\b,centinelamed.com primehealthcare.com,Prime
+\bsouthern california hospital\b,sch-hollywood.com,SCH
+\bantelope valley\b,avmc.org,Antelope Valley
+\bdoctors medical center\b.*\bCA\b|\bemanuel medical\b,tenethealth.com,Tenet CA
+\bmarinhealth\b,mymarinhealth.org,MarinHealth
+\bvalley children\b,valleychildrens.org,Valley Children's
+\brady children\b,rchsd.org,Rady Children's
+\bchildren'?s hosp of los angeles\b,chla.org,CHLA
+\busc arcadia\b,keckmedicine.org,Keck Medicine of USC
+\bsaint john'?s health center\b,providence.org,Providence
+\bpeninsula medical center\b,mills-peninsula.org sutterhealth.org,Sutter
+\bporterville\b,dds.ca.gov,California DDS
+\bcincinnati children\b,cincinnatichildrens.org,Cincinnati Children's
+\bnationwide children\b,nationwidechildrens.org,Nationwide Children's
+\bchildren'?s hospital of philadelphia\b,chop.edu,CHOP
+\bboston children\b,childrenshospital.org,Boston Children's
+\bchildren'?s national\b,childrensnational.org,Children's National
+\bchildren'?s hospital colorado\b,childrenscolorado.org,Children's Colorado
+\bupmc children\b,chp.edu upmc.com,UPMC Children's
+\bohio state\b,wexnermedical.osu.edu,Ohio State
+\bmetrohealth\b,metrohealth.org,MetroHealth
+\buniversity of cincinnati\b,uchealth.com,UC Health
+\bchrist hospital\b,thechristhospital.com,The Christ Hospital
+\baultman\b,aultman.org,Aultman
+\buniversity of toledo\b,utmc.utoledo.edu,UTMC
+\bfirelands\b,firelands.com,Firelands
+\blake health\b,lakehealth.org,Lake Health
+\bparma community\b,parmahospital.org uhhospitals.org,UH Parma
+\bmercy medical center\b.*\bOH\b|\bmercy regional medical center\b.*\bOH\b,cantonmercy.org mercy.com,Mercy OH
+\bmarion general\b,ohiohealth.com,OhioHealth
+\bparkview\b(?!.*\bCO\b),parkview.com,Parkview
+\bparkview medical center\b.*\bCO\b,parkviewmc.com,Parkview Pueblo
+\bcommunity hospital\b.*\bIN\b,ecommunity.com,Community Health Network
+\beskenazi\b,eskenazihealth.edu,Eskenazi
+\bdeaconess hospital\b,deaconess.com,Deaconess
+\bmethodist hospitals inc\b,methodisthospitals.org,Methodist Hospitals
+\bmemorial hospital of south bend\b|\bbeacon\b,beaconhealthsystem.org,Beacon Health
+\blutheran hospital of indiana\b|\bunion hospital\b.*\bIN\b,lutheranhealth.net uhhg.org,Lutheran / Union
+\bowensboro\b,owensborohealth.org,Owensboro Health
+\buniversity of kentucky\b,ukhealthcare.uky.edu,UK HealthCare
+\bthe medical center \(bowling green\)\b,themedicalcenter.org,Med Center Health
+\bpikeville\b,pikevillehospital.org,Pikeville Medical Center
+\bking'?s daughters\b,kdmc.com uhhospitals.org,King's Daughters
+\bhazard arh\b,arh.org,ARH
+\bsaint joseph hospital\b.*\bKY\b,chisaintjosephhealth.org commonspirit.org,CHI Saint Joseph
+\bhurley\b,hurleymc.com,Hurley
+\bcovenant medical center\b.*\bMI\b,covenanthealthcare.com,Covenant HealthCare
+\bwyandotte\b,henryford.com,Henry Ford Health
+\bgarden city hospital\b,gardencityhospital.org primehealthcare.com,Prime
+\blakeland hospital\b,corewellhealth.org,Corewell Health
+"\bborgess\b|\bgenesys\b|\bprovidence hospital, southfield\b",ascension.org,Ascension MI
+\bgenesis medical\b,genesishealth.com,Genesis
+\bst lukes hospital\b.*\bIA\b|\bmeriter\b,unitypoint.org,UnityPoint
+\buniversity of iowa\b,uihc.org,UI Health Care
+\bmercy medical center - cedar rapids\b,mercycare.org,Mercy Cedar Rapids
+\bmayo clinic health system\b,mayoclinichealthsystem.org,Mayo Clinic Health System
+\bjavon bea\b,mhemail.org mercyhealthsystem.org,Mercyhealth
+\briverside medical center\b.*\bIL\b,riversidehealthcare.org,Riverside Healthcare
+\bblessing\b,blessinghealth.org,Blessing
+\bdecatur memorial\b,dmhhs.org,Decatur Memorial
+\bmemorial hospital\b.*\bIL\b,memorialhospital.org,Memorial Hospital Belleville
+\bgateway regional\b,gatewayregional.net,Gateway Regional
+\bvista medical\b,vistahealth.com,Vista Health
+\bpalos community\b,northwestern.nm.org nm.org,Northwestern Medicine
+\bmt sinai hospital medical center\b|\bholy cross hospital\b.*\bIL\b,sinaichicago.org,Sinai Chicago
+\bjackson park\b,jacksonparkhospital.org,Jackson Park
+\binsight hospital\b,insightchicago.com,Insight
+\buniversity of illinois\b,hospital.uillinois.edu,UI Health
+\bnorthwest community hospital\b,nch.org endeavorhealth.org,Endeavor Health
+\bholy cross hospital\b.*\bFL\b,holy-cross.com trinity-health.org,Holy Cross Health
+\bholy cross hospital\b.*\bMD\b,holycrosshealth.org,Holy Cross Health MD
+\badventist healthcare\b,adventisthealthcare.com,Adventist HealthCare
+\bgreater baltimore\b,gbmc.org,GBMC
+\bsaint agnes hospital\b,ascension.org,Ascension MD
+\bchristiana\b,christianacare.org,ChristianaCare
+\bbayhealth\b,bayhealth.org,Bayhealth
+\bst francis hospital\b.*\bDE\b,trinity-health.org,Trinity Health
+\bgeorge washington\b,gwhospital.com,GW Hospital
+\bhoward university\b,huhealthcare.com,Howard University Hospital
+\bvirginia hospital center\b,virginiahospitalcenter.com,VHC
+\bchesapeake general\b,chesapeakeregional.com,Chesapeake Regional
+\bmaryview\b|\bsouthside medical center\b,bonsecours.com,Bon Secours
+\bmoses h\.? cone\b,conehealth.com,Cone Health
+\bhigh point regional\b,wakehealth.edu atriumhealth.org,Atrium Health Wake Forest
+\bmemorial mission\b,missionhealth.org,Mission Health
+\bcape fear valley\b,capefearvalley.com,Cape Fear Valley
+\bcaromont\b,caromonthealth.org,CaroMont
+\bfirsthealth\b,firsthealth.org,FirstHealth
+\bfrye regional\b,fryemedctr.com,Frye
+\bsoutheastern regional\b,unchealthsoutheastern.org unchealthcare.org,UNC Health Southeastern
+\bcarolina ?east\b,carolinaeasthealth.com,CarolinaEast
+\bwilson medical\b,wilsonmedical.com,Wilson Medical
+\bmcleod\b,mcleodhealth.org,McLeod
+\blexington medical\b,lexmed.com,Lexington Medical Center
+\bspartanburg\b,spartanburgregional.com,Spartanburg Regional
+\banmed\b,anmedhealth.org,AnMed
+\bself regional\b,selfregional.org,Self Regional
+\broper\b,rsfh.com,Roper St. Francis
+\btrident\b|\bgrand strand\b,hcahealthcare.com,HCA South Atlantic
+\bnortheast georgia\b,nghs.com,NGHS
+\bphoebe\b,phoebehealth.com,Phoebe
+\bgrady\b,gradyhealth.org,Grady
+\bsavannah health services\b|\bmemorial health\b.*\bGA\b,memorialhealth.com,Memorial Health
+\bcandler\b|\bst\.? joseph'?s hospital of atlanta\b,sjchs.org emoryhealthcare.org,St. Joseph's/Candler
+\bsgmc\b,sgmc.org,SGMC Health
+\bsouthern regional\b,southernregional.org,Southern Regional
+\bcoliseum\b|\bdoctors hospital\b.*\bGA\b,hcahealthcare.com,HCA Georgia
+\bsoutheast georgia\b,sghs.org,Southeast Georgia
+\bst\.? francis hospital- emory\b,mystfrancis.com,St. Francis-Emory
+\bsaint peter'?s university\b,saintpetershcs.com,Saint Peter's
+\bthe university hospital\b.*\bNJ\b,uhnj.org,University Hospital NJ
+\bcooper\b,cooperhealth.org,Cooper
+\batlanticare\b,atlanticare.org,AtlantiCare
+\bcapital health\b,capitalhealth.org,Capital Health
+\bholy name\b,holyname.org,Holy Name
+\bst joseph'?s university medical center\b,stjosephshealth.org,St. Joseph's Health
+\bsaint clare'?s\b|\bsaint michael'?s medical\b,primehealthcare.com,Prime NJ
+\bbergen new bridge\b,newbridgehealth.org,Bergen New Bridge
+\bcarepoint\b|\bheights university\b,hudsonregionalhospital.com carepointhealth.org,Hudson Regional
+\benglewood hospital\b,englewoodhealth.org,Englewood Health
+\bwest jersey\b,virtua.org,Virtua
+\buniversity medical center of princeton\b,pennmedicine.org,Penn Medicine Princeton
+\bmontefiore\b|\bwhite plains\b|\bnyack\b|\bwyckoff\b,montefiore.org,Montefiore
+\bmaimonides\b,maimonidesmed.org,Maimonides
+\bbrookdale\b,onebrooklynhealth.org,One Brooklyn Health
+\bbronxcare\b,bronxcare.org,BronxCare
+\bst barnabas hospital\b,sbhny.org,SBH
+\brichmond university\b,rumcsi.org,RUMC
+\bjamaica hospital\b,jamaicahospital.org,Jamaica Hospital
+\bbrooklyn hospital\b,tbh.org,TBH
+\bnassau university\b,numc.edu,NUMC
+\bwestchester medical\b|\bgood samaritan hospital\b.*\bNY\b,wmchealth.org,WMCHealth
+\bstrong memorial\b,urmc.rochester.edu,URMC
+\balbany medical\b,amc.edu,Albany Med
+\bst peter'?s hospital\b|\bellis hospital\b|\bglens falls\b,sphp.com ellismedicine.org glensfallshospital.org,Albany Region
+\bcrouse\b,crouse.org,Crouse
+\bunited health services\b,nyuhs.org,UHS NY
+\berie county medical\b,ecmc.edu,ECMC
+\bgarnet\b,garnethealth.org,Garnet Health
+\bst john'?s riverside\b,riversidehealth.org,St. John's Riverside
+\bmercy medical center\b.*\bNY\b,chsli.org,Catholic Health
+\bwynn hospital\b,mvhealthsystem.org,MVHS
+\buniversity of vermont health network\b,uvmhealth.org,UVM Health
+\bstamford hospital\b,stamfordhealth.org,Stamford Health
+\bwaterbury hospital\b,waterburyhospital.org,Waterbury
+\bberkshire medical\b,bhs1.org,Berkshire Health
+\bboston medical\b,bmc.org,BMC
+\bsouthcoast\b,southcoast.org,Southcoast
+\bmetrowest\b,mwmc.com tenethealth.com,MetroWest
+\bnorth shore medical center -\b,salemhospital.org massgeneralbrigham.org,Mass General Brigham
+\bmary hitchcock\b,dartmouth-health.org,Dartmouth Health
+\bcatholic medical center\b,catholicmedicalcenter.org,CMC
+\brutland\b,rrmc.org,Rutland Regional
+\breading hospital\b|\btower health\b,towerhealth.org,Tower Health
+\bmilton s hershey\b,pennstatehealth.org,Penn State Health
+\btemple\b(?!.*\bTX\b),templehealth.org,Temple Health
+\bmain line\b,mainlinehealth.org,Main Line Health
+\bst mary medical center\b.*\bPA\b,trinityhealthma.org trinity-health.org,Trinity Health Mid-Atlantic
+\bconemaugh\b,conemaugh.org,Conemaugh
+\bexcela\b,excelahealth.org,Excela
+\bheritage valley\b,heritagevalley.org,Heritage Valley
+\bst clair\b,stclair.org,St. Clair
+\bwilkes-barre\b|\bregional hospital of scranton\b,commonwealthhealth.net,Commonwealth Health
+\brobert packer\b,guthrie.org,Guthrie
+\bjefferson hospital\b.*\bPA\b,ahn.org,AHN
+\bwestmoreland\b,excelahealth.org,Excela
+\bwest virginia\b,wvumedicine.org,WVU Medicine
+\braleigh general\b,raleighgeneral.com lifepointhealth.net,LifePoint
+\bcommunity hospital of\b|\bauxilio mutuo\b|\bhospital espanol auxilio\b,auxiliomutuo.com,Auxilio Mutuo
+\bpavia\b,paviahealth.com,Pavia
+\bdamas\b,hospitaldamas.com,Damas
+\bmenonita\b,hospitalmenonita.com,Menonita
+\bepiscopal san lucas\b,sanlucaspr.org,San Lucas
+\bsan juan municipality\b,sanjuanciudadpatria.com,San Juan
+\bmayaguez medical\b,mayaguezmedicalcenter.com,Mayaguez Medical Center
+\bhospital universitario\b,asem.pr.gov,ASEM / UPR
+\bmedical center hospital\b,mchodessa.com,MCH
+\bchesapeake\b,chesapeakeregional.com,Chesapeake Regional
+\bnkc health\b,nkch.org,NKC Health
+\bboone hospital\b,boone.health,Boone Health
+\bsaint francis medical center\b.*\bMO\b,sfmc.net,SoutheastHEALTH/Saint Francis
+\bsalina regional\b,srhc.com,Salina Regional
+\bprovidence medical center\b.*\bKS\b,providencekc.com primehealthcare.com,Prime
+\bwesley\b,wesleymc.com hcahealthcare.com,HCA Wesley
+\bmercyone\b,mercyone.org,MercyOne
+\btexoma\b,texomamedicalcenter.net uhsinc.com,UHS
+\bwomans\b,womanshospital.com,HCA
+\bbaptist medical center south\b,baptistfirst.org,Baptist Health AL
+\bbaptist health brookwood\b|\bprinceton baptist\b,brookwoodbaptisthealth.com tenethealth.com,Tenet AL
+\bst\.? joseph'?s hospital\b.*\bAZ\b,dignityhealth.org,Dignity Health
+\blake charles memorial\b,lcmh.com,LCMH
+\bnorth oaks\b,northoaks.org,North Oaks
+\bterrebonne\b,tgmc.com ochsner.org,TGMC
+\bslidell memorial\b,slidellmemorial.org ochsner.org,Slidell Memorial
+\brapides\b,rapidesregional.com hcahealthcare.com,HCA Rapides
+\bvirtua\b,virtua.org,Virtua
+\bkaiser foundation hospital\b,healthy.kaiserpermanente.org kaiserpermanente.org,Kaiser Permanente

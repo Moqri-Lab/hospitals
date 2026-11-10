@@ -1,0 +1,4 @@
+Source: Provider of Services File - Hospital & Non-Hospital Facilities (data.json title: "Provider of Services File - Quality Improvement and Evaluation System : 2026-07-01", temporal 2026-07-01..2026-09-30, modified 2026-10-16)
+URL: https://data.cms.gov/sites/default/files/2026-10/e5a8afbb-a1f4-4d3b-bdb9-3968e194da0e/Hospital_and_other.DATA.Q3_2026.csv
+Downloaded: 2026-11-10T01:48:22Z
+Filter: PRVDR_CTGRY_CD == "01"
