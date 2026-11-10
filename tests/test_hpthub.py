@@ -78,7 +78,7 @@ def test_name_cleaning_and_abbreviations():
 
 
 def test_sole_hospital_on_domain_gets_unclaimed_entries():
-    reg = pd.DataFrame([{"ccn": "330005", "name": "Kaleida Health", "state": "NY", "beds": "1", "domains": "kaleidahealth.org"}])
+    reg = pd.DataFrame([{"ccn": "999999", "name": "Kaleida Health", "state": "NY", "beds": "1", "domains": "kaleidahealth.org"}])
     doms = pd.DataFrame([{"domain": "kaleidahealth.org", "found": True}])
     ent = pd.DataFrame([{"domain": "kaleidahealth.org", "location_name": "Buffalo General Medical Center",
                          "mrf_url": "u", "source_page_url": ""}])
