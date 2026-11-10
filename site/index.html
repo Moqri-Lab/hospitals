@@ -149,7 +149,7 @@ function drawMap(){
     const pct=o?Math.round(100*o.pass/o.n):null,bg=o?binColor(pct):"var(--chip)",fg=o&&pct>=85?"#fff":"#1d1d1b";
     const tip=o?`${st}: ${o.pass} of ${o.n} crawled hospitals compliant (${pct}%); ${o.amber} inaccessible, ${o.fail} not compliant`:`${st}: no hospitals crawled yet`;
     return `<div class="st${sel===st?" sel":""}" data-st="${st}" title="${tip}" style="grid-row:${r+1};grid-column:${c+1};background:${bg};color:${o?fg:"var(--muted)"}">${st}<small>${o?pct+"%":"–"}</small></div>`}).join("");
-  document.getElementById("legend").innerHTML=BINS.map(([t,c],i)=>`<span class="sw" style="background:${c}"></span> ${i===0?"under 50%":t+"%"+(i<BINS.length-1?"–"+(BINS[i+1][0]-1)+"%":"+")}`).join("<br>")+'<br><span class="sw" style="background:var(--chip)"></span> not crawled yet';
+  document.getElementById("legend").innerHTML=BINS.map(([t,c],i)=>`<span class="sw" style="background:${c}"></span> ${i===0?"under 50%":t+"%"+(i<BINS.length-1?"–"+(BINS[i+1][0]-1)+"%":"+")}`).reverse().join("<br>")+'<br><span class="sw" style="background:var(--chip)"></span> not crawled yet';
 }
 document.getElementById("usmap").onclick=e=>{const t=e.target.closest(".st");if(!t)return;const s=document.getElementById("state");s.value=s.value===t.dataset.st?"":t.dataset.st;render()};
 function render(){
