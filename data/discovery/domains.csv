@@ -1,12 +1,99 @@
 domain,url,final_url,http_status,content_type,bytes,error,n_entries,parse_issues,found,checked_at
-adventhealth.com,https://www.adventhealth.com/cms-hpt.txt,https://www.adventhealth.com/cms-hpt.txt,403.0,text/html,393,,0,,False,2026-11-10T02:07:45+00:00
-baptisthealthsystem.com,https://www.baptisthealthsystem.com/cms-hpt.txt,https://www.baptisthealthsystem.com/cms-hpt.txt,403.0,text/html; charset=UTF-8,5717,,0,,False,2026-11-10T02:07:45+00:00
-bjc.org,https://bjc.org/cms-hpt.txt,https://www.bjc.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,5050,,16,,True,2026-11-10T02:07:45+00:00
-iuhealth.org,https://www.iuhealth.org/cms-hpt.txt,https://www.iuhealth.org/cms-hpt.txt,,,0,"ConnectionError: HTTPSConnectionPool(host='www.iuhealth.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ReadTimeoutError(""HTTPSConnectionPool(host='www.iuhealth.org', port=443): Read timed out.",0,,False,2026-11-10T02:09:05+00:00
-jacksonhealth.org,snapshot:jacksonhealth.org.txt,https://www.jacksonhealth.org/cms-hpt.txt,200.0,text/html; charset=UTF-8,1271,(live fetch failed; used snapshot),4,,True,2026-11-10T02:07:45+00:00
-mayoclinic.org,https://www.mayoclinic.org/cms-hpt.txt,https://www.mayoclinic.org/cms-hpt.txt,403.0,text/html,391,,0,,False,2026-11-10T02:07:45+00:00
-mhealthfairview.org,https://mhealthfairview.org/cms-hpt.txt,https://requiredlearning.fairview.org/price_transparency/mhf/cms-hpt.txt,200.0,text/plain,3827,,10,,True,2026-11-10T02:07:45+00:00
-nortonhealthcare.com,https://nortonhealthcare.com/cms-hpt.txt,https://nortonhealthcare.com/cms-hpt.txt,200.0,text/plain,3262,,9,,True,2026-11-10T02:07:45+00:00
-nyp.org,https://nyp.org/cms-hpt.txt,https://www.nyp.org/cms-hpt.txt,200.0,text/plain,3298,,9,,True,2026-11-10T02:07:45+00:00
-orlandohealth.com,https://www.orlandohealth.com/cms-hpt.txt,https://www.orlandohealth.com/cms-hpt.txt,,,0,"RetryError: HTTPSConnectionPool(host='www.orlandohealth.com', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ResponseError('too many 429 error responses'))",0,,False,2026-11-10T02:07:45+00:00
-tenethealth.com,https://www.tenethealth.com/cms-hpt.txt,https://www.tenethealth.com/cms-hpt.txt,404.0,text/html,10310,,0,,False,2026-11-10T02:07:45+00:00
+adventhealth.com,https://www.adventhealth.com/cms-hpt.txt,https://www.adventhealth.com/cms-hpt.txt,403.0,text/html,393,,0,,False,2026-11-10T02:10:05+00:00
+advocatehealth.com,https://advocatehealth.com/cms-hpt.txt,https://www.advocatehealth.com/-/media/Project/Health-System-Enterprise/AdvocateHealthCom/cms-hpt.txt,200.0,text/plain,4361,,11,,True,2026-11-10T02:10:08+00:00
+allinahealth.org,https://allinahealth.org/cms-hpt.txt,https://www.allinahealth.org/-/media/allina-health/files/customer-service/billing-and-insurance/price-transparency/price-transparency-txt-file.txt,200.0,text/plain,4526,,12,,True,2026-11-10T02:10:08+00:00
+ascension.org,https://www.ascension.org/cms-hpt.txt,https://www.ascension.org/cms-hpt.txt,404.0,text/html; charset=utf-8,3198,,0,,False,2026-11-10T02:10:08+00:00
+atriumhealth.org,https://atriumhealth.org/cms-hpt.txt,https://atriumhealth.org/-/media/atrium-health/price-transparency/clt_cms-hpt.txt,200.0,text/plain,11664,,29,,True,2026-11-10T02:10:10+00:00
+aurorahealthcare.org,https://aurorahealthcare.org/cms-hpt.txt,https://www.aurorahealthcare.org/-/media/Project/Health-System-Enterprise/AuroraHealthCareOrg/cms-hpt.txt,200.0,text/plain,6805,,18,,True,2026-11-10T02:10:06+00:00
+baptisthealth.net,https://baptisthealth.net/cms-hpt.txt,https://baptisthealth.net/cms-hpt.txt,200.0,text/plain,4023,,11,,True,2026-11-10T02:10:08+00:00
+baptisthealthsystem.com,https://www.baptisthealthsystem.com/cms-hpt.txt,https://www.baptisthealthsystem.com/cms-hpt.txt,403.0,text/html; charset=UTF-8,5717,,0,,False,2026-11-10T02:10:05+00:00
+baptistjax.com,https://baptistjax.com/cms-hpt.txt,https://www.baptistjax.com/cms-hpt.txt,200.0,text/plain,4065,,11,,True,2026-11-10T02:10:06+00:00
+baptistonline.org,https://baptistonline.org/cms-hpt.txt,https://www.baptistonline.org/cms-hpt.txt,200.0,text/plain,7004,,22,,True,2026-11-10T02:10:09+00:00
+baycare.org,https://baycare.org/cms-hpt.txt,https://baycare.org/cms-hpt.txt,200.0,text/plain,6296,,18,,True,2026-11-10T02:10:05+00:00
+beaumont.org,https://www.beaumont.org/cms-hpt.txt,https://www.beaumont.org/cms-hpt.txt,403.0,text/html,919,,0,,False,2026-11-10T02:10:06+00:00
+bjc.org,https://bjc.org/cms-hpt.txt,https://www.bjc.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,5050,,16,,True,2026-11-10T02:10:05+00:00
+bswhealth.com,https://bswhealth.com/cms-hpt.txt,https://www.bswhealth.com/cms-hpt.txt,200.0,text/plain; charset=utf-8,12493,,30,,True,2026-11-10T02:10:09+00:00
+camc.org,https://camc.org/cms-hpt.txt,https://www.camc.org/cms-hpt.txt,200.0,text/plain,2247,,7,,True,2026-11-10T02:10:09+00:00
+christianacare.org,https://christianacare.org/cms-hpt.txt,https://christianacare.org/cms-hpt.txt,200.0,text/plain,918,,3,,True,2026-11-10T02:10:06+00:00
+christushealth.org,https://christushealth.org/cms-hpt.txt,https://www.christushealth.org/cms-hpt.txt,200.0,text/plain,16906,,42,,True,2026-11-10T02:10:08+00:00
+clevelandclinic.org,https://www.clevelandclinic.org/cms-hpt.txt,https://www.clevelandclinic.org/cms-hpt.txt,404.0,text/html,103,,0,,False,2026-11-10T02:10:06+00:00
+conehealth.com,https://www.conehealth.com/cms-hpt.txt,https://www.conehealth.com/cms-hpt.txt,403.0,text/html,391,,0,,False,2026-11-10T02:10:06+00:00
+cookcountyhealth.org,https://cookcountyhealth.org/cms-hpt.txt,https://cookcountyhealth.org/cms-hpt.txt,200.0,text/plain,684,,2,,True,2026-11-10T02:10:08+00:00
+corewellhealth.org,https://corewellhealth.org/cms-hpt.txt,https://corewellhealth.org/cms-hpt.txt,200.0,text/plain,8185,,21,,True,2026-11-10T02:10:06+00:00
+dds.ca.gov,https://www.dds.ca.gov/cms-hpt.txt,https://www.dds.ca.gov/cms-hpt.txt,404.0,text/html; charset=UTF-8,50747,,0,,False,2026-11-10T02:10:06+00:00
+dmc.org,https://dmc.org/cms-hpt.txt,https://www.dmc.org/cms-hpt.txt,200.0,text/plain,2302,,7,,True,2026-11-10T02:10:07+00:00
+dukehealth.org,https://dukehealth.org/cms-hpt.txt,https://www.dukehealth.org/cms-hpt.txt,200.0,text/plain,1363,,4,,True,2026-11-10T02:10:08+00:00
+ecuhealth.org,https://ecuhealth.org/cms-hpt.txt,https://www.ecuhealth.org/cms-hpt.txt,200.0,text/plain,2870,,9,,True,2026-11-10T02:10:09+00:00
+fmolhs.org,https://www.fmolhs.org/cms-hpt.txt,https://www.fmolhs.org/cms-hpt.txt,,,0,"SSLError: HTTPSConnectionPool(host='www.fmolhs.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify f",0,,False,2026-11-10T02:10:09+00:00
+gradyhealth.org,https://gradyhealth.org/cms-hpt.txt,https://www.gradyhealth.org/cms-hpt.txt,200.0,text/plain,280,,5,,True,2026-11-10T02:10:08+00:00
+harrishealth.org,https://www.harrishealth.org/cms-hpt.txt,https://www.harrishealth.org/cms-hpt.txt,200.0,text/plain,789,,2,,True,2026-11-10T02:10:08+00:00
+hcahealthcare.com,https://www.hcahealthcare.com/cms-hpt.txt,https://www.hcahealthcare.com/cms-hpt.txt,200.0,text/plain,0,,0,,False,2026-11-10T02:10:08+00:00
+healthcare.ascension.org,https://healthcare.ascension.org/cms-hpt.txt,https://healthcare.ascension.org/-/media/Healthcare/cms-hpt.txt,200.0,text/plain,37009,,93,,True,2026-11-10T02:10:05+00:00
+healthcare.utah.edu,https://healthcare.utah.edu/cms-hpt.txt,https://healthcare.utah.edu/cms-hpt.txt,200.0,text/plain,282,,1,,True,2026-11-10T02:10:07+00:00
+hennepinhealthcare.org,https://hennepinhealthcare.org/cms-hpt.txt,https://hennepinhealthcare.org/sites/default/files/2026-02/cms-hpt_0.txt,200.0,text/plain,289,,1,,True,2026-11-10T02:10:09+00:00
+henryford.com,https://henryford.com/cms-hpt.txt,https://www.henryford.com/cms-hpt.txt,200.0,text/plain,5492,,14,,True,2026-11-10T02:10:09+00:00
+hhs.sccgov.org,https://www.hhs.sccgov.org/cms-hpt.txt,https://www.hhs.sccgov.org/cms-hpt.txt,,,0,"ConnectionError: HTTPSConnectionPool(host='www.hhs.sccgov.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by NameResolutionError(""HTTPSConnection(host='www.hhs.sccgov.org', port=443): Failed to re",0,,False,2026-11-10T02:10:05+00:00
+hopkinsmedicine.org,https://www.hopkinsmedicine.org/cms-hpt.txt,https://www.hopkinsmedicine.org/cms-hpt.txt,403.0,text/html; charset=UTF-8,5692,,0,,False,2026-11-10T02:10:07+00:00
+houstonmethodist.org,https://houstonmethodist.org/cms-hpt.txt,https://www.houstonmethodist.org/cms-hpt.txt,200.0,text/plain,9095,,22,unknown keys: https,True,2026-11-10T02:10:06+00:00
+huntsvillehospital.org,https://huntsvillehospital.org/cms-hpt.txt,http://www.huntsvillehospital.org/cms-hpt.txt,200.0,text/plain; charset=UTF-8,289,,1,,True,2026-11-10T02:10:10+00:00
+inova.org,https://inova.org/cms-hpt.txt,https://www.inova.org/cms-hpt.txt,200.0,text/plain,1728,,5,,True,2026-11-10T02:10:09+00:00
+iuhealth.org,https://www.iuhealth.org/cms-hpt.txt,https://www.iuhealth.org/cms-hpt.txt,,,0,"ConnectionError: HTTPSConnectionPool(host='www.iuhealth.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ReadTimeoutError(""HTTPSConnectionPool(host='www.iuhealth.org', port=443): Read timed out.",0,,False,2026-11-10T02:11:25+00:00
+jacksonhealth.org,snapshot:jacksonhealth.org.txt,https://www.jacksonhealth.org/cms-hpt.txt,200.0,text/html; charset=UTF-8,1271,(live fetch failed; used snapshot),4,,True,2026-11-10T02:10:05+00:00
+jeffersonhealth.org,https://jeffersonhealth.org/cms-hpt.txt,https://www.jeffersonhealth.org/cms-hpt.txt,200.0,text/plain;charset=utf-8,5278,,14,,True,2026-11-10T02:10:09+00:00
+kaleidahealth.org,https://www.kaleidahealth.org/cms-hpt.txt,https://www.kaleidahealth.org/cms-hpt.txt,200.0,text/plain,1257,,4,,True,2026-11-10T02:10:08+00:00
+kansashealthsystem.com,https://kansashealthsystem.com/cms-hpt.txt,https://www.kansashealthsystem.com/cms-hpt.txt,200.0,text/plain,1717,,4,,True,2026-11-10T02:10:07+00:00
+leehealth.org,https://leehealth.org/cms-hpt.txt,https://www.leehealth.org/cms-hpt.txt,200.0,text/plain,1670,,5,,True,2026-11-10T02:10:09+00:00
+lvhn.org,https://lvhn.org/cms-hpt.txt,https://www.lvhn.org/sites/default/files/2026-03/cms-hpt.txt,200.0,text/plain,4627,,17,,True,2026-11-10T02:10:06+00:00
+massgeneralbrigham.org,https://massgeneralbrigham.org/cms-hpt.txt,https://www.massgeneralbrigham.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,5037,,14,,True,2026-11-10T02:10:09+00:00
+mayoclinic.org,https://www.mayoclinic.org/cms-hpt.txt,https://www.mayoclinic.org/cms-hpt.txt,403.0,text/html,389,,0,,False,2026-11-10T02:10:05+00:00
+memorialhermann.org,https://memorialhermann.org/cms-hpt.txt,https://memorialhermann.org/cms-hpt.txt,200.0,text/plain,9971,,19,unknown keys: https,True,2026-11-10T02:10:05+00:00
+methodisthealth.org,https://methodisthealth.org/cms-hpt.txt,https://methodisthealth.org/cms-hpt.txt,200.0,text/plain;charset=UTF-8,2177,,6,,True,2026-11-10T02:10:05+00:00
+mhealthfairview.org,https://mhealthfairview.org/cms-hpt.txt,https://requiredlearning.fairview.org/price_transparency/mhf/cms-hpt.txt,200.0,text/plain,3827,,10,,True,2026-11-10T02:10:06+00:00
+mhs.net,https://mhs.net/cms-hpt.txt,https://www.mhs.net:443/cms-hpt.txt,200.0,text/plain,1792,,6,,True,2026-11-10T02:10:07+00:00
+montefiore.org,https://www.montefiore.org/cms-hpt.txt,https://montefioreeinstein.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,2968,,8,,True,2026-11-10T02:10:06+00:00
+mountcarmelhealth.com,https://mountcarmelhealth.com/cms-hpt.txt,https://www.mountcarmelhealth.com/sites/default/files/cms-hpt.txt,200.0,text/plain,2079,,6,,True,2026-11-10T02:10:08+00:00
+mountsinai.org,https://www.mountsinai.org/cms-hpt.txt,https://www.mountsinai.org/cms-hpt.txt,200.0,text/plain,2688,,9,,True,2026-11-10T02:10:07+00:00
+my.clevelandclinic.org,https://my.clevelandclinic.org/cms-hpt.txt,https://my.clevelandclinic.org/cms-hpt.txt,200.0,text/plain,7363,,23,,True,2026-11-10T02:10:05+00:00
+mylrh.org,https://mylrh.org/cms-hpt.txt,https://mylrh.org/cms-hpt.txt,200.0,text/plain; charset=UTF-8,293,,1,,True,2026-11-10T02:10:09+00:00
+nm.org,https://nm.org/cms-hpt.txt,https://www.nm.org/cms-hpt.txt,200.0,text/plain,2986,,9,,True,2026-11-10T02:10:10+00:00
+northwell.edu,https://northwell.edu/cms-hpt.txt,https://www.northwell.edu/cms-hpt.txt,200.0,text/plain,8331,,24,,True,2026-11-10T02:10:07+00:00
+nortonhealthcare.com,https://nortonhealthcare.com/cms-hpt.txt,https://nortonhealthcare.com/cms-hpt.txt,200.0,text/plain,3262,,9,,True,2026-11-10T02:10:05+00:00
+novanthealth.org,https://novanthealth.org/cms-hpt.txt,https://www2.novanthealth.org:443/Public_Files/regulatory/cms-hpt.txt,200.0,text/plain,7940,,20,,True,2026-11-10T02:10:09+00:00
+nychealthandhospitals.org,https://nychealthandhospitals.org/cms-hpt.txt,https://www.nychealthandhospitals.org/cms-hpt.txt,200.0,text/plain,3405,,12,,True,2026-11-10T02:10:09+00:00
+nyp.org,https://nyp.org/cms-hpt.txt,https://www.nyp.org/cms-hpt.txt,200.0,text/plain,3298,,9,,True,2026-11-10T02:10:07+00:00
+nyulangone.org,https://nyulangone.org/cms-hpt.txt,https://nyulangone.org/cms-hpt.txt,200.0,text/plain,1537,,5,,True,2026-11-10T02:10:07+00:00
+ochsner.org,https://ochsner.org/cms-hpt.txt,https://www.ochsner.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,9313,,26,,True,2026-11-10T02:10:08+00:00
+ohiohealth.com,https://ohiohealth.com/cms-hpt.txt,https://www.ohiohealth.com/cms-hpt.txt,200.0,text/plain,6954,,16,,True,2026-11-10T02:10:07+00:00
+onebrooklynhealth.org,https://onebrooklynhealth.org/cms-hpt.txt,https://onebrooklynhealth.org/cms-hpt.txt,200.0,text/plain,885,,3,,True,2026-11-10T02:10:07+00:00
+orlandohealth.com,https://www.orlandohealth.com/cms-hpt.txt,https://www.orlandohealth.com/cms-hpt.txt,,,0,"RetryError: HTTPSConnectionPool(host='www.orlandohealth.com', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by ResponseError('too many 429 error responses'))",0,,False,2026-11-10T02:10:05+00:00
+ouhealth.com,https://ouhealth.com/cms-hpt.txt,https://www.ouhealth.com/cms-hpt.txt,200.0,text/plain,1248,,3,,True,2026-11-10T02:10:09+00:00
+parklandhealth.org,https://www.parklandhealth.org/cms-hpt.txt,https://www.parklandhealth.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,333,,1,,True,2026-11-10T02:10:08+00:00
+premierhealth.com,https://premierhealth.com/cms-hpt.txt,https://www.premierhealth.com/cms-hpt.txt,200.0,text/plain,4695,,12,,True,2026-11-10T02:10:08+00:00
+sahealth.com,https://sahealth.com/cms-hpt.txt,https://www.sahealth.com/cms-hpt.txt,200.0,text/plain; charset=utf-8,12812,,24,,True,2026-11-10T02:10:07+00:00
+saintfrancis.com,https://saintfrancis.com/cms-hpt.txt,https://www.saintfrancis.com/sites/default/files/2025-09/cms-hpt.txt,200.0,text/plain,1470,,5,,True,2026-11-10T02:10:07+00:00
+scvmc.scvh.org,https://www.scvmc.scvh.org/cms-hpt.txt,https://www.scvmc.scvh.org/cms-hpt.txt,,,0,"ConnectionError: HTTPSConnectionPool(host='www.scvmc.scvh.org', port=443): Max retries exceeded with url: /cms-hpt.txt (Caused by NameResolutionError(""HTTPSConnection(host='www.scvmc.scvh.org', port=443): Failed to re",0,,False,2026-11-10T02:10:06+00:00
+sharp.com,https://sharp.com/cms-hpt.txt,https://www.sharp.com:443/cms-hpt.txt,200.0,text/plain;charset=UTF-8,2948,,8,,True,2026-11-10T02:10:10+00:00
+smh.com,https://smh.com/cms-hpt.txt,https://smh.com/cms-hpt.txt,200.0,text/plain,558,,2,,True,2026-11-10T02:10:09+00:00
+spectrumhealth.org,https://www.spectrumhealth.org/cms-hpt.txt,https://www.spectrumhealth.org/cms-hpt.txt,403.0,text/html,919,,0,,False,2026-11-10T02:10:07+00:00
+summahealth.org,https://summahealth.org/cms-hpt.txt,https://www.summahealth.org/cms-hpt.txt,200.0,text/plain,2080,,5,,True,2026-11-10T02:10:07+00:00
+templehealth.org,https://templehealth.org/cms-hpt.txt,https://www.templehealth.org/cms-hpt.txt,200.0,text/plain,2669,,8,,True,2026-11-10T02:10:10+00:00
+tenethealth.com,https://www.tenethealth.com/cms-hpt.txt,https://www.tenethealth.com/cms-hpt.txt,404.0,text/html,10310,,0,,False,2026-11-10T02:10:05+00:00
+texaschildrens.org,https://texaschildrens.org/cms-hpt.txt,https://www.texaschildrens.org/cms-hpt.txt,200.0,text/plain,1466,,4,,True,2026-11-10T02:10:08+00:00
+texashealth.org,https://texashealth.org/cms-hpt.txt,https://www.texashealth.org/cms-hpt.txt,200.0,text/plain,8888,,23,,True,2026-11-10T02:10:09+00:00
+tgh.org,https://tgh.org/cms-hpt.txt,https://www.tgh.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,2216,,5,,True,2026-11-10T02:10:07+00:00
+uabmedicine.org,https://uabmedicine.org/cms-hpt.txt,https://www.uabmedicine.org/cms-hpt.txt,200.0,text/plain;charset=utf-8,1668,,6,,True,2026-11-10T02:10:06+00:00
+ucsfhealth.org,https://ucsfhealth.org/cms-hpt.txt,https://www.ucsfhealth.org/cms-hpt.txt,200.0,text/plain; charset=UTF-8,1240,,4,,True,2026-11-10T02:10:07+00:00
+ufhealth.org,https://ufhealth.org/cms-hpt.txt,https://ufhealth.org/cms-hpt.txt,200.0,text/plain; charset=utf-8,1922,,7,,True,2026-11-10T02:10:07+00:00
+uhhospitals.org,https://uhhospitals.org/cms-hpt.txt,https://www.uhhospitals.org/cms-hpt.txt,200.0,text/plain,5514,,14,,True,2026-11-10T02:10:07+00:00
+uihc.org,https://uihc.org/cms-hpt.txt,https://uihc.org/cms-hpt.txt,200.0,text/plain,649,,2,,True,2026-11-10T02:10:07+00:00
+universityhealth.com,https://universityhealth.com/cms-hpt.txt,https://www.universityhealth.com/cms-hpt.txt,200.0,text/plain; charset=utf-8,2164,,6,,True,2026-11-10T02:10:07+00:00
+uoflhealth.org,https://uoflhealth.org/cms-hpt.txt,https://uoflhealth.org/cms-hpt.txt,200.0,text/plain,3074,,10,,True,2026-11-10T02:10:06+00:00
+uofmhealth.org,https://uofmhealth.org/cms-hpt.txt,https://www.uofmhealth.org/cms-hpt.txt,200.0,text/plain,295,,1,,True,2026-11-10T02:10:10+00:00
+upmc.com,https://upmc.com/cms-hpt.txt,https://www.upmc.com/cms-hpt.txt,200.0,text/plain,14853,,40,unknown keys: https,True,2026-11-10T02:10:06+00:00
+urmc.rochester.edu,https://urmc.rochester.edu/cms-hpt.txt,https://www.urmc.rochester.edu/cms-hpt.txt,200.0,text/plain,2156,,6,,True,2026-11-10T02:10:10+00:00
+utmbhealth.com,https://utmbhealth.com/cms-hpt.txt,https://utmbhealth.com/cms-hpt.txt,200.0,text/plain,1288,,4,,True,2026-11-10T02:10:06+00:00
+vandaliahealth.org,https://vandaliahealth.org/cms-hpt.txt,https://www.vandaliahealth.org/cms-hpt.txt,200.0,text/plain,2247,,7,,True,2026-11-10T02:10:09+00:00
+vumc.org,https://vumc.org/cms-hpt.txt,https://www.vumc.org/cms-hpt.txt,200.0,text/plain; charset=UTF-8,1474,,5,,True,2026-11-10T02:10:07+00:00
+wexnermedical.osu.edu,https://wexnermedical.osu.edu/cms-hpt.txt,https://wexnermedical.osu.edu/cms-hpt.txt,200.0,text/plain,613,,2,,True,2026-11-10T02:10:08+00:00
+wkhs.com,https://wkhs.com/cms-hpt.txt,https://wkhs.com/cms-hpt.txt,200.0,text/plain,1599,,5,,True,2026-11-10T02:10:08+00:00
+wmchealth.org,https://wmchealth.org/cms-hpt.txt,http://www.wmchealth.org/wp-content/uploads/2025/01/cms-hpt.txt,200.0,text/plain; charset=utf-8,1857,,7,,True,2026-11-10T02:10:09+00:00
