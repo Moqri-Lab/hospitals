@@ -47,4 +47,5 @@ jobs:
             echo "== $api"; curl -sS --max-time 60 "$api?url=$HOST/cms-hpt.txt&output=json" | head -3
           done
       - name: archive.today
-        run: curl -sS -A "$UA" -o /dev/null -w "archive.today: %{http_code} %{redirect_url}\n" --max-time 60 "https://archive.ph/newest/https://$HOST/cms-hpt.txt" || true
+        run: |
+          curl -sS -A "$UA" -o /dev/null -w "archive.today: %{http_code} %{redirect_url}\n" --max-time 60 "https://archive.ph/newest/https://$HOST/cms-hpt.txt" || true
