@@ -15,6 +15,9 @@ from . import http, hpttxt, registry
 
 ROOT = registry.ROOT
 DISC_DIR = ROOT / "data" / "discovery"
+# Snapshots of cms-hpt.txt files fetched elsewhere (e.g. from a residential
+# connection when a site blocks cloud IPs). Used when the live fetch fails.
+SNAPSHOT_DIR = DISC_DIR / "hpt_txt_snapshots"
 
 _STOP = {"the", "of", "and", "at", "inc", "llc", "hospital", "hospitals", "medical", "center",
          "centre", "health", "healthcare", "system", "campus", "regional", "memorial", "saint", "st",
@@ -60,6 +63,11 @@ def fetch_domain(sess, domain: str) -> dict:
         "n_entries": 0, "parse_issues": "", "found": False,
         "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
     }
+    snap = SNAPSHOT_DIR / f"{domain}.txt"
+    if not (f.status == 200 and f.body) and snap.exists():
+        f.body, f.status = snap.read_bytes(), 200
+        rec.update(http_status=200, bytes=len(f.body), url=f"snapshot:{snap.name}",
+                   error=(rec["error"] + " (live fetch failed; used snapshot)").strip())
     entries = []
     if f.status == 200 and f.body:
         parsed = hpttxt.parse(http.decode_text(f.body))
@@ -98,6 +106,12 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
     entry is kept as ``low-confidence`` so a human can check it.
     """
     found = set(domains_df.loc[domains_df["found"].astype(str) == "True", "domain"]) if len(domains_df) else set()
+    blocked = set()
+    if len(domains_df):
+        st = domains_df.get("http_status", pd.Series(dtype=str)).astype(str)
+        err = domains_df.get("error", pd.Series(dtype=str)).fillna("").astype(str)
+        bad = (domains_df["found"].astype(str) != "True") & (st.str.startswith(("403", "429")) | (err != ""))
+        blocked = set(domains_df.loc[bad, "domain"])
     by_domain = {d: g for d, g in entries.groupby("domain")} if len(entries) else {}
     # Other registry hospitals on the same domain compete for each entry, so a
     # system's file for "Hospital B" isn't attached to "Hospital A".
@@ -127,7 +141,8 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
                 scored.append((name_score(h["name"], e["location_name"]), d, e))
         if not scored:
             out.append({**base, "hpt_txt_domain": "", "match_score": None,
-                        "match_status": "no-domain" if not doms else "no-hpt-txt",
+                        "match_status": ("no-domain" if not doms else
+                                         "blocked" if any(d in blocked for d in doms) else "no-hpt-txt"),
                         **{f: "" for f in ENTRY_FIELDS}})
             continue
         scored.sort(key=lambda t: -t[0])
