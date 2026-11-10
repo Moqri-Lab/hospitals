@@ -78,26 +78,95 @@ def _name_score(a: str, b: str) -> float:
     return round(0.7 * overlap + 0.3 * seq, 3)
 
 
-def fetch_domain(sess, domain: str) -> dict:
-    """Fetch cms-hpt.txt from the domain root, trying both the bare and www. host."""
+def access_issue(status, error: str, body: bytes = b"") -> str:
+    """Why a live cms-hpt.txt could not be read, in plain words ('' if it could)."""
+    e = error or ""
+    if status == 200 and body and b"<html" not in body[:2000].lower():
+        return ""
+    if status == 403:
+        return "refused automated access (HTTP 403)"
+    if status == 429 or "429" in e:
+        return "rate-limited automated access (HTTP 429)"
+    if status == 404:
+        return "no cms-hpt.txt (HTTP 404)"
+    if status == 200:
+        return "returned a web page instead of a text file"
+    if "SSL" in e:
+        return "TLS certificate error"
+    if "NameResolution" in e or "Name or service" in e:
+        return "website address does not resolve"
+    if "Timeout" in e or "timed out" in e:
+        return "timed out"
+    if status:
+        return f"HTTP {status}"
+    return "connection failed" if e else ""
+
+
+def fetch_archive(sess, host: str):
+    """Latest Internet Archive (Wayback Machine) copy of https://<host>/cms-hpt.txt.
+
+    A public archive copy, used only when the live file cannot be read. Returns
+    (body, archived_url, YYYY-MM-DD) or None."""
+    try:
+        r = sess.get("https://archive.org/wayback/available",
+                     params={"url": f"{host}/cms-hpt.txt"}, timeout=30)
+        snap = r.json().get("archived_snapshots", {}).get("closest") or {}
+    except Exception:  # noqa: BLE001
+        return None
+    if not snap.get("available") or str(snap.get("status")) != "200":
+        return None
+    ts = snap["timestamp"]
+    raw = f"https://web.archive.org/web/{ts}id_/https://{host}/cms-hpt.txt"
+    f = http.fetch_head(sess, raw, max_bytes=5_000_000, timeout=60)
+    if f.status != 200 or not f.body or b"<html" in f.body[:2000].lower():
+        return None
+    return f.body, f"https://web.archive.org/web/{ts}/https://{host}/cms-hpt.txt", f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}"
+
+
+def fetch_domain(sess, domain: str, archive: bool = True) -> dict:
+    """Fetch cms-hpt.txt from the domain root, trying both the bare and www. host.
+
+    If the live file can't be read, fall back to a committed saved copy, then to
+    the Internet Archive's latest copy. The reason the live fetch failed is kept
+    in ``access_issue`` either way."""
     hosts = [domain] + ([f"www.{domain}"] if not domain.startswith("www.") else [domain[4:]])
-    f, url = None, ""
+    f, url, attempts = None, "", []
     for host in hosts:
         url = f"https://{host}/cms-hpt.txt"
         f = http.fetch_head(sess, url, max_bytes=5_000_000, timeout=20)
-        if f.status == 200 and f.body and "<html" not in f.body[:2000].decode("latin-1").lower():
+        if f.error and ("Timeout" in f.error or "timed out" in f.error):
+            f = http.fetch_head(sess, url, max_bytes=5_000_000, timeout=90)  # slow sites
+        attempts.append(access_issue(f.status, f.error, f.body))
+        if not attempts[-1]:
+            break
+    issue = attempts[-1] if all(attempts) else ""
+    # report the most informative failure (a 403 on www beats a DNS miss on the bare host)
+    for a in attempts:
+        if a.startswith(("refused", "rate-limited", "TLS", "timed out")):
+            issue = a
             break
     rec = {
         "domain": domain, "url": url, "final_url": f.final_url, "http_status": f.status,
         "content_type": f.content_type, "bytes": len(f.body), "error": f.error,
+        "access_issue": issue, "source": "live" if not issue else "",
         "n_entries": 0, "parse_issues": "", "found": False,
         "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
     }
-    snap = SNAPSHOT_DIR / f"{domain}.txt"
-    if not (f.status == 200 and f.body) and snap.exists():
-        f.body, f.status = snap.read_bytes(), 200
-        rec.update(http_status=200, bytes=len(f.body), url=f"snapshot:{snap.name}",
-                   error=(rec["error"] + " (live fetch failed; used snapshot)").strip())
+    if issue:
+        snap = SNAPSHOT_DIR / f"{domain}.txt"
+        arc = None
+        if snap.exists():
+            f.body, f.status = snap.read_bytes(), 200
+            rec.update(source="saved copy", url=f"snapshot:{snap.name}")
+        elif archive:
+            for host in hosts:
+                arc = fetch_archive(sess, host)
+                if arc:
+                    break
+            if arc:
+                f.body, f.status = arc[0], 200
+                rec.update(source=f"Internet Archive {arc[2]}", url=arc[1])
+        rec["bytes"] = len(f.body)
     entries = []
     if f.status == 200 and f.body:
         parsed = hpttxt.parse(http.decode_text(f.body))
@@ -152,7 +221,10 @@ def match(reg: pd.DataFrame, domains_df: pd.DataFrame, entries: pd.DataFrame,
     if len(domains_df):
         st = domains_df.get("http_status", pd.Series(dtype=str)).astype(str)
         err = domains_df.get("error", pd.Series(dtype=str)).fillna("").astype(str)
-        bad = (domains_df["found"].astype(str) != "True") & (st.str.startswith(("403", "429")) | (err != ""))
+        iss = domains_df.get("access_issue", pd.Series("", index=domains_df.index)).fillna("").astype(str)
+        unreachable = (st.str.startswith(("403", "429")) | (err != "")
+                       | ((iss != "") & ~iss.str.startswith("no cms-hpt.txt")))
+        bad = (domains_df["found"].astype(str) != "True") & unreachable
         blocked = set(domains_df.loc[bad, "domain"])
     by_domain = {d: g for d, g in entries.groupby("domain")} if len(entries) else {}
     # Other registry hospitals on the same domain compete for each entry, so a

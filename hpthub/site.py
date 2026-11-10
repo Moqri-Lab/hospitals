@@ -23,8 +23,8 @@ ROOT = registry.ROOT
 
 CATALOG_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
-    "hpt_exempt", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_from_snapshot", "location_name", "source_page_url", "mrf_url",
-    "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
+    "hpt_exempt", "domain_sources", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
+    "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
     "contact_email", "match_status", "match_score", "checked_at",
 ]
 
@@ -55,9 +55,13 @@ def catalog() -> pd.DataFrame:
         reg = reg.merge(mrfs, on="ccn", how="left")
     reg = reg.fillna("")
     doms = _read(ROOT / "data" / "discovery" / "domains.csv")
-    snap = set(doms.loc[doms["url"].str.startswith("snapshot:"), "domain"]) if "url" in doms.columns else set()
-    reg["hpt_txt_from_snapshot"] = reg.get("hpt_txt_domain", pd.Series("", index=reg.index)).map(
-        lambda d: "True" if d in snap else "")
+    if not doms.empty and "hpt_txt_domain" in reg.columns:
+        d = doms.set_index("domain")
+        src = d["source"] if "source" in d else d["url"].map(lambda u: "saved copy" if str(u).startswith("snapshot:") else "live")
+        iss = d["access_issue"] if "access_issue" in d else pd.Series("", index=d.index)
+        reg["hpt_txt_source"] = reg["hpt_txt_domain"].map(src).fillna("")
+        reg["hpt_txt_access_issue"] = reg["hpt_txt_domain"].map(iss).fillna("")
+        reg["hpt_txt_url"] = reg["hpt_txt_domain"].map(d["url"]).fillna("")
     for c in CATALOG_COLUMNS:
         if c not in reg.columns:
             reg[c] = ""
