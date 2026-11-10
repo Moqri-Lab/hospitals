@@ -71,7 +71,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <input type="search" id="q" placeholder="Search hospital, city, system, CCN (provider ID)…">
   <select id="state"><option value="">All states</option></select>
   <select id="ftype"><option value="">All types</option></select>
-  <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="fail">Not compliant</option><option value="amber">Inaccessible</option></select>
+  <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Inaccessible</option><option value="fail">Not compliant</option></select>
   <label><input type="checkbox" id="crawled" checked> Crawled only</label>
 </div>
 <div class="stats" id="stats">Loading…</div>
@@ -124,7 +124,7 @@ function render(){
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
   const files=f.reduce((n,r)=>n+r.files.length,0);
   const cnt=k=>f.filter(r=>r.txt_check===k).length;
-  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown · <span class="ok">${cnt("pass")} compliant</span> · <span class="no">${cnt("fail")} not compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} inaccessible</span>`;
+  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} inaccessible</span> · <span class="no">${cnt("fail")} not compliant</span>`;
   document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>`<tr class="${r.txt_check==="unknown"?"blocked":esc(r.txt_check)}">`+COLS.map(([k])=>`<td class="${k==="txt_check"?"chk":k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
 }
 const TIPS={"txt_check": "Whether a machine-readable cms-hpt.txt at the hospital website root lists this hospital (45 CFR 180.50(d)(6)); checks only this file, not the price data itself", "ccn": "CMS Certification Number, the Medicare provider ID", "beds": "Total beds for the CCN (CMS Provider of Services); one CCN can cover several campuses", "n_campuses": "Distinct locations listed under this CCN in the hospital's cms-hpt.txt", "hpt_txt_domain": "Website whose cms-hpt.txt was read, and whether it could be read", "location_name": "The location-name the hospital itself gives in its cms-hpt.txt for this price file (click for the hospital's price transparency page)", "n_files": "Each price file the hospital lists in its cms-hpt.txt, under the location name the hospital gives it (links only, never downloaded)", "match_status": "How the CMS hospital was matched to the cms-hpt.txt entry", "confidence": "0-100 confidence that the listed price files belong to this CMS hospital (highest across its files); hover a value for details", "web_claude": "Website found by Claude (AI) on review; still verified by its cms-hpt.txt", "web_system_rule": "Website from a health-system name rule", "web_wikidata": "Official website (P856) from Wikidata", "web_tpafs": "Website from TPAFS/DoltHub transparency-data", "web_hpf": "Website from hospitalpricingfiles.org"};
