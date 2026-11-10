@@ -30,7 +30,7 @@ can fetch the files they need themselves.
 | Bed count (`BED_CNT`, total beds, active providers) | CMS Provider of Services file, hospital extract, Q3 2026 (2026-07-01 to 2026-09-30) | [search](https://data.cms.gov/search?keywords=Provider%20of%20Services%20File) · [CSV](https://data.cms.gov/sites/default/files/2026-10/e5a8afbb-a1f4-4d3b-bdb9-3968e194da0e/Hospital_and_other.DATA.Q3_2026.csv) |
 | Price-file links, locations, contacts | Each hospital's own `cms-hpt.txt` (required by CMS since 2025) | [45 CFR 180](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180) · [CMS HPT](https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency) · [CMS spec](https://github.com/CMSgov/hospital-price-transparency) |
 | Price-file format, size, date | HTTP `HEAD` of each price-file URL (no download) | — |
-| Website leads (candidates only, verified live) | Health-system name rules; hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) and nathansutton/hospital-price-transparency (Apache-2.0; URLs via hospitalpricingfiles.org, Jan 2026) | [rules](data/registry/system_domains.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) · [nathansutton](https://github.com/nathansutton/hospital-price-transparency) · [hospitalpricingfiles.org](https://hospitalpricingfiles.org) |
+| Website leads (candidates only, verified live) | Health-system name rules; official websites (P856) from Wikidata (CC0); hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) and nathansutton/hospital-price-transparency (Apache-2.0; URLs via hospitalpricingfiles.org, Jan 2026) | [rules](data/registry/system_domains.csv) · [Wikidata](https://www.wikidata.org) · [matches](data/registry/wikidata_hospitals.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) · [nathansutton](https://github.com/nathansutton/hospital-price-transparency) · [hospitalpricingfiles.org](https://hospitalpricingfiles.org) |
 
 **Beds are per CCN.** CMS reports beds for each certification number, and one
 CCN can cover several campuses (AdventHealth Orlando's 3,289 beds span
@@ -55,7 +55,13 @@ Existing open datasets are used only as **leads** for website domains
 ([`data/registry/domain_leads.csv`](data/registry/domain_leads.csv), built by
 `scripts/import_domain_leads.py`). A lead never goes into the catalog by
 itself: it is kept only if the hospital's own live `cms-hpt.txt` confirms it.
-Current lead sources: hostnames from the DoltHub/TPAFS
+Current lead sources: the "official website" (P856) of US hospital items in
+[Wikidata](https://www.wikidata.org), the open knowledge base behind Wikipedia
+(CC0), fetched from the [Wikidata Query Service](https://query.wikidata.org) and
+matched to a CMS hospital by name plus city or ZIP (each match, with its
+Wikidata link, is in
+[`data/registry/wikidata_hospitals.csv`](data/registry/wikidata_hospitals.csv));
+hostnames from the DoltHub/TPAFS
 [transparency-data](https://github.com/TPAFS/transparency-data) hospital links
 (CC-BY-SA-4.0) and from
 [nathansutton/hospital-price-transparency](https://github.com/nathansutton/hospital-price-transparency)
