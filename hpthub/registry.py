@@ -213,8 +213,16 @@ def load_leads() -> dict[str, tuple[str, str]]:
     p = REG_DIR / "domain_leads.csv"
     if not p.exists():
         return {}
+    out: dict[str, tuple[str, str]] = {}
     with p.open(newline="") as f:
-        return {r["ccn"].zfill(6): (r["domains"].strip(), r["source"]) for r in csv.DictReader(f) if r.get("domains")}
+        for r in csv.DictReader(f):
+            if not r.get("domains"):
+                continue
+            ccn = r["ccn"].zfill(6)
+            doms, srcs = out.get(ccn, ("", ""))
+            merged = doms.split() + [d for d in r["domains"].split() if d not in doms.split()]
+            out[ccn] = (" ".join(merged), "+".join(x for x in (srcs, r["source"]) if x))
+    return out
 
 
 def load_system_rules() -> list[tuple[re.Pattern, str, str]]:

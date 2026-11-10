@@ -9,7 +9,12 @@ Currently supported:
          https://github.com/TPAFS/transparency-data); only the hostnames of the
          hospital pages are used.
 
+  sutton nathansutton/hospital-price-transparency dim/urls/*.json (Apache-2.0 repo,
+         https://github.com/nathansutton/hospital-price-transparency; URLs originally
+         from hospitalpricingfiles.org); hostnames of transparency_page/file_url.
+
 Usage: python scripts/import_domain_leads.py tpafs path/to/machine_readable_links.csv
+       python scripts/import_domain_leads.py sutton path/to/dim/urls
 """
 
 import csv
@@ -39,9 +44,25 @@ def tpafs(path: str) -> dict[str, str]:
     return {k: " ".join(v[:3]) for k, v in out.items()}
 
 
+def sutton(path: str) -> dict[str, str]:
+    import json
+    out: dict[str, list[str]] = {}
+    for f in sorted(Path(path).glob("*.json")):
+        for r in json.loads(f.read_text()):
+            ccn = str(r.get("ccn") or "").strip().zfill(6)
+            if ccn == "000000":
+                continue
+            for h in candidate_hosts(r.get("transparency_page", ""), r.get("file_url", "")):
+                b = base_domain(h)
+                lst = out.setdefault(ccn, [])
+                if b not in lst:
+                    lst.append(b)
+    return {k: " ".join(v[:3]) for k, v in out.items() if v}
+
+
 def main():
     src, path = sys.argv[1], sys.argv[2]
-    leads = {"tpafs": tpafs}[src](path)
+    leads = {"tpafs": tpafs, "sutton": sutton}[src](path)
     p = REG_DIR / "domain_leads.csv"
     rows = {}
     if p.exists():
