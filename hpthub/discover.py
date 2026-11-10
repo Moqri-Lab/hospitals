@@ -399,9 +399,12 @@ def plausible_size(n, content_type: str = "") -> bool:
 def head_mrf(sess, url: str) -> dict:
     """Metadata for an MRF URL via HTTP HEAD only (the price data itself is never downloaded)."""
     rec = {"mrf_url": url, "mrf_http_status": None, "mrf_content_type": "", "mrf_bytes": None,
-           "mrf_last_modified": "", "mrf_final_url": "", "mrf_error": ""}
+           "mrf_last_modified": "", "mrf_final_url": "", "mrf_filename": "", "mrf_error": ""}
     try:
         r = sess.head(url, allow_redirects=True, timeout=30)
+        cd = r.headers.get("Content-Disposition", "")
+        mfn = re.search(r"filename\*?=(?:UTF-8'')?\"?([^\";]+)", cd, re.I)
+        rec["mrf_filename"] = mfn.group(1).strip() if mfn else ""
         cl = r.headers.get("Content-Length")
         rec.update(mrf_http_status=r.status_code, mrf_content_type=r.headers.get("Content-Type", ""),
                    mrf_bytes=int(cl) if cl and cl.isdigit() else None,
@@ -417,13 +420,15 @@ _FORMATS = (("json", "json"), ("csv", "csv"), ("zip", "zip"), ("xlsx", "xlsx"), 
             ("xml", "xml"), ("txt", "txt"), ("gz", "gzip"))
 
 
-def mrf_format(url: str, content_type: str = "") -> str:
-    """Best guess of the price file's format from its URL extension, else its Content-Type."""
+def mrf_format(url: str, content_type: str = "", filename: str = "", final_url: str = "") -> str:
+    """Best guess of the price file's format: the file name the server gives
+    (Content-Disposition), the URL's extension (also after redirects), else the Content-Type."""
     from urllib.parse import unquote, urlparse
-    path = unquote(urlparse(url).path).lower()
-    for ext, fmt in _FORMATS:
-        if path.endswith("." + ext) or path.endswith(f".{ext}.gz"):
-            return fmt
+    names = [(filename or "").lower()] + [unquote(urlparse(u).path).lower() for u in (url, final_url) if u]
+    for path in names:
+        for ext, fmt in _FORMATS:
+            if path.endswith("." + ext) or path.endswith(f".{ext}.gz"):
+                return fmt
     ct = (content_type or "").lower()
     for key, fmt in (("json", "json"), ("csv", "csv"), ("zip", "zip"), ("spreadsheet", "xlsx"),
                      ("excel", "xls"), ("xml", "xml"), ("html", "html"), ("text/plain", "txt")):
@@ -495,10 +500,12 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
             m = m.merge(head_all(urls), on="mrf_url", how="left")
         else:
             for c in ("mrf_http_status", "mrf_content_type", "mrf_bytes", "mrf_last_modified",
-                      "mrf_final_url", "mrf_error"):
+                      "mrf_final_url", "mrf_filename", "mrf_error"):
                 m[c] = None
-        m["mrf_format"] = [mrf_format(u, ct) if isinstance(u, str) and u else ""
-                           for u, ct in zip(m["mrf_url"], m["mrf_content_type"].fillna(""))]
+        m["mrf_format"] = [mrf_format(u, ct, fn, fu) if isinstance(u, str) and u else ""
+                           for u, ct, fn, fu in zip(m["mrf_url"], m["mrf_content_type"].fillna(""),
+                                                    m.get("mrf_filename", pd.Series("", index=m.index)).fillna(""),
+                                                    m["mrf_final_url"].fillna(""))]
     DISC_DIR.mkdir(parents=True, exist_ok=True)
     paths = {
         "domains": DISC_DIR / "domains.csv",

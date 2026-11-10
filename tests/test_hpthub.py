@@ -84,3 +84,59 @@ def test_sole_hospital_on_domain_gets_unclaimed_entries():
                          "mrf_url": "u", "source_page_url": ""}])
     m = match(reg, doms, ent)
     assert m.loc[0, "match_status"] == "matched-sole"
+
+
+def test_hospital_score_city_bonus():
+    from hpthub.discover import hospital_score, name_score
+    base = name_score("Beaumont Hospital - Dearborn", "Corewell Health Dearborn")
+    assert hospital_score("Beaumont Hospital - Dearborn", "Dearborn", "Corewell Health Dearborn") > base
+
+
+def test_plausible_size():
+    from hpthub.discover import plausible_size
+    assert not plausible_size(20, "application/octet-stream")
+    assert not plausible_size(50_000, "text/html")
+    assert plausible_size(5_000_000, "text/csv")
+    assert not plausible_size(None)
+
+
+def test_mrf_format_uses_server_filename():
+    from hpthub.discover import mrf_format
+    assert mrf_format("https://x.org/MRFDownload/abc", "application/octet-stream", "123_x_standardcharges.json") == "json"
+    assert mrf_format("https://x.org/f.ashx", "", "", "https://cdn.x.org/a/b.csv") == "csv"
+
+
+def _row(**kw):
+    base = dict(ccn="1", match_status="matched", match_score="0.9", hpt_txt_domain="h.org", hpt_txt_source="live",
+                hpt_txt_access_issue="", mrf_url="https://h.org/a.csv", mrf_http_status="200.0",
+                web_system_rule="h.org", web_wikidata="h.org", web_tpafs="", web_hpf="", web_claude="")
+    base.update(kw)
+    return base
+
+
+def test_confidence_levels():
+    from hpthub.site import confidence
+    v, lvl = confidence(_row())
+    assert lvl == "high" and int(v) == 95  # 90 + 5 for a second agreeing source
+    v, lvl = confidence(_row(match_status="low-confidence", match_score="0.3"))
+    assert lvl == "low"
+    v, _ = confidence(_row(hpt_txt_source="Internet Archive 2026-01-01"))
+    assert int(v) == 85
+
+
+def test_txt_check():
+    import pandas as pd
+    from hpthub.site import confidence, txt_check
+
+    def run(**kw):
+        g = pd.DataFrame([_row(**kw)])
+        g["confidence"] = [confidence(r)[0] for _, r in g.iterrows()]
+        return txt_check(g)[0]
+
+    assert run() == "pass"
+    assert run(mrf_http_status="404.0") == "fail"
+    assert run(match_status="blocked", mrf_url="", hpt_txt_access_issue="refused automated access (HTTP 403)") == "blocked"
+    assert run(match_status="no-hpt-txt", mrf_url="", hpt_txt_access_issue="no cms-hpt.txt (HTTP 404)") == "fail"
+    # a single source for the website is not enough to blame the hospital
+    assert run(match_status="no-hpt-txt", mrf_url="", web_wikidata="", hpt_txt_access_issue="no cms-hpt.txt (HTTP 404)") == "unknown"
+    assert run(match_status="no-domain", mrf_url="", hpt_txt_domain="") == "unknown"

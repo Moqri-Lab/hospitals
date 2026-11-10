@@ -147,6 +147,11 @@ def txt_check(g: pd.DataFrame) -> tuple[str, str]:
     # blamed on the hospital when we are sure the website is really theirs
     agree = sum(1 for c in WEB_SOURCE_COLS if dom and dom in str(r.get(c, "")).split())
     sure = matched or agree >= 2
+    files = g[g["mrf_url"] != ""]
+    codes = [str(x).split(".")[0] for x in files.get("mrf_http_status", [])]
+    if matched and len(files) and codes and all(c in ("404", "410") for c in codes):
+        return "fail", (f"its cms-hpt.txt lists this hospital, but the price file link returns HTTP {codes[0]} "
+                        "(checked with an HTTP HEAD request)")
     if matched and src in ("live", "") and not iss and conf >= 60:
         return "pass", "a live cms-hpt.txt at the website root lists this hospital"
     bad_access = iss.startswith(("refused", "rate-limited", "returned a web page"))
