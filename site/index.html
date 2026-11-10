@@ -54,6 +54,11 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 #usmap .st.sel{border-color:var(--fg)}
 .legend{font-size:12px;color:var(--muted);max-width:300px}
 .legend .sw{display:inline-block;width:22px;height:12px;border-radius:2px;vertical-align:middle}
+
+.colmenu{position:relative}.colmenu summary{cursor:pointer;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px;color:var(--fg)}
+.colmenu summary::-webkit-details-marker{display:none}
+.colmenu .menu{position:absolute;right:0;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;box-shadow:0 6px 20px #0002;min-width:220px}
+.colmenu .menu label{display:flex;gap:8px;padding:3px 0;color:var(--fg);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -86,6 +91,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <select id="ftype"><option value="">All types</option></select>
   <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Inaccessible</option><option value="fail">Not compliant</option></select>
   <label><input type="checkbox" id="crawled" checked> Crawled only</label>
+  <details class="colmenu"><summary>Columns ▾</summary><div class="menu" id="colmenu"></div></details>
 </div>
 <div class="stats" id="stats">Loading…</div>
 <div class="wrap"><table><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table></div>
@@ -154,10 +160,20 @@ function render(){
   drawMap();
   const cnt=k=>f.filter(r=>r.txt_check===k).length;
   document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} inaccessible</span> · <span class="no">${cnt("fail")} not compliant</span>`;
-  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>`<tr class="${r.txt_check==="unknown"?"blocked":esc(r.txt_check)}">`+COLS.map(([k])=>`<td class="${k==="txt_check"?"chk":k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
+  document.getElementById("body").innerHTML=f.slice(0,2000).map(r=>`<tr class="${r.txt_check==="unknown"?"blocked":esc(r.txt_check)}">`+vis().map(([k])=>`<td class="${k==="txt_check"?"chk":k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
 }
 const TIPS={"txt_check": "Whether a machine-readable cms-hpt.txt at the hospital website root lists this hospital (45 CFR 180.50(d)(6)); checks only this file, not the price data itself", "ccn": "CMS Certification Number, the Medicare provider ID", "beds": "Total beds for the CCN (CMS Provider of Services); one CCN can cover several campuses", "n_campuses": "Distinct locations listed under this CCN in the hospital's cms-hpt.txt", "hpt_txt_domain": "Website whose cms-hpt.txt was read, and whether it could be read", "location_name": "The location-name the hospital itself gives in its cms-hpt.txt for this price file (click for the hospital's price transparency page)", "n_files": "Each price file the hospital lists in its cms-hpt.txt, under the location name the hospital gives it (links only, never downloaded)", "match_status": "How the CMS hospital was matched to the cms-hpt.txt entry", "confidence": "0-100 confidence that the listed price files belong to this CMS hospital (highest across its files); hover a value for details", "web_claude": "Website found by Claude (AI) on review; still verified by its cms-hpt.txt", "web_system_rule": "Website from a health-system name rule", "web_wikidata": "Official website (P856) from Wikidata", "web_tpafs": "Website from TPAFS/DoltHub transparency-data", "web_hpf": "Website from hospitalpricingfiles.org"};
-document.getElementById("head").innerHTML=COLS.map(([k,l])=>`<th data-k="${k}" title="${esc(TIPS[k]||"")}">${l}</th>`).join("");
+const DEFAULT_COLS=["txt_check","ccn","name","facility_type","state","beds","hpt_txt_domain","n_files","confidence"];
+let shown;try{shown=JSON.parse(localStorage.getItem("hpt-cols"))}catch(e){}
+if(!Array.isArray(shown)||!shown.length)shown=DEFAULT_COLS.slice();
+const vis=()=>COLS.filter(([k])=>shown.includes(k));
+function drawHead(){document.getElementById("head").innerHTML=vis().map(([k,l])=>`<th data-k="${k}" title="${esc(TIPS[k]||"")}">${l}</th>`).join("")}
+document.getElementById("colmenu").innerHTML=COLS.map(([k,l])=>`<label><input type="checkbox" data-col="${k}"${shown.includes(k)?" checked":""}> ${esc(l)}</label>`).join("")+'<label style="margin-top:6px"><a href="#" id="colreset" target="_self">Reset to default</a></label>';
+document.getElementById("colmenu").addEventListener("change",e=>{const k=e.target.dataset.col;if(!k)return;
+  shown=e.target.checked?[...shown,k]:shown.filter(x=>x!==k);try{localStorage.setItem("hpt-cols",JSON.stringify(shown))}catch(_){};drawHead();render()});
+document.getElementById("colmenu").addEventListener("click",e=>{if(e.target.id!=="colreset")return;e.preventDefault();shown=DEFAULT_COLS.slice();
+  try{localStorage.removeItem("hpt-cols")}catch(_){};document.querySelectorAll("#colmenu input").forEach(i=>i.checked=shown.includes(i.dataset.col));drawHead();render()});
+drawHead();
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;render()};
 ["q","state","crawled","ftype","fcheck"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 fetch("data.json").then(r=>r.json()).then(d=>{
