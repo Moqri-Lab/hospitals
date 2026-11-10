@@ -10,6 +10,8 @@ Outputs
 from __future__ import annotations
 
 import datetime as dt
+import re
+from urllib.parse import urlparse
 import json
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -150,8 +152,15 @@ def txt_check(g: pd.DataFrame) -> tuple[str, str]:
     files = g[g["mrf_url"] != ""]
     codes = [str(x).split(".")[0] for x in files.get("mrf_http_status", [])]
     if matched and len(files) and codes and all(c in ("404", "410") for c in codes):
-        return "fail", (f"its cms-hpt.txt lists this hospital, but the price file link returns HTTP {codes[0]} "
-                        "(checked with an HTTP HEAD request)")
+        # A file URL (…/x.csv) answering HEAD with 404 is missing. An API-style URL
+        # without a file name may only answer GET, which we never send.
+        is_file = any(re.search(r"\.(csv|json|zip|xlsx?|xml|txt|gz)$", urlparse(u).path, re.I)
+                      for u in files["mrf_url"])
+        if is_file:
+            return "fail", (f"its cms-hpt.txt lists this hospital, but the price file link returns HTTP {codes[0]} "
+                            "(checked with an HTTP HEAD request)")
+        return "unknown", (f"price file link answered HTTP {codes[0]} to a HEAD request; it is an API link that may "
+                           "only answer downloads, which this catalog never makes")
     if matched and src in ("live", "") and not iss and conf >= 60:
         return "pass", "a live cms-hpt.txt at the website root lists this hospital"
     bad_access = iss.startswith(("refused", "rate-limited", "returned a web page"))
