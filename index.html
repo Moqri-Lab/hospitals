@@ -67,6 +67,8 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 .legend{font-size:12px;color:var(--muted);max-width:300px}
 .legend .sw{display:inline-block;width:22px;height:12px;border-radius:2px;vertical-align:middle}
 
+.xbtn{background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:6px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}.xbtn:hover{filter:brightness(1.1)}
+@media (prefers-color-scheme:dark){.xbtn{color:#0e1a14}}
 .colmenu{position:relative}.colmenu summary{cursor:pointer;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px;color:var(--fg)}
 .colmenu summary::-webkit-details-marker{display:none}
 .colmenu .menu{position:absolute;right:0;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;box-shadow:0 6px 20px #0002;min-width:220px}
@@ -91,6 +93,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <select id="state"><option value="">All states</option></select>
   <select id="ftype"><option value="">All types</option></select>
   <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Not machine readable</option><option value="fail">Not compliant</option></select>
+  <button type="button" id="export" class="xbtn" title="Download the hospitals shown (current search and filters) as a CSV file, one row per price file">⬇ Export CSV</button>
   <details class="colmenu"><summary>Columns ▾</summary><div class="menu" id="colmenu"></div></details>
 </div>
 <div class="stats" id="stats">Loading…</div>
@@ -99,7 +102,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 <footer id="foot"><a href="about.html" target="_self">About</a></footer>
 <script>
 const COLS=[["txt_check","cms-hpt.txt compliance"],["ccn","CCN"],["name","Hospital"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["confidence","Confidence"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_sutton","Web: nathansutton"],["web_osm","Web: OpenStreetMap"],["web_inferred","Web: inferred"],["web_claude","Web: Claude"]];
-let rows=[],hosps=[],sortKey="beds",sortDir=-1,page=0;const PAGE=100;
+let lastF=[],rows=[],hosps=[],sortKey="beds",sortDir=-1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 function cell(r,k){const v=r[k]??"";
@@ -161,6 +164,7 @@ function render(){
   const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,ty=document.getElementById("ftype").value,ck=document.getElementById("fcheck").value;
   let f=hosps.filter(r=>r.hpt_exempt!=="True"&&(!ty||r.facility_type===ty)&&(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))&&!String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!q||[r.name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q)));
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0}return (x>y?1:x<y?-1:0)*sortDir});
+  lastF=f;
   const files=f.reduce((n,r)=>n+r.files.length,0);
   drawMap();
   const cnt=k=>f.filter(r=>r.txt_check===k).length;
@@ -183,6 +187,13 @@ document.getElementById("colmenu").addEventListener("click",e=>{if(e.target.id!=
 drawHead();
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;page=0;render()};
 ["q","state","ftype","fcheck"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{page=0;render()}));
+const XCOLS=["ccn","name","facility_type","address","city","state","zip","beds","system","txt_check","txt_check_reason","hpt_txt_domain","hpt_txt_url","hpt_txt_access_issue","confidence","match_status","location_name","source_page_url","mrf_url","mrf_format","mrf_size_mb","mrf_last_modified","mrf_http_status","contact_name","contact_email"];
+document.getElementById("export").onclick=()=>{
+  const q=v=>{v=String(v??"");return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+  const out=[XCOLS.join(",")];
+  for(const h of lastF){const fs=h.files.length?h.files:[h];for(const x of fs)out.push(XCOLS.map(k=>q(["location_name","source_page_url","mrf_url","mrf_format","mrf_size_mb","mrf_last_modified","mrf_http_status","contact_name","contact_email","match_status","confidence"].includes(k)&&h.files.length?x[k]:h[k])).join(","))}
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+out.join("\r\n")],{type:"text/csv"}));
+  a.download=`hospital-price-files-${new Date().toISOString().slice(0,10)}.csv`;a.target="_self";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000)};
 fetch("data.json").then(r=>r.json()).then(d=>{
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();
