@@ -89,6 +89,9 @@ def catalog() -> pd.DataFrame:
     fns = reg["mrf_filename"] if "mrf_filename" in reg.columns else pd.Series("", index=reg.index)
     fins = reg["mrf_final_url"] if "mrf_final_url" in reg.columns else pd.Series("", index=reg.index)
     parsed = [ein_mod.from_parts(u, fn, fu) for u, fn, fu in zip(reg["mrf_url"], fns, fins)]
+    # some hospitals put the EIN at the start of the location name ("26-1214372 NEA Baptist")
+    lead = reg["location_name"].str.extract(r"^\s*(\d{2})-?(\d{7})(?!\d)", expand=True).fillna("")
+    parsed = [p if p[0] or not a else (f"{a}-{b}", p[1]) for p, a, b in zip(parsed, lead[0], lead[1])]
     reg["ein"] = [p[0] for p in parsed]
     reg["npi"] = [p[1] for p in parsed]
     conf = reg.apply(confidence, axis=1, result_type="expand") if len(reg) else None

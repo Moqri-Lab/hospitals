@@ -105,11 +105,11 @@ const COLS=[["txt_check","cms-hpt.txt compliance"],["ccn","CCN"],["ein","EIN"],[
 // Consistent capitalization for hospital names. Brand and acronym casing (AdventHealth, UCSF, McAllen)
 // is learned from the mixed-case location names hospitals write in their own cms-hpt.txt files.
 const CASE={},SMALL=new Set(["of","and","the","at","for","in","on","by","a","an","de","del","la","las","los","y"]);
-const ACR=new Set(["llc","lp","llp","pc","er","icu","nicu","va","dc","us","usa","ii","iii","iv","ltac","ltach","irf","snf","md","phs","ihs","hca","chi","ssm","osf","uab","ucsf","ucla","uc","ut","unc","upmc","nyu","musc","hshs","amc","ach","rmc","mc","cmc","hmc","nw","ne","sw","se","sbh","ucf","usf","uf","osu","ou","ku","uva","vcu","ecu","uams","utmb","uci","ucsd","ucd","uw","uvm","ohsu","luhs","mgh","nyc","er&","ama"]);
+const ACR=new Set(["llc","lp","llp","pc","er","icu","nicu","va","dc","us","usa","ii","iii","iv","ltac","ltach","irf","snf","md","phs","ihs","hca","chi","ssm","osf","uab","ucsf","ucla","uc","ut","unc","upmc","nyu","musc","hshs","amc","ach","rmc","mc","cmc","hmc","nw","ne","sw","se","sbh","afb","ucf","usf","uf","osu","ou","ku","uva","vcu","ecu","uams","utmb","uci","ucsd","ucd","uw","uvm","ohsu","luhs","mgh","nyc","er&","ama"]);
 function buildCasing(rows){const n={};for(const r of rows){const t=String(r.location_name||"");if(!/[a-z]/.test(t)||!/[A-Z]/.test(t)||t===t.toUpperCase())continue;
   for(const w of t.split(/[^A-Za-z0-9'.]+/)){const k=w.toLowerCase();if(!k||!/[a-z]/.test(k))continue;(n[k]=n[k]||{})[w]=(n[k][w]||0)+1}}
   for(const k in n){const E=Object.entries(n[k]).sort((a,b)=>b[1]-a[1]),tot=E.reduce((t,e)=>t+e[1],0);const camel=E.find(([w,c])=>/[a-z][A-Z]/.test(w)&&c>=0.2*tot);const best=camel?camel[0]:E[0][0];if(best!==best.toLowerCase()&&(best!==best.toUpperCase()||best.length<=5))CASE[k]=best}}
-function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim();if(!s)return s;let i=0;
+function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim().replace(/^\d[\d-]{4,}\s*[-_:,]?\s*(?=\D)/,"");if(!s)return s;let i=0;
   return s.replace(/[A-Za-z0-9'.]+/g,w=>{const k=w.toLowerCase(),first=i++===0;
     if(SMALL.has(k)&&!first)return k;
     if(ACR.has(k.replace(/\./g,"")))return k.replace(/\./g,"")===k?k.toUpperCase():w.toUpperCase();
@@ -215,7 +215,7 @@ fetch("data.json").then(r=>r.json()).then(d=>{
   const by=new Map();
   buildCasing(rows);
   for(const r of rows){if(!by.has(r.ccn))by.set(r.ccn,{...r,files:[]});if(r.mrf_url)by.get(r.ccn).files.push(r)}
-  hosps=[...by.values()];hosps.forEach(h=>{h.n_files=h.files.length;h.cms_name=h.name;{const L=h.files.map(x=>String(x.location_name).split(";")[0].trim()).filter(Boolean);if(L.length)h.name=L[0]}h.name=nameCase(h.name);h.ein=[...new Set((h.files.length?h.files:[h]).map(x=>x.ein).filter(Boolean))].join(" ");const cs=h.files.map(x=>+x.confidence).filter(x=>!isNaN(x)&&x>0);h.confidence=cs.length?String(Math.max(...cs)):(h.confidence||"")});
+  hosps=[...by.values()];hosps.forEach(h=>{h.n_files=h.files.length;h.cms_name=h.name;{const L=h.files.map(x=>String(x.location_name).split(";")[0].trim()).filter(Boolean);if(L.length&&!/^\d+\s+\S.*\b(rd|road|st|street|ave|avenue|hwy|highway|dr|drive|blvd|ln|lane|way|pkwy|parkway)\.?\b/i.test(L[0]))h.name=L[0]}h.name=nameCase(h.name);h.ein=[...new Set((h.files.length?h.files:[h]).map(x=>x.ein).filter(Boolean))].join(" ");const cs=h.files.map(x=>+x.confidence).filter(x=>!isNaN(x)&&x>0);h.confidence=cs.length?String(Math.max(...cs)):(h.confidence||"")});
   [...new Set(hosps.filter(h=>h.hpt_exempt!=="True").map(h=>h.facility_type))].sort().forEach(t=>{const o=document.createElement("option");o.value=o.textContent=t;document.getElementById("ftype").appendChild(o)});
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
   const T=d.totals;if(T){const fb=n=>(n/1e9).toFixed(1);const fmt=n=>n>=1e9?(n/1e9).toFixed(1)+" billion":n>=1e6?Math.round(n/1e6)+" million":n.toLocaleString();
