@@ -505,7 +505,8 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
         head: bool = True) -> dict[str, Path]:
     reg = registry.load(reg_path)
     if limit:
-        reg = reg.head(limit)
+        beds = pd.to_numeric(reg["beds"], errors="coerce")
+        reg = reg.assign(_b=beds).sort_values(["_b", "ccn"], ascending=[False, True], na_position="last").head(limit).drop(columns="_b")
     domains: list[str] = []
     for ds in reg["domains"]:
         for d in ds.split():

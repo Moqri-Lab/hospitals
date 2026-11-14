@@ -209,7 +209,7 @@ def load_osm_ids() -> dict[str, str]:
 def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) -> pd.DataFrame:
     """Registry = every CMS Hospital General Information hospital, with POS bed counts.
 
-    Sorted by bed count (largest first) so ``--limit N`` crawls the N largest.
+    Sorted by state, then name. ``discover --limit N`` still crawls the N largest by beds.
     """
     df = load_cms(cms_dir)
     for col in REGISTRY_COLUMNS:
@@ -279,7 +279,8 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
             "web_osm", "osm_id", "web_inferred", "web_llm"]
     df[cols] = df.apply(per_source, axis=1, result_type="expand")
     df["beds"] = df["beds"].astype("Int64")
-    df = df[REGISTRY_COLUMNS].sort_values(["beds", "ccn"], ascending=[False, True], na_position="last")
+    df = df[REGISTRY_COLUMNS]
+    df = df.assign(_n=df["name"].str.upper()).sort_values(["state", "_n", "ccn"]).drop(columns="_n")
     return df.reset_index(drop=True)
 
 

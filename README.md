@@ -21,7 +21,7 @@ files they need.
 | [`CATALOG.md`](CATALOG.md) | Crawled hospitals as a readable table |
 | [`data/catalog.csv`](data/catalog.csv) | Full catalog, one row per hospital × price file |
 | [moqri-lab.org/hospitals](https://moqri-lab.org/hospitals/) | Map and searchable table ([`index.html`](index.html)); methods on the [About tab](https://moqri-lab.org/hospitals/about.html) |
-| [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 5,419 CMS hospitals, largest first |
+| [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 5,419 CMS hospitals, by state and then name |
 | [`data/discovery/`](data/discovery) | Raw crawl results: domains checked, every `cms-hpt.txt` entry |
 
 ## Sources
@@ -38,8 +38,8 @@ files they need.
 **Beds are per CCN.** CMS reports beds for each certification number, and one
 CCN can cover several campuses (AdventHealth Orlando's 3,289 beds span
 multiple campuses). The catalog's `n_campuses` column counts the distinct
-`cms-hpt.txt` location names attached to each CCN, and "largest first" means
-largest CCN by POS `BED_CNT`.
+`cms-hpt.txt` location names attached to each CCN, and a crawl with a `limit` takes the largest
+CCNs by POS `BED_CNT` first.
 
 VA and DoD hospitals are marked `hpt_exempt`, because federal hospitals are
 deemed compliant (45 CFR 180.30(b)). They are skipped by default when
