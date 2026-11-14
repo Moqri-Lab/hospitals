@@ -165,13 +165,13 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
     "hpt_exempt", "exempt_note", "system", "domains", "domain_source",
-    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf", "web_osm", "osm_id", "web_inferred", "source",
+    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton", "web_osm", "osm_id", "web_inferred", "source",
 ]
 
 LEAD_SOURCE_NAMES = {
     "wikidata": "Wikidata",
     "tpafs": "TPAFS/DoltHub transparency-data",
-    "sutton": "hospitalpricingfiles.org (via nathansutton/hospital-price-transparency)",
+    "sutton": "nathansutton/hospital-price-transparency",
     "osm": "OpenStreetMap",
     "inferred": "inferred and verified (scripts/find_websites.py)",
 }
@@ -272,7 +272,7 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
                 leads_by.get("tpafs", ""), leads_by.get("sutton", ""), leads_by.get("osm", ""), osm.get(ccn, ""),
                 leads_by.get("inferred", "")]
 
-    cols = ["web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_hpf",
+    cols = ["web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton",
             "web_osm", "osm_id", "web_inferred"]
     df[cols] = df.apply(per_source, axis=1, result_type="expand")
     df["beds"] = df["beds"].astype("Int64")

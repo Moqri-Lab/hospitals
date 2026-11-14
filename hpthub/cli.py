@@ -67,7 +67,7 @@ def main(argv=None):
     s.add_argument("--include-exempt", action="store_true", help="include VA/DoD hospitals")
     s.set_defaults(fn=cmd_discover)
 
-    s = sub.add_parser("site", help="build site/data.json for the static browser")
+    s = sub.add_parser("site", help="build data.json for the static browser")
     s.set_defaults(fn=cmd_site)
 
     a = p.parse_args(argv)

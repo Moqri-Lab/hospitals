@@ -18,7 +18,7 @@ can fetch the files they need themselves.
 |---|---|
 | [`CATALOG.md`](CATALOG.md) | Crawled hospitals as a readable table |
 | [`data/catalog.csv`](data/catalog.csv) | Full catalog, one row per hospital × price file |
-| [`site/index.html`](site/index.html) | Searchable, sortable table (GitHub Pages) |
+| [moqri-lab.org/hospitals](https://moqri-lab.org/hospitals/) | Map and searchable table ([`index.html`](index.html)); methods on the [About tab](https://moqri-lab.org/hospitals/about.html) |
 | [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 5,419 CMS hospitals, largest first |
 | [`data/discovery/`](data/discovery) | Raw crawl results: domains checked, every `cms-hpt.txt` entry |
 
@@ -31,7 +31,7 @@ can fetch the files they need themselves.
 | Price-file links, locations, contacts | Each hospital's own `cms-hpt.txt` (required by CMS since 2025) | [45 CFR 180](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180) · [CMS HPT](https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency) · [CMS spec](https://github.com/CMSgov/hospital-price-transparency) |
 | cms-hpt.txt when the live site refuses automated access | Latest public archive copy: [Internet Archive](https://web.archive.org) or [Common Crawl](https://commoncrawl.org), dated and linked in the catalog (`hpt_txt_source`, `hpt_txt_url`); bot protection is never bypassed. The refusal itself is recorded in `hpt_txt_access_issue` (CMS requires the file for automated discovery, 45 CFR 180.50). | — |
 | Price-file format, size, date | HTTP `HEAD` of each price-file URL (no download) | — |
-| Website leads (candidates only, verified live) | Health-system name rules; official websites (P856) from Wikidata (CC0); hospital `website` tags from OpenStreetMap (© OpenStreetMap contributors, ODbL); hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) and nathansutton/hospital-price-transparency (Apache-2.0; URLs via hospitalpricingfiles.org, Jan 2026) | [rules](data/registry/system_domains.csv) · [Wikidata](https://www.wikidata.org) · [matches](data/registry/wikidata_hospitals.csv) · [OpenStreetMap](https://www.openstreetmap.org/copyright) · [OSM matches](data/registry/osm_hospitals.csv) · [inferred](data/registry/inferred_websites.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) · [nathansutton](https://github.com/nathansutton/hospital-price-transparency) · [hospitalpricingfiles.org](https://hospitalpricingfiles.org) |
+| Website leads (candidates only, verified live) | Health-system name rules; official websites (P856) from Wikidata (CC0); hospital `website` tags from OpenStreetMap (© OpenStreetMap contributors, ODbL); hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) and nathansutton/hospital-price-transparency (Apache-2.0) | [rules](data/registry/system_domains.csv) · [Wikidata](https://www.wikidata.org) · [matches](data/registry/wikidata_hospitals.csv) · [OpenStreetMap](https://www.openstreetmap.org/copyright) · [OSM matches](data/registry/osm_hospitals.csv) · [inferred](data/registry/inferred_websites.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) · [nathansutton](https://github.com/nathansutton/hospital-price-transparency) |
 
 **Beds are per CCN.** CMS reports beds for each certification number, and one
 CCN can cover several campuses (AdventHealth Orlando's 3,289 beds span
@@ -66,7 +66,7 @@ hostnames from the DoltHub/TPAFS
 [transparency-data](https://github.com/TPAFS/transparency-data) hospital links
 (CC-BY-SA-4.0) and from
 [nathansutton/hospital-price-transparency](https://github.com/nathansutton/hospital-price-transparency)
-(Apache-2.0; its URL list comes from [hospitalpricingfiles.org](https://hospitalpricingfiles.org)).
+(Apache-2.0).
 
 **OpenStreetMap.** Hospitals (`amenity=hospital` or `healthcare=hospital`) in the
 US and Puerto Rico that carry a `website` tag in
@@ -104,7 +104,7 @@ pip install -e .
 python -m hpthub cms-download          # refresh CMS files into data/cms/
 python -m hpthub registry              # build data/registry/hospitals.csv
 python -m hpthub discover --limit 100  # crawl cms-hpt.txt for the 100 largest
-python -m hpthub site                  # write data/catalog.csv, CATALOG.md, site/data.json
+python -m hpthub site                  # write data/catalog.csv, CATALOG.md, data.json
 ```
 
 The **discover** GitHub Action runs this weekly and on demand

@@ -109,7 +109,7 @@ def test_mrf_format_uses_server_filename():
 def _row(**kw):
     base = dict(ccn="1", match_status="matched", match_score="0.9", hpt_txt_domain="h.org", hpt_txt_source="live",
                 hpt_txt_access_issue="", mrf_url="https://h.org/a.csv", mrf_http_status="200.0",
-                web_system_rule="h.org", web_wikidata="h.org", web_tpafs="", web_hpf="", web_claude="")
+                web_system_rule="h.org", web_wikidata="h.org", web_tpafs="", web_sutton="", web_claude="")
     base.update(kw)
     return base
 

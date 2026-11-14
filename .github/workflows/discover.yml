@@ -65,7 +65,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data site/data.json CATALOG.md
+          python3 scripts/dir_index.py data
+          git add data data.json CATALOG.md
           git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F)"
           git pull --rebase -X theirs origin main && git push
       # Publishing needs Settings > Pages > Source = GitHub Actions; skip quietly until then.
@@ -73,10 +74,10 @@ jobs:
         id: pages
         continue-on-error: true
       - name: Add data files to the site
-        run: cp -r data site/data && cp CATALOG.md site/ && python3 scripts/dir_index.py site/data
+        run: mkdir -p _site && cp -r index.html about.html exempt.html data.json CATALOG.md .nojekyll data _site/ && python3 scripts/dir_index.py _site/data
       - uses: actions/upload-pages-artifact@v3
         if: steps.pages.outcome == 'success'
         with:
-          path: site
+          path: _site
       - uses: actions/deploy-pages@v4
         if: steps.pages.outcome == 'success'

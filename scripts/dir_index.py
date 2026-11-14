@@ -1,5 +1,5 @@
 """Write an index.html listing into every folder under a directory, because
-GitHub Pages does not list folders. Usage: python scripts/dir_index.py site/data"""
+GitHub Pages does not list folders. Usage: python scripts/dir_index.py data"""
 
 import html
 import sys

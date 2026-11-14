@@ -10,8 +10,8 @@ Currently supported:
          hospital pages are used.
 
   sutton nathansutton/hospital-price-transparency dim/urls/*.json (Apache-2.0 repo,
-         https://github.com/nathansutton/hospital-price-transparency; URLs originally
-         from hospitalpricingfiles.org); hostnames of transparency_page/file_url.
+         https://github.com/nathansutton/hospital-price-transparency);
+         hostnames of transparency_page/file_url.
 
   wikidata  Wikidata (CC0, https://www.wikidata.org): US hospitals with an
          "official website" (P856), fetched live from the Wikidata Query Service.
