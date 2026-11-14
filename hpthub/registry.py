@@ -188,15 +188,15 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
         if h is not None:
             rows.append({"ccn": r.ccn, "name": h["name"], "address": h["address"], "city": h["city"],
                          "state": h["state"], "zip": h["zip"], "facility_type": h["facility_type"],
-                         "ownership": h["ownership"], "beds": r.BED_CNT, "source": "cms-pos+hgi"})
+                         "ownership": h["ownership"], "beds": r.BED_CNT, "pos_name": r.FAC_NAME, "source": "cms-pos+hgi"})
         else:
             rows.append({"ccn": r.ccn, "name": r.FAC_NAME, "address": r.ST_ADR, "city": r.CITY_NAME,
                          "state": r.STATE_CD, "zip": str(r.ZIP_CD)[:5],
                          "facility_type": POS_TYPES.get(r.PRVDR_CTGRY_SBTYP_CD, ""),
                          "ownership": POS_OWNERSHIP.get(r.GNRL_CNTL_TYPE_CD, ""),
-                         "beds": r.BED_CNT, "source": "cms-pos"})
+                         "beds": r.BED_CNT, "pos_name": r.FAC_NAME, "source": "cms-pos"})
     df = pd.DataFrame(rows)
-    for c in ("name", "address", "city"):
+    for c in ("name", "address", "city", "pos_name"):
         df[c] = df[c].str.strip().str.title()
     return df
 
@@ -204,7 +204,7 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 # ---------------------------------------------------------------- build
 
 REGISTRY_COLUMNS = [
-    "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
+    "ccn", "name", "pos_name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
     "hpt_exempt", "exempt_note", "system", "domains", "domain_source",
     "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton", "web_osm", "osm_id", "web_inferred", "web_llm", "source",
 ]
