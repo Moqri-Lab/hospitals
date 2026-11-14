@@ -224,8 +224,15 @@ def main():
     ap.add_argument("--minutes", type=float, default=30, help="stop checking after this long")
     a = ap.parse_args()
     reg = pd.read_csv(REG_DIR / "hospitals.csv", dtype=str).fillna("")
-    targets = reg[(reg["domains"] == "") & (reg["hpt_exempt"].str.lower() != "true")]
-    print(f"{len(targets)} hospitals without a known website")
+    # Search for every hospital without a usable website: none known, or the last crawl found
+    # no cms-hpt.txt on any known website, or found one that does not list the hospital.
+    retry = set()
+    cat_p = ROOT / "data" / "catalog.csv"
+    if cat_p.exists():
+        cat = pd.read_csv(cat_p, dtype=str).fillna("")
+        retry = set(cat.loc[cat["match_status"].isin(["no-hpt-txt", "no-domain", "not-listed", "low-confidence"]), "ccn"])
+    targets = reg[((reg["domains"] == "") | reg["ccn"].isin(retry)) & (reg["hpt_exempt"].str.lower() != "true")]
+    print(f"{len(targets)} hospitals without a usable website ({len(retry)} whose known websites failed)")
     cross = cross_matches(targets)
     print(f"{len(cross)} named in another website's cms-hpt.txt")
     dom_states: dict[str, set] = defaultdict(set)

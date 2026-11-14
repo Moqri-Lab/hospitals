@@ -51,6 +51,13 @@ VENDOR_HOST_PATTERNS = [
     r"carefinance\.", r"cms-hpt", r"patientrightsadvocate", r"acquiadam\.com$", r"widen\.net$",
     r"hubspotusercontent", r"akamaized\.net$", r"azurewebsites\.net$", r"digitaloceanspaces\.com$",
     r"elevatepfs\.com$", r"hospitalpricingfiles", r"cloudflare", r"salesforce", r"force\.com$",
+    # price-file hosting and CMS/CDN hosts found as candidate "websites" (2026-11-14 review): they
+    # serve price files or pages for many unrelated hospitals, never the hospital's own cms-hpt.txt
+    r"ezcost\.info$", r"eskycity\.net$", r"hyvehealthcare\.com$", r"machine-readable-files\.com$",
+    r"revenuemasters\.com$", r"slicedhealth\.io$", r"sitecorecloud\.io$", r"sitecorecontenthub\.cloud$",
+    r"(^|\.)google\.com$", r"goredde\.com$", r"clariti-health\.com$", r"cdn-website\.com$", r"ctfassets\.net$",
+    r"usrfiles\.com$", r"mimecastprotect\.com$", r"svdcdn\.com$", r"vercel-storage\.com$", r"sanity\.io$",
+    r"hospitalpriceindex\.com$", r"hospitalpricetransparencyfiles\.com$",
 ]
 _VENDOR_RE = re.compile("|".join(VENDOR_HOST_PATTERNS), re.I)
 
@@ -354,7 +361,9 @@ def load_overrides() -> dict[str, str]:
     if not p.exists():
         return {}
     with p.open(newline="") as f:
-        return {r["ccn"].zfill(6): r["domains"].strip() for r in csv.DictReader(f) if r.get("domains")}
+        out = {r["ccn"].zfill(6): " ".join(d for d in r["domains"].split() if not is_vendor_host(d))
+               for r in csv.DictReader(f) if r.get("domains")}
+    return {k: v for k, v in out.items() if v}
 
 
 def load_override_sources() -> dict[str, str]:
