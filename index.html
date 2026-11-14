@@ -80,7 +80,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 </style>
 </head>
 <body>
-<header class="brand"><h1>Hospital price file catalog</h1><div class="sub">Where every US hospital publishes its price transparency files. Links only: no price data is downloaded.</div></header>
+<header class="brand"><h1>Hospital price file catalog</h1><div class="sub">Where every US hospital publishes its price transparency files. Links to price data.</div></header>
 <section class="hero" id="hero" aria-label="Totals"></section>
 <section class="mapbox"><div class="mapwrap">
   <div id="usmap" role="img" aria-label="Map of US states shaded by share of hospitals that are cms-hpt.txt compliant"></div>
@@ -162,7 +162,7 @@ function render(){
   const files=f.reduce((n,r)=>n+r.files.length,0);
   drawMap();
   const cnt=k=>f.filter(r=>r.txt_check===k).length;
-  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · ${files.toLocaleString()} price files shown · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} inaccessible</span> · <span class="no">${cnt("fail")} not compliant</span>`;
+  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} inaccessible</span> · <span class="no">${cnt("fail")} not compliant</span>`;
   const pages=Math.max(1,Math.ceil(f.length/PAGE));if(page>=pages)page=pages-1;
   document.getElementById("pager").innerHTML=f.length>PAGE?`<button data-p="0"${page?"":" disabled"}>« First</button><button data-p="${page-1}"${page?"":" disabled"}>‹ Prev</button><span>Page ${page+1} of ${pages} (${(page*PAGE+1).toLocaleString()}–${Math.min(f.length,(page+1)*PAGE).toLocaleString()} of ${f.length.toLocaleString()})</span><button data-p="${page+1}"${page<pages-1?"":" disabled"}>Next ›</button><button data-p="${pages-1}"${page<pages-1?"":" disabled"}>Last »</button>`:"";
   document.getElementById("body").innerHTML=f.slice(page*PAGE,(page+1)*PAGE).map(r=>`<tr class="${r.txt_check==="unknown"?"blocked":esc(r.txt_check)}">`+vis().map(([k])=>`<td class="${k==="txt_check"?"chk":k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
@@ -189,7 +189,8 @@ fetch("data.json").then(r=>r.json()).then(d=>{
   [...new Set(hosps.filter(h=>h.hpt_exempt!=="True").map(h=>h.facility_type))].sort().forEach(t=>{const o=document.createElement("option");o.value=o.textContent=t;document.getElementById("ftype").appendChild(o)});
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
   const T=d.totals;if(T){const fb=n=>(n/1e9).toFixed(1);const fmt=n=>n>=1e9?(n/1e9).toFixed(1)+" billion":n>=1e6?Math.round(n/1e6)+" million":n.toLocaleString();
-    document.getElementById("hero").innerHTML=`<div class="k"><b>${T.price_files.toLocaleString()}</b><span>hospital price files listed</span></div><div class="k"><b>${T.hospitals_with_files.toLocaleString()}</b><span>hospitals with a price file</span></div><div class="k big" title="Estimated from file sizes reported by HTTP HEAD requests (no file is downloaded), assuming about ${"220"} bytes per negotiated price in CSV, 300 in JSON and 22 in zipped files; range ${fmt(T.est_prices_low)} to ${fmt(T.est_prices_high)}. See About."><b>~${fmt(T.est_prices)}</b><span>negotiated prices (estimate, range ${fb(T.est_prices_low)}–${fb(T.est_prices_high)} billion) · <a href="about.html#estimate" target="_self">how</a></span></div><div class="k"><b>${Math.round(T.total_gb).toLocaleString()} GB</b><span>of price data, by reported file size</span></div>`}
+    const nh=new Set(rows.map(r=>r.ccn)).size,nr=Math.floor(nh/1000)*1000;
+    document.getElementById("hero").innerHTML=`<div class="k"><b>${nr>=1000?"Over "+nr.toLocaleString():nh.toLocaleString()}</b><span>US hospitals (all ${nh.toLocaleString()} CMS-certified)</span></div><div class="k"><b>${T.price_files.toLocaleString()}</b><span>hospital price files listed</span></div><div class="k big" title="Estimated from file sizes reported by HTTP HEAD requests (no file is downloaded), assuming about 220 bytes per negotiated price in CSV, 300 in JSON and 22 in zipped files. See About."><b>~${fmt(T.est_prices)}</b><span>negotiated prices (estimate, range ${fb(T.est_prices_low)}–${fb(T.est_prices_high)} billion) · <a href="about.html#estimate" target="_self">how</a></span></div><div class="k"><b>${Math.round(T.total_gb).toLocaleString()} GB</b><span>of price data, by reported file size</span></div>`}
   document.getElementById("foot").innerHTML=`<a href="about.html" target="_self">About</a> · updated ${esc(String(d.generated_at).slice(0,10))}`;
   render()}).catch(()=>{document.getElementById("stats").textContent="Could not load data.json"});
 </script>
