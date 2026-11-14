@@ -99,10 +99,10 @@ pre{background:var(--card);border:1px solid var(--line);border-radius:6px;paddin
 </head>
 <body>
 <header class="brand"><h1>Hospital price file catalog</h1><div class="sub">Where every US hospital publishes its price transparency files. Links only: no price data is downloaded.</div></header>
-<nav class="tabs" aria-label="Pages"><a href="./" target="_self">Hospital price data</a><a href="about.html" target="_self" class="on" aria-current="page">Methods</a><a class="ext" href="https://github.com/Moqri-Lab/hospitals">GitHub ↗</a></nav>
+<nav class="tabs" aria-label="Pages"><a href="about.html" target="_self" class="on" aria-current="page">Methods</a><a class="ext" href="./" target="_self">← Back to the map and table</a></nav>
 <main class="doc">
 <nav class="toc" aria-label="On this page"><b>On this page</b>
-  <a href="#what" target="_self">What this is</a><a href="#downloads" target="_self">Downloads</a><a href="#sources" target="_self">Data sources</a><a href="#websites" target="_self">Finding hospital websites</a><a href="#compliance" target="_self">Compliance check</a><a href="#columns" target="_self">Table columns</a><a href="#estimate" target="_self">Totals and estimate</a><a href="#exempt" target="_self">Exempt hospitals</a><a href="#run" target="_self">Run it yourself</a>
+  <a href="#what" target="_self">What this is</a><a href="#downloads" target="_self">Downloads</a><a href="#sources" target="_self">Data sources</a><a href="#websites" target="_self">Finding hospital websites</a><a href="#compliance" target="_self">Compliance check</a><a href="#columns" target="_self">Table columns</a><a href="#estimate" target="_self">Totals and estimate</a><a href="#exempt" target="_self">Exempt hospitals</a><a href="#run" target="_self">Run it yourself</a><a href="#code" target="_self">Code and data on GitHub</a>
 </nav>
 <div class="body">
 
@@ -199,6 +199,10 @@ python -m hpthub registry              # data/registry/hospitals.csv
 python -m hpthub discover --limit 100  # cms-hpt.txt for the 100 largest
 python -m hpthub site                  # data/catalog.csv, CATALOG.md, data.json</code></pre>
 <p>A GitHub Action re-crawls every hospital weekly. To fix a missing or wrong website, add a row <code>ccn,domains</code> to <a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/domains.csv">domains.csv</a> and open a pull request; the next crawl verifies it. Code is MIT-licensed; CMS data is public domain. Source: <a href="https://github.com/Moqri-Lab/hospitals">Moqri-Lab/hospitals</a>.</p>
+</section>
+
+<section id="code"><h2>Code and data on GitHub</h2>
+<p>Everything behind this site, the crawler, the rules and all data files, is in the <a href="https://github.com/Moqri-Lab/hospitals">Moqri-Lab/hospitals</a> repository on GitHub. Issues and pull requests are welcome.</p>
 </section>
 </div>
 </main>
