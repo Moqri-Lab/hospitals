@@ -53,6 +53,7 @@ jobs:
       - name: Refresh OpenStreetMap website leads
         if: ${{ github.event_name == 'schedule' || inputs.refresh_leads }}
         continue-on-error: true
+        timeout-minutes: 25
         run: python scripts/import_domain_leads.py osm
       - run: python -m hpthub registry
       - name: Infer and verify websites for hospitals with none
