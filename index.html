@@ -113,7 +113,9 @@ function cell(r,k){const v=r[k]??"";
     if(k==="web_wikidata"&&r.wikidata_id)h+=` <a class="small" href="https://www.wikidata.org/wiki/${esc(r.wikidata_id)}">${esc(r.wikidata_id)}</a>`;
     return h}
   if(k==="hpt_txt_domain"){const m=r.match_status,src=r.hpt_txt_source||"",iss=r.hpt_txt_access_issue||"";
-    const link=v?`<a href="https://${esc(v)}/cms-hpt.txt" title="https://${esc(v)}/cms-hpt.txt">${esc(v)}</a>`:"";
+    const txtUrl=(src==="live"||src==="")&&/^https?:\/\//.test(r.hpt_txt_url||"")?r.hpt_txt_url:`https://${v}/cms-hpt.txt`;
+    const noFile=m==="no-hpt-txt"||/^(no cms-hpt\.txt|returned a web page)/.test(iss);
+    const link=!v?"":noFile?`<span title="No cms-hpt.txt file was found on this website">${esc(v)}</span>`:`<a href="${esc(txtUrl)}" title="${esc(txtUrl)}">${esc(v)}</a>`;
     const legal="CMS requires hospitals to post cms-hpt.txt at their website root so price files can be found automatically (45 CFR 180.50(d)(6)); price files must be machine-readable and accessible without barriers (45 CFR 180.50(d)(3)).";
     let out=link;
     if(iss)out+=`<span class="t small no" title="${esc(legal)}">${esc(iss)}</span>`;

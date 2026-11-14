@@ -63,7 +63,12 @@ def catalog() -> pd.DataFrame:
         iss = d["access_issue"] if "access_issue" in d else pd.Series("", index=d.index)
         reg["hpt_txt_source"] = reg["hpt_txt_domain"].map(src).fillna("")
         reg["hpt_txt_access_issue"] = reg["hpt_txt_domain"].map(iss).fillna("")
-        reg["hpt_txt_url"] = reg["hpt_txt_domain"].map(d["url"]).fillna("")
+        # link to the file actually read: after redirects for live files (a bare-domain
+        # link can land on the home page), the archive or snapshot URL otherwise
+        fin = d["final_url"].fillna("") if "final_url" in d else pd.Series("", index=d.index)
+        live_url = [f if (s in ("live", "") and str(f).startswith("http")) else u
+                    for s, f, u in zip(src, fin, d["url"])]
+        reg["hpt_txt_url"] = reg["hpt_txt_domain"].map(pd.Series(live_url, index=d.index)).fillna("")
     for c in CATALOG_COLUMNS:
         if c not in reg.columns:
             reg[c] = ""
@@ -257,7 +262,8 @@ def build() -> Path:
         "|---|---|---|---:|---|---|---|---|---:|---|---|---|",
     ]
     for i, r in enumerate(crawled.itertuples(index=False), 1):
-        txt = _md_link(f"https://{r.hpt_txt_domain}/cms-hpt.txt", r.hpt_txt_domain) if r.hpt_txt_domain else "not found"
+        live = r.hpt_txt_url if r.hpt_txt_source in ("live", "") and str(r.hpt_txt_url).startswith("http") else ""
+        txt = _md_link(live or f"https://{r.hpt_txt_domain}/cms-hpt.txt", r.hpt_txt_domain) if r.hpt_txt_domain else "not found"
         fname = r.mrf_url.rstrip("/").split("/")[-1].split("?")[0][:40] if r.mrf_url else ""
         contact = r.contact_name + (f" ({r.contact_email})" if r.contact_email else "")
         cells = [str(i), f"{r.name} (CCN {r.ccn})", f"{r.city}, {r.state}", r.beds, txt,
