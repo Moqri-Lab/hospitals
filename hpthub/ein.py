@@ -41,6 +41,20 @@ def from_url(url: str) -> tuple[str, str]:
     return "", ""
 
 
+
+def from_parts(url: str, filename: str = "", final_url: str = "") -> tuple[str, str]:
+    """(ein, npi) from the link, else the server-given file name, else the link after redirects."""
+    best = ("", "")
+    for cand in (url, f"x:///{filename}" if filename else "", final_url):
+        if not cand:
+            continue
+        e, n = from_url(cand)
+        if e:
+            return e, n or best[1]
+        if n and not best[1]:
+            best = ("", n)
+    return best
+
 # ---------------------------------------------------------------- IRS 990 Schedule H
 
 _STOPW = {"THE", "OF", "AND", "INC", "LLC", "AT", "A", "HOSPITAL", "MEDICAL", "CENTER", "HEALTH", "CAMPUS",

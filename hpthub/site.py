@@ -84,7 +84,11 @@ def catalog() -> pd.DataFrame:
     else:
         reg["mrf_size_mb"] = ""
     reg["mrf_last_modified"] = reg["mrf_last_modified"].map(_date)
-    parsed = [ein_mod.from_url(u) if u else ("", "") for u in reg["mrf_url"]]
+    # EIN from the price-file name: in the link, else in the file name the server gives
+    # (Content-Disposition, from the HEAD request), else in the link after redirects.
+    fns = reg["mrf_filename"] if "mrf_filename" in reg.columns else pd.Series("", index=reg.index)
+    fins = reg["mrf_final_url"] if "mrf_final_url" in reg.columns else pd.Series("", index=reg.index)
+    parsed = [ein_mod.from_parts(u, fn, fu) for u, fn, fu in zip(reg["mrf_url"], fns, fins)]
     reg["ein"] = [p[0] for p in parsed]
     reg["npi"] = [p[1] for p in parsed]
     conf = reg.apply(confidence, axis=1, result_type="expand") if len(reg) else None

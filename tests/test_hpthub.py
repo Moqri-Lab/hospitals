@@ -173,3 +173,10 @@ def test_ein_from_price_file_name():
     assert ein.from_url("https://x.org/1144487372_reedsburg_standardcharges_0.csv") == ("", "1144487372")
     assert ein.from_url("https://x.org/download.aspx?pi=abc") == ("", "")
     assert ein.from_url("https://x.org/8112%5C350593390-Deaconess_standardcharges.json") == ("35-0593390", "")
+
+
+def test_ein_from_server_filename():
+    from hpthub import ein
+    assert ein.from_parts("https://p.com/Reports.aspx?id=1", "581588823_TheMosesHCone_standardcharges.csv") == ("58-1588823", "")
+    assert ein.from_parts("https://p.com/d.aspx", "746000949%5fUTMB%5fstandardcharges%2ecsv") == ("74-6000949", "")
+    assert ein.from_parts("https://p.com/d.aspx", "", "https://cdn.com/23-1689692_x_standardcharges.json") == ("23-1689692", "")
