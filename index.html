@@ -99,7 +99,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 <div class="stats" id="stats">Loading…</div>
 <div class="wrap"><table><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table></div>
 <div class="pager" id="pager"></div>
-<footer id="foot"><a href="about.html" target="_self">About</a> · Developed by <a href="https://moqri-lab.org/">Moqri Lab</a></footer>
+<footer id="foot"><a href="about.html" target="_self">About</a> · Developed by <a href="https://moqri-lab.org/">Mahdi Moqri</a> in a personal capacity</footer>
 <script>
 const COLS=[["txt_check","cms-hpt.txt compliance"],["ccn","CCN"],["name","Hospital"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["confidence","Confidence"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_sutton","Web: nathansutton"],["web_osm","Web: OpenStreetMap"],["web_inferred","Web: inferred"],["web_claude","Web: Claude"]];
 let lastF=[],rows=[],hosps=[],sortKey="beds",sortDir=-1,page=0;const PAGE=100;
@@ -204,7 +204,7 @@ fetch("data.json").then(r=>r.json()).then(d=>{
   const T=d.totals;if(T){const fb=n=>(n/1e9).toFixed(1);const fmt=n=>n>=1e9?(n/1e9).toFixed(1)+" billion":n>=1e6?Math.round(n/1e6)+" million":n.toLocaleString();
     const nh=new Set(rows.map(r=>r.ccn)).size,nr=Math.floor(nh/1000)*1000;
     document.getElementById("hero").innerHTML=`<div class="k"><b>${nr>=1000?"Over "+nr.toLocaleString():nh.toLocaleString()}</b><span>US hospitals (all ${nh.toLocaleString()} CMS-certified)</span></div><div class="k"><b>${T.price_files.toLocaleString()}</b><span>hospital price files listed</span></div><div class="k big" title="Estimated from file sizes reported by HTTP HEAD requests (no file is downloaded), assuming about 220 bytes per negotiated price in CSV, 300 in JSON and 22 in zipped files. See About."><b>~${fmt(T.est_prices)}</b><span>negotiated prices (estimate, range ${fb(T.est_prices_low)}–${fb(T.est_prices_high)} billion) · <a href="about.html#estimate" target="_self">how</a></span></div><div class="k"><b>${Math.round(T.total_gb).toLocaleString()} GB</b><span>of price data, by reported file size</span></div>`}
-  document.getElementById("foot").innerHTML=`<a href="about.html" target="_self">About</a> · updated ${esc(String(d.generated_at).slice(0,10))} · Developed by <a href="https://moqri-lab.org/">Moqri Lab</a>`;
+  document.getElementById("foot").innerHTML=`<a href="about.html" target="_self">About</a> · updated ${esc(String(d.generated_at).slice(0,10))} · Developed by <a href="https://moqri-lab.org/">Mahdi Moqri</a> in a personal capacity`;
   render()}).catch(()=>{document.getElementById("stats").textContent="Could not load data.json"});
 </script>
 </body>
