@@ -130,7 +130,7 @@ function cell(r,k){const v=r[k]??"";
   if(k==="n_files"){const F=r.files;if(!F.length)return"";
     const one=x=>{let f=x.mrf_url.split("?")[0].split("/").pop();try{f=decodeURIComponent(f)}catch(e){}
       const L=String(x.location_name).split(";").map(y=>y.trim()).filter(Boolean);
-      const nm=L.length?(x.source_page_url?`<a href="${esc(x.source_page_url)}" title="${esc(L.join("; "))}">${esc(L[0])}</a>`:`<span title="${esc(L.join("; "))}">${esc(L[0])}</span>`)+(L.length>1?` <span class="small" title="${esc(L.slice(1).join("; "))}">+${L.length-1}</span>`:""):"";
+      const nm=L.length?(x.source_page_url?`<a href="${esc(x.source_page_url)}" title="${esc(L.join("; "))}">${esc(L[0])}</a>`:`<span title="${esc(L.join("; "))}">${esc(L[0])}</span>`)+(L.length>1?`<details class="locs"><summary>+${L.length-1} more location${L.length>2?"s":""} in this file</summary>${L.slice(1).map(esc).join("<br>")}</details>`:""):"";
       const code=String(x.mrf_http_status||"").split(".")[0];
       const meta=[code&&code!=="200"?`<span class="${code==="404"||code==="410"?"no":"low"}" title="Response to an HTTP HEAD request for the price file">link returns HTTP ${esc(code)}</span>`:"",x.mrf_format?`<span class="chip">${esc(x.mrf_format)}</span>`:"",x.mrf_size_mb?`${esc(x.mrf_size_mb)} MB`:"",esc(x.mrf_last_modified)].filter(Boolean).join(" · ");
       return `<div class="file">${nm}<div class="small"><a href="${esc(x.mrf_url)}" title="${esc(x.mrf_url)}">${esc(f.length>34?f.slice(0,31)+"…":f||"link")}</a>${meta?" · "+meta:""}</div></div>`};
