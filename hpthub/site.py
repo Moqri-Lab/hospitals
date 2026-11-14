@@ -260,14 +260,40 @@ def ein_crosswalk(cat: pd.DataFrame) -> pd.DataFrame:
                      "npi": " ".join(npis), "n_price_files": len(g),
                      "ccns_with_this_ein": int(per_ein.get(ein, 1)),
                      "example_price_file": g["mrf_url"].iloc[0]})
-    return pd.DataFrame(rows, columns=["ccn", "ein", "name", "city", "state", "npi", "n_price_files",
-                                       "ccns_with_this_ein", "example_price_file"])
+    for r in rows:
+        r["source"] = "price-file name"
+    # Fill hospitals with no EIN from their price files using IRS 990 Schedule H (nonprofits).
+    fac = _read(ROOT / "data" / "registry" / "irs990_hospital_facilities.csv")
+    if not fac.empty:
+        hosp = cat.drop_duplicates("ccn")
+        have = {r["ccn"] for r in rows}
+        info = hosp.set_index("ccn")
+        for m in ein_mod.match_990(hosp[hosp["hpt_exempt"] != "True"], fac):
+            if m["ccn"] in have:
+                continue
+            h = info.loc[m["ccn"]]
+            rows.append({"ccn": m["ccn"], "ein": m["ein"], "name": h["name"], "city": h["city"], "state": h["state"],
+                         "npi": "", "n_price_files": 0, "ccns_with_this_ein": 0, "example_price_file": "",
+                         "source": f"IRS 990 Schedule H ({m['irs_filer']}, tax year ending {m['irs_tax_period']}; "
+                                   f"facility '{m['irs_facility']}', matched by {m['method']})"})
+            have.add(m["ccn"])
+    df = pd.DataFrame(rows, columns=["ccn", "ein", "name", "city", "state", "npi", "n_price_files",
+                                     "ccns_with_this_ein", "example_price_file", "source"])
+    if len(df):
+        df["ccns_with_this_ein"] = df["ein"].map(df.groupby("ein")["ccn"].nunique())
+    return df.sort_values(["state", "name", "ccn"]).reset_index(drop=True) if len(df) else df
 
 
 def build() -> Path:
     cat = catalog()
+    xw = ein_crosswalk(cat)
+    xw.to_csv(ROOT / "data" / "ccn_ein.csv", index=False)
+    if len(xw):  # hospitals whose EIN comes from IRS 990 only: show it in the table too
+        irs = xw[xw["source"].str.startswith("IRS")].set_index("ccn")["ein"]
+        cat = cat.copy()
+        fill = cat["ccn"].isin(irs.index) & (cat["ein"] == "")
+        cat.loc[fill, "ein"] = cat.loc[fill, "ccn"].map(irs)
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
-    ein_crosswalk(cat).to_csv(ROOT / "data" / "ccn_ein.csv", index=False)
 
     crawled = cat[cat["match_status"] != ""]
     lines = [

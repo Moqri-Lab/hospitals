@@ -38,3 +38,49 @@ def from_url(url: str) -> tuple[str, str]:
         if m:
             return "", m.group(1)
     return "", ""
+
+
+# ---------------------------------------------------------------- IRS 990 Schedule H
+
+_STOPW = {"THE", "OF", "AND", "INC", "LLC", "AT", "A", "HOSPITAL", "MEDICAL", "CENTER", "HEALTH", "CAMPUS",
+          "REGIONAL", "COMMUNITY", "MEMORIAL", "SYSTEM", "HEALTHCARE", "CORP", "CORPORATION", "DBA"}
+_ABBR = {"ST": "SAINT", "STE": "SAINTE", "MT": "MOUNT", "HOSP": "HOSPITAL", "CTR": "CENTER", "MED": "MEDICAL",
+         "MEM": "MEMORIAL", "REG": "REGIONAL", "HLTH": "HEALTH", "UNIV": "UNIVERSITY", "CO": "COUNTY"}
+
+
+def _tok(s: str) -> set[str]:
+    w = re.sub(r"[^A-Z0-9 ]", " ", str(s).upper().replace("'", "").replace("&", " AND ")).split()
+    return {_ABBR.get(x, x) for x in w} - _STOPW
+
+
+def _street_no(a: str) -> str:
+    m = re.match(r"\s*(\d+)", str(a))
+    return m.group(1) if m else ""
+
+
+def match_990(reg, fac) -> list[dict]:
+    """Match Schedule H facilities to CMS hospitals in the same state.
+
+    A facility matches a hospital when the ZIP code agrees and either the street number agrees
+    or the distinctive name words overlap (Jaccard >= 0.5); or, across the state, when the
+    distinctive name words are identical and the city agrees. Ambiguous facilities are skipped.
+    """
+    by_state: dict[str, list] = {}
+    for h in reg.itertuples(index=False):
+        by_state.setdefault(h.state, []).append((h, _tok(h.name), str(h.zip)[:5], _street_no(h.address)))
+    out = []
+    for f in fac.itertuples(index=False):
+        ft = _tok(f"{f.facility_name} {f.facility_name2}")
+        fz, fn = str(f.zip)[:5], _street_no(f.address)
+        hits = []
+        for h, ht, hz, hn in by_state.get(f.state, []):
+            jac = len(ft & ht) / len(ft | ht) if ft and ht else 0.0
+            if hz == fz and ((fn and fn == hn) or jac >= 0.5):
+                hits.append((h, "zip+" + ("address" if fn and fn == hn else "name")))
+            elif ft and ft == ht and str(h.city).upper() == str(f.city).upper():
+                hits.append((h, "name+city"))
+        if len({h.ccn for h, _ in hits}) == 1:
+            h, how = hits[0]
+            out.append({"ccn": h.ccn, "ein": f.ein, "irs_filer": f.filer_name, "irs_facility": f.facility_name,
+                        "irs_tax_period": f.tax_period_end, "method": how})
+    return out

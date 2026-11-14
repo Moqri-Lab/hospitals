@@ -200,7 +200,7 @@ fetch("data.json").then(r=>r.json()).then(d=>{
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();
   for(const r of rows){if(!by.has(r.ccn))by.set(r.ccn,{...r,files:[]});if(r.mrf_url)by.get(r.ccn).files.push(r)}
-  hosps=[...by.values()];hosps.forEach(h=>{h.n_files=h.files.length;h.ein=[...new Set(h.files.map(x=>x.ein).filter(Boolean))].join(" ");const cs=h.files.map(x=>+x.confidence).filter(x=>!isNaN(x)&&x>0);h.confidence=cs.length?String(Math.max(...cs)):(h.confidence||"")});
+  hosps=[...by.values()];hosps.forEach(h=>{h.n_files=h.files.length;h.ein=[...new Set((h.files.length?h.files:[h]).map(x=>x.ein).filter(Boolean))].join(" ");const cs=h.files.map(x=>+x.confidence).filter(x=>!isNaN(x)&&x>0);h.confidence=cs.length?String(Math.max(...cs)):(h.confidence||"")});
   [...new Set(hosps.filter(h=>h.hpt_exempt!=="True").map(h=>h.facility_type))].sort().forEach(t=>{const o=document.createElement("option");o.value=o.textContent=t;document.getElementById("ftype").appendChild(o)});
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
   const T=d.totals;if(T){const fb=n=>(n/1e9).toFixed(1);const fmt=n=>n>=1e9?(n/1e9).toFixed(1)+" billion":n>=1e6?Math.round(n/1e6)+" million":n.toLocaleString();
