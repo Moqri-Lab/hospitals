@@ -12,6 +12,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from . import progress
 from . import http, hpttxt, registry
 
 ROOT = registry.ROOT
@@ -248,8 +249,8 @@ def crawl(domains: list[str], workers: int = 16) -> tuple[pd.DataFrame, pd.DataF
             res = fut.result()
             dom_rows.append(res["domain"])
             entry_rows.extend(res["entries"])
-            if i % 50 == 0:
-                print(f"  {i}/{len(domains)} domains checked", flush=True)
+            if i % 50 == 0 or i == len(domains):
+                progress.report("step 1 of 2, websites (cms-hpt.txt) checked", i, len(domains))
     return pd.DataFrame(dom_rows), pd.DataFrame(entry_rows)
 
 
@@ -463,8 +464,13 @@ def mrf_format(url: str, content_type: str = "", filename: str = "", final_url: 
 
 def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
     sess = http.session()
+    out = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        return pd.DataFrame(list(ex.map(lambda u: head_mrf(sess, u), urls)))
+        for i, rec in enumerate(ex.map(lambda u: head_mrf(sess, u), urls), 1):
+            out.append(rec)
+            if i % 100 == 0 or i == len(urls):
+                progress.report("step 2 of 2, price-file links checked", i, len(urls))
+    return pd.DataFrame(out)
 
 
 def archive_pass(reg: pd.DataFrame, dom_df: pd.DataFrame, ent_df: pd.DataFrame,
@@ -541,4 +547,5 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
     ent_df.sort_values(["domain", "location_name"]).to_csv(paths["entries"], index=False)
     m.to_csv(paths["hospital_mrfs"], index=False)
     print(m["match_status"].value_counts().to_string())
+    progress.finish(f"crawl done: {m['ccn'].nunique():,} hospitals, {m['mrf_url'].replace('', pd.NA).dropna().nunique():,} price-file links")
     return paths
