@@ -106,7 +106,7 @@ let lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 function cell(r,k){const v=r[k]??"";
-  if(k==="name")return `${esc(v)}`+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
+  if(k==="name")return (r.hpt_txt_domain?`<a href="https://${esc(r.hpt_txt_domain)}" title="Hospital website: ${esc(r.hpt_txt_domain)}">${esc(v)}</a>`:esc(v))+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
   if(k==="ccn")return `<span style="white-space:nowrap">${esc(v)}</span>`;
@@ -118,7 +118,7 @@ function cell(r,k){const v=r[k]??"";
   if(k==="hpt_txt_domain"){const m=r.match_status,src=r.hpt_txt_source||"",iss=r.hpt_txt_access_issue||"";
     const txtUrl=(src==="live"||src==="")&&/^https?:\/\//.test(r.hpt_txt_url||"")?r.hpt_txt_url:`https://${v}/cms-hpt.txt`;
     const noFile=m==="no-hpt-txt"||/^(no cms-hpt\.txt|returned a web page)/.test(iss);
-    const link=!v?"":noFile?`<span title="No cms-hpt.txt file was found on this website">${esc(v)}</span>`:`<a href="${esc(txtUrl)}" title="${esc(txtUrl)}">${esc(v)}</a>`;
+    const link=!v?"":noFile?`<span title="No cms-hpt.txt file was found on this website">${esc(v)}</span>`:`<a href="${esc(txtUrl)}" title="${esc(txtUrl)}">${esc(v)}/cms-hpt.txt</a>`;
     const legal="CMS requires hospitals to post cms-hpt.txt at their website root so price files can be found automatically (45 CFR 180.50(d)(6)); price files must be machine-readable and accessible without barriers (45 CFR 180.50(d)(3)).";
     let out=link;
     if(iss)out+=`<span class="t small no" title="${esc(legal)}">${esc(iss)}</span>`;
