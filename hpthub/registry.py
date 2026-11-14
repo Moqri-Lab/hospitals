@@ -250,7 +250,7 @@ def load_osm_ids() -> dict[str, str]:
 def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) -> pd.DataFrame:
     """Registry = every active hospital in the CMS Provider of Services file (see load_cms).
 
-    Sorted by state, then name. ``discover --limit N`` still crawls the N largest by beds.
+    Sorted by state, then name. ``discover`` crawls hospitals alphabetically by name.
     """
     df = load_cms(cms_dir)
     for col in REGISTRY_COLUMNS:

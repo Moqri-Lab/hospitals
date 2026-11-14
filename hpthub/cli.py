@@ -28,10 +28,9 @@ def _targets(limit: int | None, include_exempt: bool) -> pd.DataFrame:
     reg = registry.load()
     if not include_exempt:
         reg = reg[reg["hpt_exempt"].astype(str).str.lower() != "true"]
-    if limit:  # the largest hospitals first
-        beds = pd.to_numeric(reg["beds"], errors="coerce")
-        reg = reg.assign(_b=beds).sort_values(["_b", "ccn"], ascending=[False, True]).head(limit).drop(columns="_b")
-    return reg
+    # alphabetical by hospital name
+    reg = reg.assign(_n=reg["name"].str.upper()).sort_values(["_n", "ccn"]).drop(columns="_n")
+    return reg.head(limit) if limit else reg
 
 
 def cmd_discover(a):
@@ -67,7 +66,7 @@ def main(argv=None):
     s.add_argument("--acute-only", action="store_true")
     s.set_defaults(fn=cmd_registry)
 
-    s = sub.add_parser("discover", help="fetch cms-hpt.txt for the largest N hospitals")
+    s = sub.add_parser("discover", help="fetch cms-hpt.txt for the first N hospitals, alphabetically")
     s.add_argument("--limit", type=int, default=100)
     s.add_argument("--workers", type=int, default=16)
     s.add_argument("--include-exempt", action="store_true", help="include VA/DoD hospitals")

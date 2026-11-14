@@ -39,8 +39,7 @@ files they need.
 **Beds are per CCN.** CMS reports beds for each certification number, and one
 CCN can cover several campuses (AdventHealth Orlando's 3,289 beds span
 multiple campuses). The catalog's `n_campuses` column counts the distinct
-`cms-hpt.txt` location names attached to each CCN, and a crawl with a `limit` takes the largest
-CCNs by POS `BED_CNT` first.
+`cms-hpt.txt` location names attached to each CCN. Crawls go through hospitals alphabetically by name.
 
 VA and DoD hospitals are marked `hpt_exempt`, because federal hospitals are
 deemed compliant (45 CFR 180.30(b)). They are skipped by default when
