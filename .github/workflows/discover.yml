@@ -61,17 +61,29 @@ jobs:
         if: ${{ github.event_name == 'schedule' || inputs.find_websites }}
         continue-on-error: true
         run: python scripts/find_websites.py --workers 64 --minutes 40 && python -m hpthub registry
-      - run: python -m hpthub discover --limit "${{ inputs.limit || '100' }}" --workers "${{ inputs.workers || '32' }}"
+      - name: Step 1 of 2, read every cms-hpt.txt
+        run: python -m hpthub discover --stage txt --limit "${{ inputs.limit || '100' }}" --workers "${{ inputs.workers || '32' }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: python -m hpthub site
-      - name: Commit results
+      - name: Publish step 1 (cms-hpt.txt results; price-file details from the previous crawl)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python3 scripts/dir_index.py data
           git add data data.json CATALOG.md
-          git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F)"
+          git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F), cms-hpt.txt files"
+          git pull --rebase -X theirs origin main && git push
+      - name: Step 2 of 2, check every price-file link (HTTP HEAD only)
+        run: python -m hpthub discover --stage prices --workers "${{ inputs.workers || '32' }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: python -m hpthub site
+      - name: Commit results
+        run: |
+          python3 scripts/dir_index.py data
+          git add data data.json CATALOG.md
+          git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F), price files"
           git pull --rebase -X theirs origin main && git push
       # Publishing needs Settings > Pages > Source = GitHub Actions; skip quietly until then.
       - uses: actions/configure-pages@v5

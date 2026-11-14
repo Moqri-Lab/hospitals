@@ -28,15 +28,21 @@ def _targets(limit: int | None, include_exempt: bool) -> pd.DataFrame:
     reg = registry.load()
     if not include_exempt:
         reg = reg[reg["hpt_exempt"].astype(str).str.lower() != "true"]
-    return reg.head(limit) if limit else reg
+    if limit:  # the largest hospitals first
+        beds = pd.to_numeric(reg["beds"], errors="coerce")
+        reg = reg.assign(_b=beds).sort_values(["_b", "ccn"], ascending=[False, True]).head(limit).drop(columns="_b")
+    return reg
 
 
 def cmd_discover(a):
+    if a.stage == "prices":
+        discover.run_head()
+        return
     reg = _targets(a.limit, a.include_exempt)
     tmp = ROOT / "data" / "registry" / ".targets.csv"
     reg.to_csv(tmp, index=False)
     try:
-        discover.run(tmp, workers=a.workers)
+        discover.run(tmp, workers=a.workers, head=a.stage == "all")
     finally:
         tmp.unlink(missing_ok=True)
 
@@ -65,6 +71,8 @@ def main(argv=None):
     s.add_argument("--limit", type=int, default=100)
     s.add_argument("--workers", type=int, default=16)
     s.add_argument("--include-exempt", action="store_true", help="include VA/DoD hospitals")
+    s.add_argument("--stage", choices=["all", "txt", "prices"], default="all",
+                   help="txt: read cms-hpt.txt files only; prices: then check the price-file links")
     s.set_defaults(fn=cmd_discover)
 
     s = sub.add_parser("site", help="build data.json for the static browser")

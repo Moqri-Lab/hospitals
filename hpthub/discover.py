@@ -462,6 +462,52 @@ def mrf_format(url: str, content_type: str = "", filename: str = "", final_url: 
     return ""
 
 
+HEAD_COLS = ("mrf_http_status", "mrf_content_type", "mrf_bytes", "mrf_last_modified",
+             "mrf_final_url", "mrf_filename", "mrf_error")
+
+
+def _formats(m: pd.DataFrame) -> pd.DataFrame:
+    m["mrf_format"] = [mrf_format(u, ct, fn, fu) if isinstance(u, str) and u else ""
+                       for u, ct, fn, fu in zip(m["mrf_url"], m["mrf_content_type"].fillna(""),
+                                                m["mrf_filename"].fillna(""), m["mrf_final_url"].fillna(""))]
+    return m
+
+
+def add_head(m: pd.DataFrame) -> pd.DataFrame:
+    """Step 2: HTTP HEAD every price-file link (no download)."""
+    m = m.drop(columns=[c for c in (*HEAD_COLS, "mrf_format") if c in m.columns])
+    urls = sorted({u for u in m["mrf_url"] if isinstance(u, str) and u.startswith("http")})
+    if urls:
+        m = m.merge(head_all(urls), on="mrf_url", how="left")
+    for c in HEAD_COLS:
+        if c not in m.columns:
+            m[c] = None
+    return _formats(m)
+
+
+def carry_head(m: pd.DataFrame) -> pd.DataFrame:
+    """Reuse HEAD results from the previous crawl for links it already checked."""
+    p = DISC_DIR / "hospital_mrfs.csv"
+    old = pd.read_csv(p, dtype=str, keep_default_na=False) if p.exists() else pd.DataFrame()
+    cols = [c for c in HEAD_COLS if c in old.columns]
+    if "mrf_url" in old.columns and cols:
+        m = m.merge(old[["mrf_url", *cols]].drop_duplicates("mrf_url"), on="mrf_url", how="left")
+    for c in HEAD_COLS:
+        if c not in m.columns:
+            m[c] = None
+    return _formats(m)
+
+
+def run_head(path: Path | None = None) -> Path:
+    """Step 2 on its own: HEAD the price-file links in an existing hospital_mrfs.csv."""
+    p = path or DISC_DIR / "hospital_mrfs.csv"
+    m = add_head(pd.read_csv(p, dtype=str, keep_default_na=False))
+    m.to_csv(p, index=False)
+    progress.finish(f"crawl done: {m['ccn'].nunique():,} hospitals, "
+                    f"{m['mrf_url'].replace('', pd.NA).dropna().nunique():,} price-file links")
+    return p
+
+
 def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
     sess = http.session()
     out = []
@@ -526,17 +572,9 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
                                        "contact_name", "contact_email", "issues"])
     m = match(reg, dom_df, ent_df, universe=registry.load())
     if head:
-        urls = sorted({u for u in m["mrf_url"] if isinstance(u, str) and u.startswith("http")})
-        if urls:
-            m = m.merge(head_all(urls), on="mrf_url", how="left")
-        else:
-            for c in ("mrf_http_status", "mrf_content_type", "mrf_bytes", "mrf_last_modified",
-                      "mrf_final_url", "mrf_filename", "mrf_error"):
-                m[c] = None
-        m["mrf_format"] = [mrf_format(u, ct, fn, fu) if isinstance(u, str) and u else ""
-                           for u, ct, fn, fu in zip(m["mrf_url"], m["mrf_content_type"].fillna(""),
-                                                    m.get("mrf_filename", pd.Series("", index=m.index)).fillna(""),
-                                                    m["mrf_final_url"].fillna(""))]
+        m = add_head(m)
+    else:  # step 1 only: keep the last crawl's HEAD results for links seen before
+        m = carry_head(m)
     DISC_DIR.mkdir(parents=True, exist_ok=True)
     paths = {
         "domains": DISC_DIR / "domains.csv",
@@ -547,5 +585,8 @@ def run(reg_path: Path | None = None, limit: int | None = None, workers: int = 1
     ent_df.sort_values(["domain", "location_name"]).to_csv(paths["entries"], index=False)
     m.to_csv(paths["hospital_mrfs"], index=False)
     print(m["match_status"].value_counts().to_string())
+    if not head:
+        progress.report("step 1 of 2 done; cms-hpt.txt results saved", 1, 1, force=True)
+        return paths
     progress.finish(f"crawl done: {m['ccn'].nunique():,} hospitals, {m['mrf_url'].replace('', pd.NA).dropna().nunique():,} price-file links")
     return paths
