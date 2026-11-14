@@ -31,7 +31,7 @@ can fetch the files they need themselves.
 | Price-file links, locations, contacts | Each hospital's own `cms-hpt.txt` (required by CMS since 2025) | [45 CFR 180](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180) · [CMS HPT](https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency) · [CMS spec](https://github.com/CMSgov/hospital-price-transparency) |
 | cms-hpt.txt when the live site refuses automated access | Latest public archive copy: [Internet Archive](https://web.archive.org) or [Common Crawl](https://commoncrawl.org), dated and linked in the catalog (`hpt_txt_source`, `hpt_txt_url`); bot protection is never bypassed. The refusal itself is recorded in `hpt_txt_access_issue` (CMS requires the file for automated discovery, 45 CFR 180.50). | — |
 | Price-file format, size, date | HTTP `HEAD` of each price-file URL (no download) | — |
-| Website leads (candidates only, verified live) | Health-system name rules; official websites (P856) from Wikidata (CC0); hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) and nathansutton/hospital-price-transparency (Apache-2.0; URLs via hospitalpricingfiles.org, Jan 2026) | [rules](data/registry/system_domains.csv) · [Wikidata](https://www.wikidata.org) · [matches](data/registry/wikidata_hospitals.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) · [nathansutton](https://github.com/nathansutton/hospital-price-transparency) · [hospitalpricingfiles.org](https://hospitalpricingfiles.org) |
+| Website leads (candidates only, verified live) | Health-system name rules; official websites (P856) from Wikidata (CC0); hospital `website` tags from OpenStreetMap (© OpenStreetMap contributors, ODbL); hostnames from DoltHub/TPAFS transparency-data (CC BY-SA 4.0) and nathansutton/hospital-price-transparency (Apache-2.0; URLs via hospitalpricingfiles.org, Jan 2026) | [rules](data/registry/system_domains.csv) · [Wikidata](https://www.wikidata.org) · [matches](data/registry/wikidata_hospitals.csv) · [OpenStreetMap](https://www.openstreetmap.org/copyright) · [OSM matches](data/registry/osm_hospitals.csv) · [inferred](data/registry/inferred_websites.csv) · [TPAFS](https://github.com/TPAFS/transparency-data) · [nathansutton](https://github.com/nathansutton/hospital-price-transparency) · [hospitalpricingfiles.org](https://hospitalpricingfiles.org) |
 
 **Beds are per CCN.** CMS reports beds for each certification number, and one
 CCN can cover several campuses (AdventHealth Orlando's 3,289 beds span
@@ -67,6 +67,24 @@ hostnames from the DoltHub/TPAFS
 (CC-BY-SA-4.0) and from
 [nathansutton/hospital-price-transparency](https://github.com/nathansutton/hospital-price-transparency)
 (Apache-2.0; its URL list comes from [hospitalpricingfiles.org](https://hospitalpricingfiles.org)).
+
+**OpenStreetMap.** Hospitals (`amenity=hospital` or `healthcare=hospital`) in the
+US and Puerto Rico that carry a `website` tag in
+[OpenStreetMap](https://www.openstreetmap.org), © OpenStreetMap contributors,
+available under the [Open Database License (ODbL)](https://www.openstreetmap.org/copyright).
+They are fetched from the [Overpass API](https://overpass-api.de) and matched to a
+CMS hospital by name within 25 km of the hospital's ZIP code (ZIP locations from
+the [Census ZCTA gazetteer](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html))
+or by the OSM address ZIP; ambiguous matches are dropped. Each match, with its
+OSM object link, is in [`data/registry/osm_hospitals.csv`](data/registry/osm_hospitals.csv)
+(`python scripts/import_domain_leads.py osm`).
+
+**Inferred websites.** For hospitals no source covers, `scripts/find_websites.py`
+proposes websites from another site's cms-hpt.txt that lists the hospital, or
+from domains built from its name, and keeps one only if its home page shows the
+hospital's street address (or ZIP and city), or it lists the hospital's exact
+name and already serves hospitals in the same state. Evidence for each is in
+[`data/registry/inferred_websites.csv`](data/registry/inferred_websites.csv).
 
 ### Confidence
 
