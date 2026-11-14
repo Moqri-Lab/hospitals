@@ -165,7 +165,7 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
 REGISTRY_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds",
     "hpt_exempt", "exempt_note", "system", "domains", "domain_source",
-    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton", "web_osm", "osm_id", "web_inferred", "source",
+    "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton", "web_osm", "osm_id", "web_inferred", "web_llm", "source",
 ]
 
 LEAD_SOURCE_NAMES = {
@@ -262,18 +262,21 @@ def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) 
 
     # One column per website source, keyed by CCN: the domain(s) each source gives.
     lead_rows, wd, osm = load_lead_rows(), load_wikidata_ids(), load_osm_ids()
+    osrc = load_override_sources()
 
     def per_source(row) -> list[str]:
         ccn = row["ccn"]
         key = f"{row['name']} {row['state']}"
         rule = next((doms for rx, doms, _ in rules if rx.search(key)), "")
         leads_by = {src: " ".join(d) for src, d in lead_rows.get(ccn, [])}
-        return [overrides.get(ccn, ""), rule, leads_by.get("wikidata", ""), wd.get(ccn, ""),
+        ov = overrides.get(ccn, "")
+        llm = osrc.get(ccn) == "llm"
+        return [ov if not llm else "", rule, leads_by.get("wikidata", ""), wd.get(ccn, ""),
                 leads_by.get("tpafs", ""), leads_by.get("sutton", ""), leads_by.get("osm", ""), osm.get(ccn, ""),
-                leads_by.get("inferred", "")]
+                leads_by.get("inferred", ""), ov if llm else ""]
 
     cols = ["web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton",
-            "web_osm", "osm_id", "web_inferred"]
+            "web_osm", "osm_id", "web_inferred", "web_llm"]
     df[cols] = df.apply(per_source, axis=1, result_type="expand")
     df["beds"] = df["beds"].astype("Int64")
     df = df[REGISTRY_COLUMNS].sort_values(["beds", "ccn"], ascending=[False, True], na_position="last")
@@ -317,6 +320,15 @@ def load_overrides() -> dict[str, str]:
         return {}
     with p.open(newline="") as f:
         return {r["ccn"].zfill(6): r["domains"].strip() for r in csv.DictReader(f) if r.get("domains")}
+
+
+def load_override_sources() -> dict[str, str]:
+    """ccn -> who found the override website: "claude" (default) or "llm"."""
+    p = REG_DIR / "domains.csv"
+    if not p.exists():
+        return {}
+    with p.open(newline="") as f:
+        return {r["ccn"].zfill(6): (r.get("source") or "claude").strip().lower() for r in csv.DictReader(f)}
 
 
 def save(df: pd.DataFrame, path: Path | None = None) -> Path:
