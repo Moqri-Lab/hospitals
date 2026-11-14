@@ -90,7 +90,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <input type="search" id="q" placeholder="Search hospital, city, system, CCN (provider ID)…">
   <select id="state"><option value="">All states</option></select>
   <select id="ftype"><option value="">All types</option></select>
-  <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Inaccessible</option><option value="fail">Not compliant</option></select>
+  <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Not machine readable</option><option value="fail">Not compliant</option></select>
   <details class="colmenu"><summary>Columns ▾</summary><div class="menu" id="colmenu"></div></details>
 </div>
 <div class="stats" id="stats">Loading…</div>
@@ -104,7 +104,7 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 function cell(r,k){const v=r[k]??"";
   if(k==="name")return `${esc(v)}`+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
-  if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ inaccessible",unknown:"⚠ inaccessible"}[v]||v;
+  if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
   if(k==="ccn")return `<span style="white-space:nowrap">${esc(v)}</span>`;
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
@@ -149,7 +149,7 @@ function drawMap(){
   const sel=document.getElementById("state").value;
   document.getElementById("usmap").innerHTML=Object.entries(TILES).map(([st,[r,c]])=>{const o=by[st];
     const pct=o?Math.round(100*o.pass/o.n):null,bg=o?binColor(pct):"var(--chip)",fg=o&&(pct>=95||pct<50)?"#fff":"#1d1d1b";
-    const tip=o?`${st}: ${o.pass} of ${o.n} hospitals compliant (${pct}%); ${o.amber} inaccessible, ${o.fail} not compliant`:`${st}: no data`;
+    const tip=o?`${st}: ${o.pass} of ${o.n} hospitals compliant (${pct}%); ${o.amber} not machine readable, ${o.fail} not compliant`:`${st}: no data`;
     return `<div class="st${sel===st?" sel":""}" data-st="${st}" title="${tip}" style="grid-row:${r+1};grid-column:${c+1};background:${bg};color:${o?fg:"var(--muted)"}">${st}<small>${o?pct+"%":"–"}</small></div>`}).join("");
   document.getElementById("legend").innerHTML=BINS.map(([t,c],i)=>`<span class="sw" style="background:${c}"></span> ${i===0?"under 50%":t+"%"+(i<BINS.length-1?"–"+(BINS[i+1][0]-1)+"%":"+")}`).reverse().join("<br>")+'<br><span class="sw" style="background:var(--chip)"></span> no data';
 }
@@ -162,7 +162,7 @@ function render(){
   const files=f.reduce((n,r)=>n+r.files.length,0);
   drawMap();
   const cnt=k=>f.filter(r=>r.txt_check===k).length;
-  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} inaccessible</span> · <span class="no">${cnt("fail")} not compliant</span>`;
+  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} not machine readable</span> · <span class="no">${cnt("fail")} not compliant</span>`;
   const pages=Math.max(1,Math.ceil(f.length/PAGE));if(page>=pages)page=pages-1;
   document.getElementById("pager").innerHTML=f.length>PAGE?`<button data-p="0"${page?"":" disabled"}>« First</button><button data-p="${page-1}"${page?"":" disabled"}>‹ Prev</button><span>Page ${page+1} of ${pages} (${(page*PAGE+1).toLocaleString()}–${Math.min(f.length,(page+1)*PAGE).toLocaleString()} of ${f.length.toLocaleString()})</span><button data-p="${page+1}"${page<pages-1?"":" disabled"}>Next ›</button><button data-p="${pages-1}"${page<pages-1?"":" disabled"}>Last »</button>`:"";
   document.getElementById("body").innerHTML=f.slice(page*PAGE,(page+1)*PAGE).map(r=>`<tr class="${r.txt_check==="unknown"?"blocked":esc(r.txt_check)}">`+vis().map(([k])=>`<td class="${k==="txt_check"?"chk":k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");

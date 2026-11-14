@@ -154,7 +154,7 @@ pre{background:var(--card);border:1px solid var(--line);border-radius:6px;paddin
 <p>The flag checks one requirement only: that each hospital posts a machine-readable <code>cms-hpt.txt</code> at its website root that lists its price file (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-B/section-180.50">45 CFR 180.50(d)(6)</a>). It does not judge the price files themselves. It is an automated check, not a legal determination.</p>
 <ul class="flags">
 <li><span class="flag pass">✓ compliant</span> A live cms-hpt.txt lists the hospital.</li>
-<li><span class="flag blocked">⚠ inaccessible</span> We could not confirm either way. The website refuses automated requests (for example HTTP 403 from bot protection, though the file may open in a browser), the website is unknown or uncertain, a price-file server does not answer HEAD requests, or there was a network error. The reason is shown under the flag.</li>
+<li><span class="flag blocked">⚠ not machine readable</span> We could not confirm either way. The website refuses automated requests (for example HTTP 403 from bot protection, though the file may open in a browser), the website is unknown or uncertain, a price-file server does not answer HEAD requests, or there was a network error. The reason is shown under the flag.</li>
 <li><span class="flag fail">✗ not compliant</span> The hospital's website has no cms-hpt.txt, its file omits the hospital, or every price file it lists returns HTTP 404. Counted only when we are sure the website is the hospital's: its file lists the hospital, or two independent sources agree.</li>
 </ul>
 </section>
