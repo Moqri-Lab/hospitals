@@ -21,15 +21,15 @@ files they need.
 | [`CATALOG.md`](CATALOG.md) | Crawled hospitals as a readable table |
 | [`data/catalog.csv`](data/catalog.csv) | Full catalog, one row per hospital × price file |
 | [moqri-lab.org/hospitals](https://moqri-lab.org/hospitals/) | Map and searchable table ([`index.html`](index.html)); methods on the [About tab](https://moqri-lab.org/hospitals/about.html) |
-| [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 5,419 CMS hospitals, by state and then name |
+| [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 6,166 active Medicare-certified hospitals, by state and then name |
 | [`data/discovery/`](data/discovery) | Raw crawl results: domains checked, every `cms-hpt.txt` entry |
 
 ## Sources
 
 | What | Source | Link |
 |---|---|---|
-| Hospital list (5,419 hospitals, CCN, name, address, type, ownership) | CMS Hospital General Information, data.cms.gov dataset `xubh-q36u`, July 2026 release | [dataset](https://data.cms.gov/provider-data/dataset/xubh-q36u) · [CSV](https://data.cms.gov/provider-data/sites/default/files/resources/893c372430d9d71a1c52737d01239d47_1785189955/Hospital_General_Information.csv) · [dictionary](https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/hospital/HOSPITAL_Data_Dictionary.pdf) |
-| Bed count (`BED_CNT`, total beds, active providers) | CMS Provider of Services file, hospital extract, Q3 2026 (2026-07-01 to 2026-09-30) | [search](https://data.cms.gov/search?keywords=Provider%20of%20Services%20File) · [CSV](https://data.cms.gov/sites/default/files/2026-10/e5a8afbb-a1f4-4d3b-bdb9-3968e194da0e/Hospital_and_other.DATA.Q3_2026.csv) |
+| Hospital list (6,166 hospitals with an active Medicare certification: acute, critical access, psychiatric, rehab, long-term acute care, children's, rural emergency, plus federal VA/military), with bed count (`BED_CNT`) | CMS Provider of Services file, hospital extract, Q3 2026 (2026-07-01 to 2026-09-30), `PGM_TRMNTN_CD` = 00 | [search](https://data.cms.gov/search?keywords=Provider%20of%20Services%20File) · [CSV](https://data.cms.gov/sites/default/files/2026-10/e5a8afbb-a1f4-4d3b-bdb9-3968e194da0e/Hospital_and_other.DATA.Q3_2026.csv) |
+| Names, addresses, type and ownership (where listed) | CMS Hospital General Information, data.cms.gov dataset `xubh-q36u`, July 2026 release. It leaves out rehab, long-term acute care and the 11 cancer hospitals, so it is used only to clean up names. | [dataset](https://data.cms.gov/provider-data/dataset/xubh-q36u) · [dictionary](https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/hospital/HOSPITAL_Data_Dictionary.pdf) |
 | Price-file links, locations, contacts | Each hospital's own `cms-hpt.txt` (required by CMS since 2025) | [45 CFR 180](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180) · [CMS HPT](https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency) · [CMS spec](https://github.com/CMSgov/hospital-price-transparency) |
 | cms-hpt.txt when the live site refuses automated access | Latest public archive copy: [Internet Archive](https://web.archive.org) or [Common Crawl](https://commoncrawl.org), dated and linked in the catalog (`hpt_txt_source`, `hpt_txt_url`); bot protection is never bypassed. The refusal itself is recorded in `hpt_txt_access_issue` (CMS requires the file for automated discovery, 45 CFR 180.50). | — |
 | Price-file format, size, date | HTTP `HEAD` of each price-file URL (no download) | — |

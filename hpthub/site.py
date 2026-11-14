@@ -253,9 +253,9 @@ def build() -> Path:
         "",
         f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals, each with its website, its `cms-hpt.txt` "
         f"and a direct link to every price file. Full table: [`data/catalog.csv`](data/catalog.csv). "
-        "Sources: CMS [Hospital General Information]"
-        "(https://data.cms.gov/provider-data/dataset/xubh-q36u), bed counts (`BED_CNT`, per CCN) from the CMS "
-        "Provider of Services file Q3 2026, price-file links from each hospital's own `cms-hpt.txt`. "
+        "Sources: every active hospital in the CMS Provider of Services file Q3 2026, with bed counts "
+        "(`BED_CNT`, per CCN), names from CMS [Hospital General Information]"
+        "(https://data.cms.gov/provider-data/dataset/xubh-q36u) where listed, price-file links from each hospital's own `cms-hpt.txt`. "
         "See [README](README.md#sources).",
         "",
         "| # | Hospital | City, State | Beds (CCN) | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |",

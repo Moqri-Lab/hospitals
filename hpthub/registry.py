@@ -6,10 +6,10 @@ name, location, type, bed count and the website domain(s) where its
 
 Sources (official CMS only):
 
-1. CMS Hospital General Information (data.cms.gov dataset ``xubh-q36u``):
-   the list of Medicare-certified hospitals with CCN, type and ownership.
-2. CMS Provider of Services (POS) hospital file, latest quarter: joined on
-   CCN for bed counts, active providers only (PGM_TRMNTN_CD == "00").
+1. CMS Provider of Services (POS) hospital file, latest quarter: every hospital
+   with an active Medicare certification (PGM_TRMNTN_CD == "00"), with type and beds.
+2. CMS Hospital General Information (data.cms.gov dataset ``xubh-q36u``):
+   cleaner name, address, type and ownership for the CCNs it lists.
 
 No official source lists hospital websites, so the domain where each
 hospital's ``cms-hpt.txt`` lives is kept in ``data/registry/domains.csv``.
@@ -139,8 +139,28 @@ def download_cms(out_dir: Path = CMS_DIR, sess=None) -> None:
     (out_dir / "pos_source.txt").write_text(f"Source: {title}\nURL: {url}\nFilter: PRVDR_CTGRY_CD == \"01\"\n")
 
 
+# POS hospital subtypes (PRVDR_CTGRY_SBTYP_CD) kept in the registry, with the label used for each.
+POS_TYPES = {
+    "01": "Acute Care Hospitals", "02": "Long-term", "04": "Psychiatric", "05": "Rehabilitation",
+    "06": "Childrens", "11": "Critical Access Hospitals", "28": "Rural Emergency Hospital",
+}
+# POS GNRL_CNTL_TYPE_CD -> the ownership labels CMS Hospital General Information uses.
+POS_OWNERSHIP = {
+    "01": "Voluntary non-profit - Church", "02": "Voluntary non-profit - Private",
+    "03": "Voluntary non-profit - Other", "04": "Proprietary", "05": "Government - Federal",
+    "06": "Government - State", "07": "Government - Local",
+    "08": "Government - Hospital District or Authority", "09": "Physician", "10": "Tribal",
+}
+
+
 def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
-    """Join CMS Hospital General Information to POS bed counts (active providers) on CCN."""
+    """Every active hospital in the CMS Provider of Services file, named from Hospital General Information.
+
+    Base list: POS hospitals with PGM_TRMNTN_CD == "00" (active Medicare certification) and a
+    hospital subtype in POS_TYPES, plus the federal (VA / DoD) hospitals that CMS Hospital General
+    Information also lists. Name, address, type and ownership come from Hospital General
+    Information when it has the CCN, and from POS otherwise. Beds are POS BED_CNT.
+    """
     hgi = pd.read_csv(cms_dir / "hospital_general_information.csv", dtype=str, keep_default_na=False)
     hgi = hgi.rename(columns={
         "Facility ID": "ccn", "Facility Name": "name", "Address": "address", "City/Town": "city",
@@ -148,15 +168,29 @@ def load_cms(cms_dir: Path = CMS_DIR) -> pd.DataFrame:
         "Hospital Ownership": "ownership",
     })
     hgi["ccn"] = hgi["ccn"].str.strip().str.zfill(6)
+    hgi = hgi.drop_duplicates("ccn").set_index("ccn")
     pos = pd.read_csv(cms_dir / "pos_hospitals.csv", dtype=str, keep_default_na=False)
-    if "PGM_TRMNTN_CD" in pos.columns:
-        pos = pos[pos["PGM_TRMNTN_CD"] == "00"]
-    beds = pos[["PRVDR_NUM", "BED_CNT"]].rename(columns={"PRVDR_NUM": "ccn", "BED_CNT": "beds"})
-    beds["ccn"] = beds["ccn"].str.strip().str.zfill(6)
-    df = hgi.merge(beds.drop_duplicates("ccn"), on="ccn", how="left")
+    pos["ccn"] = pos["PRVDR_NUM"].str.strip().str.zfill(6)
+    pos = pos[pos["PGM_TRMNTN_CD"] == "00"].drop_duplicates("ccn")
+    sub = pos["PRVDR_CTGRY_SBTYP_CD"]
+    federal = pos["ccn"].str.endswith("F") & pos["ccn"].isin(hgi.index)
+    pos = pos[sub.isin(POS_TYPES) | federal].copy()
+    rows = []
+    for r in pos.itertuples(index=False):
+        h = hgi.loc[r.ccn] if r.ccn in hgi.index else None
+        if h is not None:
+            rows.append({"ccn": r.ccn, "name": h["name"], "address": h["address"], "city": h["city"],
+                         "state": h["state"], "zip": h["zip"], "facility_type": h["facility_type"],
+                         "ownership": h["ownership"], "beds": r.BED_CNT, "source": "cms-pos+hgi"})
+        else:
+            rows.append({"ccn": r.ccn, "name": r.FAC_NAME, "address": r.ST_ADR, "city": r.CITY_NAME,
+                         "state": r.STATE_CD, "zip": str(r.ZIP_CD)[:5],
+                         "facility_type": POS_TYPES.get(r.PRVDR_CTGRY_SBTYP_CD, ""),
+                         "ownership": POS_OWNERSHIP.get(r.GNRL_CNTL_TYPE_CD, ""),
+                         "beds": r.BED_CNT, "source": "cms-pos"})
+    df = pd.DataFrame(rows)
     for c in ("name", "address", "city"):
-        df[c] = df[c].str.title()
-    df["source"] = "cms-hgi+pos"
+        df[c] = df[c].str.strip().str.title()
     return df
 
 
@@ -207,7 +241,7 @@ def load_osm_ids() -> dict[str, str]:
 
 
 def build(cms_dir: Path = CMS_DIR, min_beds: int = 0, acute_only: bool = False) -> pd.DataFrame:
-    """Registry = every CMS Hospital General Information hospital, with POS bed counts.
+    """Registry = every active hospital in the CMS Provider of Services file (see load_cms).
 
     Sorted by state, then name. ``discover --limit N`` still crawls the N largest by beds.
     """
