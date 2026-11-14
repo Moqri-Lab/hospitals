@@ -94,11 +94,12 @@ table.t2.narrow{max-width:620px}
 ul.flags{list-style:none;padding:0}ul.flags li{margin:8px 0}ul.flags .flag{margin-right:6px}
 pre{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;overflow-x:auto;font-size:12.5px}
 @media (max-width:800px){.body{overflow-wrap:anywhere}.doc{grid-template-columns:minmax(0,1fr);gap:12px}.toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px 12px}.toc b{width:100%}table.t2 td:first-child{white-space:normal}}
+.sub3{font-size:15px;margin:16px 0 2px}.tscroll{max-height:520px;overflow:auto;border-radius:8px}
 </style>
 </head>
 <body>
 <header class="brand"><h1>Hospital price file catalog</h1><div class="sub">Where every US hospital publishes its price transparency files. Links only: no price data is downloaded.</div></header>
-<nav class="tabs" aria-label="Pages"><a href="./" target="_self">Hospital price data</a><a href="about.html" target="_self" class="on" aria-current="page">Methods</a><a href="exempt.html" target="_self">Exempt hospitals</a><a class="ext" href="https://github.com/Moqri-Lab/hospitals">GitHub ↗</a></nav>
+<nav class="tabs" aria-label="Pages"><a href="./" target="_self">Hospital price data</a><a href="about.html" target="_self" class="on" aria-current="page">Methods</a><a class="ext" href="https://github.com/Moqri-Lab/hospitals">GitHub ↗</a></nav>
 <main class="doc">
 <nav class="toc" aria-label="On this page"><b>On this page</b>
   <a href="#what" target="_self">What this is</a><a href="#downloads" target="_self">Downloads</a><a href="#sources" target="_self">Data sources</a><a href="#websites" target="_self">Finding hospital websites</a><a href="#compliance" target="_self">Compliance check</a><a href="#columns" target="_self">Table columns</a><a href="#estimate" target="_self">Totals and estimate</a><a href="#exempt" target="_self">Exempt hospitals</a><a href="#run" target="_self">Run it yourself</a>
@@ -178,7 +179,17 @@ pre{background:var(--card);border:1px solid var(--line);border-radius:6px;paddin
 </section>
 
 <section id="exempt"><h2>Exempt hospitals</h2>
-<p>Federally owned or operated hospitals (VA, DoD and Indian Health Service) are deemed compliant and are not checked. State forensic hospitals that treat only people in penal custody are also deemed compliant; state psychiatric hospitals are listed as "possibly exempt", because public data does not say which are purely forensic. Tribally operated hospitals are not exempt (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-A/section-180.30">45 CFR 180.30(b)</a>). Both groups are on the <a href="exempt.html" target="_self">Exempt hospitals</a> tab.</p>
+<p>Federally owned or operated hospitals (VA, DoD and Indian Health Service) are deemed compliant and are not checked. State forensic hospitals that treat only people in penal custody are also deemed compliant; state psychiatric hospitals are listed as "possibly exempt", because public data does not say which are purely forensic. Tribally operated hospitals are not exempt (<a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-E/part-180/subpart-A/section-180.30">45 CFR 180.30(b)</a>). Both groups are listed below, without the website and price-file fields.</p>
+<div class="controls" style="padding:4px 0 10px;margin:0">
+  <input type="search" id="xq" placeholder="Search exempt hospitals by name, city or CCN…">
+  <select id="xstate"><option value="">All states</option></select>
+</div>
+<h3 class="sub3">Exempt <span class="small" id="exempt-count"></span></h3>
+<div class="small" style="margin-bottom:6px">Federally owned or operated: VA, DoD and Indian Health Service.</div>
+<div class="tscroll"><table><thead><tr id="ehead"></tr></thead><tbody id="ebody"></tbody></table></div>
+<h3 class="sub3">Possibly exempt <span class="small" id="pexempt-count"></span></h3>
+<div class="small" style="margin-bottom:6px">State-run psychiatric hospitals; exempt only if purely forensic. Any cms-hpt.txt data found for them stays in <a href="data/catalog.csv">catalog.csv</a>.</div>
+<div class="tscroll"><table><thead><tr id="phead"></tr></thead><tbody id="pbody"></tbody></table></div>
 </section>
 
 <section id="run"><h2>Run it yourself</h2>
@@ -191,5 +202,30 @@ python -m hpthub site                  # data/catalog.csv, CATALOG.md, data.json
 </section>
 </div>
 </main>
+<script>
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let rows=[];
+function render(){
+  const q=document.getElementById("xq").value.toLowerCase().trim(),st=document.getElementById("xstate").value;
+  const ECOLS=[["ccn","CCN"],["name","Hospital"],["facility_type","Type"],["ownership","Ownership"],["city","City"],["state","St"],["beds","Beds (CCN)"],["exempt_note","Why exempt"]];
+  const ef=rows.filter(r=>r.hpt_exempt==="True"&&(!st||r.state===st)&&(!q||[r.name,r.city,r.ccn].join(" ").toLowerCase().includes(q)))
+    .sort((a,b)=>(+b.beds||0)-(+a.beds||0));
+  document.getElementById("ehead").innerHTML=ECOLS.map(([k,l])=>`<th>${l}</th>`).join("");
+  document.getElementById("ebody").innerHTML=ef.map(r=>"<tr>"+ECOLS.map(([k])=>`<td class="${k==="beds"?"num":""}">${esc(k==="exempt_note"?String(r[k]).replace(/^exempt: /,""):r[k])}</td>`).join("")+"</tr>").join("");
+  document.getElementById("exempt-count").textContent=`${ef.length.toLocaleString()} shown.`;
+  const pf=[...new Map(rows.filter(r=>r.hpt_exempt!=="True"&&String(r.exempt_note).startsWith("possibly")&&(!st||r.state===st)&&(!q||[r.name,r.city,r.ccn].join(" ").toLowerCase().includes(q))).map(r=>[r.ccn,r])).values()]
+    .sort((a,b)=>(+b.beds||0)-(+a.beds||0));
+  const PCOLS=ECOLS.slice(0,-1);
+  document.getElementById("phead").innerHTML=PCOLS.map(([k,l])=>`<th>${l}</th>`).join("");
+  document.getElementById("pbody").innerHTML=pf.map(r=>"<tr>"+PCOLS.map(([k])=>`<td class="${k==="beds"?"num":""}">${esc(r[k])}</td>`).join("")+"</tr>").join("");
+  document.getElementById("pexempt-count").textContent=`${pf.length.toLocaleString()} shown.`;
+}
+["xq","xstate"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+fetch("data.json").then(r=>r.json()).then(d=>{
+  rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
+  [...new Set(rows.filter(r=>r.hpt_exempt==="True"||String(r.exempt_note).startsWith("possibly")).map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("xstate").appendChild(o)});
+  
+  render()}).catch(()=>{document.getElementById("exempt-count").textContent="Could not load data.json"});
+</script>
 </body>
 </html>
