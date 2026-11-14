@@ -8,6 +8,7 @@ in the price-file URL only; no file is ever downloaded.
 
 from __future__ import annotations
 
+import html
 import re
 import urllib.parse as up
 
@@ -66,16 +67,19 @@ def match_990(reg, fac) -> list[dict]:
     distinctive name words are identical and the city agrees. Ambiguous facilities are skipped.
     """
     by_state: dict[str, list] = {}
+    # Schedule H is filed by nonprofit (and some government) hospitals only; skip for-profit,
+    # physician-owned and federal ones, which can share a building with a nonprofit hospital.
+    reg = reg[~reg["ownership"].str.contains("Proprietary|Physician|Federal|Defense|Veterans", regex=True)]
     for h in reg.itertuples(index=False):
         by_state.setdefault(h.state, []).append((h, _tok(h.name), str(h.zip)[:5], _street_no(h.address)))
     out = []
     for f in fac.itertuples(index=False):
-        ft = _tok(f"{f.facility_name} {f.facility_name2}")
+        ft = _tok(html.unescape(f"{f.facility_name} {f.facility_name2}"))
         fz, fn = str(f.zip)[:5], _street_no(f.address)
         hits = []
         for h, ht, hz, hn in by_state.get(f.state, []):
             jac = len(ft & ht) / len(ft | ht) if ft and ht else 0.0
-            if hz == fz and ((fn and fn == hn) or jac >= 0.5):
+            if hz == fz and ((fn and fn == hn and ft & ht) or jac >= 0.5):
                 hits.append((h, "zip+" + ("address" if fn and fn == hn else "name")))
             elif ft and ft == ht and str(h.city).upper() == str(f.city).upper():
                 hits.append((h, "name+city"))
