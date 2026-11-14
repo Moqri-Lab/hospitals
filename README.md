@@ -1,4 +1,4 @@
-# Hospital price file catalog
+# Hospital Price Transparency Hub
 
 An open, research-oriented catalog of where every US hospital publishes its
 price transparency files.

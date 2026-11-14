@@ -1,4 +1,4 @@
-# Hospital price file catalog
+# Hospital Price Transparency Hub
 
 5235 of 5419 CMS hospitals crawled so far (largest first). Full table: [`data/catalog.csv`](data/catalog.csv). Price files are listed, never downloaded. Sources: CMS [Hospital General Information](https://data.cms.gov/provider-data/dataset/xubh-q36u), bed counts (`BED_CNT`, per CCN) from the CMS Provider of Services file Q3 2026, price-file links from each hospital's own `cms-hpt.txt`. See [README](README.md#sources).
 

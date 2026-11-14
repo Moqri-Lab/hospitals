@@ -249,7 +249,7 @@ def build() -> Path:
 
     crawled = cat[cat["match_status"] != ""]
     lines = [
-        "# Hospital price file catalog",
+        "# Hospital Price Transparency Hub",
         "",
         f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals crawled so far "
         f"(largest first). Full table: [`data/catalog.csv`](data/catalog.csv). "
