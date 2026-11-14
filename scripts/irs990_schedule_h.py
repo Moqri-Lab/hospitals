@@ -16,7 +16,10 @@ import io
 import re
 import sys
 import tempfile
-import zipfile
+try:  # IRS batches use Deflate64, which the standard library cannot read
+    import zipfile_deflate64 as zipfile
+except ImportError:  # pragma: no cover
+    import zipfile
 from pathlib import Path
 
 import requests
