@@ -95,6 +95,11 @@ ul.flags{list-style:none;padding:0}ul.flags li{margin:8px 0}ul.flags .flag{margi
 pre{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;overflow-x:auto;font-size:12.5px}
 @media (max-width:800px){.body{overflow-wrap:anywhere}.doc{grid-template-columns:minmax(0,1fr);gap:12px}.toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px 12px}.toc b{width:100%}table.t2 td:first-child{white-space:normal}}
 .sub3{font-size:15px;margin:16px 0 2px}.tscroll{max-height:520px;overflow:auto;border-radius:8px}
+.lead{font-size:16px;line-height:1.6}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:12px 0}
+.kpis div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:8px 12px}
+.kpis b{display:block;font-size:20px;color:var(--accent);font-variant-numeric:tabular-nums}.kpis span{font-size:12px;color:var(--muted)}
+footer.credit{max-width:1400px;margin:0 auto;padding:16px 16px 32px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
@@ -102,18 +107,21 @@ pre{background:var(--card);border:1px solid var(--line);border-radius:6px;paddin
 <nav class="tabs" aria-label="Pages" style="border-bottom:none"><a class="ext" style="margin-left:0;padding-left:0" href="./" target="_self">← Back to the map and table</a></nav>
 <main class="doc">
 <nav class="toc" aria-label="On this page"><b>On this page</b>
-  <a href="#what" target="_self">What this is</a><a href="#downloads" target="_self">Downloads</a><a href="#sources" target="_self">Data sources</a><a href="#websites" target="_self">Finding hospital websites</a><a href="#compliance" target="_self">Compliance check</a><a href="#columns" target="_self">Table columns</a><a href="#estimate" target="_self">Totals and estimate</a><a href="#exempt" target="_self">Exempt hospitals</a><a href="#run" target="_self">Run it yourself</a><a href="#code" target="_self">Code and data on GitHub</a>
+  <a href="#what" target="_self">What this is</a><a href="#downloads" target="_self">Downloads</a><a href="#sources" target="_self">Data sources</a><a href="#websites" target="_self">Finding hospital websites</a><a href="#compliance" target="_self">Compliance check</a><a href="#columns" target="_self">Table columns</a><a href="#estimate" target="_self">Totals and estimate</a><a href="#exempt" target="_self">Exempt hospitals</a><a href="#run" target="_self">Run it yourself</a><a href="#cite" target="_self">How to cite</a><a href="#corrections" target="_self">Corrections</a><a href="#code" target="_self">Code and data on GitHub</a>
 </nav>
 <div class="body">
 
 <section id="what"><h2>What this is</h2>
+<p class="lead">Since 2021, US hospitals must publish their prices, including the rates they negotiate with insurers, in machine-readable files, and since 2025 list those files in a <code>cms-hpt.txt</code> file at the root of their website. This hub finds those files for every hospital, checks that the listing works, and puts all the links in one searchable place.</p>
+<div class="kpis" id="kpis"></div>
 <p>The Hospital Price Transparency Hub is an open, research-oriented catalog of where every Medicare-certified US hospital publishes its price transparency files. For each hospital it lists:</p>
 <ul>
 <li><b>Hospital information</b> from CMS: CMS Certification Number (CCN), name, address, type, ownership and bed count.</li>
 <li><b>Every field of its <code>cms-hpt.txt</code></b>: location name, source page, price-file (MRF) link, contact name and email.</li>
 <li><b>Price-file metadata</b>: format, size, last-modified date and HTTP status, from an HTTP <code>HEAD</code> request.</li>
 </ul>
-<p class="note"><b>Price data is never downloaded.</b> The catalog lists the links; researchers fetch the files they need themselves.</p>
+<p class="note"><b>Price data is never downloaded.</b> The hub lists the links; researchers fetch the files they need themselves.</p>
+<p><b>Who it is for:</b> researchers, journalists and policy analysts studying hospital prices or compliance, and anyone who needs a starting point for collecting price files at scale.</p>
 </section>
 
 <section id="downloads"><h2>Downloads</h2>
@@ -201,11 +209,21 @@ python -m hpthub site                  # data/catalog.csv, CATALOG.md, data.json
 <p>A GitHub Action re-crawls every hospital weekly. To fix a missing or wrong website, add a row <code>ccn,domains</code> to <a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/domains.csv">domains.csv</a> and open a pull request; the next crawl verifies it. Code is MIT-licensed; CMS data is public domain. Source: <a href="https://github.com/Moqri-Lab/hospitals">Moqri-Lab/hospitals</a>.</p>
 </section>
 
+<section id="cite"><h2>How to cite</h2>
+<p>Moqri Lab. <i>Hospital Price Transparency Hub</i>. <span id="cite-date"></span> <a href="https://moqri-lab.org/hospitals/">https://moqri-lab.org/hospitals/</a></p>
+<p class="small">Please also credit the underlying sources where you use them: CMS (public domain), Wikidata (CC0), &copy; OpenStreetMap contributors (ODbL) and TPAFS/DoltHub transparency-data (CC BY-SA 4.0).</p>
+</section>
+
+<section id="corrections"><h2>Corrections</h2>
+<p>Spotted a wrong website, a missed price file or a flag that looks off? Open an <a href="https://github.com/Moqri-Lab/hospitals/issues">issue on GitHub</a> with the hospital's CCN, or add a row <code>ccn,domains</code> to <a href="https://github.com/Moqri-Lab/hospitals/blob/main/data/registry/domains.csv">domains.csv</a> in a pull request. Every change is verified by the next crawl.</p>
+</section>
+
 <section id="code"><h2>Code and data on GitHub</h2>
 <p>Everything behind this site, the crawler, the rules and all data files, is in the <a href="https://github.com/Moqri-Lab/hospitals">Moqri-Lab/hospitals</a> repository on GitHub. Issues and pull requests are welcome.</p>
 </section>
 </div>
 </main>
+<footer class="credit" id="foot">Developed by <a href="https://moqri-lab.org/">Moqri Lab</a></footer>
 <script>
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let rows=[];
@@ -230,6 +248,13 @@ fetch("data.json").then(r=>r.json()).then(d=>{
   [...new Set(rows.filter(r=>r.hpt_exempt==="True"||String(r.exempt_note).startsWith("possibly")).map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("xstate").appendChild(o)});
   
   render()}).catch(()=>{document.getElementById("exempt-count").textContent="Could not load data.json"});
+</script>
+<script>
+fetch("data.json").then(r=>r.json()).then(d=>{const T=d.totals||{};const n=new Set(d.rows.map(r=>r[d.columns.indexOf("ccn")])).size;
+  const k=(v,l)=>`<div><b>${v}</b><span>${l}</span></div>`;
+  document.getElementById("kpis").innerHTML=k(n.toLocaleString(),"CMS hospitals")+k((T.price_files||0).toLocaleString(),"price files listed")+k("~"+((T.est_prices||0)/1e9).toFixed(1)+" billion","negotiated prices (estimate)")+k(Math.round(T.total_gb||0).toLocaleString()+" GB","of price data");
+  const dt=String(d.generated_at).slice(0,10);document.getElementById("cite-date").textContent=`Data as of ${dt}.`;
+  document.getElementById("foot").insertAdjacentHTML("beforeend",` · data updated ${dt}`)}).catch(()=>{});
 </script>
 </body>
 </html>
