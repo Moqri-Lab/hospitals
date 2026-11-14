@@ -18,6 +18,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from . import ein as ein_mod
 from . import registry
 from .discover import plausible_size
 
@@ -27,7 +28,7 @@ CATALOG_COLUMNS = [
     "ccn", "name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
     "hpt_exempt", "exempt_note", "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton", "web_osm", "osm_id", "web_inferred", "web_llm", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
     "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
-    "contact_email", "match_status", "match_score", "confidence", "confidence_level", "txt_check", "txt_check_reason", "checked_at",
+    "contact_email", "ein", "npi", "match_status", "match_score", "confidence", "confidence_level", "txt_check", "txt_check_reason", "checked_at",
 ]
 
 
@@ -83,6 +84,9 @@ def catalog() -> pd.DataFrame:
     else:
         reg["mrf_size_mb"] = ""
     reg["mrf_last_modified"] = reg["mrf_last_modified"].map(_date)
+    parsed = [ein_mod.from_url(u) if u else ("", "") for u in reg["mrf_url"]]
+    reg["ein"] = [p[0] for p in parsed]
+    reg["npi"] = [p[1] for p in parsed]
     conf = reg.apply(confidence, axis=1, result_type="expand") if len(reg) else None
     if conf is not None:
         reg["confidence"], reg["confidence_level"] = conf[0], conf[1]
@@ -243,9 +247,27 @@ def _md_link(url: str, text: str) -> str:
     return f"[{text}]({url})" if url else ""
 
 
+def ein_crosswalk(cat: pd.DataFrame) -> pd.DataFrame:
+    """One row per (CCN, EIN) read from price-file names; a CCN can have several EINs and one
+    EIN (a health system) often covers many CCNs."""
+    f = cat[cat["ein"] != ""]
+    per_ein = f.groupby("ein")["ccn"].nunique()
+    rows = []
+    for (ccn, ein), g in f.groupby(["ccn", "ein"], sort=True):
+        h = g.iloc[0]
+        npis = sorted({n for n in g["npi"] if n})
+        rows.append({"ccn": ccn, "ein": ein, "name": h["name"], "city": h["city"], "state": h["state"],
+                     "npi": " ".join(npis), "n_price_files": len(g),
+                     "ccns_with_this_ein": int(per_ein.get(ein, 1)),
+                     "example_price_file": g["mrf_url"].iloc[0]})
+    return pd.DataFrame(rows, columns=["ccn", "ein", "name", "city", "state", "npi", "n_price_files",
+                                       "ccns_with_this_ein", "example_price_file"])
+
+
 def build() -> Path:
     cat = catalog()
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
+    ein_crosswalk(cat).to_csv(ROOT / "data" / "ccn_ein.csv", index=False)
 
     crawled = cat[cat["match_status"] != ""]
     lines = [

@@ -163,3 +163,13 @@ def test_dead_hosts():
     df = pd.DataFrame({"mrf_url": [f"https://x.org/{i}.csv" for i in range(5)] + ["https://y.org/a.csv", "https://y.org/b.csv"],
                        "mrf_http_status": ["404.0"] * 5 + ["404.0", "200.0"]})
     assert dead_hosts(df) == {"x.org"}
+
+
+def test_ein_from_price_file_name():
+    from hpthub import ein
+    assert ein.from_url("https://x.org/files/300427437-1184868879_st-lukes_standardcharges.json") == ("30-0427437", "1184868879")
+    assert ein.from_url("https://x.org/74-1234567_Hospital_standardcharges.csv") == ("74-1234567", "")
+    assert ein.from_url("https://x.org/751912147-united-regional-standardcharges-in.csv") == ("75-1912147", "")
+    assert ein.from_url("https://x.org/1144487372_reedsburg_standardcharges_0.csv") == ("", "1144487372")
+    assert ein.from_url("https://x.org/download.aspx?pi=abc") == ("", "")
+    assert ein.from_url("https://x.org/8112%5C350593390-Deaconess_standardcharges.json") == ("35-0593390", "")
