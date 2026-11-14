@@ -120,7 +120,7 @@ footer.credit{max-width:1400px;margin:0 auto;padding:16px 16px 32px;border-top:1
 <li><b>Every field of its <code>cms-hpt.txt</code></b>: location name, source page, price-file (MRF) link, contact name and email.</li>
 <li><b>Price-file metadata</b>: format, size, last-modified date and HTTP status, from an HTTP <code>HEAD</code> request.</li>
 </ul>
-<p class="note"><b>Price data is never downloaded.</b> The hub lists the links; researchers fetch the files they need themselves.</p>
+<p class="note"><b>A complete, curated list of every CMS hospital</b>, its website and its <code>cms-hpt.txt</code> file, with a direct link to each price file and its format, size and date. It is all in one place, so researchers can bulk-download exactly the files they need.</p>
 <p><b>Who it is for:</b> researchers, journalists and policy analysts studying hospital prices or compliance, and anyone who needs a starting point for collecting price files at scale.</p>
 </section>
 
@@ -178,7 +178,7 @@ footer.credit{max-width:1400px;margin:0 auto;padding:16px 16px 32px;border-top:1
 </section>
 
 <section id="estimate"><h2>Totals and the negotiated-price estimate</h2>
-<p>The home page counts each distinct price-file link once. The number of negotiated prices is an <b>estimate</b>, because price files are never downloaded. It divides each file's size (from the HEAD response; files reporting no size get the median size of their format) by the typical space one payer-specific negotiated price takes in the CMS template:</p>
+<p>The home page counts each distinct price-file link once. The number of negotiated prices is an <b>estimate</b> made from file sizes alone. It divides each file's size (from the HEAD response; files reporting no size get the median size of their format) by the typical space one payer-specific negotiated price takes in the CMS template:</p>
 <table class="t2 narrow"><thead><tr><th>Format</th><th>Bytes per price (typical, range)</th></tr></thead><tbody>
 <tr><td>CSV</td><td>220 (120-400): "tall" files use a row per payer and plan; "wide" files share columns</td></tr>
 <tr><td>JSON</td><td>300 (180-500)</td></tr>

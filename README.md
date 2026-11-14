@@ -11,8 +11,10 @@ For each CMS-certified hospital, the catalog lists:
 - **Price-file metadata**: format, size, last-modified date and HTTP status,
   taken from an HTTP `HEAD` request
 
-**This project never downloads price data.** It lists the links. Researchers
-can fetch the files they need themselves.
+**A complete, curated list of every CMS hospital**, its website and its
+`cms-hpt.txt`, with a direct link to each price file and its format, size and
+date. It is all in one place, so researchers can bulk-download exactly the
+files they need.
 
 | Output | What it is |
 |---|---|

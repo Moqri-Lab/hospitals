@@ -251,9 +251,9 @@ def build() -> Path:
     lines = [
         "# Hospital Price Transparency Hub",
         "",
-        f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals crawled so far "
-        f"(largest first). Full table: [`data/catalog.csv`](data/catalog.csv). "
-        "Price files are listed, never downloaded. Sources: CMS [Hospital General Information]"
+        f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals, each with its website, its `cms-hpt.txt` "
+        f"and a direct link to every price file. Full table: [`data/catalog.csv`](data/catalog.csv). "
+        "Sources: CMS [Hospital General Information]"
         "(https://data.cms.gov/provider-data/dataset/xubh-q36u), bed counts (`BED_CNT`, per CCN) from the CMS "
         "Provider of Services file Q3 2026, price-file links from each hospital's own `cms-hpt.txt`. "
         "See [README](README.md#sources).",
