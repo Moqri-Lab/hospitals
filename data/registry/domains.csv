@@ -4,8 +4,8 @@ ccn,domains,note
 050351,torrancememorial.org,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
 330104,montefiorenyack.org,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
 330221,wyckoffhospital.org,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
-010085,decaturmorganhospital.org,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
-010114,uabmedicalwest.org,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
+010085,hh.health decaturmorganhospital.org,cms-hpt.txt on hh.health lists this hospital (checked 2026-11-14); verified by next crawl; earlier: wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
+010114,medicalwesthospital.org uabmedicalwest.org,cms-hpt.txt on medicalwesthospital.org lists this hospital (checked 2026-11-14); verified by next crawl; earlier: wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
 050376,dhs.lacounty.gov,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
 050040,dhs.lacounty.gov,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
 360070,clevelandclinic.org,wrong system/affiliate domain found in review 2026-11-10; verified by next crawl
@@ -66,3 +66,6 @@ ccn,domains,note
 520205,healthcare.ascension.org ascension.org,cms-hpt.txt on healthcare.ascension.org lists this hospital (checked 2026-11-14); verified by next crawl
 670010,mayhillhospital.com,cms-hpt.txt on mayhillhospital.com lists this hospital (checked 2026-11-14); verified by next crawl
 670336,fhsmc.com,cms-hpt.txt on fhsmc.com lists this hospital (checked 2026-11-14); verified by next crawl
+011305,uabstvincents.org,cms-hpt.txt on uabstvincents.org lists this hospital (checked 2026-11-14); verified by next crawl
+010780,eastalabamahealth.org,hospital website (checked 2026-11-14); its cms-hpt.txt lists only East Alabama Medical Center
+010051,gcheutaw.com,hospital website (checked 2026-11-14); no cms-hpt.txt there
