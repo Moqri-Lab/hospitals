@@ -143,6 +143,36 @@ def dead_hosts(df: pd.DataFrame, min_files: int = 5) -> set[str]:
     return out
 
 
+# Bytes one negotiated (payer-specific) price takes up in a CMS-template price file,
+# (low, typical, high). CSV "tall" rows hold one payer/plan rate each (~200-400 bytes);
+# "wide" CSVs share the item columns across payers (~100 bytes per rate). JSON repeats
+# field names per payer (~200-500). Zip/gzip compress CSV/JSON roughly 10:1.
+BYTES_PER_PRICE = {"csv": (120, 220, 400), "json": (180, 300, 500), "zip": (12, 22, 40),
+                   "gz": (12, 22, 40), "xlsx": (15, 30, 60)}
+
+
+def price_totals(cat: pd.DataFrame) -> dict:
+    """Total price files and an estimate of the negotiated prices in them, from the
+    file sizes reported by HTTP HEAD requests only (files are never downloaded).
+    Files without a reported size get the median size of their format."""
+    f = cat[cat["mrf_url"].astype(str) != ""].drop_duplicates("mrf_url")
+    size = pd.to_numeric(f["mrf_size_mb"], errors="coerce")
+    fmt = f["mrf_format"].astype(str).str.lower()
+    est = {"low": 0.0, "mid": 0.0, "high": 0.0}
+    total_mb = 0.0
+    for k, (lo, mid, hi) in BYTES_PER_PRICE.items():
+        sz = size[fmt == k]
+        if not len(sz):
+            continue
+        mb = sz.fillna(sz.median() if sz.notna().any() else 0).sum()
+        total_mb += mb
+        for key, b in (("low", hi), ("mid", mid), ("high", lo)):
+            est[key] += mb * 1e6 / b
+    return {"price_files": int(len(f)), "hospitals_with_files": int(cat.loc[cat["mrf_url"].astype(str) != "", "ccn"].nunique()),
+            "sized_files": int(size.notna().sum()), "total_gb": round(total_mb / 1000, 1),
+            "est_prices_low": int(est["low"]), "est_prices": int(est["mid"]), "est_prices_high": int(est["high"])}
+
+
 def txt_check(g: pd.DataFrame, dead: set[str] = frozenset()) -> tuple[str, str]:
     """Hospital-level check of the cms-hpt.txt requirement (45 CFR 180.50(d)(6)).
 
@@ -239,6 +269,7 @@ def build() -> Path:
 
     payload = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+        "totals": price_totals(cat),
         "columns": CATALOG_COLUMNS,
         "rows": cat.values.tolist(),
     }
