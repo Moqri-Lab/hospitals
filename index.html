@@ -25,6 +25,7 @@ th{position:sticky;top:0;background:var(--card);cursor:pointer;white-space:nowra
 td.num{text-align:right;font-variant-numeric:tabular-nums}
 a{color:var(--accent)}
 .chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);font-size:12px;white-space:nowrap}
+.ftype{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:4px;background:var(--chip);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
 .flag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap}.flag.pass{background:var(--passbg);color:var(--accent)}.flag.fail{background:var(--failbg);color:var(--bad)}.flag.blocked{background:var(--blockbg);color:var(--warn)}.flag.unknown{background:var(--chip);color:var(--muted)}
 tr.pass td:first-child{box-shadow:inset 4px 0 var(--accent)}tr.fail td:first-child{box-shadow:inset 4px 0 var(--bad)}tr.blocked td:first-child{box-shadow:inset 4px 0 var(--warn)}
 .ok{color:var(--accent)}.low{color:var(--warn)}.no{color:var(--bad)}
@@ -122,7 +123,9 @@ const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 // CCN link: the hospital's Medicare Care Compare profile (hospital, inpatient rehab or LTCH), when CMS lists one.
 const CC_LABEL={"hospital":"Medicare Care Compare hospital profile","inpatient-rehabilitation":"Medicare Care Compare inpatient rehabilitation profile","long-term-care-hospital":"Medicare Care Compare long-term care hospital profile"};
 function ccnLink(r){return r.care_compare?[`https://www.medicare.gov/care-compare/details/${r.care_compare}/${encodeURIComponent(r.ccn||"")}/`,CC_LABEL[r.care_compare]||"Medicare Care Compare"]:null}
+const FTYPE={"Acute Care Hospitals":"Acute care","Critical Access Hospitals":"Critical access","Psychiatric":"Psychiatric","Rehabilitation":"Rehabilitation","Long-term":"Long-term care","Childrens":"Children's","Rural Emergency Hospital":"Rural emergency","Acute Care - Veterans Administration":"VA","Acute Care - Department of Defense":"Military"};
 function cell(r,k){const v=r[k]??"";
+  if(k==="facility_type")return v?`<span class="ftype" title="Hospital type (CMS): ${esc(v)}">${esc(FTYPE[v]||v)}</span>`:"";
   if(k==="name")return (r.hpt_txt_domain?`<a href="https://${esc(r.hpt_txt_domain)}" title="Hospital website: ${esc(r.hpt_txt_domain)}">${esc(v)}</a>`:esc(v))+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
