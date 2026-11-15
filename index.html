@@ -120,7 +120,7 @@ function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim().replace(/^\d[\d-
     if(CASE[k]&&!(SMALL.has(k)))return CASE[k];
     if(!/[aeiouy]/.test(k)&&/^[a-z]{2,4}$/.test(k)&&k!=="st"&&k!=="mt"&&k!=="ft"&&k!=="dr")return k.toUpperCase();
     return k.charAt(0).toUpperCase()+k.slice(1)})}
-let EXEMPT={},FAC={},lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
+let EXEMPT={},FAC={},lastF=[],rows=[],hosps=[],sortKey="state",sortDir=1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 // CCN link: the hospital's Medicare Care Compare profile (hospital, inpatient rehab or LTCH), when CMS lists one.
@@ -220,7 +220,9 @@ function render(){
   const noEx=document.getElementById("noexempt").checked,fw=document.getElementById("fweb").value;
   let f=hosps.filter(r=>match(r)&&(!fw||isEx(r)||(fw==="known")===!!r.hpt_txt_domain)&&(isEx(r)?!noEx&&!ck:(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))));
   const nEx=f.filter(isEx).length;
-  f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0;return (x>y?1:x<y?-1:0)*sortDir}return String(x).localeCompare(String(y),"en",{sensitivity:"base",numeric:true})*sortDir});
+  const cmp=(a,b,k)=>{let x=a[k]??"",y=b[k]??"";if(num(k)){x=+x||0;y=+y||0;return x>y?1:x<y?-1:0}return String(x).localeCompare(String(y),"en",{sensitivity:"base",numeric:true})};
+  // Chosen column first; ties by state, then hospital name (A to Z).
+  f.sort((a,b)=>cmp(a,b,sortKey)*sortDir||cmp(a,b,"state")||cmp(a,b,"name"));
   lastF=f;
   const files=f.reduce((n,r)=>n+r.files.length,0);
   drawMap();
