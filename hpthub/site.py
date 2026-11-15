@@ -369,6 +369,18 @@ def build() -> Path:
         cat["public_parent"] = cat["ccn"].map(pub).fillna("")
     else:
         cat["owners"] = cat["public_parent"] = ""
+    # NPIs: CMS Hospital Enrollments (official, per CCN) plus any NPI in the hospital's price-file names.
+    enr = _read(ROOT / "data" / "registry" / "ccn_npi.csv")
+    by_enr = enr.groupby("ccn")["npi"].agg(lambda x: sorted(set(x))) if len(enr) else pd.Series(dtype=object)
+    by_pf = cat[cat["npi"] != ""].groupby("ccn")["npi"].agg(lambda x: sorted({n for v in x for n in str(v).split()}))
+    def npis(ccn):
+        e, p = list(by_enr.get(ccn, [])), list(by_pf.get(ccn, []))
+        return " ".join(dict.fromkeys(e + p))
+    def npi_src(ccn):
+        e, p = set(by_enr.get(ccn, [])), set(by_pf.get(ccn, []))
+        return "; ".join(x for x, ok in (("CMS enrollment", e), ("price-file name", p - e)) if ok)
+    cat["npis"] = cat["ccn"].map(npis)
+    cat["npi_source"] = cat["ccn"].map(npi_src)
     cat = cat.copy()
     cat["care_compare"] = cat["ccn"].map(care_compare_profiles()).fillna("")
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
