@@ -94,7 +94,8 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <input type="search" id="q" placeholder="Search hospital, city, system, CCN (provider ID)…">
   <select id="state"><option value="">All states</option></select>
   <select id="ftype"><option value="">All types</option></select>
-  <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Not machine readable</option><option value="fail">Not compliant</option><option value="exempt">Exempt</option></select>
+  <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Not machine readable</option><option value="fail">Not compliant</option></select>
+  <label class="small" style="white-space:nowrap;display:inline-flex;align-items:center;gap:4px" title="Federal (VA, military, Indian Health Service) hospitals are exempt from the price transparency rule; some state psychiatric hospitals may be"><input type="checkbox" id="noexempt" checked> Exclude exempt</label>
   <button type="button" id="export" class="xbtn" title="Download the hospitals shown (current search and filters) as a CSV file, one row per price file">⬇ Export CSV</button>
   <details class="colmenu"><summary>Columns ▾</summary><div class="menu" id="colmenu"></div></details>
 </div>
@@ -205,7 +206,8 @@ function render(){
   const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,ty=document.getElementById("ftype").value,ck=document.getElementById("fcheck").value;
   const isEx=r=>r.hpt_exempt==="True"||String(r.exempt_note).startsWith("possibly");
   const match=r=>(!ty||r.facility_type===ty)&&(!st||r.state===st)&&(!q||[r.name,r.cms_name,r.pos_name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q));
-  let f=hosps.filter(r=>match(r)&&(!ck||(ck==="exempt"?isEx(r):!isEx(r)&&(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))));
+  const noEx=document.getElementById("noexempt").checked;
+  let f=hosps.filter(r=>match(r)&&(isEx(r)?!noEx&&!ck:(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))));
   const nEx=f.filter(isEx).length;
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0;return (x>y?1:x<y?-1:0)*sortDir}return String(x).localeCompare(String(y),"en",{sensitivity:"base",numeric:true})*sortDir});
   lastF=f;
@@ -230,7 +232,7 @@ document.getElementById("colmenu").addEventListener("click",e=>{if(e.target.id!=
   try{localStorage.removeItem("hpt-cols")}catch(_){};document.querySelectorAll("#colmenu input").forEach(i=>i.checked=shown.includes(i.dataset.col));drawHead();render()});
 drawHead();
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;page=0;render()};
-["q","state","ftype","fcheck"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{page=0;render()}));
+["q","state","ftype","fcheck","noexempt"].forEach(id=>document.getElementById(id).addEventListener(id==="noexempt"?"change":"input",()=>{page=0;render()}));
 const XCOLS=["ccn","name","cms_name","pos_name","facility_type","exempt_note","address","city","state","zip","beds","system","txt_check","txt_check_reason","hpt_txt_domain","hpt_txt_url","hpt_txt_access_issue","confidence","match_status","location_name","source_page_url","mrf_url","mrf_format","mrf_size_mb","mrf_last_modified","mrf_http_status","mrf_check_method","contact_name","contact_email","ein","ein_990","npi","owners","public_parent"];
 document.getElementById("export").onclick=()=>{
   const q=v=>{v=String(v??"");return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
@@ -239,7 +241,7 @@ document.getElementById("export").onclick=()=>{
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+out.join("\r\n")],{type:"text/csv"}));
   a.download=`hospital-price-files-${new Date().toISOString().slice(0,10)}.csv`;a.target="_self";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000)};
 fetch("data.json").then(r=>r.json()).then(d=>{
-  try{const c=new URLSearchParams(location.search).get("check");if(c&&document.querySelector(`#fcheck option[value="${CSS.escape(c)}"]`))document.getElementById("fcheck").value=c}catch(_){}
+  try{const c=new URLSearchParams(location.search).get("check");if(c==="exempt")document.getElementById("noexempt").checked=false;else if(c&&document.querySelector(`#fcheck option[value="${CSS.escape(c)}"]`))document.getElementById("fcheck").value=c}catch(_){}
   FAC=d.fac_audits||{};EXEMPT=Array.isArray(d.exempt_eins)?Object.fromEntries(d.exempt_eins.map(e=>[e,"full"])):(d.exempt_eins||{});
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();
