@@ -865,3 +865,4 @@ ccn,domains,source,note
 524002,dhs.wisconsin.gov wisconsin.gov,llm,"LLM website list, matched by name and state for a hospital whose earlier website had no usable cms-hpt.txt (2026-11-14); verified by next crawl"
 510093,monhealth.com,llm,"LLM website list, matched by name and state for a hospital whose earlier website had no usable cms-hpt.txt (2026-11-14); verified by next crawl"
 673045,mri.ernesthealth.com,claude,"Ernest Health subdomain; its cms-hpt.txt lists Rehabilitation Hospital of Mesquite, LLC (checked 2026-11-15)"
+272001,bsrh.ernesthealth.com,claude,"Ernest Health subdomain; its cms-hpt.txt lists Big Sky Rehabilitation Hospital, NPI 1639991540 = Advanced Care Hospital of Montana Inc (checked 2026-11-15)"
