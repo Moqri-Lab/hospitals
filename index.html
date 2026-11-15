@@ -123,7 +123,7 @@ function cell(r,k){const v=r[k]??"";
   if(k==="name")return (r.hpt_txt_domain?`<a href="https://${esc(r.hpt_txt_domain)}" title="Hospital website: ${esc(r.hpt_txt_domain)}">${esc(v)}</a>`:esc(v))+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
-  if(k==="ccn")return `<span style="white-space:nowrap">${esc(v)}</span>`;
+  if(k==="ccn")return `<a style="white-space:nowrap" href="https://data.cms.gov/tools/medicare-inpatient-hospital-look-up-tool/provider/${encodeURIComponent(v)}" title="CMS Medicare inpatient hospital look-up for CCN ${esc(v)}">${esc(v)}</a>`;
   if(k==="ein")return (v||"").split(" ").filter(Boolean).map(e=>`<span style="white-space:nowrap">${esc(e)}</span>`).join("<br>");
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
     let h=ds.map(d=>d===r.hpt_txt_domain?`<span class="ok" title="${esc(d)}: the website whose cms-hpt.txt was read">✓</span>`:`<span class="t" title="${esc(d)}">${esc(d)}</span>`).join(" ");
