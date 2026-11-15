@@ -1,6 +1,8 @@
 ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 010029,Q91075114,East Alabama Medical Center,https://www.wikidata.org/wiki/Q91075114,https://www.eastalabamahealth.org/,0.773
 010092,Q30688010,DCH Regional Medical Center,https://www.wikidata.org/wiki/Q30688010,https://www.dchsystem.com/locations/dch-regional-medical-center/,1.0
+011310,Q108780004,Monroe County Hospital,https://www.wikidata.org/wiki/Q108780004,https://mchcare.com/,1.0
+011311,Q50036816,Lakeland Community Hospital,https://www.wikidata.org/wiki/Q50036816,http://lakelandcommunityhospital.com/,1.0
 014007,Q4980690,Bryce Hospital,https://www.wikidata.org/wiki/Q4980690,http://www.mh.alabama.gov/MI/Facilities.aspx?sm=b_c,1.0
 020001,Q7252388,Providence Alaska Medical Center,https://www.wikidata.org/wiki/Q7252388,http://alaska.providence.org/locations/pamc/Pages/default.aspx,1.0
 020012,Q50036850,Fairbanks Memorial Hospital,https://www.wikidata.org/wiki/Q50036850,https://www.foundationhealth.org/fmh,1.0
@@ -39,6 +41,15 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 030136,Q124630902,Arizona General Hospital,https://www.wikidata.org/wiki/Q124630902,https://www.dignityhealth.org/arizona/locations/arizonageneral,0.754
 030146,Q124754803,HonorHealth Sonoran Crossing Medical Center,https://www.wikidata.org/wiki/Q124754803,https://www.honorhealth.com/locations/hospitals/sonoran-crossing-medical-center,1.0
 030147,Q124630817,Banner Ocotillo Medical Center,https://www.wikidata.org/wiki/Q124630817,https://www.bannerhealth.com/locations/chandler/banner-ocotillo-medical-center,1.0
+033025,Q124733413,Encompass Health Rehabilitation Hospital of Scottsdale,https://www.wikidata.org/wiki/Q124733413,https://encompasshealth.com/locations/scottsdalerehab,0.856
+033032,Q124733516,Encompass Health Valley of the Sun Rehabilitation Hospital,https://www.wikidata.org/wiki/Q124733516,https://encompasshealth.com/locations/valleyofthesunrehab,0.887
+033037,Q124733389,Encompass Health Rehabilitation Hospital of East Valley,https://www.wikidata.org/wiki/Q124733389,https://encompasshealth.com/locations/eastvalleyrehab,0.811
+033040,Q124733642,Dignity Health East Valley Rehabilitation Hospital,https://www.wikidata.org/wiki/Q124733642,https://www.dignityhealthevrehabchandler.com/,1.0
+033042,Q124725066,Banner Rehabilitation Hospital West,https://www.wikidata.org/wiki/Q124725066,https://www.bannerhealth.com/locations/peoria/banner-rehabilitation-hospital-west,1.0
+033043,Q124767632,Reunion Rehabilitation Hospital Phoenix,https://www.wikidata.org/wiki/Q124767632,https://reunionrehabhospital.com/locations/phoenix/,1.0
+033044,Q124733679,Dignity Health East Valley Rehabilitation Hospital – Gilbert,https://www.wikidata.org/wiki/Q124733679,https://www.dignityhealthevrehabgilbert.com/,0.908
+033045,Q124767513,Reunion Rehabilitation Hospital Peoria,https://www.wikidata.org/wiki/Q124767513,https://reunionrehabhospital.com/locations/peoria/,1.0
+033046,Q124726195,ClearSky Rehabilitation Hospital of Avondale,https://www.wikidata.org/wiki/Q124726195,https://clearskyhealth.com/avondale/,1.0
 033302,Q18156816,Phoenix Children's Hospital,https://www.wikidata.org/wiki/Q18156816,http://www.phoenixchildrens.org/,1.0
 034004,Q124527154,Banner Behavioral Health Hospital,https://www.wikidata.org/wiki/Q124527154,https://www.bannerhealth.com/locations/scottsdale/banner-behavioral-health-hospital,1.0
 034013,Q124711906,College Medical Center Phoenix,https://www.wikidata.org/wiki/Q124711906,https://cmcphoenix.com,1.0
@@ -65,6 +76,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 050084,Q108828229,St. Joseph’s Medical Center,https://www.wikidata.org/wiki/Q108828229,https://www.dignityhealth.org/central-california/locations/stjosephs-stockton,0.832
 050099,Q7413314,San Antonio Community Hospital,https://www.wikidata.org/wiki/Q7413314,https://sarh.org/,0.903
 050100,Q7490328,Sharp Memorial Hospital,https://www.wikidata.org/wiki/Q7490328,http://www.sharp.com/memorial/index.cfm,1.0
+050101,Q50037044,Sutter Solano Medical Center,https://www.wikidata.org/wiki/Q50037044,http://www.suttersolano.org/,1.0
 050104,Q7587979,St. Francis Medical Center,https://www.wikidata.org/wiki/Q7587979,http://www.stfrancismedicalcenter.org/,1.0
 050110,Q21593078,Lompoc Valley Medical Center,https://www.wikidata.org/wiki/Q21593078,http://www.lompocvmc.com,1.0
 050112,Q7864040,UCLA Santa Monica Medical Center,https://www.wikidata.org/wiki/Q7864040,http://www.uclahealth.org/santamonica,0.838
@@ -108,7 +120,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 050549,Q6683243,Los Robles Hospital & Medical Center,https://www.wikidata.org/wiki/Q6683243,http://www.losrobleshospital.com/,1.0
 050557,Q6815474,Memorial Medical Center,https://www.wikidata.org/wiki/Q6815474,http://www.memorialmedicalcenter.org/,1.0
 050580,Q6464246,La Palma Intercommunity Hospital,https://www.wikidata.org/wiki/Q6464246,http://www.lapalmaintercommunityhospital.com/,1.0
-050604,Q106735598,Kaiser San Jose Medical Center,https://www.wikidata.org/wiki/Q106735598,https://thrive.kaiserpermanente.org/care-near-you/northern-california/sanjose,0.779
+050660,Q43896650,USC Norris Cancer Hospital,https://www.wikidata.org/wiki/Q43896650,https://www.keckmedicine.org/about-keck-medicine/usc-norris-comprehensive-cancer-center/,0.808
 050696,Q6382471,Keck Hospital of USC,https://www.wikidata.org/wiki/Q6382471,http://www.keckhospitalofusc.org/,1.0
 050709,Q14681826,Desert Valley Hospital,https://www.wikidata.org/wiki/Q14681826,http://www.dvmc.com/,1.0
 050717,Q7291084,Rancho Los Amigos National Rehabilitation Center,https://www.wikidata.org/wiki/Q7291084,http://dhs.lacounty.gov/wps/portal/dhs/rancho,0.93
@@ -123,6 +135,10 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 051325,Q43895413,Adventist Health Mendocino Coast,https://www.wikidata.org/wiki/Q43895413,https://www.adventisthealth.org/mendocino-coast/,1.0
 051328,Q30289104,Tahoe Forest Hospital,https://www.wikidata.org/wiki/Q30289104,https://www.tfhd.com/tahoe-forest-hospital,1.0
 051333,Q7332729,Ridgecrest Regional Hospital,https://www.wikidata.org/wiki/Q7332729,http://rrh.org/,1.0
+052031,Q4861223,Barlow Respiratory Hospital,https://www.wikidata.org/wiki/Q4861223,http://www.barlow2000.org/,1.0
+052034,Q28222814,Kindred Hospital – San Francisco Bay Area,https://www.wikidata.org/wiki/Q28222814,http://www.kindredhospitalsfba.com/,1.0
+052049,Q30270323,Kindred Hospital Rancho,https://www.wikidata.org/wiki/Q30270323,http://www.khrancho.com/,1.0
+053039,Q24897659,California Rehabilitation Institute,https://www.wikidata.org/wiki/Q24897659,http://californiarehabinstitute.com/,1.0
 053300,Q14681740,Valley Children's Hospital,https://www.wikidata.org/wiki/Q14681740,http://www.valleychildrens.org/,1.0
 053301,Q17031376,UCSF Benioff Children's Hospital,https://www.wikidata.org/wiki/Q17031376,https://www.ucsfbenioffchildrens.org/,0.897
 053302,Q1072787,Children's Hospital Los Angeles,https://www.wikidata.org/wiki/Q1072787,https://www.chla.org/,0.986
@@ -162,6 +178,9 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 070031,Q30254237,Griffin Hospital,https://www.wikidata.org/wiki/Q30254237,http://www.griffinhealth.org/,1.0
 070035,Q50035465,The Hospital of Central Connecticut,https://www.wikidata.org/wiki/Q50035465,https://thocc.org//,1.0
 07003F,Q106908377,West Haven VA Medical Center,https://www.wikidata.org/wiki/Q106908377,https://www.connecticut.va.gov/locations/directions.asp,1.0
+072003,Q30280429,Gaylord Hospital,https://www.wikidata.org/wiki/Q30280429,http://www.gaylord.org/,1.0
+072004,Q30280154,Hospital for Special Care,https://www.wikidata.org/wiki/Q30280154,http://hfsc.org/,1.0
+073025,Q50037001,Mount Sinai Rehabilitation Hospital,https://www.wikidata.org/wiki/Q50037001,http://www.stfranciscare.org/rehabilitation,1.0
 074003,Q5161643,Connecticut Valley Hospital,https://www.wikidata.org/wiki/Q5161643,https://portal.ct.gov/dmhas/cvh/agency-files/cvh---home-page,1.0
 080001,Q30279983,Christiana Hospital,https://www.wikidata.org/wiki/Q30279983,http://www.christianacare.org/christianahospital,1.0
 090001,Q5546034,George Washington University Hospital,https://www.wikidata.org/wiki/Q5546034,https://www.gwhospital.com/,1.0
@@ -169,6 +188,8 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 090004,Q5547055,MedStar Georgetown University Hospital,https://www.wikidata.org/wiki/Q5547055,https://www.medstargeorgetown.org/,1.0
 090005,Q7507196,Sibley Memorial Hospital,https://www.wikidata.org/wiki/Q7507196,https://www.hopkinsmedicine.org/sibley-memorial-hospital/,1.0
 090011,Q7971940,Washington Hospital Center,https://www.wikidata.org/wiki/Q7971940,https://www.medstarhealth.org/locations/medstar-washington-hospital-center,0.785
+090012,Q133871275,Cedar Hill Regional Medical Center,https://www.wikidata.org/wiki/Q133871275,https://cedarhillregional.com/,1.0
+093025,Q6978012,National Rehabilitation Hospital,https://www.wikidata.org/wiki/Q6978012,https://www.medstarhealth.org/locations/medstar-national-rehabilitation-hospital,0.85
 094004,Q7256225,Psychiatric Institute of Washington,https://www.wikidata.org/wiki/Q7256225,https://psychinstitute.com/,1.0
 100002,Q30280046,Bethesda Hospital East,https://www.wikidata.org/wiki/Q30280046,http://www.bethesdaweb.com/about-us,1.0
 100006,Q7103171,Orlando Regional Medical Center,https://www.wikidata.org/wiki/Q7103171,https://www.orlandohealth.com/facilities/orlando-regional-medical-center,0.847
@@ -234,6 +255,8 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 110191,Q7191514,Piedmont Henry Hospital,https://www.wikidata.org/wiki/Q7191514,http://www.piedmont.org/locations/piedmont-henry/phh-home,1.0
 110229,Q7191530,Piedmont Newnan Hospital,https://www.wikidata.org/wiki/Q7191530,http://www.piedmontnewnan.org/,1.0
 110230,Q30269854,Emory Johns Creek Hospital,https://www.wikidata.org/wiki/Q30269854,http://www.emoryjohnscreek.com/,1.0
+112003,Q7494467,Shepherd Center,https://www.wikidata.org/wiki/Q7494467,https://www.shepherd.org/,1.0
+113031,Q30265989,Emory Rehabilitation Hospital,https://www.wikidata.org/wiki/Q30265989,http://www.emoryhealthcare.org/rehabilitation/index.html,1.0
 113301,Q23074176,Children's Healthcare of Atlanta,https://www.wikidata.org/wiki/Q23074176,https://www.choa.org/,0.797
 120001,Q7758968,The Queen's Medical Center,https://www.wikidata.org/wiki/Q7758968,http://queensmedicalcenter.org/,0.819
 120007,Q6440969,Kuakini Medical Center,https://www.wikidata.org/wiki/Q6440969,http://www.kuakini.org/wps/portal/,1.0
@@ -288,6 +311,8 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 140304,Q130244226,UChicago Medicine AdventHealth Bolingbrook,https://www.wikidata.org/wiki/Q130244226,https://www.uchicagomedicineadventhealth.org/uchicago-medicine-adventhealth-bolingbrook,1.0
 141323,Q6784110,Massac Memorial Hospital,https://www.wikidata.org/wiki/Q6784110,http://www.massachealth.org,1.0
 141350,Q30289037,St. Francis Hospital,https://www.wikidata.org/wiki/Q30289037,https://www.hshs.org/stfrancis/,1.0
+143025,Q30288626,Schwab Rehabilitation Hospital,https://www.wikidata.org/wiki/Q30288626,http://www.schwabrehab.org/content/schwab-rehabilitation-hospital-0,1.0
+143026,Q7309746,Shirley Ryan AbilityLab,https://www.wikidata.org/wiki/Q7309746,http://www.ric.org/,1.0
 143300,Q6704935,Ann & Robert H. Lurie Children's Hospital of Chicago,https://www.wikidata.org/wiki/Q6704935,https://www.luriechildrens.org/,1.0
 143301,Q6464743,La Rabida Children's Hospital,https://www.wikidata.org/wiki/Q6464743,https://larabida.org,0.751
 143302,Q30282036,Shriners Hospitals for Children - Chicago,https://www.wikidata.org/wiki/Q30282036,http://www.shrinershospitalsforchildren.org/,0.844
@@ -305,7 +330,6 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 150034,Q87932179,St. Mary Medical Center,https://www.wikidata.org/wiki/Q87932179,https://www.comhs.org/about-us/st-mary-medical-center,1.0
 150037,Q87932385,Hancock Regional Hospital,https://www.wikidata.org/wiki/Q87932385,http://www.hancockregional.org,1.0
 150044,Q96151094,Baptist Health Floyd Hospital,https://www.wikidata.org/wiki/Q96151094,https://www.baptisthealth.com/floyd/,0.945
-150046,Q87932085,Terre Haute Regional Hospital,https://www.wikidata.org/wiki/Q87932085,http://www.regionalhospital.com,1.0
 150047,Q7589333,St. Joseph Hospital,https://www.wikidata.org/wiki/Q7589333,http://www.stjoehospital.com/,0.904
 150057,Q87932467,Franciscan St. Francis Health - Mooresville,https://www.wikidata.org/wiki/Q87932467,http://www.franciscanalliance.org/hospitals/mooresville/Pages/default.aspx,0.952
 150059,Q19723433,Riverview Health,https://www.wikidata.org/wiki/Q19723433,http://www.riverview.org/,1.0
@@ -338,7 +362,6 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 150179,Q87932001,Fairbanks,https://www.wikidata.org/wiki/Q87932001,http://www.fairbankscd.org,1.0
 150181,Q87931969,St. Vincent Fishers Hospital,https://www.wikidata.org/wiki/Q87931969,https://healthcare.ascension.org/locations/indiana/ineva/fishers-ascension-st-vincent-fishers,0.79
 150183,Q87931989,Monroe Hospital,https://www.wikidata.org/wiki/Q87931989,http://www.monroehospital.com,1.0
-150193,Q87931972,Franciscan Health Carmel,https://www.wikidata.org/wiki/Q87931972,https://www.franciscanhealth.org/healthcare-facilities/franciscan-health-carmel-10,0.795
 151300,Q87932310,Community Hospital of Bremen,https://www.wikidata.org/wiki/Q87932310,http://www.bremenhospital.com,1.0
 151301,Q87932006,Ascension St. Vincent Randolph,https://www.wikidata.org/wiki/Q87932006,https://healthcare.ascension.org/Locations/Indiana/INEVA/Winchester-Ascension-St-Vincent-Randolph,1.0
 151303,Q87932185,St. Vincent Jennings Hospital,https://www.wikidata.org/wiki/Q87932185,https://healthcare.ascension.org/locations/indiana/ineva/north-vernon-ascension-st-vincent-jennings,0.812
@@ -363,11 +386,19 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 151331,Q87932005,Harrison County Hospital,https://www.wikidata.org/wiki/Q87932005,http://www.hchin.org,1.0
 151332,Q87931988,Decatur County Memorial Hospital,https://www.wikidata.org/wiki/Q87931988,http://www.dcmh.net,1.0
 151333,Q87932008,Putnam County Hospital,https://www.wikidata.org/wiki/Q87932008,http://www.pchosp.org/,1.0
+152007,Q87932525,Kindred Hospital Indianapolis,https://www.wikidata.org/wiki/Q87932525,http://www.kindredhospitalindy.com/,1.0
+152014,Q87932079,Select Specialty Hospital-Evansville,https://www.wikidata.org/wiki/Q87932079,http://www.selectspecialtyhospitals.com/company/locations/evansville.aspx,1.0
+152020,Q87932046,"St. Vincent Seton Specialty Hospital, Indianapolis",https://www.wikidata.org/wiki/Q87932046,http://stvincent.org/,0.755
+152024,Q87932155,Regency Hospital of Northwest Indiana,https://www.wikidata.org/wiki/Q87932155,http://www.regencyhospital.com/company/locations/indiananorthwest-indiana.aspx,1.0
+152025,Q87932139,Central Indiana AMG Specialty Hospital,https://www.wikidata.org/wiki/Q87932139,http://www.amgmuncie.com/,1.0
+153028,Q30280676,Rehabilitation Hospital of Indiana,https://www.wikidata.org/wiki/Q30280676,http://rhin.com/,1.0
+153042,Q87932546,Lafayette Regional Rehabilitation Hospital,https://www.wikidata.org/wiki/Q87932546,https://lrrh.ernesthealth.com/,1.0
 154008,Q101243460,Neurodiagnostic Hospital,https://www.wikidata.org/wiki/Q101243460,https://www.in.gov/fssa/dmha/3382.htm,0.758
 154009,Q87932221,Hamilton Center,https://www.wikidata.org/wiki/Q87932221,http://www.hamiltoncenter.org,1.0
 154018,Q87932021,Richmond State Hospital,https://www.wikidata.org/wiki/Q87932021,http://www.richmondstatehospital.org,1.0
 154019,Q87932170,Madison State Hospital,https://www.wikidata.org/wiki/Q87932170,http://www.in.gov/fssa/msh,1.0
 154020,Q87932094,Regional Mental Health Center,https://www.wikidata.org/wiki/Q87932094,http://www.regionalmentalhealth.org/,1.0
+154021,Q87932414,Grant-Blackford Mental Health,https://www.wikidata.org/wiki/Q87932414,http://www.cornerstone.org/,1.0
 154024,Q87932164,BHC Valle Vista Hospital,https://www.wikidata.org/wiki/Q87932164,http://www.vallevistahospital.com,0.767
 154031,Q87932231,Oaklawn Psychiatric Center,https://www.wikidata.org/wiki/Q87932231,http://www.oaklawn.org,1.0
 154041,Q87932477,Bloomington Meadows Hospital,https://www.wikidata.org/wiki/Q87932477,http://www.bloomingtonmeadows.com,1.0
@@ -402,6 +433,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 180093,Q50036500,Baptist Health Madisonville,https://www.wikidata.org/wiki/Q50036500,https://www.baptisthealth.com/madisonville/pages/default.aspx,0.836
 180141,Q30279719,University of Louisville Hospital,https://www.wikidata.org/wiki/Q30279719,https://www.kentuckyonehealth.org/contact-us-5201,1.0
 180143,Q50037003,Saint Joseph Hospital East,https://www.wikidata.org/wiki/Q50037003,http://www.kentuckyonehealth.org/saint-joseph-east-lexington,0.937
+183026,Q29982626,Cardinal Hill Rehabilitation Hospital,https://www.wikidata.org/wiki/Q29982626,https://encompasshealth.com/locations/cardinalhillrehab,1.0
 190005,Q20899647,University Medical Center New Orleans,https://www.wikidata.org/wiki/Q20899647,http://www.umcno.org/,1.0
 190006,Q30270579,University Hospital and Clinics,https://www.wikidata.org/wiki/Q30270579,http://www.lafayettegeneral.com/our_facilities/main_facilities/university_hospital_clinics.aspx,0.849
 190007,Q55708925,Natchitoches Regional Medical Center,https://www.wikidata.org/wiki/Q55708925,https://www.nrmchospital.org/,1.0
@@ -455,10 +487,10 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 22010F,Q89036091,Jamaica Plain VA Medical Center,https://www.wikidata.org/wiki/Q89036091,https://www.boston.va.gov/locations/Jamaica_Plain_.asp,0.771
 220163,Q30281108,UMass Memorial Medical Center,https://www.wikidata.org/wiki/Q30281108,https://www.ummhealth.org/umass-memorial-medical-center,0.754
 220176,Q7402277,Saint Vincent Hospital,https://www.wikidata.org/wiki/Q7402277,http://www.stvincenthospital.com/,1.0
+222006,Q21016028,Lemuel Shattuck Hospital,https://www.wikidata.org/wiki/Q21016028,http://www.mass.gov/eohhs/gov/departments/dph/programs/hospitals/shattuck/overview-lemuel-shattuck-hospital.html,1.0
 223304,Q50575529,Shriners Hospitals for Children - Boston,https://www.wikidata.org/wiki/Q50575529,http://www.shrinershospitalsforchildren.org/,0.996
 230047,Q50036712,Henry Ford Macomb Hospital,https://www.wikidata.org/wiki/Q50036712,https://www.henryford.com/locations/macomb,1.0
 230053,Q3145166,Henry Ford Hospital,https://www.wikidata.org/wiki/Q3145166,http://www.henryford.com/,0.953
-230055,Q5273727,Dickinson County Healthcare System,https://www.wikidata.org/wiki/Q5273727,http://www.dchs.org/,0.903
 230072,Q16892394,Holland Hospital,https://www.wikidata.org/wiki/Q16892394,http://www.hollandhospital.org,1.0
 230075,Q50039443,Bronson Battle Creek Hospital,https://www.wikidata.org/wiki/Q50039443,https://www.bronsonhealth.com/locations/bronson-battle-creek-hospital/,1.0
 230104,Q5663450,Harper University Hospital,https://www.wikidata.org/wiki/Q5663450,http://www.harperhutzel.org/,1.0
@@ -470,6 +502,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 231313,Q30287603,Harbor Beach Community Hospital,https://www.wikidata.org/wiki/Q30287603,https://www.hbch.org/,1.0
 231333,Q50039127,Aspirus Ironwood Hospital,https://www.wikidata.org/wiki/Q50039127,http://www.aspirus.org/Aspirus-Ironwood-Hospital/Our-Locations/Aspirus-Grand-View-Hospital-452.aspx,1.0
 231337,Q50039604,OSF St. Francis Hospital & Medical Group,https://www.wikidata.org/wiki/Q50039604,https://www.osfhealthcare.org/st-francis/,0.986
+233027,Q7309747,Rehabilitation Institute of Michigan,https://www.wikidata.org/wiki/Q7309747,https://www.rimrehab.org/,1.0
 233300,Q5098127,Children's Hospital of Michigan,https://www.wikidata.org/wiki/Q5098127,https://www.childrensdmc.org/,1.0
 234006,Q7195307,Pine Rest Christian Mental Health Services,https://www.wikidata.org/wiki/Q7195307,http://www.pinerest.org,1.0
 234026,Q16998070,Kalamazoo Regional Psychiatric Hospital,https://www.wikidata.org/wiki/Q16998070,https://www.michigan.gov/mdhhs/keep-mi-healthy/mentalhealth/mentalhealth/mentalillness/state-operated-hospitals/kalamazoo-psychiatric-hospital_1,1.0
@@ -628,6 +661,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 340132,Q19987452,Maria Parham Hospital,https://www.wikidata.org/wiki/Q19987452,https://www.mariaparham.com/,0.875
 340142,Q5047233,Carteret General Hospital,https://www.wikidata.org/wiki/Q5047233,http://www.carteretgeneral.com/,1.0
 341325,Q30286864,Ashe Memorial Hospital,https://www.wikidata.org/wiki/Q30286864,https://www.ashememorial.org/,1.0
+342015,Q17986277,Carolinas Medical Center-Pineville,https://www.wikidata.org/wiki/Q17986277,http://www.carolinashealthcare.org/cmc-pineville,0.806
 360003,Q7895268,University of Cincinnati Medical Center,https://www.wikidata.org/wiki/Q7895268,https://www.uchealth.com/university-of-cincinnati-medical-center/,1.0
 360006,Q7338537,Riverside Methodist Hospital,https://www.wikidata.org/wiki/Q7338537,https://www.ohiohealth.com/riverside/,1.0
 360008,Q7570218,Southern Ohio Medical Center,https://www.wikidata.org/wiki/Q7570218,http://www.somc.org/,1.0
@@ -647,7 +681,6 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 360137,Q30294590,UH Cleveland Medical Center,https://www.wikidata.org/wiki/Q30294590,https://www.uhhospitals.org/locations/uh-cleveland-medical-center,1.0
 360144,Q50037150,South Pointe Hospital,https://www.wikidata.org/wiki/Q50037150,http://fad.southpointehospital.org/,1.0
 360147,Q30280872,Marietta Memorial Hospital,https://www.wikidata.org/wiki/Q30280872,http://www.mhsystem.org/mmh,1.0
-360148,Q107466857,Pomerene Hospital,https://www.wikidata.org/wiki/Q107466857,https://www.pomerenehospital.org/,1.0
 360150,Q19866577,Western Reserve Hospital,https://www.wikidata.org/wiki/Q19866577,http://www.westernreservehospital.org,0.85
 360152,Q5287552,Doctors Hospital,https://www.wikidata.org/wiki/Q5287552,https://www.ohiohealth.com/doctors/,1.0
 360155,Q7571282,Southwest General Health Center,https://www.wikidata.org/wiki/Q7571282,http://www.swgeneral.com,1.0
@@ -662,6 +695,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 361309,Q23926532,Henry County Hospital,https://www.wikidata.org/wiki/Q23926532,http://www.henrycountyhospital.org/,1.0
 361310,Q6818766,Mercy Hospital of Willard,https://www.wikidata.org/wiki/Q6818766,http://www.mercyweb.org/mercy_willard.aspx,0.944
 361318,Q5473872,Fostoria Community Hospital,https://www.wikidata.org/wiki/Q5473872,https://www.promedica.org/fostoria-community-hospital/Pages/default.aspx,1.0
+361337,Q107466857,Pomerene Hospital,https://www.wikidata.org/wiki/Q107466857,https://www.pomerenehospital.org/,1.0
 363300,Q5120231,Cincinnati Children's Hospital Medical Center,https://www.wikidata.org/wiki/Q5120231,https://www.cincinnatichildrens.org/,1.0
 363302,Q7284577,Rainbow Babies & Children's Hospital,https://www.wikidata.org/wiki/Q7284577,http://www.uhhospitals.org/rainbow,0.983
 363305,Q6979874,Nationwide Children's Hospital,https://www.wikidata.org/wiki/Q6979874,https://www.nationwidechildrens.org/,1.0
@@ -713,7 +747,6 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 390102,Q7865515,UPMC St. Margaret,https://www.wikidata.org/wiki/Q7865515,https://www.upmc.com/locations/hospitals/st-margaret,1.0
 390111,Q5908783,Hospital of the University of Pennsylvania,https://www.wikidata.org/wiki/Q5908783,http://www.pennmedicine.org/hospital-university-pennsylvania/,0.984
 390114,Q30253944,UPMC Magee-Womens Hospital,https://www.wikidata.org/wiki/Q30253944,http://www.upmc.com/locations/hospitals/magee/pages/default.aspx,0.926
-390116,Q50037174,Suburban Community Hospital,https://www.wikidata.org/wiki/Q50037174,https://www.suburbanhosp.org/,1.0
 390127,Q50036927,Phoenixville Hospital,https://www.wikidata.org/wiki/Q50036927,https://phoenixville.towerhealth.org/,1.0
 390137,Q30292643,Wilkes-Barre General Hospital,https://www.wikidata.org/wiki/Q30292643,https://www.commonwealthhealth.net/wilkes-barre-general-hospital-commonwealth,1.0
 390153,Q21197613,Paoli Hospital,https://www.wikidata.org/wiki/Q21197613,https://www.mainlinehealth.org/locations/paoli-hospital,1.0
@@ -722,7 +755,6 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 390168,Q127543091,Butler Memorial Hospital,https://www.wikidata.org/wiki/Q127543091,https://www.independence.health/locations/butler-memorial-hospital/,0.77
 390173,Q6023380,Indiana Regional Medical Center,https://www.wikidata.org/wiki/Q6023380,https://www.indianarmc.org/,1.0
 390174,Q59676202,Thomas Jefferson University Hospital,https://www.wikidata.org/wiki/Q59676202,https://www.jefferson.edu/university/jmc/departments/orthopaedic/education/residency/affiliations.html,1.0
-390180,Q30287068,Crozer Chester Medical Center,https://www.wikidata.org/wiki/Q30287068,https://www.crozerhealth.org/Locations/crozer-chester-medical-center/,1.0
 390199,Q50039276,Punxsutawney Area Hospital,https://www.wikidata.org/wiki/Q50039276,http://www.pah.org/,1.0
 390201,Q50036949,Lehigh Valley Hospital-Pocono,https://www.wikidata.org/wiki/Q50036949,https://www.lvhn.org/facilities_directions/hospital_locations/campuses/lehigh_valley_hospital%E2%80%93pocono,1.0
 390203,Q50036566,Doylestown Hospital,https://www.wikidata.org/wiki/Q50036566,https://www.doylestownhealth.org/locations/doylestown-hospital,1.0
@@ -739,6 +771,8 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 390331,Q8022473,Wills Eye Hospital,https://www.wikidata.org/wiki/Q8022473,http://www.willseye.org,1.0
 391305,Q64153296,Guthrie Troy Community Hospital,https://www.wikidata.org/wiki/Q64153296,https://www.guthrie.org/location/guthrie-troy-community-hospital,0.781
 391308,Q119216729,Corry Memorial Hospital,https://www.wikidata.org/wiki/Q119216729,https://corryhospital.com/,0.759
+392037,Q119217385,Select Specialty Hospital Erie,https://www.wikidata.org/wiki/Q119217385,https://www.selectspecialtyhospitals.com/locations-and-tours/pa/erie/erie/,1.0
+393025,Q30280139,Bryn Mawr Rehabilitation Hospital,https://www.wikidata.org/wiki/Q30280139,http://www.mainlinehealth.org/brynmawr,1.0
 393302,Q5098130,UPMC Children's Hospital of Pittsburgh,https://www.wikidata.org/wiki/Q5098130,https://www.chp.edu/,1.0
 393303,Q4569202,Children's Hospital of Philadelphia,https://www.wikidata.org/wiki/Q4569202,http://www.chop.edu/,1.0
 393307,Q7587546,St. Christopher's Hospital for Children,https://www.wikidata.org/wiki/Q7587546,http://www.stchristophershospital.com/,1.0
@@ -757,6 +791,8 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 410012,Q6873343,Miriam Hospital,https://www.wikidata.org/wiki/Q6873343,http://www.lifespan.org/tmh/,1.0
 410013,Q7987411,Westerly Hospital,https://www.wikidata.org/wiki/Q7987411,http://www.westerlyhospital.org/,1.0
 41005F,Q7252501,Providence VA Medical Center,https://www.wikidata.org/wiki/Q7252501,http://www.providence.va.gov/,1.0
+412001,Q5354388,Eleanor Slater Hospital,https://www.wikidata.org/wiki/Q5354388,https://bhddh.ri.gov/eleanor-slater-hospital,1.0
+413025,Q39059347,Rehabilitation Hospital of Rhode Island,https://www.wikidata.org/wiki/Q39059347,http://www.rhri.net/,1.0
 420018,Q7128365,Prisma Richland Hospital,https://www.wikidata.org/wiki/Q7128365,https://prismahealth.org/hospitals/prisma-health-richland-hospital,0.962
 420067,Q30286645,Beaufort Memorial Hospital,https://www.wikidata.org/wiki/Q30286645,https://www.bmhsc.org/,0.789
 420073,Q6537839,Lexington Medical Center,https://www.wikidata.org/wiki/Q6537839,https://www.lexmed.com/,1.0
@@ -785,6 +821,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 450044,Q43896485,William P. Clements Jr. University Hospital,https://www.wikidata.org/wiki/Q43896485,http://www.utswmedicine.org/hospitals-clinics/clements/,0.799
 450054,Q139681503,Baylor Scott & White McLane Children's Medical Center - Temple,https://www.wikidata.org/wiki/Q139681503,https://www.bswhealth.com/mclane-childrens/locations/temple-hospital,0.831
 450068,Q6815447,Memorial Hermann–Texas Medical Center,https://www.wikidata.org/wiki/Q6815447,http://www.memorialhermann.org/locations/texas-medical-center/,1.0
+450076,Q1525831,The University of Texas MD Anderson Cancer Center,https://www.wikidata.org/wiki/Q1525831,https://www.mdanderson.org/,0.803
 450079,Q139073814,Baylor Scott & White Medical Center – Irving,https://www.wikidata.org/wiki/Q139073814,https://www.bswhealth.com/locations/hospital/irving,0.989
 450083,Q98600524,UT Health East Texas-Tyler,https://www.wikidata.org/wiki/Q98600524,https://uthealtheasttexas.com/,0.923
 450101,Q139073630,Baylor Scott & White Medical Center – Hillcrest,https://www.wikidata.org/wiki/Q139073630,https://www.bswhealth.com/locations/hospital/hillcrest,1.0
@@ -813,6 +850,8 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 450890,Q60749329,Baylor Scott & White Medical Center – Plano,https://www.wikidata.org/wiki/Q60749329,https://www.bswhealth.com/locations/hospital/plano,1.0
 451374,Q139101986,Baylor Scott & White Medical Center – Taylor,https://www.wikidata.org/wiki/Q139101986,https://www.bswhealth.com/locations/hospital/taylor,1.0
 451387,Q112128765,Uvalde Memorial Hospital,https://www.wikidata.org/wiki/Q112128765,http://www.umhtx.org,1.0
+451397,Q139040140,Baylor Scott & White Medical Center – Brenham,https://www.wikidata.org/wiki/Q139040140,https://www.bswhealth.com/locations/hospital/brenham,0.937
+453025,Q14956811,TIRR Memorial Hermann,https://www.wikidata.org/wiki/Q14956811,http://tirr.memorialhermann.org,1.0
 453301,Q5307798,Driscoll Children's Hospital,https://www.wikidata.org/wiki/Q5307798,https://www.driscollchildrens.org/,1.0
 453302,Q5098157,Children's Medical Center Dallas,https://www.wikidata.org/wiki/Q5098157,https://www.childrens.com/,0.986
 453304,Q7707563,Texas Children's Hospital,https://www.wikidata.org/wiki/Q7707563,http://www.texaschildrens.org,1.0
@@ -869,6 +908,7 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 490119,Q64219702,Sentara Princess Anne Hospital,https://www.wikidata.org/wiki/Q64219702,https://www.sentara.com/hospitalslocations/locations/sentara-princess-anne-hospital.aspx,1.0
 490120,Q5092876,Chesapeake Regional Medical Center,https://www.wikidata.org/wiki/Q5092876,http://www.chesapeakeregional.com,0.877
 490136,Q91025320,Bon Secours St. Francis Medical Center,https://www.wikidata.org/wiki/Q91025320,https://www.bonsecours.com/locations/hospitals-medical-centers/richmond/st-francis-medical-center,1.0
+492001,Q6477989,Lake Taylor Transitional Care Hospital,https://www.wikidata.org/wiki/Q6477989,http://www.laketaylor.org,1.0
 493301,Q5098131,Children's Hospital of The King's Daughters,https://www.wikidata.org/wiki/Q5098131,https://www.chkd.org/,0.902
 500005,Q7934403,Virginia Mason Medical Center,https://www.wikidata.org/wiki/Q7934403,https://www.virginiamason.org/ https://www.virginiamason.org/hospital,1.0
 500007,Q50036399,Island Hospital,https://www.wikidata.org/wiki/Q50036399,https://www.islandhospital.org/,1.0
@@ -925,4 +965,3 @@ ccn,wikidata_id,wikidata_label,wikidata_url,official_website,match_score
 670131,Q139067532,Baylor Scott & White Medical Center – Buda,https://www.wikidata.org/wiki/Q139067532,https://www.bswhealth.com/locations/hospital/buda,1.0
 670136,Q139039851,Baylor Scott & White Medical Center – Austin,https://www.wikidata.org/wiki/Q139039851,https://www.bswhealth.com/locations/hospital/austin,1.0
 670309,Q119138165,Texas Health Hospital Mansfield,https://www.wikidata.org/wiki/Q119138165,https://www.texashealthmansfield.org,1.0
-670343,Q139040140,Baylor Scott & White Medical Center – Brenham,https://www.wikidata.org/wiki/Q139040140,https://www.bswhealth.com/locations/hospital/brenham,0.937

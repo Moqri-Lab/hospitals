@@ -25,13 +25,11 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 010058,way/514366425,Bibb Medical Center,https://www.openstreetmap.org/way/514366425,https://www.bibbmedicalcenter.com/,1.0
 010061,way/510892016,Highlands Medical Center,https://www.openstreetmap.org/way/510892016,https://hh.health/highlands-medical-center/,1.0
 010065,way/514349312,Russell Medical Center,https://www.openstreetmap.org/way/514349312,https://russellcares.com/,1.0
-010073,way/514327701,Clay County Hospital,https://www.openstreetmap.org/way/514327701,https://www.claycountyhospital.com/,1.0
 010078,way/115700837,Northeast Alabama Regional Medical Center,https://www.openstreetmap.org/way/115700837,https://rmccares.org/locations/rmc-anniston/,1.0
 010079,way/441806818,Athens-Limestone Hospital,https://www.openstreetmap.org/way/441806818,https://www.athenslimestonehospital.com/,1.0
 010085,way/441860031,Decatur Morgan Hospital,https://www.openstreetmap.org/way/441860031,https://decaturmorganhospital.net/,0.96
 010086,way/514632497,North Mississippi Health Services-South Marion,https://www.openstreetmap.org/way/514632497,https://www.nmhs.net/locations/north-mississippi-health-services-south-marion,1.0
 010090,way/586451710,USA Health Providence Hospital,https://www.openstreetmap.org/way/586451710,https://www.usahealthsystem.com/locations/providence,0.865
-010091,way/512730545,Grove Hill Memorial Hospital,https://www.openstreetmap.org/way/512730545,https://www.grovehillmemorial.org/,1.0
 010092,way/510789152,DCH Regional Medical Center,https://www.openstreetmap.org/way/510789152,https://www.dchsystem.com/locations/dch-regional-medical-center/,1.0
 010095,way/514370985,Hale County Hospital,https://www.openstreetmap.org/way/514370985,https://www.halecountyhospital.com/,1.0
 010097,way/510602027,Elmore Community Hospital,https://www.openstreetmap.org/way/510602027,https://ivycreekhealth.com/hospital/elmore-community-hospital/,1.0
@@ -62,15 +60,24 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 010169,way/512152961,Atmore Community Hospital,https://www.openstreetmap.org/way/512152961,https://www.infirmaryhealth.org/hospitals/atmore-community-hospital,1.0
 010173,way/871709853,UAB St. Vincent’s Chilton,https://www.openstreetmap.org/way/871709853,https://uabstvincents.org/locations/uab-st-vincents-chilton/,0.888
 01019F,relation/20579215,Central Alabama VA Medical Center - Montgomery,https://www.openstreetmap.org/relation/20579215,https://www.va.gov/central-alabama-health-care/locations/central-alabama-va-medical-center-montgomery,0.918
+010779,way/514037660,Bullock County Hospital,https://www.openstreetmap.org/way/514037660,https://bullockcountyhospital.com/,1.0
 010781,way/513623688,J. Paul Jones Hospital,https://www.openstreetmap.org/way/513623688,https://jpauljones.com/,1.0
+010782,way/514327701,Clay County Hospital,https://www.openstreetmap.org/way/514327701,https://www.claycountyhospital.com/,1.0
+010783,way/512730545,Grove Hill Memorial Hospital,https://www.openstreetmap.org/way/512730545,https://www.grovehillmemorial.org/,1.0
 011300,way/512716230,Washington County Hospital & Nursing Home,https://www.openstreetmap.org/way/512716230,https://www.wchnh.org/,0.765
 011302,way/452093930,Red Bay Hospital,https://www.openstreetmap.org/way/452093930,https://www.helenkeller.com/red-bay-hospital,1.0
 011304,way/512735326,Ochsner Choctaw General,https://www.openstreetmap.org/way/512735326,https://www.ochsner.org/locations/ochsner-choctaw-general/,1.0
 011306,way/586435622,Tanner Medical Center/East Alabama,https://www.openstreetmap.org/way/586435622,https://www.tanner.org/tanner-medical-center-east-alabama,1.0
 011307,way/514024472,Medical Center Barbour,https://www.openstreetmap.org/way/514024472,https://www.medctrbarbour.org/,1.0
 011308,way/513752955,Crenshaw Community Hospital,https://www.openstreetmap.org/way/513752955,https://www.crenshawcommunityhospital.com/,1.0
+011309,way/238358929,Wiregrass Medical Center,https://www.openstreetmap.org/way/238358929,https://www.wiregrassmedicalcenter.org/,1.0
+011310,way/512702765,Monroe County Hospital,https://www.openstreetmap.org/way/512702765,https://www.mchcare.com/,1.0
+011311,way/514857748,Lakeland Community Hospital,https://www.openstreetmap.org/way/514857748,https://lakelandcommunityhospital.com/,1.0
+013025,way/1564919984,Encompass Health Lakeshore Rehabilitation Hospital,https://www.openstreetmap.org/way/1564919984,https://encompasshealth.com/locations/lakeshorerehab,1.0
+013028,node/10861407415,Encompass Health Rehabilitation Hospital Of Montgomery,https://www.openstreetmap.org/node/10861407415,https://encompasshealth.com/locations/montgomeryrehab,0.979
 013300,way/511500092,Children's of Alabama,https://www.openstreetmap.org/way/511500092,https://www.childrensal.org/,0.945
 014000,way/511797561,Hill Crest Behavioral Health Center,https://www.openstreetmap.org/way/511797561,https://www.hillcrestbhs.com/,0.846
+014013,way/510470549,Laurel Oaks Behavioral Health Center,https://www.openstreetmap.org/way/510470549,https://www.laureloaksbhc.com/,1.0
 014016,way/1416152052,The Sanctuary at the Woodlands,https://www.openstreetmap.org/way/1416152052,http://www.usahealthcare.net/Facilities/TheSanctuaryattheWoodlands.aspx,1.0
 014017,relation/19288070,EastPointe Hospital,https://www.openstreetmap.org/relation/19288070,https://altapointe.org/eastpointe-hospital/,1.0
 014018,node/10861380595,Unity Psychiatric Care - Huntsville,https://www.openstreetmap.org/node/10861380595,https://unitypsych.com/huntsville,1.0
@@ -80,7 +87,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 020012,way/203717789,Fairbanks Memorial Hospital,https://www.openstreetmap.org/way/203717789,https://www.foundationhealth.org/patients_and_visitors/our_campuses/fmh~2,1.0
 020017,way/449555028,Alaska Regional Hospital,https://www.openstreetmap.org/way/449555028,https://alaskaregional.com/,1.0
 020024,way/1093124913,Central Peninsula Hospital,https://www.openstreetmap.org/way/1093124913,https://www.cpgh.org/,0.96
-02013F,way/616794251,Joint Base Elmendorf-Richardson Hospital,https://www.openstreetmap.org/way/616794251,https://elmendorfrichardson.tricare.mil/,0.808
 021301,node/14104462062,Providence Valdez Medical Center,https://www.openstreetmap.org/node/14104462062,https://www.providence.org/locations/ak/valdez-medical-center,1.0
 021302,way/586389180,Providence Seward Medical Center,https://www.openstreetmap.org/way/586389180,https://alaska.providence.org/locations/p/psmcc,0.917
 021304,node/1286891893,Petersburg Medical Center,https://www.openstreetmap.org/node/1286891893,https://www.pmcak.org/,1.0
@@ -159,10 +165,19 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 031313,way/586747159,Holy Cross Hospital,https://www.openstreetmap.org/way/586747159,https://www.carondelet.org/our-locations/holy-cross,1.0
 031314,way/463033588,Cobre Valley Regional Medical Center,https://www.openstreetmap.org/way/463033588,https://www.cvrmc.org/,1.0
 031315,node/359280023,White Mountain Regional Medical Center,https://www.openstreetmap.org/node/359280023,https://www.wmrmc.com/,1.0
-031317,way/462680791,La Paz Regional Hospital,https://www.openstreetmap.org/way/462680791,https://www.lapazhospital.org/,1.0
 031318,way/462893814,Banner Payson Medical Center,https://www.openstreetmap.org/way/462893814,https://www.bannerhealth.com/locations/payson/banner-payson-medical-center,1.0
 031319,way/1303382505,Mount Graham Regional Medical Center,https://www.openstreetmap.org/way/1303382505,https://www.mtgraham.org/,1.0
 031320,way/463085920,San Carlos Apache Healthcare,https://www.openstreetmap.org/way/463085920,https://www.scahealth.org/,0.86
+032001,node/359292653,Select Specialty Hospital - Phoenix,https://www.openstreetmap.org/node/359292653,https://phoenix.selectspecialtyhospitals.com/,1.0
+032005,way/991578861,Arizona Specialty Hospital,https://www.openstreetmap.org/way/991578861,https://oasishospital.com/,0.848
+033025,way/300062094,Encompass Health Rehabilitation Hospital of Scottsdale,https://www.openstreetmap.org/way/300062094,https://encompasshealth.com/locations/scottsdalerehab,0.856
+033032,way/239952240,Encompass Health Valley Of The Sun Rehabilitation Hospital,https://www.openstreetmap.org/way/239952240,https://encompasshealth.com/locations/valleyofthesunrehab,0.887
+033036,way/1387610437,Mountain Valley Regional Rehabilitation Hospital,https://www.openstreetmap.org/way/1387610437,https://mvrrh.ernesthealth.com/,1.0
+033041,node/10863691743,Rehabilitation Hospital Of Northern Arizona,https://www.openstreetmap.org/node/10863691743,https://rhna.ernesthealth.com,1.0
+033042,way/1210877423,Banner Rehabilitation Hospital West,https://www.openstreetmap.org/way/1210877423,https://www.bannerhealth.com/locations/peoria/banner-rehabilitation-hospital-west,1.0
+033043,way/1078700006,Reunion Rehabilitation Hospital Phoenix,https://www.openstreetmap.org/way/1078700006,https://reunionrehabhospital.com/locations/phoenix/,1.0
+033045,way/1171288025,Reunion Rehabiitation Hospital Peoria,https://www.openstreetmap.org/way/1171288025,https://reunionrehabhospital.com/locations/peoria/,0.763
+033046,way/1160100438,ClearSky Rehabilitation Hospital of Avondale,https://www.openstreetmap.org/way/1160100438,https://clearskyhealth.com/avondale/,1.0
 033302,way/418181519,Phoenix Children's Hospital,https://www.openstreetmap.org/way/418181519,https://www.phoenixchildrens.org/locations/phoenix-childrens-hospital-main,1.0
 034004,way/310302250,Banner Behavioral Health Hospital,https://www.openstreetmap.org/way/310302250,https://www.bannerhealth.com/locations/scottsdale/banner-behavioral-health-hospital,1.0
 034013,way/413292959,College Medical Center Phoenix,https://www.openstreetmap.org/way/413292959,https://cmcphoenix.com/,1.0
@@ -192,13 +207,11 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 040036,way/451808355,Baptist Health Medical Center - North Little Rock,https://www.openstreetmap.org/way/451808355,https://www.baptist-health.org/find-care/location/baptist-health-medical-center-north-little-rock,1.0
 040039,way/452104522,Arkansas Methodist Medical Center,https://www.openstreetmap.org/way/452104522,https://www.myammc.org/,1.0
 040041,way/450285675,Saint Mary's Regional Medical Center,https://www.openstreetmap.org/way/450285675,https://www.saintmarysregional.com/,0.812
-040050,way/450686010,Ouachita County Medical Center,https://www.openstreetmap.org/way/450686010,https://www.ouachitamedcenter.com/,1.0
 040051,way/450924236,Baptist Health Medical Center-Drew County,https://www.openstreetmap.org/way/450924236,https://www.baptist-health.org/find-care/location/baptist-health-medical-center-drew-county,1.0
 040055,way/449624447,Baptist Health - Fort Smith,https://www.openstreetmap.org/way/449624447,https://www.baptist-health.org/medical-centers/fort-smith,1.0
 040062,way/449624434,Mercy Hospital Fort Smith,https://www.openstreetmap.org/way/449624434,https://www.mercy.net/practice/mercy-hospital-fort-smith,1.0
 040069,way/452107116,Great River Medical Center,https://www.openstreetmap.org/way/452107116,https://www.mchsys.org/getpage.php?name=greatriver,1.0
 040071,way/451113563,Jefferson Regional Medical Center,https://www.openstreetmap.org/way/451113563,https://www.jrmc.org/,1.0
-040072,way/451615891,Baptist Health Medical Center-Stuttgart,https://www.openstreetmap.org/way/451615891,https://www.baptist-health.org/find-care/location/Baptist-Health-Medical-Center-Stuttgart,1.0
 040076,way/450693307,Baptist Health Medical Center-Hot Spring County,https://www.openstreetmap.org/way/450693307,https://www.baptist-health.org/medical-centers/hot-spring-county,0.909
 040078,way/449762706,National Park Medical Center,https://www.openstreetmap.org/way/449762706,https://nationalparkmedical.com/,1.0
 040084,way/451649491,Saline Memorial Hospital,https://www.openstreetmap.org/way/451649491,https://www.salinememorial.org/,1.0
@@ -209,12 +222,12 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 040147,way/451803748,Arkansas Surgical Hospital,https://www.openstreetmap.org/way/451803748,https://arksurgicalhospital.com/,1.0
 040154,way/585987813,Baptist Health Medical Center-Conway,https://www.openstreetmap.org/way/585987813,https://www.baptist-health.org/find-care/location/Baptist-Health-Medical-Center-Conway,1.0
 040156,way/903252955,Baptist Memorial Hospital Crittenden,https://www.openstreetmap.org/way/903252955,https://www.baptistonline.org/locations/crittenden,1.0
-040164,way/451936188,Unity Health - Jacksonville,https://www.openstreetmap.org/way/451936188,https://www.unity-health.org/locations/unity-health-jacksonville/,1.0
 040779,way/451990917,Five Rivers Medical Center,https://www.openstreetmap.org/way/451990917,https://www.stbernards.info/locations/profile/five-rivers-medical-center/,0.827
 040780,way/586761146,Eureka Springs Hospital,https://www.openstreetmap.org/way/586761146,https://www.eurekaspringshospital.com/,0.825
 040781,way/449731491,Helena Regional Medical Center,https://www.openstreetmap.org/way/449731491,http://www.helenarmc.com/,1.0
 040782,way/452144552,South Mississippi County Regional Medical Center,https://www.openstreetmap.org/way/452144552,https://www.mchsys.org/getpage.php?name=smrmc,1.0
 040783,way/451550616,DeWitt Hospital and Nursing Home,https://www.openstreetmap.org/way/451550616,http://dhnh.org/,0.98
+040784,way/450686010,Ouachita County Medical Center,https://www.openstreetmap.org/way/450686010,https://www.ouachitamedcenter.com/,1.0
 041300,way/450148814,Mercy Hospital Paris,https://www.openstreetmap.org/way/450148814,https://www.mercy.net/practice/mercy-hospital-paris,1.0
 041302,way/450285672,Dardanelle Regional Medical Center,https://www.openstreetmap.org/way/450285672,https://www.dardanelleregional.org/,1.0
 041303,way/450147884,Mercy Hospital Ozark,https://www.openstreetmap.org/way/450147884,https://www.mercy.net/practice/mercy-hospital-ozark,1.0
@@ -241,15 +254,26 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 041331,node/359010959,Ozarks Community Hospital of Gravette,https://www.openstreetmap.org/node/359010959,https://www.ochonline.com/locations/hospital-gravette/,1.0
 041332,way/452158681,Unity Health - Newport,https://www.openstreetmap.org/way/452158681,https://www.unity-health.org/locations/unity-health-jacksonville/,1.0
 041334,way/450123560,Mena Regional Health System,https://www.openstreetmap.org/way/450123560,https://menaregional.com/,1.0
+041335,way/450065398,Southwest Arkansas Regional Medical Center,https://www.openstreetmap.org/way/450065398,https://www.swarmc.org/,0.789
+041336,way/450578364,Magnolia Regional Medical Center,https://www.openstreetmap.org/way/450578364,https://magnoliarmc.org/,1.0
+041337,way/451615891,Baptist Health Medical Center-Stuttgart,https://www.openstreetmap.org/way/451615891,https://www.baptist-health.org/find-care/location/Baptist-Health-Medical-Center-Stuttgart,1.0
+042012,node/359024385,Baptist Health Extended Care Hospital,https://www.openstreetmap.org/node/359024385,https://www.baptist-health.com/location/baptist-health-extended-care-hospital,0.901
+043026,node/359024339,Baptist Health Rehabilitation Institute,https://www.openstreetmap.org/node/359024339,https://www.baptist-health.org/find-care/location/baptist-health-rehabilitation-institute-little-rock,1.0
+043028,node/359024346,Encompass Health Rehabilitation Hospital of Fort Smith,https://www.openstreetmap.org/node/359024346,https://www.encompasshealth.com/locations/fort-smith-rehab,0.81
+043031,node/359024378,CHI St. Vincent Rehabilitation Hospital - North,https://www.openstreetmap.org/node/359024378,https://www.chistvincent.com/our-clinics/chi-st-vincent-rehabilitation-hospital,0.78
+043033,way/768889682,Conway Regional Rehabilitation Hospital,https://www.openstreetmap.org/way/768889682,https://www.conwayregional.org/locations/conway-regional-rehabilitation-hospital,1.0
+043034,node/10863819339,Southeast Rehabilitation Hospital,https://www.openstreetmap.org/node/10863819339,https://atrp.ar.gov/places/southeast-rehabilitation-hospital,1.0
 043300,way/451768409,Arkansas Children's Hospital,https://www.openstreetmap.org/way/451768409,https://www.archildrens.org/,1.0
 043301,way/841534324,Arkansas Children's Northwest,https://www.openstreetmap.org/way/841534324,https://www.archildrens.org/locations/arkansas-childrens-nw,1.0
 044005,way/691974223,The BridgeWay,https://www.openstreetmap.org/way/691974223,https://www.thebridgeway.com/,0.913
 044006,relation/9267762,Valley Behavioral Health System,https://www.openstreetmap.org/relation/9267762,https://www.valleybehavioral.com/,1.0
 044007,way/691978197,Rivendell Behavioral Health Services of Arkansas,https://www.openstreetmap.org/way/691978197,https://www.rivendellofarkansas.com/,0.87
+044013,way/691976710,Pinnacle Pointe Hospital,https://www.openstreetmap.org/way/691976710,https://pinnaclepointehospital.com/,0.771
 044017,node/359024359,United Methodist Behavioral Hospital,https://www.openstreetmap.org/node/359024359,https://www.methodistfamily.org/services/methodist-behavioral-hospital/,1.0
 044020,node/359024356,Riverview Behavioral Health,https://www.openstreetmap.org/node/359024356,https://www.riverviewbehavioralhealth.com/,1.0
 044021,node/10863774972,Perimeter Behavioral Hospital Of West Memphis,https://www.openstreetmap.org/node/10863774972,https://www.perimeterhealthcare.com/west-memphis,1.0
 044022,node/10863825793,Conway Behavioral Health,https://www.openstreetmap.org/node/10863825793,https://www.conwaybh.com,1.0
+044025,way/451936188,Unity Health - Jacksonville,https://www.openstreetmap.org/way/451936188,https://www.unity-health.org/locations/unity-health-jacksonville/,1.0
 050002,way/580000443,Saint Rose Hospital,https://www.openstreetmap.org/way/580000443,https://strosehospital.org/,1.0
 050006,way/384258051,Providence Saint Joseph Hospital Eureka,https://www.openstreetmap.org/way/384258051,https://www.providence.org/locations/norcal/st-joseph-hospital-eureka,0.854
 050007,way/391773657,Mills-Peninsula Medical Center,https://www.openstreetmap.org/way/391773657,http://www.mills-peninsula.org/,0.792
@@ -299,6 +323,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 050121,way/703985036,Adventist Health Hanford,https://www.openstreetmap.org/way/703985036,https://www.adventisthealth.org/central-california/locations/adventist-health-hanford-medical-center-4247,1.0
 050122,way/281792074,Dameron Hospital,https://www.openstreetmap.org/way/281792074,https://www.dameronhospital.org/,1.0
 050124,way/571841991,USC Verdugo Hills Hospital,https://www.openstreetmap.org/way/571841991,https://uscvhh.org/,1.0
+050125,way/403207487,Regional Medical Center,https://www.openstreetmap.org/way/403207487,https://rmc.scvh.org/home,1.0
 050126,way/575745853,Valley Presbyterian Hospital,https://www.openstreetmap.org/way/575745853,https://www.valleypres.org/,1.0
 050127,way/389317015,Dignity Health - Woodland Memorial Hospital,https://www.openstreetmap.org/way/389317015,https://www.commonspirit.org/find-a-location/dignity-health-woodland-memorial-hospital-4007,0.758
 050128,way/533669273,Tri-City Medical Center,https://www.openstreetmap.org/way/533669273,https://www.tricitymed.org/,1.0
@@ -373,6 +398,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 050357,way/491946273,Goleta Valley Cottage Hospital,https://www.openstreetmap.org/way/491946273,https://www.cottagehealth.org/locations/goleta-valley-cottage-hospital/,1.0
 050360,way/385484809,Marin Health Medical Center,https://www.openstreetmap.org/way/385484809,https://www.mymarinhealth.org/,0.938
 050367,way/287807844,NorthBay Medical Center,https://www.openstreetmap.org/way/287807844,https://www.northbay.org/,1.0
+050369,way/571729228,Queen of the Valley Hospital,https://www.openstreetmap.org/way/571729228,https://www.cvhp.org/Our_Facilities/Queen_of_the_Valley.aspx,0.806
 050373,way/172998715,Los Angeles General Medical Center,https://www.openstreetmap.org/way/172998715,https://dhs.lacounty.gov/lageneral/,1.0
 050378,way/575947591,Pacifica Hospital of the Valley,https://www.openstreetmap.org/way/575947591,https://pacificahospital.com/,1.0
 050380,way/38061549,Good Samaritan Hospital,https://www.openstreetmap.org/way/38061549,https://goodsamsanjose.com/,1.0
@@ -406,21 +432,23 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 050543,way/570997696,College Hospital Costa Mesa,https://www.openstreetmap.org/way/570997696,https://www.chc.la/cosHome,1.0
 050546,way/131197412,Porterville Developmental Center,https://www.openstreetmap.org/way/131197412,https://www.dds.ca.gov/Porterville/,1.0
 050549,way/576092818,Los Robles Hospital & Medical Center,https://www.openstreetmap.org/way/576092818,https://losrobleshospital.com/,1.0
-050551,way/586931790,Los Alamitos Medical Center,https://www.openstreetmap.org/way/586931790,https://www.losalamitosmedctr.com/,0.787
 050557,way/587063376,Memorial Medical Center,https://www.openstreetmap.org/way/587063376,https://www.sutterhealth.org/mmc,1.0
 050573,way/570494004,Eisenhower Medical Center,https://www.openstreetmap.org/way/570494004,https://www.eisenhowerhealth.org/,1.0
 050580,way/571086105,La Palma Intercommunity Hospital,https://www.openstreetmap.org/way/571086105,https://www.lapalmaintercommunityhospital.com/,1.0
 050586,way/97942027,Chino Valley Medical Center,https://www.openstreetmap.org/way/97942027,https://www.cvmc.com/,1.0
+050587,way/570668319,Loma Linda University Medical Center East Campus,https://www.openstreetmap.org/way/570668319,https://lluh.org/locations/loma-linda-university-medical-center-east-campus?rsource=east-campus.lomalindahealth.org/,0.924
 050588,way/570817838,San Dimas Community Hospital,https://www.openstreetmap.org/way/570817838,https://www.sandimashospital.com/,1.0
 050590,way/578107842,Methodist Hospital of Sacramento,https://www.openstreetmap.org/way/578107842,https://www.dignityhealth.org/sacramento/locations/methodist-hospital-of-sacramento,1.0
 050597,way/570816611,Foothill Presbyterian Hospital,https://www.openstreetmap.org/way/570816611,https://www.cvhp.org/Our_Facilities/Foothill_Presbyterian.aspx,0.823
 050599,way/405350101,"University of California, Davis Medical Center",https://www.openstreetmap.org/way/405350101,http://www.ucdmc.ucdavis.edu/medicalcenter/,1.0
 050603,way/356682449,Saddleback Medical Center,https://www.openstreetmap.org/way/356682449,https://www.memorialcare.org/saddleback-medical-center,0.763
 050608,way/175370311,Adventist Health Delano,https://www.openstreetmap.org/way/175370311,https://www.adventisthealth.org/central-california/locations/adventist-health-delano/,1.0
+050616,way/576094955,Saint Johns Pleasant Valley Hospital,https://www.openstreetmap.org/way/576094955,https://www.dignityhealth.org/central-coast/locations/pleasantvalley,0.826
 050624,way/383211031,Henry Mayo Newhall Hospital,https://www.openstreetmap.org/way/383211031,https://www.henrymayo.com/,1.0
 050625,way/534711293,Cedars-Sinai Medical Center,https://www.openstreetmap.org/way/534711293,https://www.cedars-sinai.org/,1.0
 050636,node/358845273,Palomar Medical Center Poway,https://www.openstreetmap.org/node/358845273,http://www.pph.org/ContentPage.aspx?nd=420,1.0
 050641,way/587066427,East Los Angeles Doctors Hospital,https://www.openstreetmap.org/way/587066427,https://www.eladoctorshospital.com/,1.0
+050660,way/428955320,USC Norris Cancer Hospital,https://www.openstreetmap.org/way/428955320,https://uscnorriscancer.usc.edu/,0.808
 050663,node/358826153,Los Angeles Community Hospital,https://www.openstreetmap.org/node/358826153,https://www.lach-la.com/,1.0
 050668,way/160835902,Laguna Honda Hospital And Rehabilitation Center,https://www.openstreetmap.org/way/160835902,https://www.sf.gov/new-laguna-honda,0.987
 050678,way/190539243,Orange Coast Memorial Medical Center,https://www.openstreetmap.org/way/190539243,https://www.memorialcare.org/orange-coast-medical-center,0.868
@@ -459,7 +487,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 050784,node/10866464666,Adventist Health Tulare,https://www.openstreetmap.org/node/10866464666,https://www.adventisthealth.org/central-california/locations/adventist-health-tulare/,1.0
 050854,way/237072249,Anaheim Regional Medical Center,https://www.openstreetmap.org/way/237072249,https://www.anaheimregionalmc.com/,0.867
 050856,way/578520032,Madera Community Hospital,https://www.openstreetmap.org/way/578520032,https://www.maderahospital.org/,1.0
-05127F,way/503005610,VA Loma Linda Healthcare System,https://www.openstreetmap.org/way/503005610,https://www.lomalinda.va.gov/,0.893
 051301,way/576850283,Adventist Health Tehachapi Valley,https://www.openstreetmap.org/way/576850283,https://www.adventisthealth.org/tehachapivalley/,1.0
 051302,way/576936881,Southern Inyo Hospital,https://www.openstreetmap.org/way/576936881,https://www.sihd.org/,1.0
 051303,way/577108899,Mammoth Hospital,https://www.openstreetmap.org/way/577108899,https://mammothhospital.org/,1.0
@@ -494,6 +521,27 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 051335,way/570512573,Bear Valley Community Hospital,https://www.openstreetmap.org/way/570512573,https://bearvalleycommunityhospital.com/,1.0
 051338,way/61221974,Coalinga Regional Medical Center,https://www.openstreetmap.org/way/61221974,https://crmcmed.org/,1.0
 051339,relation/20154462,Palo Verde Hospital,https://www.openstreetmap.org/relation/20154462,https://www.paloverdehospital.org/,1.0
+052031,way/951238266,Barlow Respiratory Hospital,https://www.openstreetmap.org/way/951238266,https://www.barlowhospital.org/,1.0
+052032,node/10866445651,Kindred Hospital - Los Angeles,https://www.openstreetmap.org/node/10866445651,https://www.kindredhospitals.com/locations/ltac/kindred-hospital-los-angeles,1.0
+052034,way/403579332,Kindred Hospital - San Francisco Bay Area,https://www.openstreetmap.org/way/403579332,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-san-francisco-bay-area,1.0
+052035,node/10866488570,Kindred Hospital Westminster,https://www.openstreetmap.org/node/10866488570,https://www.kindredhospitals.com/locations/california/westminster,1.0
+052036,way/570071343,Kindred Hospital - San Diego,https://www.openstreetmap.org/way/570071343,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-san-diego,1.0
+052037,way/570795474,Kindred-Ontario Hospital,https://www.openstreetmap.org/way/570795474,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-ontario,1.0
+052039,way/190556865,Kindred Hospital - Brea,https://www.openstreetmap.org/way/190556865,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-brea,1.0
+052042,way/571741432,Kindred Hospital - San Gabriel Valley,https://www.openstreetmap.org/way/571741432,kindredsangabriel.com,1.0
+052043,node/10866477264,Kentfield Hospital,https://www.openstreetmap.org/node/10866477264,https://kentfieldhospital.com,1.0
+052045,way/571725250,Kindred Hospital Baldwin Park,https://www.openstreetmap.org/way/571725250,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-baldwin-park,1.0
+052049,node/358859669,Kindred Hospital Rancho,https://www.openstreetmap.org/node/358859669,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-rancho,1.0
+052050,way/571436511,Kindred Hospital South Bay,https://www.openstreetmap.org/way/571436511,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-south-bay,1.0
+052052,way/570464067,Kindred Hospital Riverside,https://www.openstreetmap.org/way/570464067,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-riverside,1.0
+052054,way/571765396,Monrovia Memorial Hospital,https://www.openstreetmap.org/way/571765396,https://monroviamemorial.com/,1.0
+052055,node/358835288,Church of the Nazarene;Central Valley Specialty Hospital,https://www.openstreetmap.org/node/358835288,https://centralvalleyspecialty.org/,0.782
+052057,way/579955632,Sonoma Specialty Hospital,https://www.openstreetmap.org/way/579955632,https://sonomaspecialtyhospital.org/,1.0
+053032,way/61285387,San Joaquin Valley Rehabilitation Hospital,https://www.openstreetmap.org/way/61285387,https://www.vibrahealthcare.com/san-joaquin-valley/,1.0
+053037,way/570565916,Ballard Rehabilitation Hospital,https://www.openstreetmap.org/way/570565916,https://www.vibrahealthcare.com/ballard/,1.0
+053039,node/9008836961,California Rehabilitation Institute,https://www.openstreetmap.org/node/9008836961,https://www.californiarehabinstitute.com/locations-and-tours/california-rehabilitation-institute/,1.0
+053040,node/10866470009,Encompass Health Rehabilitation Hospital Of Modesto,https://www.openstreetmap.org/node/10866470009,https://www.encompasshealth.com/locations/modesto-rehab,0.88
+053042,node/10866406388,Encompass Health Rehabilitation Hospital Of Murrieta,https://www.openstreetmap.org/node/10866406388,https://encompasshealth.com/locations/murrietarehab,0.877
 053300,way/132399177,Valley Children's Hospital,https://www.openstreetmap.org/way/132399177,https://www.valleychildrens.org/,1.0
 053302,way/299402563,Children's Hospital Los Angeles,https://www.openstreetmap.org/way/299402563,https://www.chla.org/,0.986
 053303,way/570117774,Rady Children's Hospital-San Diego,https://www.openstreetmap.org/way/570117774,https://www.rchsd.org/,1.0
@@ -505,11 +553,13 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 054075,way/570282161,Alvarado Parkway Institute Behavioral Health System,https://www.openstreetmap.org/way/570282161,https://www.apibhs.com/,0.997
 054077,node/10866471713,Aurora Vista Del Mar Hospital,https://www.openstreetmap.org/node/10866471713,https://www.vistadelmarhospital.com,1.0
 054078,way/571991516,Las Encinas Hospital,https://www.openstreetmap.org/way/571991516,https://www.lasencinashospital.com/,0.757
+054083,node/2556689683,Kedren Community Health Center,https://www.openstreetmap.org/node/2556689683,https://kedren.org/,0.794
 054087,way/931241904,Sierra Vista Hospital,https://www.openstreetmap.org/way/931241904,https://sierravistahospital.com/about-us/licensing-and-accreditation/,0.857
 054096,node/10866472839,Sutter Center For Psychiatry,https://www.openstreetmap.org/node/10866472839,https://www.sutterhealth.org/find-location/facility/sutter-center-for-psychiatry,1.0
 054104,way/577887505,Heritage Oaks Hospital,https://www.openstreetmap.org/way/577887505,https://heritageoakshospital.com/,1.0
 054110,way/691981592,Fremont Hospital,https://www.openstreetmap.org/way/691981592,https://fremonthospital.com/,0.792
 054111,way/570752098,Canyon Ridge Hospital,https://www.openstreetmap.org/way/570752098,https://canyonridgehospital.com/,1.0
+054114,way/570120134,San Diego County Psychiatric Hospital,https://www.openstreetmap.org/way/570120134,https://www.sandiegocounty.gov/content/sdc/hhsa/facilities/north_central/psychiatric_hospital_san_diego_county.html,1.0
 054123,node/358806966,Saint Joseph's Behavioral Health Center,https://www.openstreetmap.org/node/358806966,https://www.dignityhealth.org/central-california/locations/stjosephsbehavioral,1.0
 054130,way/570704762,Pacific Grove Hospital,https://www.openstreetmap.org/way/570704762,https://www.pacificgrovehospital.com/,1.0
 054133,way/571463932,Metropolitan State Hospital,https://www.openstreetmap.org/way/571463932,https://www.dsh.ca.gov/Metropolitan/,0.767
@@ -533,7 +583,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 060023,way/297468273,Saint Mary's Regional Hospital,https://www.openstreetmap.org/way/297468273,https://intermountainhealthcare.org/locations/intermountain-health-st-marys-regional-hospital,0.806
 060024,node/358949545,University of Colorado Hospital,https://www.openstreetmap.org/node/358949545,https://www.uchealth.org/metrodenver/Pages/default.aspx,0.842
 060028,node/5523640617,Saint Joseph Hospital,https://www.openstreetmap.org/node/5523640617,https://intermountainhealthcare.org/locations/intermountain-health-saint-joseph-hospital,1.0
-060030,way/580706776,Banner North Colorado Medical Center – Loveland campus,https://www.openstreetmap.org/way/580706776,https://www.bannerhealth.com/locations/loveland/banner-north-colorado-medical-center-loveland-campus,0.807
 060044,way/359904031,CommonSpirit - Saint Elizabeth Hospital,https://www.openstreetmap.org/way/359904031,https://mountain.commonspirit.org,0.761
 060049,way/513741849,Yampa Valley Medical Center,https://www.openstreetmap.org/way/513741849,https://www.uchealth.org/locations/uchealth-yampa-valley-medical-center/,0.84
 060054,way/802265586,Community Hospital,https://www.openstreetmap.org/way/802265586,https://yourcommunityhospital.com/,1.0
@@ -587,6 +636,14 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 061336,way/469768681,Arkansas Valley Regional Medical Center,https://www.openstreetmap.org/way/469768681,https://www.avrmc.org/,1.0
 061343,way/268783255,Keefe Memorial Hospital,https://www.openstreetmap.org/way/268783255,https://keefememorial.com/,1.0
 061344,way/587068711,St. Thomas More Hospital,https://www.openstreetmap.org/way/587068711,https://www.centura.org/locations/st-thomas-more-hospital,1.0
+062009,node/358952710,Kindred Hospital Denver,https://www.openstreetmap.org/node/358952710,https://www.kindredhospitals.com/locations/colorado/denver,1.0
+062011,way/580989219,Craig Hospital,https://www.openstreetmap.org/way/580989219,https://www.craighospital.org/,1.0
+062013,node/2922911825,Kindred Hospital Aurora,https://www.openstreetmap.org/node/2922911825,http://www.khaurora.com/,1.0
+062014,way/471111236,Vibra Hospital of Denver,https://www.openstreetmap.org/way/471111236,https://www.vhdenver.com/,1.0
+063027,way/587214791,HealthOne Spalding Rehabilitation Hospital,https://www.openstreetmap.org/way/587214791,https://www.spaldingrehab.com/,0.863
+063034,node/10869510195,Encompass Health Rehabilitation Hospital of Littleton,https://www.openstreetmap.org/node/10869510195,https://encompasshealth.com/locations/littletonrehab,0.855
+063035,node/10869502299,Reunion Rehabilitation Hospital Denver,https://www.openstreetmap.org/node/10869502299,https://reunionrehabhospital.com/locations/denver,0.817
+063037,node/10869512210,PAM Health Rehabilitation Hospital of Westminster,https://www.openstreetmap.org/node/10869512210,https://pamhealth.com/facilities/find-facility/rehabilitation-hospitals/pam-health-rehabilitation-hospital-westminster,1.0
 063301,way/330700736,Children's Hospital Colorado Uptown Denver,https://www.openstreetmap.org/way/330700736,https://www.childrenscolorado.org/your-visit/locations/uptown-denver/,0.8
 063303,node/3262037034,Children's Hospital Colorado at Memorial Hospital,https://www.openstreetmap.org/node/3262037034,https://www.childrenscolorado.org/about/locations/colorado-springs/memorial-hospital-central,0.849
 064009,way/234515135,Cedar Springs Hospital,https://www.openstreetmap.org/way/234515135,https://cedarspringsbhs.com/,1.0
@@ -613,6 +670,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 070031,way/223882753,Griffin Hospital,https://www.openstreetmap.org/way/223882753,https://www.griffinhealth.org/,1.0
 070033,way/167649827,Danbury Hospital,https://www.openstreetmap.org/way/167649827,https://www.northwell.edu/locations/danbury-hospital,1.0
 070034,way/397787281,Norwalk Hospital,https://www.openstreetmap.org/way/397787281,https://www.nuvancehealth.org/locations/norwalk-hospital,1.0
+072003,way/442485751,Gaylord Specialty Healthcare,https://www.openstreetmap.org/way/442485751,https://www.gaylord.org/,1.0
 073300,way/844695842,Connecticut Children's Medical Center,https://www.openstreetmap.org/way/844695842,https://www.connecticutchildrens.org/about-us/locations/connecticut-childrens-medical-center/,1.0
 074003,way/441986340,Connecticut Valley Hospital,https://www.openstreetmap.org/way/441986340,http://www.ct.gov/dmhas/cwp/view.asp?q=416778,1.0
 074012,way/442001684,Connecticut Mental Health Center,https://www.openstreetmap.org/way/442001684,https://portal.ct.gov/dmhas/cmhc/agency-files/cmhc-home-page,0.786
@@ -623,6 +681,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 080006,way/460804240,TidalHealth Nanticoke,https://www.openstreetmap.org/way/460804240,https://www.tidalhealth.org/our-locations/tidalhealth-nanticoke,1.0
 080007,way/443711880,Beebe Medical Center,https://www.openstreetmap.org/way/443711880,https://www.beebehealthcare.org/,1.0
 080009,way/520728235,Bayhealth Sussex Hospital,https://www.openstreetmap.org/way/520728235,https://www.bayhealth.org/locations/bayhealth-hospital-sussex-campus,0.963
+083026,node/10836136519,Encompass Health Rehabilitation Hospital Of Middletown,https://www.openstreetmap.org/node/10836136519,https://encompasshealth.com/locations/middletownrehab,0.856
+083027,node/10836155513,Pam Rehab Hospital Of Dover,https://www.openstreetmap.org/node/10836155513,https://pamhealth.com/hospitals/pam-health-rehabilitation-hospital-of-dover/,0.84
 084001,way/821256350,Delaware Psychiatric Center,https://www.openstreetmap.org/way/821256350,https://dhss.delaware.gov/dsamh/division-of-substance-abuse-and-mental-health/delaware-psychiatric-center/,1.0
 084002,way/692191476,Rockford Center,https://www.openstreetmap.org/way/692191476,https://rockfordcenter.com,1.0
 084003,node/10836152451,Meadowwood Behavioral Health Hospital,https://www.openstreetmap.org/node/10836152451,https://www.meadowwoodhospital.com,0.933
@@ -634,6 +694,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 090005,way/464231464,Sibley Memorial Hospital,https://www.openstreetmap.org/way/464231464,https://www.hopkinsmedicine.org/sibley-memorial-hospital/,1.0
 090011,way/464307669,Medstar Washington Hospital Center,https://www.openstreetmap.org/way/464307669,https://www.medstarhealth.org/locations/medstar-washington-hospital-center,1.0
 09002F,way/464307673,Washington DC VA Medical Center,https://www.openstreetmap.org/way/464307673,https://www.washingtondc.va.gov/,1.0
+092002,way/1557975932,BridgePoint Hospital Capitol Hill,https://www.openstreetmap.org/way/1557975932,https://www.bridgepointhealthcare.com/our-locations,0.821
+093025,way/464307671,National Rehabilitation Hospital,https://www.openstreetmap.org/way/464307671,https://www.medstarhealth.org/locations/medstar-national-rehabilitation-hospital,0.85
 093300,way/265661379,Children's National Hospital,https://www.openstreetmap.org/way/265661379,https://childrensnational.org/,1.0
 100001,relation/14547184,UF Health Jacksonville,https://www.openstreetmap.org/relation/14547184,https://ufhealthjax.org/,0.915
 100002,way/507764129,Bethesda Hospital East,https://www.openstreetmap.org/way/507764129,https://baptisthealth.net/locations/hospitals/bethesda-hospital-east,1.0
@@ -690,7 +752,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 100122,way/192547804,North Okaloosa Medical Center,https://www.openstreetmap.org/way/192547804,https://www.northokaloosa.com/,1.0
 100124,way/186527513,Santa Rosa Medical Center,https://www.openstreetmap.org/way/186527513,https://www.srmcfl.com/,1.0
 100125,way/503145194,Homestead Hospital,https://www.openstreetmap.org/way/503145194,https://baptisthealth.net/locations/hospitals/homestead-hospital,1.0
-100126,way/307169565,HCA Florida - Pasadena Hospital,https://www.openstreetmap.org/way/307169565,https://palmspasadena.com/,0.862
 100127,way/509943116,Morton Plant Hospital,https://www.openstreetmap.org/way/509943116,https://baycare.org/locations/hospitals/morton-plant-hospital/patients-and-visitors,1.0
 100128,relation/8050125,Tampa General Hospital,https://www.openstreetmap.org/relation/8050125,https://www.tgh.org/,1.0
 100130,way/508017883,Lakeside Medical Center,https://www.openstreetmap.org/way/508017883,http://www.lakesidemedical.org/,1.0
@@ -743,6 +804,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 100266,way/138335178,Gulf Breeze Hospital,https://www.openstreetmap.org/way/138335178,https://www.ebaptisthealthcare.org/gulfbreezehospital,1.0
 100268,way/507574738,West Boca Medical Center,https://www.openstreetmap.org/way/507574738,https://www.westbocamedctr.com/,1.0
 100269,way/405954300,Palms West Hospital,https://www.openstreetmap.org/way/405954300,https://palmswesthospital.com/,0.753
+100271,way/486622190,H. Lee Moffitt Cancer Center,https://www.openstreetmap.org/way/486622190,https://moffitt.org/locations-directions/moffitt-cancer-center/,0.766
 100275,way/331767615,Wellington Regional Medical Center,https://www.openstreetmap.org/way/331767615,https://www.wellingtonregional.com/,1.0
 100276,way/443699026,Broward Health Coral Springs,https://www.openstreetmap.org/way/443699026,https://www.browardhealth.org/locations/broward-health-coral-springs,1.0
 100277,node/358713985,Douglas Gardens Hospital,https://www.openstreetmap.org/node/358713985,https://miamijewishhealthsystems.org/healthcare-services-programs/hospital/,1.0
@@ -781,6 +843,30 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 101313,way/503144178,Mariners Hospital,https://www.openstreetmap.org/way/503144178,https://baptisthealth.net/locations/hospitals/mariners-hospital,1.0
 101314,way/501810117,Doctors' Memorial Hospital,https://www.openstreetmap.org/way/501810117,https://www.tmh.org/location/doctors-memorial-hospital,1.0
 101315,way/361653613,Jay Hospital,https://www.openstreetmap.org/way/361653613,https://www.ebaptisthealthcare.org/jayhospital,1.0
+102001,way/435541446,Select Specialty Hospital - Miami,https://www.openstreetmap.org/way/435541446,https://miami.selectspecialtyhospitals.com,1.0
+102003,way/936876402,Select Specialty Hospital,https://www.openstreetmap.org/way/936876402,https://www.orlandosouth.selectspecialtyhospitals.com,0.842
+102009,way/509709631,Kindred Hospital - Bay Area -Tampa,https://www.openstreetmap.org/way/509709631,http://www.khtampa.com/,1.0
+102012,way/851867892,PAM Health Specialty Hospital of Jacksonville,https://www.openstreetmap.org/way/851867892,https://pamhealth.com/hospitals/pam-health-specialty-hospital-of-jacksonville/,1.0
+102013,way/509866144,Kindred Hospital - Central Tampa,https://www.openstreetmap.org/way/509866144,http://www.kindredcentraltampa.com/,1.0
+102015,node/358713788,Kindred Hospital - North Florida,https://www.openstreetmap.org/node/358713788,http://www.khnorthflorida.com/,1.0
+102020,way/1235959386,Select Specialty Hospital - Tallahassee,https://www.openstreetmap.org/way/1235959386,https://www.selectspecialtyhospitals.com/locations-and-tours/fl/tallahassee/tallahassee/,1.0
+102022,way/502942019,Select Specialty Hospital- Gainesville,https://www.openstreetmap.org/way/502942019,https://gainesville.selectspecialtyhospitals.com/,1.0
+102023,node/10844784329,Select Specialty Hospital - Palm Beach,https://www.openstreetmap.org/node/10844784329,https://palmbeach.selectspecialtyhospitals.com,1.0
+102027,way/508042914,Kindred Hospital - Melbourne,https://www.openstreetmap.org/way/508042914,http://www.khmelbourne.com/,1.0
+102028,way/508776915,Select Specialty Hospital - The Villages,https://www.openstreetmap.org/way/508776915,https://www.selectspecialtyhospitals.com/locations-and-tours/fl/oxford/the-villages/,1.0
+102029,node/10844760838,Select Specialty Hospital - Fort Myers,https://www.openstreetmap.org/node/10844760838,https://www.selectspecialtyhospitals.com/locations-and-tours/fl/fort-myers/fort-myers/,1.0
+102031,node/10844763226,Select Specialty Hospital - Miami Lakes,https://www.openstreetmap.org/node/10844763226,https://www.selectspecialtyhospitals.com/locations-and-tours/fl/miami-lakes/miami-lakes,1.0
+103026,node/358757015,Saint Catherine's Rehabilitation Hospital,https://www.openstreetmap.org/node/358757015,https://www.catholichealthservices.org/location/st-catherines-rehabilitation-hospital/,1.0
+103027,node/10844739888,Saint Anthony's Rehabilitation Hospital,https://www.openstreetmap.org/node/10844739888,https://www.catholichealthservices.org/location/st-anthonys-rehabilitation-hospital,1.0
+103033,way/501805674,Encompass Health Rehabilitation Hospital of Tallahassee,https://www.openstreetmap.org/way/501805674,https://encompasshealth.com/tallahasseerehab,0.869
+103036,way/235920245,West Gables Rehabilitation Hospital,https://www.openstreetmap.org/way/235920245,https://www.westgablesrehabhospital.com/,1.0
+103037,way/509945468,Encompass Health Rehabilitation Hospital of Largo,https://www.openstreetmap.org/way/509945468,https://www.encompasshealth.com/locations/largo-rehab,1.0
+103039,node/358715199,Brooks Rehabilitation Hospital – University Campus,https://www.openstreetmap.org/node/358715199,https://brooksrehab.org/locations/brooks-rehabilitation-hospital-university-campus/,1.0
+103042,node/10844833145,Encompass Health Rehabilitation Hospital Of Spring Hill,https://www.openstreetmap.org/node/10844833145,https://encompasshealth.com/springhillrehab,0.886
+103045,node/10844845406,Encompass Health Rehabilitation Hospital Of Altamonte Springs,https://www.openstreetmap.org/node/10844845406,https://encompasshealth.com/altamontespringsrehab,0.795
+103047,way/1240341918,Encompass Health Rehabilitation Hospital Of North Tampa,https://www.openstreetmap.org/way/1240341918,https://www.encompasshealth.com/locations/north-tampa-rehab,0.895
+103048,node/10844841981,Encompass Health Rehabilitation Hospital Of Pensacola,https://www.openstreetmap.org/node/10844841981,https://encompasshealth.com/pensacolarehab,0.875
+103065,way/1237058887,Orlando Rehabilitation Hospital,https://www.openstreetmap.org/way/1237058887,https://www.orlando-rehabhospital.com/,1.0
 103300,relation/15748402,Johns Hopkins All Children's Hospital,https://www.openstreetmap.org/relation/15748402,https://www.hopkinsallchildrens.org/,1.0
 103301,way/503484152,Nicklaus Children's Hospital,https://www.openstreetmap.org/way/503484152,https://www.nicklauschildrens.org/,1.0
 103304,way/557850669,Nemours Children's Hospital,https://www.openstreetmap.org/way/557850669,https://www.nemours.org/locations/nch.html,0.843
@@ -798,7 +884,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 104073,way/1136084194,Emerald Coast Behavioral Hospital,https://www.openstreetmap.org/way/1136084194,https://emeraldcoastbehavioral.com/,1.0
 104074,way/435541965,Park Royal Hospital,https://www.openstreetmap.org/way/435541965,https://www.parkroyalhospital.com/,1.0
 104076,way/509014192,University Behavioral Center,https://www.openstreetmap.org/way/509014192,https://www.universitybehavioral.com/,1.0
-104078,way/780733134,Suncoast Behavioral Health,https://www.openstreetmap.org/way/780733134,https://suncoastbhc.com/,0.964
 104080,way/580179141,Coral Shores Behavioral Health,https://www.openstreetmap.org/way/580179141,https://coralshoresbehavioral.com/,1.0
 104082,node/10844760802,Palm Point Behavioral Health,https://www.openstreetmap.org/node/10844760802,https://www.palmpointbehavioral.com,1.0
 110001,way/490376346,Hamilton Medical Center,https://www.openstreetmap.org/way/490376346,https://vitruvianhealth.com/locations/hamilton-medical-center/,1.0
@@ -830,7 +915,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 110050,way/490403884,AdventHealth Murray,https://www.openstreetmap.org/way/490403884,https://www.adventhealth.com/locations/hospitals/murray,1.0
 110064,way/493100074,Piedmont Columbus Regional - Midtown,https://www.openstreetmap.org/way/493100074,https://www.piedmont.org/locations/piedmont-columbus-regional/piedmont-columbus-regional-midtown,1.0
 110071,way/492690846,Appling HealthCare System,https://www.openstreetmap.org/way/492690846,https://www.ahcs.org/,0.951
-110073,way/492662934,Dorminy Medical Center,https://www.openstreetmap.org/way/492662934,https://www.dorminymedical.org/,1.0
 110074,way/283804163,Piedmont Athens Regional Medical Center,https://www.openstreetmap.org/way/283804163,https://www.piedmont.org/locations/piedmont-athens-regional,1.0
 110075,way/432696622,East Georgia Regional Medical Center,https://www.openstreetmap.org/way/432696622,https://www.eastgeorgiaregional.com/,1.0
 110076,way/34845332,Emory Decatur Hospital,https://www.openstreetmap.org/way/34845332,https://www.emoryhealthcare.org/locations/hospitals/emory-decatur-hospital,1.0
@@ -858,6 +942,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 110143,way/34845713,WellStar Cobb Hospital,https://www.openstreetmap.org/way/34845713,https://www.wellstar.org/locations/hospital/cobb-medical-center,0.904
 110146,way/492104439,Southeast Georgia Health System - Camden Campus,https://www.openstreetmap.org/way/492104439,https://www.sghs.org/locations/camden-campus/,1.0
 110150,way/587353255,Atrium Health Navicent Baldwin,https://www.openstreetmap.org/way/587353255,https://navicenthealth.org/service-center/navicent-health-baldwin,0.844
+110153,way/493036284,Houston Medical Center,https://www.openstreetmap.org/way/493036284,https://www.emoryhealthcare.org/locations/hospitals/warner-robins,0.85
 110161,way/34845864,Northside Hospital,https://www.openstreetmap.org/way/34845864,https://www.northside.com/,1.0
 110165,way/34844784,Southern Regional Medical Center,https://www.openstreetmap.org/way/34844784,https://www.southernregional.org/,1.0
 110168,way/479429891,AdventHealth Redmond,https://www.openstreetmap.org/way/479429891,https://www.adventhealth.com/locations/hospitals/redmond,1.0
@@ -904,6 +989,10 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 111335,way/492129541,Liberty Regional Medical Center,https://www.openstreetmap.org/way/492129541,https://www.libertyregional.org/,1.0
 111336,way/1182776143,Mountain Lakes Medical Center,https://www.openstreetmap.org/way/1182776143,https://mountainlakesmedicalcenter.com,1.0
 111338,way/490450666,Blue Ridge Medical Center,https://www.openstreetmap.org/way/490450666,https://www.blueridgemc.org/,1.0
+111339,way/492662934,Dorminy Medical Center,https://www.openstreetmap.org/way/492662934,https://www.dorminymedical.org/,1.0
+112004,node/10834436435,Select Specialty Hospital - Midtown Atlanta,https://www.openstreetmap.org/node/10834436435,https://www.selectspecialtyhospitals.com/locations-and-tours/ga/atlanta/midtown-atlanta,1.0
+112007,way/581374034,WellStar Windy Hill Hospital,https://www.openstreetmap.org/way/581374034,https://www.wellstar.org/locations/hospital/windy-hill,1.0
+112017,way/1182776952,Landmark Hospital of Athens,https://www.openstreetmap.org/way/1182776952,https://www.lhofathens.com/,1.0
 114008,way/491243527,Coastal Harbor Treatment Center,https://www.openstreetmap.org/way/491243527,https://coastalharbor.com/,1.0
 114012,node/358778710,Ridgeview Institute - Smyrna,https://www.openstreetmap.org/node/358778710,https://www.ridgeviewinstitute.com/,0.837
 114016,way/492102521,Saint Simons By-The-Sea,https://www.openstreetmap.org/way/492102521,https://ssbythesea.com/,1.0
@@ -927,6 +1016,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 121305,way/449565338,Lanai Community Hospital,https://www.openstreetmap.org/way/449565338,https://www.mauihealth.org/locations/lanai-community-hospital/,1.0
 121306,way/449562751,Samuel Mahelona Medical Center,https://www.openstreetmap.org/way/449562751,https://kauai.hhsc.org/facilities/samuel-mahelona-memorial-hospital-smmh/,0.919
 121308,way/587359122,Kula Hospital,https://www.openstreetmap.org/way/587359122,https://www.mauihealthsystem.org/kula-hospital/,1.0
+123025,way/833416894,Rehab Hospital of the Pacific,https://www.openstreetmap.org/way/833416894,https://www.rehabhospital.org/,0.785
 123300,way/307664235,Kapi'olani Medical Center for Women and Children,https://www.openstreetmap.org/way/307664235,https://www.hawaiipacifichealth.org/kapiolani/,0.951
 123301,way/822370968,Shriners Hospitals For Children,https://www.openstreetmap.org/way/822370968,http://www.shrinershospitalsforchildren.org/Locations/honolulu,0.995
 130002,way/122090015,St. Luke's Magic Valley Regional Medical Center,https://www.openstreetmap.org/way/122090015,https://www.stlukesonline.org/communities-and-locations/facilities/hospitals-and-medical-centers/st-lukes-magic-valley-medical-center,0.872
@@ -973,6 +1063,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 134002,way/682051791,Intermountain Hospital,https://www.openstreetmap.org/way/682051791,https://intermountainhospital.com/,1.0
 134010,node/358652950,State Hospital South,https://www.openstreetmap.org/node/358652950,http://healthandwelfare.idaho.gov/medical/mentalhealth/statehospitals/tabid/495/default.aspx,1.0
 134017,node/10874458887,Cottonwood Creek Behavioral Hospital,https://www.openstreetmap.org/node/10874458887,https://www.cottonwoodcreekboise.com,1.0
+134018,node/10874330196,State Hospital West,https://www.openstreetmap.org/node/10874330196,https://healthandwelfare.idaho.gov/dhw/state-hospital-west,1.0
+134019,relation/6933564,State Hospital North,https://www.openstreetmap.org/relation/6933564,http://healthandwelfare.idaho.gov/Medical/MentalHealth/StateHospitals/tabid/495/Default.aspx,1.0
 140002,way/547555279,Alton Memorial Hospital,https://www.openstreetmap.org/way/547555279,https://www.bjc.org/locations/alton-memorial-hospital,1.0
 140007,way/551247981,Saint Joseph Medical Center,https://www.openstreetmap.org/way/551247981,https://saintjosephmedicalcenter.com/,1.0
 140008,way/551057998,Gottlieb Memorial Hospital,https://www.openstreetmap.org/way/551057998,https://www.loyolamedicine.org/location/gottlieb-memorial-hospital-2,0.789
@@ -999,7 +1091,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 140077,way/547510480,Touchette Regional Hospital,https://www.openstreetmap.org/way/547510480,https://www.touchette.org/,1.0
 14007F,relation/18292356,"Edward Hines, Jr. VA Hospital",https://www.openstreetmap.org/relation/18292356,https://www.hines.va.gov/,0.88
 140080,way/32052949,Saint Francis Hospital Evanston,https://www.openstreetmap.org/way/32052949,https://saintfrancisevanston.org/,1.0
-140082,way/211323371,Louis A. Weiss Memorial Hospital,https://www.openstreetmap.org/way/211323371,https://www.weisshospital.com/,1.0
 140083,way/162513176,Loretto Hospital,https://www.openstreetmap.org/way/162513176,https://www.lorettohospital.org/,1.0
 140084,way/550865475,Vista Medical Center East,https://www.openstreetmap.org/way/550865475,https://vistahealth.com/vista-medical-center-east/,1.0
 140088,way/229438623,University of Chicago Medicine Campus,https://www.openstreetmap.org/way/229438623,https://uchicagomedicine.org/,0.822
@@ -1114,11 +1205,15 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 141352,way/548646020,Jacksonville Memorial Hospital,https://www.openstreetmap.org/way/548646020,https://memorial.health/jacksonville-memorial-hospital/overview/,1.0
 141353,way/550014357,Iroquois Memorial Hospital,https://www.openstreetmap.org/way/550014357,https://iroquoismemorial.com/,1.0
 141354,way/547972871,HSHS Good Shepherd Hospital,https://www.openstreetmap.org/way/547972871,https://hshsgoodshepherd.org/,1.0
-141355,way/204022010,Carle Richland Memorial Hospital,https://www.openstreetmap.org/way/204022010,https://carle.org/locations/carle-richland-memorial-hospital,1.0
+142011,way/550946047,Holy Family Medical Center,https://www.openstreetmap.org/way/550946047,https://holyfamilymedicalcenter.com/,1.0
+142013,relation/8843631,OSF Divine Mercy Continuing Care Hospital,https://www.openstreetmap.org/relation/8843631,https://www.osfhealthcare.org/locations/osf-healthcare-divine-mercy-continuing-care-hospital-153137,0.965
+143025,way/551141093,Schwab Rehabilitation Hospital,https://www.openstreetmap.org/way/551141093,https://schwab.sinaichicago.org/,1.0
+143027,way/551322486,Marianjoy Rehabilitation Hospital,https://www.openstreetmap.org/way/551322486,http://www.marianjoy.org/,0.944
 143300,way/47055764,Ann & Robert H. Lurie Children's Hospital,https://www.openstreetmap.org/way/47055764,https://www.luriechildrens.org/,0.903
 143301,way/1446950437,La Rabida Children's Hospital,https://www.openstreetmap.org/way/1446950437,https://larabida.org/,0.751
 143302,way/217925219,Shriners Hospitals for Children,https://www.openstreetmap.org/way/217925219,https://www.shrinershospitalsforchildren.org/chicago,0.995
 144031,way/550920277,Ascension Alexian Brothers Behavioral Health Hospital,https://www.openstreetmap.org/way/550920277,https://healthcare.ascension.org/locations/illinois/ilchi/hoffman-estates-ascension-alexian-brothers-behavioral-health-hospital,0.787
+144039,way/551092377,Garfield Park Behavioral Hospital,https://www.openstreetmap.org/way/551092377,https://www.garfieldparkhospital.com/,0.823
 144040,node/10874634231,Chicago Behavioral Hospital,https://www.openstreetmap.org/node/10874634231,https://chicagobehavioralhospital.com,1.0
 150001,way/482356071,Johnson Memorial Hospital,https://www.openstreetmap.org/way/482356071,https://www.johnsonmemorial.org/,1.0
 150005,way/482825083,Hendricks Regional Health,https://www.openstreetmap.org/way/482825083,https://www.hendricks.org/danville-campus,1.0
@@ -1142,7 +1237,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 150044,way/482055974,Baptist Health Floyd,https://www.openstreetmap.org/way/482055974,http://baptisthealthfloyd.com/,1.0
 150045,way/152196747,Parkview DeKalb Hospital,https://www.openstreetmap.org/way/152196747,https://www.parkview.com/locations/parkview-dekalb-hospital,1.0
 150048,way/229132823,Reid Health,https://www.openstreetmap.org/way/229132823,https://www.reidhealth.org/,1.0
-150056,way/482774252,Indiana University Health Methodist Hospital,https://www.openstreetmap.org/way/482774252,https://iuhealth.org/methodist/,0.801
+150056,way/482836885,Indiana University North Hospital,https://www.openstreetmap.org/way/482836885,https://iuhealth.org/north/,0.811
 150057,way/482728626,Franciscan Health Mooresville,https://www.openstreetmap.org/way/482728626,https://directory.franciscanhealth.org/location/franciscan-health-mooresville,1.0
 150058,relation/15978455,Memorial Hospital of South Bend,https://www.openstreetmap.org/relation/15978455,https://locations.beaconhealthsystem.org/in/south-bend/memorial-hospital,1.0
 150059,way/447928199,Riverview Health Noblesville Hospital,https://www.openstreetmap.org/way/447928199,https://www.riverview.org/location/riverview-health-noblesville-hospital,0.929
@@ -1171,9 +1266,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 150150,way/587743165,Dupont Hospital,https://www.openstreetmap.org/way/587743165,https://theduponthospital.com/,1.0
 150153,way/581677815,St. Vincent Heart Center of Indiana,https://www.openstreetmap.org/way/581677815,https://www.stvincent.org/Locations/Hospitals/Heart-Center-Carmel,0.831
 150157,way/482838063,Saint Vincent Carmel Hospital,https://www.openstreetmap.org/way/482838063,https://www.stvincent.org/Locations/Hospitals/Carmel,0.787
-150158,way/482823296,IU Health West Hospital,https://www.openstreetmap.org/way/482823296,https://iuhealth.org/west,1.0
 150160,way/581690809,OrthoIndy Hospital,https://www.openstreetmap.org/way/581690809,https://www.orthoindy.com/,1.0
-150161,way/482836885,Indiana University North Hospital,https://www.openstreetmap.org/way/482836885,https://iuhealth.org/north/,0.971
 150162,way/482736648,Franciscan Health Indianapolis,https://www.openstreetmap.org/way/482736648,https://www.franciscanhealth.org/healthcare-facilities/franciscan-health-indianapolis-9,1.0
 150165,way/587748114,Franciscan Health Munster,https://www.openstreetmap.org/way/587748114,https://www.franciscanhealth.org/healthcare-facilities/franciscan-health-munster-57,1.0
 150166,way/587759051,Pinnacle Hospital,https://www.openstreetmap.org/way/587759051,https://pinnaclehealthcare.net/,1.0
@@ -1182,7 +1275,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 150173,way/587776166,Indiana University Health Arnett Hospital,https://www.openstreetmap.org/way/587776166,https://iuhealth.org/find-locations/iu-health-arnett-hospital,1.0
 150181,way/477203480,Ascension St. Vincent Fishers,https://www.openstreetmap.org/way/477203480,https://healthcare.ascension.org/locations/indiana/inasc/fishers-ascension-st-vincent-fishers,1.0
 150183,way/482163054,Monroe Hospital,https://www.openstreetmap.org/way/482163054,https://monroehospital.com/,1.0
-150193,way/195695639,Franciscan Health Carmel,https://www.openstreetmap.org/way/195695639,https://www.franciscanhealth.org/healthcare-facilities/franciscan-health-carmel-10,0.795
 151300,way/197436365,Bremen Community Hospital,https://www.openstreetmap.org/way/197436365,https://locations.beaconhealthsystem.org/in/bremen/community-hospital-of-bremen,1.0
 151301,way/587782046,Saint Vincent Randolph,https://www.openstreetmap.org/way/587782046,https://www.stvincent.org/Locations/Hospitals/Randolph,0.828
 151303,way/587784116,Saint Vincent Jennings Hospital,https://www.openstreetmap.org/way/587784116,https://www.stvincent.org/Locations/Hospitals/Jennings,0.812
@@ -1215,6 +1307,16 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 151332,way/482127950,Decatur County Memorial Hospital,https://www.openstreetmap.org/way/482127950,https://www.dcmh.net/,1.0
 151333,way/587920804,Putnam County Hospital,https://www.openstreetmap.org/way/587920804,https://pchosp.org/,1.0
 151334,way/482099050,Norton Scott Hospital,https://www.openstreetmap.org/way/482099050,https://nortonhealthcare.com/location/loc0000192177/,1.0
+152013,node/10876757772,Kindred Hospital Indianapolis North,https://www.openstreetmap.org/node/10876757772,https://www.kindredhospitals.com/locations/ltac/kindred-hospital-indianapolis-north,1.0
+152014,node/10876704544,Select Specialty Hospital - Evansville,https://www.openstreetmap.org/node/10876704544,https://www.selectspecialtyhospitals.com/locations-and-tours/in/evansville/evansville,1.0
+152028,node/10876800333,AMG Specialty Hospital Northwest Indiana,https://www.openstreetmap.org/node/10876800333,https://amgihm.com/locations/indiana-crown-point/,0.796
+153025,way/879446163,Encompass Health Deaconess Rehabilitation Hospital,https://www.openstreetmap.org/way/879446163,https://encompasshealth.com/locations/deaconessrehab,1.0
+153028,node/6597811085,Rehabilitation Hospital of Indiana,https://www.openstreetmap.org/node/6597811085,https://www.rhirehab.com/,1.0
+153042,node/10876811827,Lafayette Regional Rehabilitation Hospital,https://www.openstreetmap.org/node/10876811827,https://lrrh.ernesthealth.com,1.0
+153044,node/10876832161,Community Health Network Rehabilitation Hospital South,https://www.openstreetmap.org/node/10876832161,https://www.communityrehabhospitalsouth.com,0.758
+153046,node/10876844807,PAM Health Rehabilitation Hospital of Greater Indiana,https://www.openstreetmap.org/node/10876844807,https://pamhealth.com/facilities/find-facility/rehabilitation-hospitals/pam-health-rehabilitation-hospital-greater-indiana,0.904
+153047,way/1247720228,Rehabilitation Hospital of Northern Indiana,https://www.openstreetmap.org/way/1247720228,https://rhni.ernesthealth.com/,1.0
+153048,node/10876750492,Indianapolis Rehabilitation Hospital,https://www.openstreetmap.org/node/10876750492,https://www.indianapolis-rehabhospital.com,1.0
 154018,node/358664597,Richmond State Hospital,https://www.openstreetmap.org/node/358664597,http://www.in.gov/fssa/dmha/6914.htm,1.0
 154019,way/1181793399,Madison State Hospital,https://www.openstreetmap.org/way/1181793399,http://www.in.gov/fssa/dmha/6807.htm,1.0
 154020,node/358677260,Regional Mental Health Center - Strawhun Center,https://www.openstreetmap.org/node/358677260,http://www.regionalmentalhealth.org/,0.785
@@ -1332,6 +1434,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 161379,way/477601608,Mahaska Health Partnership,https://www.openstreetmap.org/way/477601608,https://www.mahaskahealth.org/,1.0
 161380,way/438742684,Hansen Family Hospital,https://www.openstreetmap.org/way/438742684,http://www.emhia.com/,1.0
 161381,way/479197848,Sanford Sheldon Medical Center,https://www.openstreetmap.org/way/479197848,https://www.sanfordsheldon.org/,1.0
+163026,node/10876862434,Eastern Iowa Rehabilitation Hospital,https://www.openstreetmap.org/node/10876862434,https://www.easterniowarehabhospital.com/,1.0
 164002,node/354298464,Cherokee Mental Health Institute,https://www.openstreetmap.org/node/354298464,https://dhs.iowa.gov/mhds/mental-health/in-patient/mental-health-institutes/cherokee,0.834
 164003,way/473166822,Independence Mental Health Institute,https://www.openstreetmap.org/way/473166822,https://dhs.iowa.gov/mhds/mental-health/in-patient/mental-health-institutes/independence,0.817
 164006,node/10876850167,Eagle View Behavioral Health,https://www.openstreetmap.org/node/10876850167,https://www.eagleviewbh.com,1.0
@@ -1351,7 +1454,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 170105,way/454133811,McPherson Hospital,https://www.openstreetmap.org/way/454133811,http://www.mcphersonhospital.org/,1.0
 170109,way/587957086,Miami County Medical Center,https://www.openstreetmap.org/way/587957086,https://www.olathehealth.org/locations/miami-county-medical-center,1.0
 170120,way/153399254,Labette Health,https://www.openstreetmap.org/way/153399254,https://www.labettehealth.com/,1.0
-170122,way/452925744,Ascension Via Christi Rehabilitation Hospital,https://www.openstreetmap.org/way/452925744,https://healthcare.ascension.org/locations/kansas/kswic/wichita-ascension-via-christi-rehabilitation-hospital,0.75
 170123,way/452912764,Wesley Medical Center,https://www.openstreetmap.org/way/452912764,https://wesleymc.com/,1.0
 170142,way/587962562,Ascension Via Christi Hospital in Manhattan,https://www.openstreetmap.org/way/587962562,https://healthcare.ascension.org/locations/kansas/kswic/manhattan-ascension-via-christi-hospital-in-manhattan,0.927
 170146,way/454774879,Providence Medical Center,https://www.openstreetmap.org/way/454774879,https://www.providencekc.com/,1.0
@@ -1440,9 +1542,14 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 171384,way/452958992,Newman Regional Health Center,https://www.openstreetmap.org/way/452958992,https://www.newmanrh.org/,0.959
 171385,way/454685951,Coffey County Hospital,https://www.openstreetmap.org/way/454685951,https://www.coffeyhealth.org/hospital/,1.0
 171386,way/587975240,Morton County Hospital,https://www.openstreetmap.org/way/587975240,https://www.mchswecare.com/,1.0
-171387,way/587964443,Coffeyville Regional Medical Center,https://www.openstreetmap.org/way/587964443,https://crmcinc.org/,1.0
 171388,way/587961195,Bob Wilson Memorial Grant County Hospital,https://www.openstreetmap.org/way/587961195,https://www.centura.org/locations/bob-wilson-memorial-grant-county-hospital,0.768
+173025,way/452575600,The Kansas Rehabilitation Hospital,https://www.openstreetmap.org/way/452575600,http://www.kansasrehabhospital.com/,0.764
+173026,way/899525874,MidAmerica Rehabilitation Hospital,https://www.openstreetmap.org/way/899525874,https://www.encompasshealth.com/locations/mid-america-rehab,1.0
+173028,way/452925744,Ascension Via Christi Rehabilitation Hospital,https://www.openstreetmap.org/way/452925744,https://healthcare.ascension.org/locations/kansas/kswic/wichita-ascension-via-christi-rehabilitation-hospital,1.0
+173032,node/10888125609,Rehabilitation Hospital Of Overland Park,https://www.openstreetmap.org/node/10888125609,https://pamhealth.com/facilities/find-facility/rehabilitation-hospitals/pam-rehabilitation-hospital-overland,1.0
+173033,way/454764372,Meadowbrook Rehabilitation Hospital,https://www.openstreetmap.org/way/454764372,https://www.meadowbrookrehab.com/,1.0
 174006,node/358629613,Larned State Hospital,https://www.openstreetmap.org/node/358629613,https://www.kdads.ks.gov/state-hospitals-and-institutions/larned-state-hospital,1.0
+174016,way/42722709,Prairie View,https://www.openstreetmap.org/way/42722709,https://prairieview.org/,1.0
 174020,node/10887862187,Cottonwood Springs,https://www.openstreetmap.org/node/10887862187,https://cottonwoodsprings.com,1.0
 180001,way/1117480731,Saint Elizabeth Fort Thomas,https://www.openstreetmap.org/way/1117480731,https://www.stelizabeth.com/location/details/st-elizabeth-ft-thomas/,0.755
 180002,way/588979242,Whitesburg ARH Hospital,https://www.openstreetmap.org/way/588979242,https://providers.arh.org/location/whitesburg-arh-hospital/loc0000132862,1.0
@@ -1519,8 +1626,11 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 181329,way/581968083,Saint Joseph Berea,https://www.openstreetmap.org/way/581968083,https://www.commonspirit.org/find-a-location/commonspirit-saint-joseph-hospital-berea-972,0.776
 181330,way/589299000,Russell County Hospital,https://www.openstreetmap.org/way/589299000,https://www.russellcohospital.org/,1.0
 181331,way/1391379035,McDowell ARH Hospital,https://www.openstreetmap.org/way/1391379035,https://providers.arh.org/location/mc-dowell-arh-hospital/loc0000132817,1.0
-181333,way/589109284,The Medical Center at Albany,https://www.openstreetmap.org/way/589109284,https://medcenterhealth.org/location/the-medical-center-at-albany/,1.0
 181334,way/589118103,Kentucky River Medical Center,https://www.openstreetmap.org/way/589118103,http://www.kentuckyrivermc.com/,1.0
+182001,way/461907202,Kindred Hospital Louisville,https://www.openstreetmap.org/way/461907202,https://www.kindredhospitals.com/locations/kentucky/louisville,1.0
+183026,way/405414661,Cardinal Hill Rehabilitation Hospital,https://www.openstreetmap.org/way/405414661,https://www.encompasshealth.com/locations/cardinal-hill-rehab,1.0
+183027,way/190573038,Encompass Health Rehabilitation Hospital of Northern Kentucky,https://www.openstreetmap.org/way/190573038,https://www.encompasshealth.com/kentuckyrehab,0.795
+183030,node/10888162467,Gateway Rehabilitation Hospital,https://www.openstreetmap.org/node/10888162467,https://vrhgateway.com,1.0
 184002,way/460665596,Western State Hospital,https://www.openstreetmap.org/way/460665596,https://westernstatehospital.ky.gov/,1.0
 184004,way/403413607,Eastern State Hospital,https://www.openstreetmap.org/way/403413607,http://ukhealthcare.uky.edu/eastern-state-hospital/,1.0
 184006,node/10888189383,Sun Behavioral Health,https://www.openstreetmap.org/node/10888189383,https://sunbehavioral.com/kentucky,1.0
@@ -1633,6 +1743,15 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 191327,way/488979472,West Carroll Memorial Hospital,https://www.openstreetmap.org/way/488979472,https://www.wchsystems.com/,1.0
 192008,node/10892017924,SAGE Specialty Hospital,https://www.openstreetmap.org/node/10892017924,https://thecarpenterhealthnetwork.com/locations/sage-specialty-hospital/,1.0
 192010,node/10892127461,Intensive Specialty Hospital - Shreveport Campus,https://www.openstreetmap.org/node/10892127461,https://intensivespecialty.com,0.81
+192028,way/1579048775,Riverbridge Specialty Hospital,https://www.openstreetmap.org/way/1579048775,https://riverbridgela.com,1.0
+192031,node/10892032175,Cornerstone Specialty Hospitals West Monroe,https://www.openstreetmap.org/node/10892032175,https://www.chghospitals.com/location/cornerstone-specialty-hospitals-west-monroe,1.0
+192043,node/10892018870,Riverside Hospital Of Louisiana,https://www.openstreetmap.org/node/10892018870,https://www.riversidehospital.net,1.0
+192048,node/10891971841,PAM Specialty Hospital Of Covington,https://www.openstreetmap.org/node/10891971841,https://pamhealth.com/facilities/find-facility/specialty-hospitals/PAM-Specialty-Hospital-Covington,0.8
+193028,way/489846357,Baton Rouge Rehabilitation Hospital,https://www.openstreetmap.org/way/489846357,https://www.brrehab.com/,0.839
+193044,way/489666077,North Oaks Rehabilitation Hospital,https://www.openstreetmap.org/way/489666077,https://www.northoaks.org/rehabilitation-hospital/,0.843
+193080,node/3968970634,Specialty Rehabilitation Hospital,https://www.openstreetmap.org/node/3968970634,https://www.specialtyrehabhospital.com,1.0
+193090,node/5628988711,The NeuroMedical Center Rehabilitation Hospital,https://www.openstreetmap.org/node/5628988711,https://www.theneuromedicalcenter.com/rehabilitation-hospital/,0.877
+193099,node/9778209831,Ochsner Rehabilitation Hospital,https://www.openstreetmap.org/node/9778209831,https://www.ochsner-rehab.com,1.0
 194020,way/692727728,Brentwood Hospital,https://www.openstreetmap.org/way/692727728,https://brentwoodbehavioral.com/,1.0
 194022,way/488717225,Longleaf Hospital,https://www.openstreetmap.org/way/488717225,http://www.longleafhospital.com/,1.0
 194025,node/358365970,Central Louisiana State Hospital,https://www.openstreetmap.org/node/358365970,http://new.dhh.louisiana.gov/index.cfm/directory/detail/217,1.0
@@ -1724,6 +1843,9 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 210064,way/589628073,Levindale Hebrew Geriatric Center and Hospital,https://www.openstreetmap.org/way/589628073,https://www.lifebridgehealth.org/locations/levindale,1.0
 210065,way/444089736,Holy Cross Germantown Hospital,https://www.openstreetmap.org/way/444089736,https://www.holycrosshealth.org/location/holy-cross-germantown-hospital,1.0
 21007F,relation/13540361,Walter Reed National Military Medical Center,https://www.openstreetmap.org/relation/13540361,http://www.wrnmmc.capmed.mil/SitePages/home.aspx,0.974
+212002,node/7212509205,Western Maryland Hospital Center,https://www.openstreetmap.org/node/7212509205,https://health.maryland.gov/wmhc/Pages/Home.aspx,1.0
+212003,way/443820964,Deer's Head Hospital Center,https://www.openstreetmap.org/way/443820964,https://dhmh.maryland.gov/deershead/pages/Home.aspx,0.94
+213028,node/10832075153,Encompass Health Rehab Hospital Of Salisbury,https://www.openstreetmap.org/node/10832075153,https://encompasshealth.com/locations/salisburyrehab,1.0
 213300,way/131280681,Mount Washington Pediatric Hospital,https://www.openstreetmap.org/way/131280681,https://www.mwph.org/,1.0
 213301,relation/5424554,Kennedy Krieger Institute,https://www.openstreetmap.org/relation/5424554,https://www.kennedykrieger.org/,1.0
 214000,way/217095090,Sheppard Pratt Hospital,https://www.openstreetmap.org/way/217095090,https://www.sheppardpratt.org/,0.83
@@ -1746,7 +1868,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 220031,relation/63951,Boston Medical Center,https://www.openstreetmap.org/relation/63951,https://www.bmc.org/,1.0
 220036,way/822922630,Boston Medical Center – Brighton,https://www.openstreetmap.org/way/822922630,https://www.bmchealthsystem.org/bmc-brighton,1.0
 220046,way/494954070,Berkshire Medical Center,https://www.openstreetmap.org/way/494954070,https://www.berkshirehealthsystems.org/location/berkshire-medical-center/,1.0
-220049,way/495288253,UMass Memorial Health – Marlborough Hospital,https://www.openstreetmap.org/way/495288253,https://www.ummhealth.org/locations/umass-memorial-medical-center/umass-memorial-medical-center-marlborough-campus,1.0
 220052,way/495503326,Signature Healthcare Brockton Hospital,https://www.openstreetmap.org/way/495503326,https://signature-healthcare.org/locations/brockton-hospital,1.0
 220060,way/495040786,Beth Israel Deaconess Hospital - Plymouth,https://www.openstreetmap.org/way/495040786,https://bidplymouth.org/,1.0
 220063,way/127805445,Lowell General Hospital,https://www.openstreetmap.org/way/127805445,https://www.tuftsmedicine.org/get-care/locations/lowell-general-hospital,1.0
@@ -1769,6 +1890,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 220111,way/495514340,Boston Medical Center – South,https://www.openstreetmap.org/way/495514340,https://www.bmchealthsystem.org/bmc-south,1.0
 220116,way/813301924,Tufts Medical Center,https://www.openstreetmap.org/way/813301924,https://www.tuftsmedicalcenter.org/,1.0
 220135,way/589639030,Falmouth Hospital,https://www.openstreetmap.org/way/589639030,https://www.capecodhealth.org/locations/falmouth-hospital/,1.0
+220162,way/228321180,Dana-Farber Cancer Institute,https://www.openstreetmap.org/way/228321180,https://www.dana-farber.org/,1.0
 220163,way/76157199,UMass Memorial Medical Center - University Campus,https://www.openstreetmap.org/way/76157199,https://www.ummhealth.org/locations/umass-memorial-medical-center/hospital/umass-memorial-medical-center-university-campus,1.0
 220171,way/231642276,Lahey Hospital & Medical Center,https://www.openstreetmap.org/way/231642276,https://www.lahey.org/,0.777
 220177,relation/16657895,Nantucket Cottage Hospital,https://www.openstreetmap.org/relation/16657895,https://nantuckethospital.org/,1.0
@@ -1776,6 +1898,19 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 221302,way/494998479,Fairview Hospital,https://www.openstreetmap.org/way/494998479,https://www.berkshirehealthsystems.org/fairview,1.0
 221303,way/495251876,Athol Hospital,https://www.openstreetmap.org/way/495251876,https://www.atholhospital.org/,0.927
 221304,way/494997547,North Adams Regional Hospital,https://www.openstreetmap.org/way/494997547,https://www.berkshirehealthsystems.org/location/north-adams-regional-hospital/,0.832
+222002,way/495514334,PAM Health Specialty Hospital of Stoughton,https://www.openstreetmap.org/way/495514334,https://pamhealth.com/hospitals/pam-health-specialty-hospital-of-stoughton/,1.0
+222006,way/495972839,Lemuel Shattuck Hospital,https://www.openstreetmap.org/way/495972839,https://www.mass.gov/locations/lemuel-shattuck-hospital,1.0
+222007,way/495971524,Hebrew Rehabilitation Center,https://www.openstreetmap.org/way/495971524,https://www.hebrewseniorlife.org/hebrew-rehabilitation-center,1.0
+222023,way/495193056,Western Massachusetts Hospital,https://www.openstreetmap.org/way/495193056,https://www.mass.gov/locations/western-massachusetts-hospital,1.0
+222043,way/495032609,Vibra Hospital of Southern Massachusetts,https://www.openstreetmap.org/way/495032609,https://vhmass.com/,0.752
+222046,node/10892312269,Vibra Hospital of Western Massachusetts - Central Campus,https://www.openstreetmap.org/node/10892312269,https://vhwmasscentral.com,0.885
+222047,way/495695836,Whittier Rehabilitation Hospital,https://www.openstreetmap.org/way/495695836,https://www.whittierhealth.com/,0.846
+222048,way/495472599,Whittier Rehabilitation Hospital-Westborough,https://www.openstreetmap.org/way/495472599,https://www.whittierhealth.com/rehabilitation-hospitals-in-massachusetts/whittier-rehabilitation-hospital-westborough-westborough-ma/,0.836
+223026,way/1274181067,Encompass Health Rehabilitation Hospital of New England,https://www.openstreetmap.org/way/1274181067,https://encompasshealth.com/locations/newenglandrehab,0.91
+223027,way/495546469,Encompass Health Rehabilitation Hospital of Braintree,https://www.openstreetmap.org/way/495546469,https://www.encompasshealth.com/locations/braintreerehab,0.834
+223030,relation/7268139,Encompass Health Rehabilitation Hospital of Western Massachusetts,https://www.openstreetmap.org/relation/7268139,https://encompasshealth.com/locations/westernmassrehab,0.777
+223032,way/311817264,Spaulding Rehabilitation Hospital Cape Cod,https://www.openstreetmap.org/way/311817264,https://www.spauldingrehab.org/locations/sandwich-ma/,1.0
+223034,way/377072605,Spaulding Rehabilitation Hospital,https://www.openstreetmap.org/way/377072605,https://spauldingrehab.org/,1.0
 223300,way/496107473,Franciscan Children's Hospital,https://www.openstreetmap.org/way/496107473,https://franciscanchildrens.org/medical-services/franciscan-pediatrics/,0.859
 223302,way/228885544,Boston Children's Hospital,https://www.openstreetmap.org/way/228885544,https://www.childrenshospital.org/,1.0
 223304,way/1004421027,Shriners Hospitals for Children - Boston,https://www.openstreetmap.org/way/1004421027,https://www.shrinershospitalsforchildren.org/Locations/boston,0.996
@@ -1806,7 +1941,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 230046,way/582981041,University of Michigan Medical Center,https://www.openstreetmap.org/way/582981041,https://www.uofmhealth.org/,0.914
 230047,way/327520556,Henry Ford Macomb Hospital,https://www.openstreetmap.org/way/327520556,https://www.henryfordmacomb.com/,1.0
 230053,relation/20660501,Henry Ford Hospital,https://www.openstreetmap.org/relation/20660501,https://www.henryford.com/locations/henry-ford-hospital,0.953
-230055,way/325711639,Marshfield Medical Center - Dickinson,https://www.openstreetmap.org/way/325711639,https://www.marshfieldclinic.org/locations/centers/Dickinson%20-%20Marshfield%20Medical%20Center,0.903
 230058,way/326254467,Munson Hospital Grayling,https://www.openstreetmap.org/way/326254467,https://www.munsonhealthcare.org/grayling-hospital,0.944
 230066,way/789080881,Trinity Health Muskegon Campus,https://www.openstreetmap.org/way/789080881,https://www.trinityhealthmichigan.org/location/trinity-health-muskegon-hospital,0.923
 230070,way/409350698,Covenant Medical Center,https://www.openstreetmap.org/way/409350698,https://www.covenanthealthcare.com/,1.0
@@ -1817,7 +1951,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 230078,way/259959655,Corewell Health Watervliet Hospital,https://www.openstreetmap.org/way/259959655,https://corewellhealth.org/locations/LOC0000194650/corewell-health-watervliet-hospital,1.0
 230080,way/499318460,McLaren Central Michigan,https://www.openstreetmap.org/way/499318460,https://www.mclaren.org/central-michigan/mclaren-central-michigan-home,1.0
 230081,way/264631220,Munson Healthcare Cadillac Hospital,https://www.openstreetmap.org/way/264631220,https://www.munsonhealthcare.org/cadillac-hospital,1.0
-230085,way/582627408,Bronson South Haven Hospital,https://www.openstreetmap.org/way/582627408,https://www.bronsonhealth.com/locations/bronson-south-haven-hospital/,1.0
 230089,way/562624138,Corewell Health Beaumont Grosse Pointe Hospital,https://www.openstreetmap.org/way/562624138,https://corewellhealth.org/locations/LOC0000193217/corewell-health-beaumont-grosse-pointe-hospital,0.851
 230093,way/326745510,Corewell Health Big Rapids Hospital,https://www.openstreetmap.org/way/326745510,https://corewellhealth.org/locations/LOC0000193242/corewell-health-big-rapids-hospital,1.0
 230095,way/326265337,MyMichigan Medical Center West Branch,https://www.openstreetmap.org/way/326265337,https://www.mymichigan.org/locations/profile/medicalcenter-westbranch/,1.0
@@ -1887,6 +2020,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 231338,way/589732794,Corewell Health Gerber Hospital,https://www.openstreetmap.org/way/589732794,https://corewellhealth.org/locations/LOC0000193243/corewell-health-gerber-hospital,1.0
 231339,way/327329372,Corewell Health Pennock Hospital,https://www.openstreetmap.org/way/327329372,https://corewellhealth.org/locations/LOC0000235048/corewell-health-pennock-hospital,1.0
 231340,way/589652841,McLaren Thumb Region,https://www.openstreetmap.org/way/589652841,https://www.mclaren.org/thumb-region/mclaren-thumb-region-home,1.0
+231342,way/325711639,Marshfield Medical Center - Dickinson,https://www.openstreetmap.org/way/325711639,https://www.marshfieldclinic.org/locations/centers/Dickinson%20-%20Marshfield%20Medical%20Center,1.0
+232034,way/784796725,Beacon Plainwell,https://www.openstreetmap.org/way/784796725,https://locations.beaconhealthsystem.org/mi/plainwell/beacon-plainwell-formerly-borgess-pipp-hospital,1.0
 234021,node/8453619003,Harbor Oaks Hospital,https://www.openstreetmap.org/node/8453619003,https://www.harboroaks.com/,1.0
 234023,way/692755556,Havenwyck Hospital,https://www.openstreetmap.org/way/692755556,https://havenwyckhospital.com/,1.0
 234025,relation/16180168,Caro Psychiatric Hospital,https://www.openstreetmap.org/relation/16180168,https://www.michigan.gov/mdhhs/keep-mi-healthy/mentalhealth/mentalhealth/mentalillness,1.0
@@ -1897,7 +2032,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 234043,way/692754285,Cedar Creek Hospital,https://www.openstreetmap.org/way/692754285,https://cedarcreekhospital.com/,1.0
 234044,node/10893836730,Brightwell Behavioral Health,https://www.openstreetmap.org/node/10893836730,https://www.eastlansing.brightwellbehavioral.com,1.0
 234048,way/589646363,Pontiac General Hospital,https://www.openstreetmap.org/way/589646363,https://www.pontiacgeneral.com/,1.0
-240001,way/460610767,North Memorial Medical Center,https://www.openstreetmap.org/way/460610767,https://www.northmemorial.com/,0.914
+240001,way/460610767,North Memorial Health – Robbinsdale Hospital,https://www.openstreetmap.org/way/460610767,https://northmemorial.com/location/robbinsdale-hospital/,0.775
 240002,way/460197318,Essentia Health Saint Mary's Medical Center,https://www.openstreetmap.org/way/460197318,https://www.essentiahealth.org/stmarysmedicalcenter/find-a-clinic/essentia-healthst-marys-medical-center-duluth-46.aspx,1.0
 240004,relation/20676683,Hennepin County Medical Center,https://www.openstreetmap.org/relation/20676683,https://www.hcmc.org/,1.0
 240006,way/166777230,Olmsted Medical Center Hospital,https://www.openstreetmap.org/way/166777230,https://www.olmmed.org/locations/locations-profile/hospital-ed/,0.949
@@ -1916,7 +2051,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 240056,way/460591025,Ridgeview Medical Center,https://www.openstreetmap.org/way/460591025,https://www.ridgeviewmedical.org/,1.0
 240057,relation/20708036,Abbott Northwestern Hospital,https://www.openstreetmap.org/relation/20708036,https://www.allinahealth.org/Abbott-Northwestern-Hospital,1.0
 240064,way/460171347,Grand Itasca Clinic and Hospital,https://www.openstreetmap.org/way/460171347,https://www.granditasca.org/,1.0
-240066,way/590000686,Lakeview Hospital,https://www.openstreetmap.org/way/590000686,https://www.lakeviewhealth.org/lakeviewhospital,0.937
+240066,way/590000686,Lakeview Hospital,https://www.openstreetmap.org/way/590000686,https://www.healthpartners.com/care/hospitals/lakeview/,0.937
 240069,way/532092144,Owatonna Hospital,https://www.openstreetmap.org/way/532092144,https://www.allinahealth.org/owatonna-hospital/,1.0
 240071,way/583226950,Faribault Medical Center,https://www.openstreetmap.org/way/583226950,https://www.allinahealth.org/allina-health-faribault-medical-center,0.757
 240075,way/583026409,Essentia Health St Joseph's Medical Center,https://www.openstreetmap.org/way/583026409,https://www.essentiahealth.org/stjosephsmedicalcenter/find-a-clinic/essentia-healthst-josephs-medical-center-brainerd-67.aspx,1.0
@@ -1927,12 +2062,13 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 240100,way/460102277,Sanford Bemidji Medical Center,https://www.openstreetmap.org/way/460102277,https://www.sanfordhealth.org/bemidji,1.0
 240104,way/460595815,Saint Francis Regional Medical Center,https://www.openstreetmap.org/way/460595815,https://www.stfrancis-shakopee.com/,1.0
 240106,relation/20576022,Regions Hospital,https://www.openstreetmap.org/relation/20576022,https://www.regionshospital.com/,1.0
-240115,way/460453817,Mercy Hospital,https://www.openstreetmap.org/way/460453817,https://www.allinahealth.org/Mercy-Hospital/,1.0
+240115,way/460453817,Mercy Hospital,https://www.openstreetmap.org/way/460453817,https://www.allinahealth.org/mercy-hospital,1.0
 240141,way/590185387,Fairview Northland Regional Hospital,https://www.openstreetmap.org/way/590185387,https://www.fairview.org/locations/fairview-northland-medical-center,1.0
 240166,way/590189781,Mayo Clinic Health System Fairmont,https://www.openstreetmap.org/way/590189781,https://mayoclinichealthsystem.org/locations/fairmont,1.0
 240187,way/460251898,Hutchinson Health,https://www.openstreetmap.org/way/460251898,https://www.healthpartners.com/care/hospitals/hutchinson/,1.0
 240206,way/535354673,Red Lake Hospital,https://www.openstreetmap.org/way/535354673,https://www.ihs.gov/bemidji/healthcarefacilities/redlake/,1.0
-240207,way/583248535,Fairview Ridges Hospital,https://www.openstreetmap.org/way/583248535,https://www.fairview.org/locations/fairview-ridges-hospital,0.836
+240207,way/583248535,Fairview Ridges Hospital,https://www.openstreetmap.org/way/583248535,https://www.mhealthfairview.org/locations/m-health-fairview-ridges-hospital,0.836
+240213,relation/13740485,M Health Fairview Woodwinds Hospital - Woodbury,https://www.openstreetmap.org/relation/13740485,https://www.mhealthfairview.org/locations/m-health-fairview-woodwinds-hospital---woodbury,0.879
 240214,way/583266702,Maple Grove Hospital,https://www.openstreetmap.org/way/583266702,https://www.maplegrovehospital.org/,1.0
 240779,way/590207579,Mahnomen Health Center,https://www.openstreetmap.org/way/590207579,https://mahnomenhealth.org/,1.0
 241301,way/590215080,LakeWood Health Center,https://www.openstreetmap.org/way/590215080,https://lakewoodhealthcenter.org/,1.0
@@ -1942,7 +2078,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 241305,way/566806550,Riverwood Healthcare Center,https://www.openstreetmap.org/way/566806550,https://riverwoodhealthcare.org/,1.0
 241308,way/460173886,Aspirus Lake View Hospital,https://www.openstreetmap.org/way/460173886,https://locations.aspirus.org/mn/two-harbors/325-11th-avenue/hospitals,1.0
 241309,way/583024433,Essentia Health-Sandstone,https://www.openstreetmap.org/way/583024433,https://www.essentiahealth.org/find-facility/essentia-health-sandstone,1.0
-241311,way/590257909,Ridgeview Sibley Medical Center,https://www.openstreetmap.org/way/590257909,https://www.sibleymedical.org/locations/arlington-hospital/,1.0
 241312,way/590260536,Cook Hospital,https://www.openstreetmap.org/way/590260536,https://www.cookhospital.org/,1.0
 241313,way/590263430,Essentia Health Ada,https://www.openstreetmap.org/way/590263430,https://www.essentiahealth.org/find-facility/profile/essentia-health-ada/,1.0
 241315,way/590270920,Sanford Jackson Medical Center,https://www.openstreetmap.org/way/590270920,https://www.sanfordhealth.org/locations/sanford-jackson-medical-center,1.0
@@ -1972,7 +2107,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 241343,way/590474852,Avera Granite Falls Health Center,https://www.openstreetmap.org/way/590474852,https://locations.avera.org/avera-granite-falls-health-center,0.919
 241344,way/590483650,Lifecare Medical Center,https://www.openstreetmap.org/way/590483650,https://lifecaremedicalcenter.org/,1.0
 241345,way/583216119,Mayo Clinic Health System Waseca,https://www.openstreetmap.org/way/583216119,https://mayoclinichealthsystem.org/locations/waseca,1.0
-241346,way/302984931,Mayo Clinic Health System Cannon Falls,https://www.openstreetmap.org/way/302984931,https://mayoclinichealthsystem.org/locations/cannon-falls,1.0
+241346,way/302984931,Mayo Clinic Health System Cannon Falls,https://www.openstreetmap.org/way/302984931,https://www.mayoclinichealthsystem.org/locations/cannon-falls,1.0
 241347,way/460086646,Sanford Canby Medical Center,https://www.openstreetmap.org/way/460086646,https://www.sanfordhealth.org/locations/sanford-canby-medical-center,1.0
 241348,way/590496919,Avera Tyler Hospital,https://www.openstreetmap.org/way/590496919,https://locations.avera.org/avera-tyler-hospital,1.0
 241349,way/583061615,CentraCare Health – Paynesville,https://www.openstreetmap.org/way/583061615,https://www.centracare.com/locations/profile/paynesville-hospital/,0.96
@@ -1999,11 +2134,12 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 241371,way/583077510,Sanford Luverne Medical Center,https://www.openstreetmap.org/way/583077510,https://www.sanfordhealth.org/community/sanford-luverne,1.0
 241373,way/460107723,Perham Health,https://www.openstreetmap.org/way/460107723,https://www.perhamhealth.org/,1.0
 241374,way/583070702,Pipestone County Medical Center,https://www.openstreetmap.org/way/583070702,https://www.avera.org/locations/profile/pipestone-county-medical-center-family-clinic-avera/,1.0
-241375,way/590552082,Ridgeview Le Sueur Medical Center,https://www.openstreetmap.org/way/590552082,https://ridgeviewlesueur.org/,1.0
+241375,way/590552082,Ridgeview Le Sueur Medical Center,https://www.openstreetmap.org/way/590552082,https://www.ridgeviewmedical.org/location/profile/ridgeview-le-sueur-medical-center-le-sueur/,1.0
 241376,way/590553862,Glacial Ridge Hospital,https://www.openstreetmap.org/way/590553862,https://glacialridge.org/,1.0
 241378,way/466011877,New Ulm Medical Center,https://www.openstreetmap.org/way/466011877,https://www.allinahealth.org/new-ulm-medical-center,1.0
 241379,way/583055236,Prairie Ridge Hospital,https://www.openstreetmap.org/way/583055236,https://www.lrhc.org/locations/elbow-lake-medical-center/,0.79
 241381,way/582994542,Sanford Thief River Falls Medical Center,https://www.openstreetmap.org/way/582994542,https://www.sanfordhealth.org/locations/sanford-thief-river-falls-medical-center,1.0
+242005,way/460606571,Regency Hospital - Minneapolis,https://www.openstreetmap.org/way/460606571,https://www.regencyhospital.com/locations-and-tours/mn/golden-valley/minneapolis/,0.985
 244002,node/367058390,Anoka-Metro Regional Treatment Center,https://www.openstreetmap.org/node/367058390,https://mn.gov/dhs/people-we-serve/adults/services/direct-care-treatment/programs-services/anoka-metro-regional-treatment-center,1.0
 244005,node/10893960237,Child And Adolescent Behavioral Health,https://www.openstreetmap.org/node/10893960237,https://mn.gov/dhs/people-we-serve/adults/services/direct-care-treatment/programs-services/child-and-adolescent-behavioral-health-services,0.968
 244012,node/10893948711,Community Behavioral Health Hospital - Alexandria,https://www.openstreetmap.org/node/10893948711,https://www.minnesotahelp.info/Providers/Community_Behavioral_Health_Hospital_CBHH_Alexandria/Community_Behavioral_Health_Hospital_CBHH/1,1.0
@@ -2013,7 +2149,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 250001,way/485666500,University of Mississippi Medical Center,https://www.openstreetmap.org/way/485666500,https://www.umc.edu/,0.984
 250004,way/486597212,North Mississippi Medical Center,https://www.openstreetmap.org/way/486597212,https://www.nmhs.net/locations/north-mississippi-medical-center-tupelo,1.0
 250006,way/486684275,Baptist Memorial Hospital-Union County,https://www.openstreetmap.org/way/486684275,https://www.baptistonline.org/locations/union-county,1.0
-250007,way/486261916,Memorial Hospital Biloxi,https://www.openstreetmap.org/way/486261916,https://wearememorial.com/locations/memorial-hospital-biloxi/,1.0
 250009,way/486554919,Magnolia Regional Health Center,https://www.openstreetmap.org/way/486554919,https://www.mrhc.org/,1.0
 250018,way/485917706,Jasper General Hospital,https://www.openstreetmap.org/way/485917706,https://www.jaspergeneralhospital.com/,1.0
 250025,way/186984512,North Mississippi Medical Center Gilmore-Amory,https://www.openstreetmap.org/way/186984512,https://www.nmhs.net/locations/north-mississippi-medical-center-gilmore-amory,1.0
@@ -2054,11 +2189,13 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 250167,way/501325592,Methodist Olive Branch Hospital,https://www.openstreetmap.org/way/501325592,https://www.methodisthealth.org/locations/methodist-olive-branch-hospital/,0.955
 250168,way/487140881,University of Mississippi Medical Center Grenada,https://www.openstreetmap.org/way/487140881,http://www.glmc.net/,1.0
 250172,way/486893533,Highland Hills Medical Center,https://www.openstreetmap.org/way/486893533,https://highlandhillsmc.com/,1.0
+250175,way/486261916,Memorial Hospital Biloxi,https://www.openstreetmap.org/way/486261916,https://wearememorial.com/locations/memorial-hospital-biloxi/,1.0
 25043F,way/485666509,G.V. (Sonny) Montgomery VA Medical Center,https://www.openstreetmap.org/way/485666509,https://www.va.gov/jackson-health-care/locations/gv-sonny-montgomery-department-of-veterans-affairs-medical-center/,0.913
 250781,way/486974306,Panola Medical Center,https://www.openstreetmap.org/way/486974306,https://www.panolamed.com/,1.0
 250782,way/486085763,Greene County Hospital,https://www.openstreetmap.org/way/486085763,https://georgeregional.com/our-locations/greene-county-hospital/,1.0
 250783,way/485981192,Perry County General Hospital,https://www.openstreetmap.org/way/485981192,https://www.forresthealth.org/our-locations/locations-profile/perry-county-general-hospital/,1.0
 250784,way/487433760,Sharkey-Issaquena Community Hospital,https://www.openstreetmap.org/way/487433760,https://www.simedical.org/,1.0
+250785,way/486676739,Progressive Health of Houston,https://www.openstreetmap.org/way/486676739,https://www.phghouston.com/,0.855
 251302,way/486485863,Monroe Regional Hospital,https://www.openstreetmap.org/way/486485863,https://monroeregionalhospital.com/,1.0
 251304,way/487164014,Tallahatchie General Hospital,https://www.openstreetmap.org/way/487164014,https://mytgh.com/,0.806
 251305,way/485891763,Lawrence County Hospital,https://www.openstreetmap.org/way/485891763,https://www.smrmc.com/locations/lawrence-county-hospital/,0.86
@@ -2082,6 +2219,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 251335,way/486373109,Ochsner Stennis Hospital,https://www.openstreetmap.org/way/486373109,https://www.ochsner.org/locations/ochsner-stennis-hospital/,0.953
 251336,way/487489045,Baptist Memorial Hospital-Attala,https://www.openstreetmap.org/way/487489045,https://www.baptistonline.org/locations/attala,0.916
 251337,way/486765461,Tippah County Hospital,https://www.openstreetmap.org/way/486765461,http://www.tippahcountyhospital.com/,1.0
+251340,way/486271921,Neshoba County General Hospital,https://www.openstreetmap.org/way/486271921,https://www.neshobageneral.com/,1.0
+252007,node/10894543914,Select Specialty Hospital Jackson,https://www.openstreetmap.org/node/10894543914,https://www.selectspecialtyhospitals.com/locations-and-tours/ms/jackson/jackson,1.0
 254005,node/357998928,Parkwood Behavioral Health Systems,https://www.openstreetmap.org/node/357998928,http://parkwoodbhs.com/,0.879
 254008,node/10894543381,South Mississippi State Hospital,https://www.openstreetmap.org/node/10894543381,https://www.smsh.ms.gov,1.0
 254009,node/10894551720,North Mississippi State Hospital,https://www.openstreetmap.org/node/10894551720,http://www.nmsh.state.ms.us,1.0
@@ -2106,7 +2245,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 260062,way/290086280,Saint Luke's North,https://www.openstreetmap.org/way/290086280,https://www.saintlukeskc.org/locations/saint-lukes-north-hospital-barry-road,0.802
 260065,way/502193829,Mercy Hospital Springfield,https://www.openstreetmap.org/way/502193829,https://www.mercy.net/springfieldmo,1.0
 260068,way/361574370,Boone Hospital Center,https://www.openstreetmap.org/way/361574370,https://www.boone.org/,1.0
-260070,relation/21842699,Pemiscot County Memorial Hospital,https://www.openstreetmap.org/relation/21842699,https://www.pemiscot.org/,1.0
 260074,way/1528355493,Moberly Regional Medical Center,https://www.openstreetmap.org/way/1528355493,https://www.moberlyregionalmedicalcenter.com/,1.0
 260078,way/449052957,Ozarks Healthcare,https://www.openstreetmap.org/way/449052957,https://www.ozarkshealthcare.com/,1.0
 260081,way/449443842,SSM Health St. Clare Hospital - Fenton,https://www.openstreetmap.org/way/449443842,https://www.ssmhealth.com/locations/st-louis/st-clare-hospital-fenton,0.78
@@ -2114,7 +2252,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 260091,way/197251655,SSM Health St. Mary's Hospital - St. Louis,https://www.openstreetmap.org/way/197251655,https://www.ssmhealth.com/stmarys,1.0
 260095,way/449194898,Centerpoint Medical Center,https://www.openstreetmap.org/way/449194898,https://centerpointmedical.com/,1.0
 260097,way/360182332,Western Missouri Medical Center,https://www.openstreetmap.org/way/360182332,https://wmmc.com/,1.0
-26009F,way/481107768,John Cochran VA Medical Center,https://www.openstreetmap.org/way/481107768,https://www.stlouis.va.gov/,0.873
 260105,node/358083459,SSM Health Saint Louis University Hospital,https://www.openstreetmap.org/node/358083459,https://www.ssmhealth.com/sluhospital,1.0
 260108,way/149430322,Missouri Baptist Medical Center,https://www.openstreetmap.org/way/149430322,https://www.missouribaptist.org/,1.0
 260110,way/449054458,Mercy Hospital Southeast,https://www.openstreetmap.org/way/449054458,https://www.mercy.net/practice/mercy-hospital-southeast/,1.0
@@ -2128,7 +2265,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 260163,way/591093946,Parkland Health Center - Farmington,https://www.openstreetmap.org/way/591093946,https://www.bjc.org/locations/parkland-health-center,0.765
 260175,way/590898682,Golden Valley Memorial Hospital,https://www.openstreetmap.org/way/590898682,https://www.gvmh.org/,1.0
 260177,way/546498499,Liberty Hospital,https://www.openstreetmap.org/way/546498499,https://www.libertyhospital.org/,1.0
-260179,way/478014355,St. Luke's Hospital,https://www.openstreetmap.org/way/478014355,https://www.stlukes-stl.com/,0.818
 260180,way/330315464,Christian Hospital,https://www.openstreetmap.org/way/330315464,https://www.bjc.org/locations/christian-hospital,0.76
 260183,way/669748757,Saint Francis Medical Center,https://www.openstreetmap.org/way/669748757,https://www.sfmc.net/,1.0
 260186,way/923811199,Lake Regional Health System,https://www.openstreetmap.org/way/923811199,https://www.lakeregional.com/,1.0
@@ -2141,6 +2277,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 260216,way/507389485,Saint Luke's East Hospital,https://www.openstreetmap.org/way/507389485,https://www.saintlukeskc.org/locations/saint-lukes-east-hospital,1.0
 260219,node/3980056553,Progress West Hospital,https://www.openstreetmap.org/node/3980056553,https://www.bjc.org/locations/progress-west-hospital,1.0
 260779,way/591093540,Parkland Health Center-Bonne Terre,https://www.openstreetmap.org/way/591093540,https://www.bjc.org/locations/parkland-health-center-bonne-terre,1.0
+260780,relation/21842699,Pemiscot County Memorial Hospital,https://www.openstreetmap.org/relation/21842699,https://www.pemiscot.org/,1.0
 261301,way/1454240146,Ellett Memorial Hospital,https://www.openstreetmap.org/way/1454240146,https://www.ellettmemorial.com/,1.0
 261302,way/590981581,Madison Medical Center,https://www.openstreetmap.org/way/590981581,https://www.madisonmedicalcenter.net/,1.0
 261305,way/590989996,Putnam County Memorial Hospital,https://www.openstreetmap.org/way/590989996,https://www.pcmhosp.com/,1.0
@@ -2169,12 +2306,19 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 261336,way/591242529,Iron County Medical Center,https://www.openstreetmap.org/way/591242529,https://icmedcenter.org/,1.0
 261337,way/546664372,Missouri Baptist Sullivan Hospital,https://www.openstreetmap.org/way/546664372,https://www.bjc.org/locations/missouri-baptist-sullivan-hospital,1.0
 261338,way/513677816,Mercy Hospital Carthage,https://www.openstreetmap.org/way/513677816,https://www.mercy.net/practice/mercy-hospital-carthage,1.0
+262016,node/10894766905,Landmark Hospital Of Joplin,https://www.openstreetmap.org/node/10894766905,https://www.lhofjoplin.com/,1.0
+262018,way/290397541,Kindred Hospital Northland,https://www.openstreetmap.org/way/290397541,https://www.kindredhospitals.com/locations/missouri/northland,1.0
+262020,way/1327394220,Landmark Hospital Of Columbia,https://www.openstreetmap.org/way/1327394220,https://www.lhofcolumbia.com/,1.0
+263029,node/10894615032,Mercy Rehabilitation Hospital Saint Louis,https://www.openstreetmap.org/node/10894615032,https://www.mercy.net/practice/mercy-rehabilitation-hospital-st-louis,1.0
+263031,way/583396829,SSM Health Rehabilitation – Bridgeton,https://www.openstreetmap.org/way/583396829,https://www.ssm-rehab.com/,0.801
+263032,node/10894624427,Mercy Rehabilitation Hospital Springfield,https://www.openstreetmap.org/node/10894624427,https://www.mercy.net/practice/mercy-rehabilitation-hospital-springfield,1.0
 263301,relation/8493363,Saint Louis Children's Hospital,https://www.openstreetmap.org/relation/8493363,https://www.stlouischildrens.org/,1.0
 263302,relation/18453660,Children's Mercy Adele Hall Campus,https://www.openstreetmap.org/relation/18453660,https://www.childrensmercy.org/locations/adele-hall/,0.75
 263303,way/591249713,Ranken Jordan Pediatric Bridge Hospital,https://www.openstreetmap.org/way/591249713,https://rankenjordan.org/,1.0
 264005,way/616407872,Southeast Missouri Mental Health Center,https://www.openstreetmap.org/way/616407872,https://dmh.mo.gov/smmhc,0.905
 264008,way/541998910,Center for Behavioral Medicine,https://www.openstreetmap.org/way/541998910,https://dmh.mo.gov/cbm/,1.0
 264020,way/1296443146,Royal Oaks Hospital,https://www.openstreetmap.org/way/1296443146,https://compasshealthnetwork.org/about-us/royal-oaks-hospital,1.0
+264028,way/636528384,Hawthorne Children's Psychiatric Hospital,https://www.openstreetmap.org/way/636528384,https://dmh.mo.gov/hcph/,0.909
 264031,node/10894631280,Center for Behavioral Health – Osage Beach,https://www.openstreetmap.org/node/10894631280,https://osagebeachccd.com,1.0
 264032,way/1222868475,Centerpointe Hospital Of Columbia,https://www.openstreetmap.org/way/1222868475,https://centerpointehospitalcolumbia.com,1.0
 264034,node/10894550567,Southeast Behavioral Hospital,https://www.openstreetmap.org/node/10894550567,https://southeastbehavioral.com,1.0
@@ -2225,6 +2369,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 271347,way/499980759,Holy Rosary Health Center,https://www.openstreetmap.org/way/499980759,https://intermountainhealthcare.org/locations/intermountain-health-holy-rosary-hospital,0.847
 271348,way/500182335,Northern Montana Health Care,https://www.openstreetmap.org/way/500182335,https://www.nmhcare.org/,0.81
 271389,way/468561069,Big Sky Medical Center,https://www.openstreetmap.org/way/468561069,https://bozemanhealth.org/locations/bozeman-health-big-sky-medical-center/,0.807
+272001,way/1090826321,Advanced Care Hospital of Montana,https://www.openstreetmap.org/way/1090826321,https://www.achm.ernesthealth.com/,1.0
 274004,way/499350654,Shodair Children's Hospital,https://www.openstreetmap.org/way/499350654,https://shodair.org/,1.0
 280003,relation/14338191,Bryan Health East Campus,https://www.openstreetmap.org/relation/14338191,https://www.bryanhealth.com/locations/bryan-east-campus/,0.881
 280020,relation/13757499,CHI Health Saint Elizabeth,https://www.openstreetmap.org/relation/13757499,https://www.chihealth.com/locations/st-elizabeth,1.0
@@ -2246,6 +2391,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 280133,node/1776814326,Nebraska Spine Hospital,https://www.openstreetmap.org/node/1776814326,https://nebraskaspinehospital.com/,1.0
 280134,way/591279985,Kearney Regional Medical Center,https://www.openstreetmap.org/way/591279985,https://www.bryanhealth.com/locations/hospitals/profile/kearney-regional-medical-center/,1.0
 280139,node/10894803472,Grand Island Regional Medical Center,https://www.openstreetmap.org/node/10894803472,https://www.bryanhealth.com/locations/hospitals/profile/grand-island-regional-medical-center/,1.0
+280780,way/445353180,Regional West Garden County,https://www.openstreetmap.org/way/445353180,https://gchealth.org/,0.783
 281300,way/445854884,Harlan County Health System,https://www.openstreetmap.org/way/445854884,https://harlancountyhealth.com/,1.0
 281301,way/446987436,Fillmore County Hospital,https://www.openstreetmap.org/way/446987436,https://www.myfch.org/,1.0
 281302,way/445528050,Pawnee County Memorial Hospital,https://www.openstreetmap.org/way/445528050,http://www.pawneehospital.com/,1.0
@@ -2256,7 +2402,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 281307,relation/14949157,Saunders Medical Center,https://www.openstreetmap.org/relation/14949157,https://saundersmedicalcenter.com/,1.0
 281308,way/447014622,Henderson Community Hospital,https://www.openstreetmap.org/way/447014622,https://www.hendersonhealthcare.org/,1.0
 281309,way/842895851,Syracuse Area Health,https://www.openstreetmap.org/way/842895851,https://syracuseareahealth.com/,1.0
-281310,way/445353180,Regional West Garden County,https://www.openstreetmap.org/way/445353180,https://gchealth.org/,0.783
 281311,way/445841382,Franklin County Memorial Hospital,https://www.openstreetmap.org/way/445841382,https://www.fcmh.com/,1.0
 281312,way/448035714,Genoa Community Hospital,https://www.openstreetmap.org/way/448035714,https://www.genoamedical.org/,1.0
 281313,way/583604815,Gothenburg Memorial Hospital,https://www.openstreetmap.org/way/583604815,https://www.gothenburghealth.org/,0.887
@@ -2303,6 +2448,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 281362,way/446011722,Phelps Memorial Health Center,https://www.openstreetmap.org/way/446011722,https://www.phelpsmemorial.com/,1.0
 281364,way/445617157,Beatrice Community Hospital & Health Center,https://www.openstreetmap.org/way/445617157,https://www.beatricecommunityhospital.com/,1.0
 281365,way/446158652,Jennie M. Melham Memorial Medical Center,https://www.openstreetmap.org/way/446158652,https://www.melham.org/,1.0
+283025,relation/8016744,Madonna Rehabilitation Hospital,https://www.openstreetmap.org/relation/8016744,https://www.madonna.org/patient/rehab/,0.849
 284003,relation/16239323,Lincoln Regional Center,https://www.openstreetmap.org/relation/16239323,https://dhhs.ne.gov/Pages/Regional-Centers.aspx,1.0
 290001,way/1178438366,Renown Regional Medical Center,https://www.openstreetmap.org/way/1178438366,https://www.renown.org/,1.0
 290003,way/130591920,Sunrise Hospital & Medical Center,https://www.openstreetmap.org/way/130591920,https://sunrisehospital.com/,0.982
@@ -2325,6 +2471,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 290053,way/27726853,St. Rose Dominican San Martín Campus,https://www.openstreetmap.org/way/27726853,https://www.dignityhealth.org/las-vegas/san-martin/san-martin-campus,0.801
 290057,way/538559901,Henderson Hospital,https://www.openstreetmap.org/way/538559901,https://www.hendersonhospital.com/,1.0
 290062,way/1086573560,West Henderson Hospital,https://www.openstreetmap.org/way/1086573560,https://westhendersonhospital.com/,1.0
+290779,way/149481345,Boulder City Hospital,https://www.openstreetmap.org/way/149481345,https://bchcares.org/,1.0
 291300,relation/19095738,Mount Grant General Hospital,https://www.openstreetmap.org/relation/19095738,https://mgghnv.org/,1.0
 291301,way/483711593,Incline Village Community Hospital,https://www.openstreetmap.org/way/483711593,https://www.tfhd.com/ivch,1.0
 291302,way/150272268,William Bee Ririe Hospital,https://www.openstreetmap.org/way/150272268,https://wbrhely.org/,1.0
@@ -2333,12 +2480,18 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 291306,way/591297725,Carson Valley Medical Center,https://www.openstreetmap.org/way/591297725,https://carsonvalleyhealth.org/cvh-locations/carson-valley-health-hospital/,0.912
 291307,way/483827775,Mesa View Regional Hospital,https://www.openstreetmap.org/way/483827775,http://www.mesaviewhospital.com/,1.0
 291308,way/1149336796,Humboldt General Hospital,https://www.openstreetmap.org/way/1149336796,https://www.hghospital.org/,1.0
-291309,way/149481345,Boulder City Hospital,https://www.openstreetmap.org/way/149481345,https://bchcares.org/,1.0
 291311,way/591299018,Desert View Hospital,https://www.openstreetmap.org/way/591299018,https://desertviewhospital.com/,1.0
 291312,way/483815660,Grover C Dils Medical Center,https://www.openstreetmap.org/way/483815660,http://gcdmc.org/,1.0
 291313,way/1060325386,Banner Churchill Community Hospital,https://www.openstreetmap.org/way/1060325386,https://www.bannerhealth.com/locations/fallon/banner-churchill-community-hospital,1.0
 291314,way/146237934,South Lyon Medical Center,https://www.openstreetmap.org/way/146237934,https://slmcnv.org/,1.0
-294010,way/1236482967,Spring Mountain Sahara,https://www.openstreetmap.org/way/1236482967,https://springmountaintreatmentcenter.com/,1.0
+292002,way/1236482972,Kindred Hospital Las Vegas - Sahara,https://www.openstreetmap.org/way/1236482972,http://www.kindredhospitallvs.com/,0.971
+292006,way/383915375,PAM Health Specialty Hospital of Las Vegas,https://www.openstreetmap.org/way/383915375,https://pamhealth.com/hospitals/pam-health-specialty-hospital-of-las-vegas/,0.973
+292007,way/1444629641,AMG Specialty Hospital - Las Vegas,https://www.openstreetmap.org/way/1444629641,https://amgihm.com/locations/las-vegas,1.0
+293032,node/10895075858,Encompass Health Rehabilitation Hospital Of Henderson,https://www.openstreetmap.org/node/10895075858,https://encompasshealth.com/locations/hendersonrehab,0.875
+293033,way/210546090,Encompass Health Rehabilitation Hospital Of Desert Canyon,https://www.openstreetmap.org/way/210546090,https://encompasshealth.com/locations/desertcanyonrehab,0.887
+293034,way/1172627236,PAM Rehabilitation Hospital Of Centennial Hills,https://www.openstreetmap.org/way/1172627236,https://pamhealth.com/facilities/find-facility/rehabilitation-hospitals/pam-rehabilitation-hospital-centennial-hills,1.0
+293035,node/10895050633,Dignity Health Rehabilitation Hospital,https://www.openstreetmap.org/node/10895050633,https://www.dignityhealthrehab.com,1.0
+294004,way/27503894,Montevista Hospital,https://www.openstreetmap.org/way/27503894,https://www.montevistahospital.com/,1.0
 294015,way/1177741443,Reno Behavioral Healthcare Hospital,https://www.openstreetmap.org/way/1177741443,https://renobehavioral.com,1.0
 300001,way/263354893,Concord Hospital,https://www.openstreetmap.org/way/263354893,https://www.concordhospital.org/,1.0
 300005,way/443454317,Concord Hospital – Laconia,https://www.openstreetmap.org/way/443454317,https://www.concordhospital.org/locations/profile/concord-hospital-laconia/,1.0
@@ -2364,6 +2517,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 301310,way/443460687,Androscoggin Valley Hospital,https://www.openstreetmap.org/way/443460687,http://www.avhnh.org/,1.0
 301311,way/443477721,Speare Memorial Hospital ER,https://www.openstreetmap.org/way/443477721,http://www.spearehospital.com/,0.807
 301312,way/443500220,Huggins Hospital,https://www.openstreetmap.org/way/443500220,https://www.hugginshospital.org/,1.0
+303026,way/1521957635,Northeast Rehabilitation Center,https://www.openstreetmap.org/way/1521957635,https://www.northeastrehab.com/locations/salem-nh-inpatient-rehabilitation/,0.944
 304000,way/1416648440,New Hampshire Hospital,https://www.openstreetmap.org/way/1416648440,https://www.dhhs.nh.gov/about-dhhs/locations-facilities/new-hampshire-hospital,1.0
 310001,way/245391851,Hackensack University Medical Center,https://www.openstreetmap.org/way/245391851,https://www.hackensackmeridianhealth.org/en/locations/hackensack-university-medical-center,1.0
 310002,way/431043330,Newark Beth Israel Medical Center,https://www.openstreetmap.org/way/431043330,https://www.rwjbh.org/newark-beth-israel-medical-center/,1.0
@@ -2416,7 +2570,10 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 310113,way/28354401,Southern Ocean Medical Center,https://www.openstreetmap.org/way/28354401,https://www.hackensackmeridianhealth.org/en/locations/southern-ocean-medical-center,1.0
 310118,way/451720059,Hudson Regional Hospital,https://www.openstreetmap.org/way/451720059,https://www.hudsonregionalhospital.com,1.0
 310119,way/591394791,University Hospital,https://www.openstreetmap.org/way/591394791,https://uhnj.org/,1.0
+312019,way/661135814,Select Specialty Hospital - Northeast NJ,https://www.openstreetmap.org/way/661135814,https://www.selectspecialtyhospitals.com/locations-and-tours/nj/rochelle-park/northeast-nj/?ty=xt,0.9
 312024,way/446140444,Silver Lake Hospital,https://www.openstreetmap.org/way/446140444,https://www.silverlakehospital.org/,0.844
+313027,way/484727938,Saint Lawrence Rehabilitation Center,https://www.openstreetmap.org/way/484727938,http://slrc.org/,0.921
+313035,node/10897764898,Encompass Health Rehabilitation Hospital Of Tinton Falls,https://www.openstreetmap.org/node/10897764898,https://encompasshealth.com/locations/tintonfallsrehab,0.886
 313300,way/484622208,Children's Specialized Hospital,https://www.openstreetmap.org/way/484622208,https://www.rwjbh.org/our-locations/pediatric-outpatient-facilities/childrens-specialized-outpatient-center-at-mount/,1.0
 313302,node/5646128627,Weisman Children's Rehabilitation Hospital,https://www.openstreetmap.org/node/5646128627,https://www.weismanchildrens.com/,1.0
 314001,way/484594780,Summit Oaks Hospital,https://www.openstreetmap.org/way/484594780,https://summitoakshospital.com/,1.0
@@ -2449,6 +2606,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 320086,way/591452843,Lovelace Regional Hospital - Roswell,https://www.openstreetmap.org/way/591452843,https://lovelace.com/roswell,1.0
 320090,way/689595292,Presbyterian Santa Fe Medical Center,https://www.openstreetmap.org/way/689595292,https://santa-fe-medical-center.phs.org/,1.0
 320091,way/1024658666,Three Crosses Regional Hospital,https://www.openstreetmap.org/way/1024658666,https://threecrossesregional.com/,1.0
+320094,way/1536290126,Exceptional Community Hospital - Farmington,https://www.openstreetmap.org/way/1536290126,https://ehc24.com/farmington/,1.0
 320779,way/458183369,Guadalupe County Hospital,https://www.openstreetmap.org/way/458183369,https://www.gchnm.org/,1.0
 321300,way/583844305,Sierra Vista Hospital,https://www.openstreetmap.org/way/583844305,https://www.svhnm.org/,1.0
 321301,way/553685396,Socorro General Hospital,https://www.openstreetmap.org/way/553685396,https://socorro-general-hospital.phs.org/,1.0
@@ -2461,6 +2619,10 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 321311,way/457771971,Gila Regional Medical Center,https://www.openstreetmap.org/way/457771971,https://www.grmc.org/,1.0
 321312,way/344616070,Alta Vista Regional Hospital,https://www.openstreetmap.org/way/344616070,https://www.altavistaregionalhospital.com/,1.0
 321313,way/457453624,Rehoboth McKinley Christian Health Care Services,https://www.openstreetmap.org/way/457453624,https://www.rmch.org/,1.0
+322002,node/357613858,Kindred Hospital - Albuquerque,https://www.openstreetmap.org/node/357613858,http://www.kindredalbuquerque.com/,1.0
+323028,node/357588677,Lovelace Rehabilitation Hospital,https://www.openstreetmap.org/node/357588677,https://lovelace.com/lovelace-rehabilitation-hospital,0.866
+323032,way/59039312,Rehabilitation Hospital of Southern New Mexico,https://www.openstreetmap.org/way/59039312,https://rhsnm.ernesthealth.com/,1.0
+323033,way/1123028246,Clearsky Rehab Hospital of Rio Rancho,https://www.openstreetmap.org/way/1123028246,https://clearskyhealth.com/riorancho/,0.88
 324010,way/172112244,Mesilla Valley Hospital,https://www.openstreetmap.org/way/172112244,https://mesillavalleyhospital.com/,0.859
 324012,way/1173178101,Peak Behavioral Health Services,https://www.openstreetmap.org/way/1173178101,https://www.peakbehavioral.com,1.0
 324014,node/10900845708,Central Desert Behavioral Health Hospital,https://www.openstreetmap.org/node/10900845708,https://www.centraldesertbh.com/,1.0
@@ -2568,6 +2730,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 330405,way/560802701,Helen Hayes Hospital,https://www.openstreetmap.org/way/560802701,https://helenhayeshospital.org/,1.0
 330799,way/591697847,Clifton Fine Hospital,https://www.openstreetmap.org/way/591697847,https://samaritanhealth.com/clifton-fine-hospital,1.0
 330800,way/558319484,Ira Davenport Memorial Hospital,https://www.openstreetmap.org/way/558319484,https://www.arnothealth.org/ira-davenport-memorial-hospital,1.0
+330801,way/558496907,Westfield Memorial Hospital,https://www.openstreetmap.org/way/558496907,https://www.ahn.org/locations/hospitals/westfield-memorial,1.0
 331301,way/558376816,Cuba Memorial Hospital,https://www.openstreetmap.org/way/558376816,https://www.cubamemorialhospital.com/,1.0
 331302,way/557329735,Elizabethtown Community Hospital,https://www.openstreetmap.org/way/557329735,https://www.uvmhealth.org/locations/elizabethtown-community-hospital,1.0
 331304,way/591684958,Margaretville Hospital,https://www.openstreetmap.org/way/591684958,https://www.wmchealth.org/locations/margaretville-hospital,0.949
@@ -2585,6 +2748,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 331319,way/558850785,Medina Memorial Hospital,https://www.openstreetmap.org/way/558850785,https://orleanscommunityhealth.org/,1.0
 331320,way/1557218328,Cobleskill Regional Hospital,https://www.openstreetmap.org/way/1557218328,https://www.bassett.org/medical/locations/hospitals/cobleskill-regional-hospital,1.0
 331323,way/558876660,Wyoming County Community Health System,https://www.openstreetmap.org/way/558876660,https://www.wcchs.net/,0.862
+333030,way/560874727,Burke Rehabilitation Center,https://www.openstreetmap.org/way/560874727,https://www.burke.org/,0.936
 333301,way/560862653,Blythedale Children's Hospital,https://www.openstreetmap.org/way/560862653,https://www.blythedale.org/,1.0
 334001,node/357607632,Richard H. Hutchings Psychiatric Center,https://www.openstreetmap.org/node/357607632,https://www.omh.ny.gov/omhweb/facilities/hupc/,1.0
 334002,node/357608132,Four Winds Hospital,https://www.openstreetmap.org/node/357608132,https://www.fourwindshospital.com/about_four_winds/westchester/index.html,0.907
@@ -2684,6 +2848,10 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 341327,way/466450778,Dosher Memorial Hospital,https://www.openstreetmap.org/way/466450778,https://www.dosher.org/,1.0
 341328,way/319318455,Murphy Medical Center,https://www.openstreetmap.org/way/319318455,https://www.erlanger.org/locations/erlanger-hospitals/erlanger-western-carolina-hospital,0.772
 341329,way/464820148,Blue Ridge Regional Hospital,https://www.openstreetmap.org/way/464820148,https://www.missionhealth.org/locations/blue-ridge-regional-hospital,1.0
+342012,way/1274234310,Kindred Hospital Greensboro,https://www.openstreetmap.org/way/1274234310,https://www.kindredhospitals.com/locations/north-carolina/greensboro,1.0
+342013,way/1390593356,PAM Health Specialty Hospital of Rocky Mount,https://www.openstreetmap.org/way/1390593356,https://pamhealth.com/hospitals/pam-health-specialty-hospital-of-rocky-mount/,0.974
+342015,way/465557450,Carolinas ContinueCARE Hospital,https://www.openstreetmap.org/way/465557450,https://pineville.continuecare.org/,0.831
+343027,node/10832197982,Novant Health Rehabilitation Hospital,https://www.openstreetmap.org/node/10832197982,https://www.encompasshealth.com/locations/novant-health-rehab,1.0
 344004,way/467075798,Central Regional Hospital,https://www.openstreetmap.org/way/467075798,https://www.ncdhhs.gov/divisions/dsohf/central-regional-hospital-0,1.0
 344025,relation/11198947,Broughton Hospital,https://www.openstreetmap.org/relation/11198947,https://www.ncdhhs.gov/divisions/dsohf/broughton-hospital,1.0
 344026,node/4614766058,Cherry Hospital,https://www.openstreetmap.org/node/4614766058,https://www.ncdhhs.gov/divisions/dsohf/cherry-hospital,1.0
@@ -2691,20 +2859,19 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 350011,way/584207352,Sanford Medical Center,https://www.openstreetmap.org/way/584207352,https://sanfordhealth.org/locations/sanford-medical-center-fargo,0.789
 350019,way/584173830,Altru Hospital,https://www.openstreetmap.org/way/584173830,https://www.altru.org/,1.0
 350070,way/584182499,Essentia Health-Fargo,https://www.openstreetmap.org/way/584182499,https://www.essentiahealth.org/fargo/find-a-clinic/essentia-healthfargo-87.aspx,0.775
+350779,node/10900940605,Nelson County Health System,https://www.openstreetmap.org/node/10900940605,https://www.nelsoncountyhealthsystem.org,1.0
 351300,way/743740175,Tioga Medical Center,https://www.openstreetmap.org/way/743740175,https://www.tiogahealth.org/,1.0
 351301,way/592203451,Mountrail County Medical Center,https://www.openstreetmap.org/way/592203451,https://www.stanleyhealth.org/,1.0
 351302,way/915149599,McKenzie County Hospital,https://www.openstreetmap.org/way/915149599,https://www.mckenziehealth.com/,0.78
-351303,way/592343808,CHI Saint Alexius Health Garrison,https://www.openstreetmap.org/way/592343808,https://www.chistalexiushealth.org/garrison,1.0
-351304,way/592346113,CHI Saint Alexius Health Turtle Lake,https://www.openstreetmap.org/way/592346113,https://www.chistalexiushealth.org/turtlelake,1.0
-351305,way/592347886,Trinity Kenmare Community Hospital,https://www.openstreetmap.org/way/592347886,https://www.trinityhealth.org/index.php?page=location&detail=25,1.0
-351308,node/10900940605,Nelson County Health System,https://www.openstreetmap.org/node/10900940605,https://www.nelsoncountyhealthsystem.org,1.0
+351303,way/592343808,CHI Saint Alexius Health Garrison,https://www.openstreetmap.org/way/592343808,https://providers.chistalexiushealth.org/l/chi-st-alexius-health-garrison-memorial-hospital-3670,1.0
+351304,way/592346113,CHI Saint Alexius Health Turtle Lake,https://www.openstreetmap.org/way/592346113,https://www.chistalexiushealth.org/locations/turtle-lake,1.0
+351305,way/592347886,Trinity Kenmare Community Hospital,https://www.openstreetmap.org/way/592347886,https://www.trinityhealth.org/locations/trinity-health-kenmare-hospital/,1.0
 351309,way/584175652,Sanford Mayville Medical Center,https://www.openstreetmap.org/way/584175652,https://www.sanfordhealth.org/locations/sanford-mayville-medical-center,0.904
 351310,way/592359070,Sakakawea Medical Center,https://www.openstreetmap.org/way/592359070,https://www.smcnd.org/,0.802
 351312,way/592391349,Northwood Deaconess Health Center,https://www.openstreetmap.org/way/592391349,https://www.ndhc.net/,1.0
 351313,way/592502042,Southwest Healthcare Services,https://www.openstreetmap.org/way/592502042,https://swhealthcare.net/,1.0
 351314,way/592506820,Jacobson Memorial Hospital Care Center,https://www.openstreetmap.org/way/592506820,https://www.jacobsonhospital.org/,1.0
 351315,way/444682721,CHI Oakes Hospital,https://www.openstreetmap.org/way/444682721,https://oakeshospital.com/,1.0
-351316,way/592508396,Presentation Medical Center,https://www.openstreetmap.org/way/592508396,https://pmc-rolla.com/,1.0
 351318,way/592530518,CHI St. Alexius Health Carrington,https://www.openstreetmap.org/way/592530518,https://www.chistalexiushealth.org/locations/carrington,1.0
 351319,way/592530923,Pembina County Memorial Hospital,https://www.openstreetmap.org/way/592530923,https://www.cavalierhospital.com/,1.0
 351320,way/444679727,Unity Medical Center,https://www.openstreetmap.org/way/444679727,https://www.unitymedcenter.com/,1.0
@@ -2712,14 +2879,16 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 351324,way/444683149,CHI Mercy Health,https://www.openstreetmap.org/way/444683149,https://www.mercyhospitalvalleycity.org/,1.0
 351325,way/592536859,Saint Luke’s Medical Center,https://www.openstreetmap.org/way/592536859,https://www.dcstlukes.org/,0.875
 351326,way/592504546,First Care Health Center,https://www.openstreetmap.org/way/592504546,https://www.firstcarehc.com/,1.0
+351327,way/592345366,SMP Health – St. Aloisius,https://www.openstreetmap.org/way/592345366,https://smphealth.org/staloisius/,1.0
 351329,way/592332967,Sanford Hillsboro Medical Center,https://www.openstreetmap.org/way/592332967,https://www.sanfordhealth.org/locations/sanford-hillsboro-medical-center,0.908
 351330,way/592213780,West River Regional Medical Center,https://www.openstreetmap.org/way/592213780,https://www.wrhs.com/,1.0
 351331,way/1530846411,Towner County Medical Center,https://www.openstreetmap.org/way/1530846411,https://tcmedcenter.org/,1.0
 351332,way/1530847318,Heart of America Medical Center,https://www.openstreetmap.org/way/1530847318,https://www.hamc.com/,1.0
-351333,way/134745924,Chi Saint Alexius Health Devils Lake,https://www.openstreetmap.org/way/134745924,https://www.chistalexiushealth.org/devilslake,1.0
 351334,way/444667196,CHI St. Alexius Health - Williston Medical Center,https://www.openstreetmap.org/way/444667196,https://www.chistalexiushealth.org/locations/williston,0.946
 351335,way/444683998,Jamestown Regional Medical Center,https://www.openstreetmap.org/way/444683998,https://www.jrmcnd.com/,1.0
 351336,way/444668119,CHI St. Alexius Health Dickinson,https://www.openstreetmap.org/way/444668119,https://chistjosephshealth.org/,1.0
+352005,node/10900941994,Vibra Hospital Of Central Dakotas,https://www.openstreetmap.org/node/10900941994,https://vhcentraldakotas.com,1.0
+353026,way/1047744204,PAM Rehabilitation Hospital Of Fargo,https://www.openstreetmap.org/way/1047744204,https://pamhealth.com/facilities/find-facility/rehabilitation-hospitals/pam-rehabilitation-hospital-fargo,1.0
 354003,way/457354660,North Dakota State Hospital,https://www.openstreetmap.org/way/457354660,https://www.nd.gov/dhs/locations/statehospital/,1.0
 354004,way/444682072,Prairie St. John's,https://www.openstreetmap.org/way/444682072,https://prairie-stjohns.com/,1.0
 360003,way/50956024,University of Cincinnati Medical Center,https://www.openstreetmap.org/way/50956024,https://uchealth.com/university-of-cincinnati-medical-center/,1.0
@@ -2753,7 +2922,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 360064,way/464410966,Saint Elizabeth Youngstown Hospital,https://www.openstreetmap.org/way/464410966,https://www.mercy.com/youngstown/locations/hospitals/mercy-health-st-elizabeth-youngstown-hospital,0.871
 360065,way/465200010,Fisher-Titus Medical Center,https://www.openstreetmap.org/way/465200010,https://www.fishertitus.org/,0.947
 360068,way/455232588,ProMedica Toledo Hospital,https://www.openstreetmap.org/way/455232588,https://www.promedica.org/toledo-hospital/,1.0
-360071,way/521908267,Van Wert County Hospital,https://www.openstreetmap.org/way/521908267,https://www.vanwerthospital.org/,1.0
 360072,way/1112420721,Fairfield Medical Center,https://www.openstreetmap.org/way/1112420721,https://www.fmchealth.org,1.0
 360076,way/99999351,Atrium Medical Center,https://www.openstreetmap.org/way/99999351,https://www.atriummedcenter.org/,1.0
 360077,way/544927497,Fairview Hospital,https://www.openstreetmap.org/way/544927497,https://my.clevelandclinic.org/locations/fairview-hospital,1.0
@@ -2781,7 +2949,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 360144,way/285569300,South Pointe Hospital,https://www.openstreetmap.org/way/285569300,https://my.clevelandclinic.org/locations/south-pointe-hospital,1.0
 360145,way/397182744,University Hospitals Elyria Medical Center,https://www.openstreetmap.org/way/397182744,http://www.uhhospitals.org/elyria,1.0
 360147,way/457037783,Marietta Memorial Hospital,https://www.openstreetmap.org/way/457037783,https://www.mhsystem.org/locations/hospital/marietta-memorial/,1.0
-360148,way/465331473,Pomerene Hospital,https://www.openstreetmap.org/way/465331473,https://www.pomerenehospital.org/,1.0
 360150,way/460125594,Western Reserve Hospital,https://www.openstreetmap.org/way/460125594,https://www.westernreservehospital.org/,0.85
 360155,way/456872535,Southwest General Health Center,https://www.openstreetmap.org/way/456872535,https://www.swgeneral.com/,1.0
 360156,way/457624003,Memorial Hospital,https://www.openstreetmap.org/way/457624003,https://www.promedica.org/memorial-hospital,1.0
@@ -2846,6 +3013,19 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 361333,way/519203682,Fulton County Health Center,https://www.openstreetmap.org/way/519203682,https://www.fultoncountyhealthcenter.org/,1.0
 361334,way/520172264,Adena Pike Medical Center,https://www.openstreetmap.org/way/520172264,https://www.adena.org/locations/Adena-Pike-Medical-Center,1.0
 361335,way/521570968,Wayne Healthcare,https://www.openstreetmap.org/way/521570968,https://www.waynehealthcare.org/,0.88
+361336,way/521908267,Van Wert County Hospital,https://www.openstreetmap.org/way/521908267,https://www.vanwerthospital.org/,1.0
+361337,way/465331473,Pomerene Hospital,https://www.openstreetmap.org/way/465331473,https://www.pomerenehospital.org/,1.0
+362015,node/10903823968,Grace Hospital,https://www.openstreetmap.org/node/10903823968,https://www.gracehospital.org,1.0
+362023,node/10904111646,Select Specialty Hospital - Boardman,https://www.openstreetmap.org/node/10904111646,https://www.selectspecialtyhospitals.com/locations-and-tours/oh/youngstown/boardman/,1.0
+362026,way/470479981,Select Specialty Hospital - Cleveland Fairhill,https://www.openstreetmap.org/way/470479981,https://clevelandfairhill.selectspecialtyhospitals.com/,1.0
+362027,way/1459862215,Select Specialty Hospital - Akron,https://www.openstreetmap.org/way/1459862215,https://www.selectspecialtyhospitals.com/locations-and-tours/oh/akron/akron/,1.0
+362029,node/10904092272,Regency Hospital Of Cleveland East,https://www.openstreetmap.org/node/10904092272,https://www.regencyhospital.com/locations-and-tours/oh/warrensville-heights/cleveland-east/,1.0
+362031,node/10903818303,Select Specialty Hospital Southeast Ohio,https://www.openstreetmap.org/node/10903818303,https://www.selectspecialtyhospitals.com/locations-and-tours/oh/newark/southeast-ohio/,1.0
+362036,way/190680024,Regency Hospital - Toledo,https://www.openstreetmap.org/way/190680024,https://www.regencyhospital.com/locations-and-tours/oh/sylvania/toledo/,0.982
+363037,node/11415551269,OhioHealth Rehabilitation Hospital - Dublin,https://www.openstreetmap.org/node/11415551269,https://www.ohiohealth-rehab.com/locations-and-tours/ohiohealth-rehabilitation-hospital-dublin/,0.855
+363041,way/1055469033,Trihealth Rehabilitation Hospital,https://www.openstreetmap.org/way/1055469033,https://www.trihealthrehab.com,1.0
+363042,node/10904092386,Mount Carmel Rehabilitation Hospital An Affiliate Of Encompass Health,https://www.openstreetmap.org/node/10904092386,https://encompasshealth.com/locations/mountcarmelrehab,0.879
+363049,way/1218870268,Mercy Health Rehabilitation Hospital,https://www.openstreetmap.org/way/1218870268,https://www.mercyhealthrehabhospital.com/,1.0
 363300,way/56235932,Cincinnati Children’s Hospital Medical Center,https://www.openstreetmap.org/way/56235932,https://www.cincinnatichildrens.org/locations/burnet,1.0
 363302,node/5656050761,UH Rainbow Babies & Children’s Hospital,https://www.openstreetmap.org/node/5656050761,https://www.uhhospitals.org/rainbow,0.819
 363303,way/464365604,Akron Children's Hospital,https://www.openstreetmap.org/way/464365604,https://www.akronchildrens.org/,1.0
@@ -2857,6 +3037,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 364015,way/543812109,Appalachian Behavioral Healthcare,https://www.openstreetmap.org/way/543812109,https://mha.ohio.gov/Default.aspx?tabid=187,0.96
 364029,way/525401036,Windsor Laurelwood Center for Behavioral Medicine,https://www.openstreetmap.org/way/525401036,https://www.windsorlaurelwood.com/,0.819
 364035,way/141919400,Summit Behavioral Center,https://www.openstreetmap.org/way/141919400,https://mha.ohio.gov/Default.aspx?tabid=192,0.931
+364038,way/1229710429,Belmont Pines Hospital,https://www.openstreetmap.org/way/1229710429,https://www.belmontpines.com/,1.0
 364041,node/10904101463,Ohio Hospital For Psychiatry,https://www.openstreetmap.org/node/10904101463,https://www.ohiohospitalforpsychiatry.com,1.0
 364044,way/143354906,Lindner Center of HOPE,https://www.openstreetmap.org/way/143354906,https://lindnercenterofhope.org/,1.0
 364047,node/10903858100,Ridgeview Behavioral Hospital,https://www.openstreetmap.org/node/10903858100,https://ridgeviewhospital.net,0.755
@@ -2902,7 +3083,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 370166,way/593481452,Wagoner Community Hospital,https://www.openstreetmap.org/way/593481452,https://www.wagonerhospital.com/,1.0
 370170,way/454914111,Lawton Indian Hospital,https://www.openstreetmap.org/way/454914111,https://www.ihs.gov/oklahomacity/healthcarefacilities/lawton/,1.0
 370171,way/593444045,Cherokee Nation W. W. Hastings Hospital,https://www.openstreetmap.org/way/593444045,http://www.cherokee.org/Services/Health/Health-Centers-Hospitals,0.903
-370173,way/593497807,Claremore Indian Hospital,https://www.openstreetmap.org/way/593497807,https://www.ihs.gov/oklahomacity/healthcarefacilities/claremore/,1.0
 370183,way/593535253,Hillcrest Hospital Henryetta,https://www.openstreetmap.org/way/593535253,https://hillcresthenryetta.com/,1.0
 370192,way/466837211,Northwest Surgical Hospital,https://www.openstreetmap.org/way/466837211,https://nwsurgicalokc.com/,1.0
 370201,way/497524650,Surgical Hospital of Oklahoma,https://www.openstreetmap.org/way/497524650,https://surgicalhospitalok.net/,1.0
@@ -2917,6 +3097,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 370222,way/584322708,McBride Orthopedic Hospital,https://www.openstreetmap.org/way/584322708,https://www.mcboh.com/,1.0
 370225,way/593542044,Summit Medical Center,https://www.openstreetmap.org/way/593542044,https://summitmedcenter.com/,1.0
 370228,way/584316465,Bailey Medical Center,https://www.openstreetmap.org/way/584316465,https://baileymedicalcenter.com/,1.0
+370229,way/593765528,AllianceHealth Seminole,https://www.openstreetmap.org/way/593765528,https://www.myalliancehealth.com/alliancehealth-seminole,1.0
 370234,way/497383718,Oklahoma Heart Hospital - South Campus,https://www.openstreetmap.org/way/497383718,https://www.okheart.com/locations/south-campus,0.968
 370235,way/469567338,Ascension Saint John Broken Arrow,https://www.openstreetmap.org/way/469567338,https://www.stjohnhealthsystem.com/broken-arrow,1.0
 370236,way/456800957,INTEGRIS Health Edmond,https://www.openstreetmap.org/way/456800957,https://integrishealth.org/locations/hospital/integris-health-edmond-hospital,0.949
@@ -2957,6 +3138,10 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 371340,way/346968027,Memorial Hospital of Texas County,https://www.openstreetmap.org/way/346968027,https://www.mhtcguymon.org/,0.844
 371341,way/991000896,Share Medical Center,https://www.openstreetmap.org/way/991000896,https://www.smcok.com/,1.0
 371342,way/593427964,McCurtain Memorial Hospital,https://www.openstreetmap.org/way/593427964,http://www.mmhok.com/,1.0
+372018,way/1194602717,PAM Health Specialty Hospital of Tulsa,https://www.openstreetmap.org/way/1194602717,https://pamhealth.com/hospitals/pam-health-specialty-hospital-of-tulsa/,0.97
+372022,way/1424808167,Cornerstone Specialty Hospitals Muskogee,https://www.openstreetmap.org/way/1424808167,https://www.chghospitals.com/location-muskogee/,1.0
+373033,node/10904129810,Mercy Rehabilitation Hospital Oklahoma City,https://www.openstreetmap.org/node/10904129810,https://www.mercy.net/practice/mercy-rehabilitation-hospital-oklahoma-city/,1.0
+373038,way/1173553998,Mercy Rehabilitation Hospital Oklahoma City South,https://www.openstreetmap.org/way/1173553998,https://www.mercy.net/practice/mercy-rehabilitation-hospital-oklahoma-city-south/,0.82
 373303,way/176910708,The Children's Hospital at OU Medical Center,https://www.openstreetmap.org/way/176910708,https://www.ouhealth.com/oklahoma-childrens/,0.792
 374008,node/10904134932,Jim Taliaferro Community Mental Health Center,https://www.openstreetmap.org/node/10904134932,https://www.okdrs.gov/guide/jim-taliaferro-community-mental-health-center-0,0.982
 374012,way/1216914262,Brookhaven Hospital,https://www.openstreetmap.org/way/1216914262,https://traumaticbraininjury.net,1.0
@@ -2965,7 +3150,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 374025,node/10904116662,Oakwood Springs,https://www.openstreetmap.org/node/10904116662,https://oakwoodsprings.com,1.0
 374026,relation/13543878,Tulsa Center for Behavioral Health,https://www.openstreetmap.org/relation/13543878,https://oklahoma.gov/odmhsas/about/odmhsas-facilities/tcbh.html,1.0
 374027,node/12747940011,Behavioral Health Center at Porter Health Village,https://www.openstreetmap.org/node/12747940011,https://oceanshealthcare.com/ohc-location/behavioral-health-center/,1.0
-380001,way/459056437,Adventist Health Columbia Gorge,https://www.openstreetmap.org/way/459056437,https://www.adventisthealth.org/columbia-gorge/,1.0
 380002,way/459155922,Asante Three Rivers Medical Center,https://www.openstreetmap.org/way/459155922,https://www.asante.org/Locations/location-detail/?id=1022,1.0
 380004,way/459250376,Providence Saint Vincent Hospital,https://www.openstreetmap.org/way/459250376,https://www.providence.org/locations/or/st-vincent-medical-center,0.933
 380005,way/459088195,Asante Ashland Community Hospital,https://www.openstreetmap.org/way/459088195,https://www.asante.org/Locations/location-detail/?id=1042,1.0
@@ -3019,6 +3203,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 381323,way/202517493,Samaritan Lebanon Community Hospital,https://www.openstreetmap.org/way/202517493,https://www.samhealth.org/find-a-location/s/samaritan-lebanon-community-hospital,1.0
 381324,way/438338475,St. Charles Madras,https://www.openstreetmap.org/way/438338475,https://stcharleshealthcare.org/locations/st-charles-madras,1.0
 381325,way/459035892,Good Shepherd Medical Center,https://www.openstreetmap.org/way/459035892,https://www.gshealth.org/,1.0
+381326,way/459056437,Adventist Health Columbia Gorge,https://www.openstreetmap.org/way/459056437,https://www.adventisthealth.org/columbia-gorge/,1.0
 383300,way/331334473,Shriners Hospitals for Children,https://www.openstreetmap.org/way/331334473,https://www.shrinershospitalsforchildren.org/portland,0.84
 384008,way/30264157,Oregon State Hospital,https://www.openstreetmap.org/way/30264157,https://www.oregon.gov/oha/osh/,0.75
 384012,way/544252786,Cedar Hills Hospital,https://www.openstreetmap.org/way/544252786,https://cedarhillshospital.com/,1.0
@@ -3070,7 +3255,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 390112,way/552722303,Chan Soon-Shiong Medical Center at Windber,https://www.openstreetmap.org/way/552722303,https://www.windbercare.org/,1.0
 390113,way/551357528,Meadville Medical Center,https://www.openstreetmap.org/way/551357528,https://www.mmchs.org/,1.0
 390114,way/330452670,UPMC Magee-Womens Hospital,https://www.openstreetmap.org/way/330452670,https://www.upmc.com/locations/hospitals/Magee/,0.942
-390116,way/225288235,Suburban Community Hospital,https://www.openstreetmap.org/way/225288235,https://www.suburbanhosp.org/,1.0
 390117,way/552822519,UPMC Bedford,https://www.openstreetmap.org/way/552822519,https://www.upmc.com/locations/hospitals/bedford/,0.918
 390123,way/384916889,Pottstown Hospital,https://www.openstreetmap.org/way/384916889,https://towerhealth.org/locations/pottstown-hospital,1.0
 390125,way/505187036,Wayne Memorial Hospital,https://www.openstreetmap.org/way/505187036,https://www.wmh.org/,1.0
@@ -3083,7 +3267,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 39013F,node/10840922123,Wilkes - Barre VA Medical Center,https://www.openstreetmap.org/node/10840922123,https://www.va.gov/wilkes-barre-health-care/locations/wilkes-barre-va-medical-center,1.0
 390142,way/426440347,Jefferson Einstein Philadelphia Hospital,https://www.openstreetmap.org/way/426440347,https://www.jeffersonhealth.org/locations/jefferson-einstein-hospital,1.0
 390145,way/552703999,Westmoreland Hospital,https://www.openstreetmap.org/way/552703999,https://www.independence.health/locations/westmoreland-hospital/,0.933
-390146,way/545060007,Warren General Hospital,https://www.openstreetmap.org/way/545060007,https://www.wgh.org/,1.0
 390147,way/324504870,Penn Highlands Mon Valley,https://www.openstreetmap.org/way/324504870,https://www.phhealthcare.org/location/hospitals/penn-highlands-mon-valley-762,1.0
 390150,way/552597156,UPMC Greene,https://www.openstreetmap.org/way/552597156,https://whs.org/locations-practices/greene/,1.0
 390151,way/475444613,WellSpan Chambersburg Hospital,https://www.openstreetmap.org/way/475444613,https://www.wellspan.org/locations/wellspan-chambersburg-hospital-loc0000169728,1.0
@@ -3141,6 +3324,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 390336,way/909462957,Penn State Health Hampden Medical Center,https://www.openstreetmap.org/way/909462957,https://www.pennstatehealth.org/locations/penn-state-health-hampden-medical-center,1.0
 390338,way/1247964120,Lehigh Valley Hospital,https://www.openstreetmap.org/way/1247964120,https://www.lvhn.org/locations/lehigh-valley-hospital-dickson-city,0.757
 390339,way/917835353,Penn State Health Lancaster Medical Center,https://www.openstreetmap.org/way/917835353,https://www.pennstatehealth.org/locations/penn-state-health-lancaster-medical-center,1.0
+390431,way/555448873,"ChristianaCare Hospital, West Grove",https://www.openstreetmap.org/way/555448873,https://christianacareneighborhoodhospitals.org/west-grove/,0.972
 391300,way/551771745,Geisinger Jersey Shore Hospital,https://www.openstreetmap.org/way/551771745,https://locations.geisinger.org/geisinger-jersey-shore-hospital,1.0
 391301,way/551757948,UPMC Muncy,https://www.openstreetmap.org/way/551757948,https://www.upmc.com/locations/hospitals/muncy,1.0
 391302,way/552739400,Conemaugh Meyersdale Medical Center,https://www.openstreetmap.org/way/552739400,https://www.conemaugh.org/meyersdale,1.0
@@ -3157,6 +3341,18 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 391316,way/551543647,UPMC Wellsboro,https://www.openstreetmap.org/way/551543647,https://www.upmc.com/locations/hospitals/north-central-pa,1.0
 391317,way/594739080,Conemaugh Miners Medical Center,https://www.openstreetmap.org/way/594739080,https://www.conemaugh.org/miners,1.0
 391318,way/594729315,UPMC Kane,https://www.openstreetmap.org/way/594729315,https://www.kanecommunityhospital.com/,1.0
+391319,way/545060007,Warren General Hospital,https://www.openstreetmap.org/way/545060007,https://www.wgh.org/,1.0
+392027,way/555873004,Kindred Hospital Philadelphia,https://www.openstreetmap.org/way/555873004,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-philadelphia,1.0
+393025,way/555341285,Bryn Mawr Rehab Hospital,https://www.openstreetmap.org/way/555341285,https://www.mainlinehealth.org/locations/bryn-mawr-rehab-hospital,0.944
+393027,node/10844713629,Encompass Health Rehabilitation Hospital Of Harmarville,https://www.openstreetmap.org/node/10844713629,https://encompasshealth.com/locations/harmarvillerehab,0.857
+393031,node/10844725885,Encompass Health Rehabilitation Hospital Of Mechanicsburg,https://www.openstreetmap.org/node/10844725885,https://encompasshealth.com/locations/mechanicsburgrehab,0.864
+393035,relation/21411763,The Good Shepherd Rehabilitation Hospital,https://www.openstreetmap.org/relation/21411763,https://www.goodshepherdrehab.org,1.0
+393036,node/10844735525,John Heinz Institute Of Rehabilitation Medicine,https://www.openstreetmap.org/node/10844735525,https://www.allied-services.org/locations/allied-services-wilkes-barre-rehab-hospital,1.0
+393039,node/10844689823,Encompass Health Rehabilitation Hospital Of Nittany Valley,https://www.openstreetmap.org/node/10844689823,https://encompasshealth.com/locations/nittanyvalleyrehab,0.803
+393040,node/10844713103,Encompass Health Rehabilitation Hospital Of Altoona,https://www.openstreetmap.org/node/10844713103,https://encompasshealth.com/locations/altoonarehab,0.88
+393045,way/1273975652,Encompass Health Rehabilitation,https://www.openstreetmap.org/way/1273975652,https://encompasshealth.com/sewickleyrehab,0.816
+393053,way/1554013988,Penn State Health Rehabilitation Hospital,https://www.openstreetmap.org/way/1554013988,https://www.psh-rehab.com,1.0
+393055,way/1021336304,Saint Mary Rehabilitation Hospital,https://www.openstreetmap.org/way/1021336304,https://www.stmaryrehabilitationhospital.com,1.0
 393302,way/329264979,UPMC Children's Hospital of Pittsburgh,https://www.openstreetmap.org/way/329264979,https://www.chp.edu/,1.0
 393303,way/50033035,Children's Hospital of Philadelphia,https://www.openstreetmap.org/way/50033035,https://www.chop.edu/,1.0
 393307,way/784004717,Saint Christopher's Hospital for Children,https://www.openstreetmap.org/way/784004717,https://www.stchristophershospital.com/,1.0
@@ -3173,6 +3369,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 394027,way/692983993,Fairmount Behavioral Health System,https://www.openstreetmap.org/way/692983993,https://fairmountbhs.com,1.0
 394033,node/1096960819,Montgomery County Emergency Service - Crisis Services,https://www.openstreetmap.org/node/1096960819,http://www.mces.org/,0.828
 394034,way/555549095,The Horsham Clinic,https://www.openstreetmap.org/way/555549095,https://www.horshamclinic.com/,1.0
+394038,way/692974781,Foundations Behavioral Health,https://www.openstreetmap.org/way/692974781,https://fbh.com,1.0
+394047,node/10844680518,Kidspeace Orchard Hills Campus,https://www.openstreetmap.org/node/10844680518,https://www.kidspeace.org/pa-psychiatric-hospital,1.0
 394049,way/692980208,Brooke Glen Behavioral Hospital,https://www.openstreetmap.org/way/692980208,https://brookeglenhospital.com/,1.0
 394050,way/692971860,Roxbury Treatment Center,https://www.openstreetmap.org/way/692971860,https://roxburyhospital.com/,1.0
 394052,node/10844735246,Haven Behavioral Hospital Of Eastern Pennsylvania,https://www.openstreetmap.org/node/10844735246,https://www.havenreading.com,1.0
@@ -3199,7 +3397,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 400117,way/585762798,Hospital Metropolitano Dr. Susoni,https://www.openstreetmap.org/way/585762798,https://hospitaldrsusoni.com/,1.0
 400118,way/312656295,Doctors' Center Hospital,https://www.openstreetmap.org/way/312656295,https://www.tuhospitalfamiliar.com/,1.0
 400123,node/357272892,Hospital Perea,https://www.openstreetmap.org/node/357272892,https://hospitalperea.com/,1.0
-400128,way/366580694,Hospital Pavía de Hato Rey,https://www.openstreetmap.org/way/366580694,https://hospitalpaviahr.com/,0.753
 400130,way/585664886,Hospital Metropolitano de la Montaña,https://www.openstreetmap.org/way/585664886,https://hospitalmetroutuado.com/,0.896
 400131,way/529716763,Caribbean Medical Center,https://www.openstreetmap.org/way/529716763,https://www.caribbeanmedicalcenter.com/,1.0
 400134,way/333374803,The San Jorge Hospital,https://www.openstreetmap.org/way/333374803,https://www.sanjorgechildrenshospital.com/,1.0
@@ -3207,6 +3404,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 400141,way/529716762,Centro Médico del Noreste,https://www.openstreetmap.org/way/529716762,https://himasanpablo.com/hospitales/fajardo/,0.819
 404004,way/529831216,First Hospital Panamericano,https://www.openstreetmap.org/way/529831216,https://www.hospitalpanamericano.com/tour-virtual/cidra,1.0
 404007,way/585721026,Hospital Metropolitano Psiquiátrico de Cabo Rojo,https://www.openstreetmap.org/way/585721026,http://metropavia.com/facilities/hospitals/metropolitano-de-cabo-rojo/?lang=en/,0.893
+404010,way/366580694,Hospital Pavía de Hato Rey,https://www.openstreetmap.org/way/366580694,https://hospitalpaviahr.com/,0.753
 410004,way/442843157,Roger Williams Medical Center,https://www.openstreetmap.org/way/442843157,https://www.chartercare.org/locations/rwmc/,1.0
 410005,way/229097742,Our Lady of Fatima Hospital,https://www.openstreetmap.org/way/229097742,https://www.fatimahospital.com/,1.0
 410006,way/411916150,Newport Hospital,https://www.openstreetmap.org/way/411916150,https://www.newporthospital.org/,1.0
@@ -3217,6 +3415,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 410012,way/442817880,Miriam Hospital,https://www.openstreetmap.org/way/442817880,https://www.miriamhospital.org/,1.0
 410013,way/442670359,Westerly Hospital,https://www.openstreetmap.org/way/442670359,https://www.westerlyhospital.org/,1.0
 41005F,way/442843156,Providence VA Medical Center,https://www.openstreetmap.org/way/442843156,https://www.va.gov/providence-health-care/locations/providence-va-medical-center/,1.0
+412001,node/10836175485,Eleanor Slater Hospital,https://www.openstreetmap.org/node/10836175485,https://bhddh.ri.gov/eleanor-slater-hospital,1.0
+413025,node/10836133856,Rehabilitation Hospital Of Rhode Island,https://www.openstreetmap.org/node/10836133856,https://www.rhri.net/home.aspx,1.0
 414000,way/413685701,Butler Hospital,https://www.openstreetmap.org/way/413685701,https://www.butler.org/,1.0
 414003,way/332716943,Bradley Hospital,https://www.openstreetmap.org/way/332716943,https://www.bradleyhospital.org/,1.0
 420002,way/434915424,Piedmont Medical Center,https://www.openstreetmap.org/way/434915424,https://www.piedmontmedicalcenter.com/,1.0
@@ -3226,7 +3426,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 420009,way/468628840,Prisma Health Oconee Memorial Hospital,https://www.openstreetmap.org/way/468628840,https://prismahealth.org/locations/hospitals/oconee-memorial-hospital,1.0
 420010,way/468187128,Carolina Pines Regional Medical Center,https://www.openstreetmap.org/way/468187128,https://www.cprmc.com/,1.0
 420011,way/596224011,AnMed Health Cannon,https://www.openstreetmap.org/way/596224011,https://anmed.org/locations/anmed-cannon,1.0
-420015,way/1165512566,Easley Baptist Hospital,https://www.openstreetmap.org/way/1165512566,https://prismahealth.org/locations/hospitals/baptist-easley-hospital,0.813
 420018,way/468233494,Prisma Health Richland Hospital,https://www.openstreetmap.org/way/468233494,https://prismahealth.org/locations/hospitals/richland-hospital,1.0
 420020,way/467836852,Tidelands Georgetown Memorial Hospital,https://www.openstreetmap.org/way/467836852,https://www.tidelandshealth.org/locations/profile/?id=3,1.0
 420023,way/340535949,St. Francis Downtown,https://www.openstreetmap.org/way/340535949,https://bonsecours.com/greenville,1.0
@@ -3254,21 +3453,25 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 420102,way/389208094,Prisma Health Patewood Hospital,https://www.openstreetmap.org/way/389208094,https://prismahealth.org/locations/hospitals/patewood-hospital,1.0
 420103,node/13773053904,Pelham Medical Center,https://www.openstreetmap.org/node/13773053904,https://www.spartanburgregional.com/locations/pelham-medical-center/,1.0
 420104,way/584803438,Mount Pleasant Hospital,https://www.openstreetmap.org/way/584803438,https://www.rsfh.com/locations/roper-st-francis-mount-pleasant-hospital,1.0
-420106,way/532785296,Prisma Health Baptist Parkridge Hospital,https://www.openstreetmap.org/way/532785296,https://prismahealth.org/locations/hospitals/baptist-parkridge-hospital,0.962
 420107,way/468068435,McLeod Health Cheraw,https://www.openstreetmap.org/way/468068435,https://www.mcleodhealth.org/locations/mcleod-cheraw/,1.0
 420108,way/1211386851,Union Medical Center,https://www.openstreetmap.org/way/1211386851,https://www.spartanburgregional.com/locations/union-medical-center/,1.0
 420109,way/303719774,McLeod Health Clarendon,https://www.openstreetmap.org/way/303719774,https://www.mcleodhealth.org/locations/mcleod-clarendon/,1.0
 420110,way/1072039840,Roper Saint Francis Berkeley Hospital,https://www.openstreetmap.org/way/1072039840,https://www.rsfh.com/berkeley-hospital/,1.0
 421300,way/467275427,Allendale County Hospital,https://www.openstreetmap.org/way/467275427,https://www.achospital.org/,1.0
 421301,way/467480618,Abbeville Area Medical Center,https://www.openstreetmap.org/way/467480618,https://www.abbevilleareamc.com/,1.0
+423027,way/1434634761,MUSC Health Rehabilitation Hospital,https://www.openstreetmap.org/way/1434634761,https://www.encompasshealth.com/locations/charleston-rehab,0.996
+423029,way/935630961,AnMed Health Rehabilitation Hospital,https://www.openstreetmap.org/way/935630961,https://www.encompasshealth.com/locations/anmed-rehab,1.0
+423030,way/913444511,Greenwood Regional Rehabilitation Hospital,https://www.openstreetmap.org/way/913444511,https://grrh.ernesthealth.com,1.0
+423031,node/10834325265,Spartanburg Rehabilitation Institute,https://www.openstreetmap.org/node/10834325265,https://sri.ernesthealth.com,1.0
+423034,node/10834291446,Midlands Regional Rehabilitation Hospital,https://www.openstreetmap.org/node/10834291446,https://mrrh.ernesthealth.com,1.0
 423300,way/96158572,Shriners Hospitals for Children — Greenville,https://www.openstreetmap.org/way/96158572,https://www.shrinershospitalsforchildren.org/greenville,0.838
 424002,way/693161764,Lighthouse Behavioral Health Hospital,https://www.openstreetmap.org/way/693161764,https://lighthousebehavioral.com,1.0
 424005,way/595147088,G Werber Bryan Psychiatric Hospital,https://www.openstreetmap.org/way/595147088,https://www.state.sc.us/dmh/dir_facilities.htm,0.884
 424006,way/467658552,Palmetto Lowcountry Behavioral Health,https://www.openstreetmap.org/way/467658552,https://www.palmettobehavioralhealth.com/,1.0
 424008,way/468220727,Three Rivers Behavioral Health,https://www.openstreetmap.org/way/468220727,https://www.threeriversbehavioral.org/,1.0
 424010,way/1505423793,The Carolina Center for Behavioral Health,https://www.openstreetmap.org/way/1505423793,https://thecarolinacenter.com/,1.0
-424014,node/10834276255,Rebound Behavioral Health,https://www.openstreetmap.org/node/10834276255,https://www.reboundbehavioralhealth.com,1.0
-430005,way/584737977,Prairie Lakes Hospital,https://www.openstreetmap.org/way/584737977,https://www.prairielakes.com/,0.892
+424013,node/10834346214,William J Mccord Adolescent Treatment Facility,https://www.openstreetmap.org/node/10834346214,https://www.tccada.com/adolescent-inpatient-services,1.0
+424014,way/1579048150,Rebound Behavioral Health,https://www.openstreetmap.org/way/1579048150,https://www.reboundbehavioralhealth.com,1.0
 430008,node/13186356102,Brookings Health System,https://www.openstreetmap.org/node/13186356102,https://www.brookingshealth.org/,1.0
 430012,node/606322145,Avera Sacred Heart Hospital,https://www.openstreetmap.org/node/606322145,https://www.avera.org/locations/sacred-heart/,1.0
 430014,way/584713096,Avera Saint Lukes Hospital,https://www.openstreetmap.org/way/584713096,https://www.avera.org/locations/st-lukes-hospital/,0.937
@@ -3289,7 +3492,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 431307,way/595945697,Sanford Clear Lake Medical Center,https://www.openstreetmap.org/way/595945697,https://www.sanfordhealth.org/community/sanford-clear-lake,1.0
 431309,way/595966203,Community Memorial Hospital,https://www.openstreetmap.org/way/595966203,https://www.sanfordhealth.org/locations/community-memorial-hospital,1.0
 431310,way/595968159,Avera Flandreau Hospital,https://www.openstreetmap.org/way/595968159,https://www.avera.org/locations/profile/avera-flandreau-hospital/,0.86
-431311,way/596070408,Sanford Webster Medical Center,https://www.openstreetmap.org/way/596070408,https://www.sanfordhealth.org/community/sanford-webster,0.79
+431311,way/596070408,Sanford Webster Medical Center,https://www.openstreetmap.org/way/596070408,https://www.sanfordhealth.org/locations/sanford-webster-medical-center,0.79
 431316,way/596093649,Community Memorial Hospital,https://www.openstreetmap.org/way/596093649,https://www.redfieldcmh.org/,1.0
 431318,way/596099771,Bowdle Hospital,https://www.openstreetmap.org/way/596099771,https://www.bowdlehc.com/,0.79
 431319,way/596102139,Hans P. Peterson Memorial Hospital,https://www.openstreetmap.org/way/596102139,https://www.philiphealthservices.com/,0.895
@@ -3361,7 +3564,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 440151,way/498567479,Saint Thomas River Park Hospital,https://www.openstreetmap.org/way/498567479,https://healthcare.ascension.org/locations/tennessee/tnnas/mcminnville-ascension-saint-thomas-river-park,1.0
 440152,relation/21086410,Regional One Medical Center,https://www.openstreetmap.org/relation/21086410,https://www.regionalonehealth.org/,0.909
 440156,way/497969392,Parkridge Medical Center,https://www.openstreetmap.org/way/497969392,https://www.parkridgehealth.com/locations/parkridge-medical-center,1.0
-440159,way/496362641,Delta Specialty Hospital,https://www.openstreetmap.org/way/496362641,https://www.deltaspecialtyhospital.com/,1.0
 440161,way/499190651,TriStar Centennial Medical Center,https://www.openstreetmap.org/way/499190651,https://www.tristarhealth.com/locations/tristar-centennial-medical-center,1.0
 440173,way/497737233,Parkwest Medical Center,https://www.openstreetmap.org/way/497737233,https://www.treatedwell.com/,1.0
 440175,way/483777429,Southern Tennessee Regional Lawrenceburg,https://www.openstreetmap.org/way/483777429,https://www.southerntnlawrenceburg.com/,0.823
@@ -3392,6 +3594,10 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 441320,way/496963911,West Tennessee Healthcare Bolivar Hospital,https://www.openstreetmap.org/way/496963911,https://www.wth.org/locations/bolivar-hospital/,1.0
 441322,way/497251260,Houston County Community Hospital,https://www.openstreetmap.org/way/497251260,https://shamrock.health/,1.0
 441323,way/844009419,Big South Fork Medical Center,https://www.openstreetmap.org/way/844009419,https://bsfmedical.com/,1.0
+441325,way/596245757,Perry Community Hospital,https://www.openstreetmap.org/way/596245757,https://perrycounty.health/,1.0
+442007,node/356873171,Kindred Hospital - Chattanooga,https://www.openstreetmap.org/node/356873171,http://www.kindredchattanooga.com/,1.0
+442011,node/356901177,Select Specialty Hospital - Nashville,https://www.openstreetmap.org/node/356901177,https://www.selectspecialtyhospitals.com/locations-and-tours/tn/nashville/nashville/,1.0
+443025,way/1354096700,Siskin Hospital for Physical Rehabilitiation,https://www.openstreetmap.org/way/1354096700,https://www.siskinrehab.org,0.763
 443302,relation/21061971,St. Jude Children's Research Hospital,https://www.openstreetmap.org/relation/21061971,https://www.stjude.org/,1.0
 443303,way/497775431,Dolly Parton Children’s Hospital,https://www.openstreetmap.org/way/497775431,https://dollychildrens.org,0.899
 444002,way/70127228,Moccasin Bend Mental Health Institute,https://www.openstreetmap.org/way/70127228,https://www.tn.gov/behavioral-health/topic/moccasin-bend,1.0
@@ -3399,6 +3605,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 444007,way/693239552,Rolling Hills Hospital,https://www.openstreetmap.org/way/693239552,https://rollinghillshospital.org/,0.819
 444026,node/13532459601,Erlanger Behavioral Health Hospital,https://www.openstreetmap.org/node/13532459601,https://www.erlangerbh.com/,0.967
 444032,node/13719240901,East Tennessee Behavioral Health,https://www.openstreetmap.org/node/13719240901,https://www.easttennesseebehavioralhealth.com/,1.0
+444033,way/693168790,Compass Intervention Center,https://www.openstreetmap.org/way/693168790,https://compassinterventioncenter.net/,1.0
 450002,way/562875878,Providence Memorial Hospital,https://www.openstreetmap.org/way/562875878,https://www.thehospitalsofprovidence.com/our-locations/memorial-campus,0.951
 450007,way/565543426,Peterson Regional Medical Center,https://www.openstreetmap.org/way/565543426,https://www.petersonhealth.com/,1.0
 450010,way/564829685,United Regional Health Care System,https://www.openstreetmap.org/way/564829685,https://www.unitedregional.org/,1.0
@@ -3421,6 +3628,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 450064,way/569473324,Texas Health Arlington Memorial Hospital,https://www.openstreetmap.org/way/569473324,https://www.texashealth.org/arlington/,1.0
 450068,relation/20380489,Memorial Hermann-Texas Medical Center,https://www.openstreetmap.org/relation/20380489,https://www.memorialhermann.org/locations/texas-medical-center/,1.0
 450072,way/566235555,St. Luke's Health - Brazosport Hospital,https://www.openstreetmap.org/way/566235555,https://www.commonspirit.org/find-a-location/st-lukes-health-brazosport-hospital-lake-jackson-tx-758,0.859
+450076,way/51815686,University of Texas MD Anderson Cancer Center,https://www.openstreetmap.org/way/51815686,https://www.mdanderson.org/about-md-anderson/our-locations/texas-medical-center.html,0.803
 450079,way/291275007,Baylor Scott & White Medical Center – Irving,https://www.openstreetmap.org/way/291275007,https://www.bswhealth.com/locations/irving/about,0.989
 450082,way/563478175,CHRISTUS Spohn Hospital Beeville,https://www.openstreetmap.org/way/563478175,https://www.christushealth.org/spohn/beeville,1.0
 450083,way/527197280,East Texas Medical Center - Tyler,https://www.openstreetmap.org/way/527197280,https://uthealthtylerhospital.com/,0.78
@@ -3505,7 +3713,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 450651,way/569682921,Medical City Plano,https://www.openstreetmap.org/way/569682921,https://medicalcityplano.com/,1.0
 450654,way/597394052,Starr County Memorial Hospital,https://www.openstreetmap.org/way/597394052,https://www.starrcountyhospital.com/,1.0
 450656,way/568570995,Nacogdoches Medical Center,https://www.openstreetmap.org/way/568570995,https://www.nacmedicalcenter.com/,1.0
-450658,way/568782730,Freestone Medical Center,https://www.openstreetmap.org/way/568782730,https://www.freestonemc.com/,1.0
 450661,way/180316883,Odessa Regional Medical Center,https://www.openstreetmap.org/way/180316883,https://odessaregionalmedicalcenter.org/,1.0
 450662,way/563364733,Valley Regional Medical Center,https://www.openstreetmap.org/way/563364733,https://valleyregionalmedicalcenter.com/,1.0
 450668,way/562911008,Sierra Medical Center,https://www.openstreetmap.org/way/562911008,https://www.thehospitalsofprovidence.com/our-locations/sierra-campus,1.0
@@ -3577,7 +3784,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 451312,way/566330199,Rice Medical Center,https://www.openstreetmap.org/way/566330199,http://www.ricemedicalcenter.net/,1.0
 451313,way/597824037,Fisher County Hospital,https://www.openstreetmap.org/way/597824037,https://www.fishercountyhospital.com/,0.832
 451314,way/597936479,Winkler County Memorial Hospital,https://www.openstreetmap.org/way/597936479,https://www.wcmh.net/,1.0
-451315,way/597952579,North Runnels Hospital,https://www.openstreetmap.org/way/597952579,https://northrunnelshospital.com/,1.0
 451316,way/567061547,CHI Saint Joseph Health Madison Hospital,https://www.openstreetmap.org/way/567061547,https://www.chistjoseph.org/locations/chi-st-joseph-health-madison-hospital,0.818
 451317,way/524450345,Refugio County Memorial Hospital,https://www.openstreetmap.org/way/524450345,https://refugiohospital.com/,1.0
 451318,way/564769923,Stonewall Memorial Hospital,https://www.openstreetmap.org/way/564769923,https://www.stonewallhospital.org/,0.782
@@ -3586,7 +3792,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 451322,way/597953303,CHI Saint Joseph Health Grimes Hospital,https://www.openstreetmap.org/way/597953303,https://www.chistjoseph.org/locations/chi-st-joseph-health-grimes-hospital,0.817
 451323,way/736827905,AdventHealth Rollins Brook,https://www.openstreetmap.org/way/736827905,https://www.adventhealth.com/hospital/adventhealth-rollins-brook,1.0
 451324,way/564512099,Lillian M. Hudspeth Memorial Hospital,https://www.openstreetmap.org/way/564512099,https://www.sonora-hospital.org/,1.0
-451325,way/564516680,Concho County Hospital,https://www.openstreetmap.org/way/564516680,https://www.conchocounty.hospital/,1.0
 451328,way/598066163,Riceland Medical Center,https://www.openstreetmap.org/way/598066163,https://www.ricelandhealthcare.com/riceland-medical-center/,1.0
 451330,way/563066712,Medina Community Hospital,https://www.openstreetmap.org/way/563066712,https://www.medinahospital.net/,0.884
 451331,way/563527783,Coon Memorial Hospital,https://www.openstreetmap.org/way/563527783,https://www.dhchd.org/,1.0
@@ -3633,7 +3838,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 451381,way/678038591,CHRISTUS Mother Frances Hospital - Winnsboro,https://www.openstreetmap.org/way/678038591,https://www.tmfhc.org/maps-and-locations/locations-profile/christus-mother-frances-hospital-winnsboro/,1.0
 451382,way/565129097,Comanche County Medical Center,https://www.openstreetmap.org/way/565129097,https://www.comanchecmc.org/,1.0
 451384,way/564760060,Cogdell Memorial Hospital,https://www.openstreetmap.org/way/564760060,https://www.cogdellhospital.com/,1.0
-451385,way/565181236,Goodall-Witcher Hospital,https://www.openstreetmap.org/way/565181236,https://www.gwhealthcare.org,1.0
 451387,way/323735413,Uvalde Memorial Hospital,https://www.openstreetmap.org/way/323735413,https://www.umhtx.org/,1.0
 451389,way/564435549,Pecos County Memorial Hospital,https://www.openstreetmap.org/way/564435549,https://www.pcmhfs.com/,1.0
 451390,way/563114998,Dimmit Regional Hospital,https://www.openstreetmap.org/way/563114998,http://dimmitregionalhospital.com/,1.0
@@ -3641,9 +3845,28 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 451392,way/565155310,Hamilton General Hospital,https://www.openstreetmap.org/way/565155310,https://hamiltonhospital.org/,1.0
 451394,way/597428586,Knox County Hospital,https://www.openstreetmap.org/way/597428586,https://knoxhospital.org/,1.0
 451395,way/568820607,Hill Regional Hospital,https://www.openstreetmap.org/way/568820607,https://www.hillregionalhospital.com/,1.0
+451397,way/567038494,Baylor Scott & White Medical Center – Brenham,https://www.openstreetmap.org/way/567038494,https://www.bswhealth.com/locations/brenham,0.937
 451398,way/563679694,Pampa Regional Medical Center,https://www.openstreetmap.org/way/563679694,https://www.prmctx.com/,1.0
 451399,way/255386878,Seymour Hospital,https://www.openstreetmap.org/way/255386878,https://seymourhospital.com/,1.0
+452016,way/364387186,Kindred Hospital - San Antonio,https://www.openstreetmap.org/way/364387186,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-san-antonio,1.0
+452023,way/207815845,Kindred Hospital Houston Medical Center,https://www.openstreetmap.org/way/207815845,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-houston-medical-center,1.0
+452028,node/13156149501,Kindred Hospital Tarrant County - Arlington,https://www.openstreetmap.org/node/13156149501,https://www.kindredhospitals.com/locations/texas/tarrant-county-arlington,0.871
+452038,way/331965516,Texas NeuroRehab Center,https://www.openstreetmap.org/way/331965516,https://texasneurorehab.com/,0.83
+452079,way/562910998,Kindred Hospital El Paso,https://www.openstreetmap.org/way/562910998,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-el-paso,0.9
+452080,way/567896261,Kindred Hospital Sugar Land,https://www.openstreetmap.org/way/567896261,https://www.kindredhealthcare.com/locations/transitional-care-hospitals/kindred-hospital-sugar-land,1.0
+452083,node/12347069032,Mid Jefferson Extended Care Hospital,https://www.openstreetmap.org/node/12347069032,https://www.midjeffextendedcare.com/,1.0
+452094,way/566181992,PAM Specialty Hospital of Victoria North,https://www.openstreetmap.org/way/566181992,https://pamhealth.com/hospitals/pam-health-specialty-hospital-of-victoria-north/,1.0
+452105,node/10917060684,Baylor Scott And White Continuing Care Hospital,https://www.openstreetmap.org/node/10917060684,https://www.bswhealth.com/locations/continuing-care-hospital,0.987
+452108,way/468140047,Kindred Hospital Dallas Central,https://www.openstreetmap.org/way/468140047,https://www.kindredhospitals.com/locations/ltac/kindred-hospital-dallas-central,1.0
 452114,node/10917052751,Atrium Medical Center,https://www.openstreetmap.org/node/10917052751,https://www.atriummedicalcenter.com/,1.0
+453031,node/10917052249,Encompass Health Rehabilitation Hospital Of San Antonio,https://www.openstreetmap.org/node/10917052249,https://www.encompasshealth.com/locations/san-antonio-rehab,0.898
+453035,way/79573437,San Antonio Warm Springs Rehabilitation Hospital,https://www.openstreetmap.org/way/79573437,http://www.warmsprings.org/our-facilities/outpatient-rehabilitation/warm-springs-rehabilitation-hospital-san-antonio/,0.89
+453036,way/463996234,Baylor Scott & White Institute for Rehabilitation,https://www.openstreetmap.org/way/463996234,https://www.bswrehab.com/,1.0
+453042,way/152384302,Encompass Health Rehabilitation Hosptial of City View,https://www.openstreetmap.org/way/152384302,https://encompasshealth.com/cityviewrehab,0.839
+453048,way/567162008,PAM Rehabilitation Hospital of Beaumont,https://www.openstreetmap.org/way/567162008,http://www.warmsprings.org/our-facilities/outpatient-rehabilitation/rehabilitation-hospital-beaumont/,1.0
+453057,way/400814451,Encompass Health Rehabilitation Hospital of Midland Odessa,https://www.openstreetmap.org/way/400814451,http://www.healthsouthmidland.com/,0.803
+453059,node/10917044299,Encompass Health Rehabilitation Hospital Of The Woodlands,https://www.openstreetmap.org/node/10917044299,https://encompasshealth.com/locations/houston/thewoodlandsrehab,0.875
+453091,way/749076715,Weslaco Regional Rehabilitation Hospital,https://www.openstreetmap.org/way/749076715,https://ernesthealth.com/portfolio-item/weslaco-regional-rehabilitation-hospital/,1.0
 453300,way/569458598,Cook Children's Medical Center,https://www.openstreetmap.org/way/569458598,https://www.cookchildrens.org/medical-center/,1.0
 453301,way/563464320,Driscoll Children's Hospital,https://www.openstreetmap.org/way/563464320,https://www.driscollchildrens.org/,1.0
 453302,way/28542840,Children's Medical Center of Dallas,https://www.openstreetmap.org/way/28542840,https://www.childrens.com/location-landing/locations-and-directions/childrens-health-dallas,1.0
@@ -3664,7 +3887,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 454018,node/356815121,Red River Hospital,https://www.openstreetmap.org/node/356815121,https://www.redriverhospital.com/,1.0
 454026,way/693331308,West Oaks Hospital,https://www.openstreetmap.org/way/693331308,https://westoakshospital.com/,1.0
 454050,way/693286284,Glen Oaks Hospital,https://www.openstreetmap.org/way/693286284,https://www.glenoakshospital.com/,1.0
-454060,way/384931790,Laurel Ridge Treatment Center,https://www.openstreetmap.org/way/384931790,https://laurelridgetc.com/,1.0
+454064,way/693301573,River Crest Hospital,https://www.openstreetmap.org/way/693301573,https://rivercresthospital.com/,1.0
 454065,way/693300893,Hickory Trail Hospital,https://www.openstreetmap.org/way/693300893,https://www.hickorytrail.com/,1.0
 454076,way/520346693,UTHealth Harris County Psychiatric Center,https://www.openstreetmap.org/way/520346693,https://hcpc.uth.edu/,0.876
 454084,way/180892850,Austin State Hospital,https://www.openstreetmap.org/way/180892850,https://www.hhs.texas.gov/services/mental-health-substance-use/state-hospitals/austin-state-hospital,1.0
@@ -3734,6 +3957,9 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 461309,way/459374882,Kane County Hospital,https://www.openstreetmap.org/way/459374882,https://kchosp.net/,1.0
 461310,way/357185269,Blue Mountain Hospital,https://www.openstreetmap.org/way/357185269,https://www.bmhutah.org/,1.0
 461335,way/324443632,Beaver Valley Hospital,https://www.openstreetmap.org/way/324443632,https://beaverhospital.net/,1.0
+462004,node/10920439577,Salt Lake Specialty Hospital,https://www.openstreetmap.org/node/10920439577,https://slspecialty.org,1.0
+463025,way/156222396,Encompass Health Rehabilitation Hospital of Utah,https://www.openstreetmap.org/way/156222396,https://www.encompasshealth.com/locations/utah-rehab,1.0
+463027,way/459706762,Northern Utah Rehabilitation Hospital,https://www.openstreetmap.org/way/459706762,https://nurh.ernesthealth.com/,1.0
 463301,way/33634352,Primary Children's Hospital,https://www.openstreetmap.org/way/33634352,https://intermountainhealthcare.org/locations/primary-childrens-hospital/,1.0
 470001,node/366666875,Central Vermont Medical Center,https://www.openstreetmap.org/node/366666875,https://www.uvmhealth.org/locations/central-vermont-medical-center,1.0
 470005,way/442953116,Rutland Regional Medical Center,https://www.openstreetmap.org/way/442953116,https://www.rrmc.org/,1.0
@@ -3815,6 +4041,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 490144,way/331242167,Haymarket Medical Center,https://www.openstreetmap.org/way/331242167,https://www.uvahealth.com/locations/Haymarket-Medical-Center-LOC0000234500,0.769
 490145,way/311041319,Stone Springs Hospital Center,https://www.openstreetmap.org/way/311041319,https://www.hcavirginia.com/locations/stonesprings-hospital-center,0.942
 490148,way/1022082686,Bon Secours Health Center at Harbour View,https://www.openstreetmap.org/way/1022082686,https://www.bonsecours.com/locations/hospitals-medical-centers/hampton-roads/bon-secours-health-center-at-harbour-view,0.962
+490149,way/1042197733,Riverside Smithfield Hospital,https://www.openstreetmap.org/way/1042197733,https://www.riversideonline.com/locations/hospitals/riverside-smithfield-hospital,1.0
 491300,way/604096538,Bath Community Hospital,https://www.openstreetmap.org/way/604096538,https://bathhospital.org/,1.0
 491302,way/518157076,Carilion Giles Community Hospital,https://www.openstreetmap.org/way/518157076,https://www.carilionclinic.org/locations/carilion-giles-community-hospital,1.0
 491303,way/518443641,Dickenson Community Hospital,https://www.openstreetmap.org/way/518443641,https://www.balladhealth.org/locations/hospitals/dickenson-community,1.0
@@ -3822,6 +4049,12 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 491307,way/1106556047,Page Memorial Hospital,https://www.openstreetmap.org/way/1106556047,https://www.valleyhealthlink.com/our-locations/profile/page-memorial-hospital/,1.0
 491308,way/516501602,Rappahannock General Hospital,https://www.openstreetmap.org/way/516501602,https://www.bonsecours.com/locations/hospitals-medical-centers/richmond/rappahannock-general-hospital,1.0
 491309,way/801475504,Lee County Community Hospital,https://www.openstreetmap.org/way/801475504,https://www.balladhealth.org/locations/hospitals/lee-county-community,1.0
+491310,node/10830653091,Stuart Community Hospital,https://www.openstreetmap.org/node/10830653091,https://stuart.health/,1.0
+492001,way/397878148,Lake Taylor Transitional Care Hospital,https://www.openstreetmap.org/way/397878148,https://www.laketaylor.org/,1.0
+493027,way/778578096,Riverside Rehabilitation Hospital,https://www.openstreetmap.org/way/778578096,https://www.riverside-rehabilitation.com/,0.834
+493031,way/1334632012,Encompass Health Rehabilitation Hospital Of Petersburg,https://www.openstreetmap.org/way/1334632012,https://www.healthsouthpetersburg.com,0.856
+493032,way/192355194,Encompass Health Rehabilitation Hospital of Fredericksburg,https://www.openstreetmap.org/way/192355194,https://encompasshealth.com/fredericksburgrehab,0.858
+493036,node/10830713199,Sheltering Arms Institute,https://www.openstreetmap.org/node/10830713199,https://shelteringarmsinstitute.com,1.0
 493301,relation/11269576,Children's Hospital of the King's Daughters,https://www.openstreetmap.org/relation/11269576,https://www.chkd.org/,0.902
 494010,way/516393895,Northern Virginia Mental Health Institute,https://www.openstreetmap.org/way/516393895,https://dbhds.virginia.gov/facilities/nvmhi/,0.897
 494017,way/517433167,Southern Virginia Mental Health Institute,https://www.openstreetmap.org/way/517433167,https://dbhds.virginia.gov/facilities/svmhi/,1.0
@@ -3839,7 +4072,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 500019,way/484985445,Providence Centralia Hospital,https://www.openstreetmap.org/way/484985445,https://washington.providence.org/hospitals/centralia-hospital/,1.0
 500021,way/25099135,Saint Clare Hospital,https://www.openstreetmap.org/way/25099135,https://www.chifranciscan.org/st-clare-hospital.html,1.0
 500024,way/485226630,Providence St. Peter Hospital,https://www.openstreetmap.org/way/485226630,https://washington.providence.org/hospitals/st-peter/,1.0
-500025,way/1066764914,Swedish Medical Center Cherry Hill Campus,https://www.openstreetmap.org/way/1066764914,http://www.swedish.org/locations/cherry-hill-campus,0.972
 500026,way/485036588,Swedish Medical Center Edmonds Campus,https://www.openstreetmap.org/way/485036588,https://www.swedish.org/locations/edmonds-campus,0.887
 500027,way/148894456,Swedish Hospital,https://www.openstreetmap.org/way/148894456,https://www.swedish.org/locations/redmond-campus,0.874
 500030,way/307401368,PeaceHealth St. Joseph Medical Center,https://www.openstreetmap.org/way/307401368,https://www.peacehealth.org/st-joseph-medical-center,1.0
@@ -3866,6 +4098,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 500152,way/384088396,Swedish Issaquah,https://www.openstreetmap.org/way/384088396,https://www.swedish.org/locations/issaquah-campus,1.0
 500154,way/472880243,MultiCare Covington Medical Center,https://www.openstreetmap.org/way/472880243,https://www.multicare.org/multicare-covington-medical-center/,1.0
 50030F,way/53615315,VA Medical Center - Seattle,https://www.openstreetmap.org/way/53615315,https://www.pugetsound.va.gov/,1.0
+500779,way/485520028,East Adams Rural Healthcare,https://www.openstreetmap.org/way/485520028,https://www.earh.org/,0.931
 501301,way/604940974,Garfield County Public Hospital,https://www.openstreetmap.org/way/604940974,https://www.pomeroymd.com/,0.815
 501302,way/485439680,Dayton General Hospital,https://www.openstreetmap.org/way/485439680,https://www.cchd-wa.org/,1.0
 501303,way/484990210,Willapa Harbor Hospital,https://www.openstreetmap.org/way/484990210,https://www.willapaharborhospital.com/,1.0
@@ -3875,7 +4108,6 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 501308,way/485515457,Coulee Medical Center,https://www.openstreetmap.org/way/485515457,https://cmccares.org/,1.0
 501309,way/485492763,Providence Saint Joseph's Hospital,https://www.openstreetmap.org/way/485492763,https://washington.providence.org/hospitals/st-josephs-hospital/,0.874
 501310,way/485490570,Newport Hospital & Health Services,https://www.openstreetmap.org/way/485490570,https://newporthospitalandhealth.org/,1.0
-501311,way/485520028,East Adams Rural Healthcare,https://www.openstreetmap.org/way/485520028,https://www.earh.org/,0.931
 501312,way/604942772,Prosser Memorial Hospital,https://www.openstreetmap.org/way/604942772,https://prosserhealth.org/,1.0
 501313,way/508394064,Cascade Medical Center,https://www.openstreetmap.org/way/508394064,https://cascademedical.org/,1.0
 501314,way/484986747,Ocean Beach Hospital,https://www.openstreetmap.org/way/484986747,https://www.oceanbeachhospital.com/,1.0
@@ -3903,6 +4135,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 501338,way/485118348,Snoqualmie Valley Hospital,https://www.openstreetmap.org/way/485118348,https://snoqualmiehospital.org/,1.0
 501339,way/485007813,WhidbeyHealth Medical Center,https://www.openstreetmap.org/way/485007813,https://whidbeyhealth.org/,1.0
 501340,way/439819665,PeaceHealth Peace Island Medical Center,https://www.openstreetmap.org/way/439819665,https://www.peacehealth.org/peace-island-medical-center,1.0
+503027,way/1470167272,Providence Swedish Rehabilitation Hospital,https://www.openstreetmap.org/way/1470167272,https://www.providenceswedishrehabhospital.com/,1.0
 503300,relation/7528363,Seattle Children's Hospital,https://www.openstreetmap.org/relation/7528363,https://www.seattlechildrens.org/,1.0
 503302,way/297222504,Shriners Hospitals for Children Spokane,https://www.openstreetmap.org/way/297222504,https://www.shrinershospitalsforchildren.org/locations/spokane,0.844
 504002,way/485042186,Fairfax Hospital,https://www.openstreetmap.org/way/485042186,https://www.fairfaxhospital.com/,0.792
@@ -3951,6 +4184,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 511320,way/464098158,Jackson General Hospital,https://www.openstreetmap.org/way/464098158,https://wvumedicine.org/locations/jackson-general-hospital/,1.0
 511321,way/464171592,Saint Joseph's Hospital of Buckhannon,https://www.openstreetmap.org/way/464171592,https://wvumedicine.org/locations/st-josephs-hospital/,1.0
 511322,way/464016973,Summersville Regional Medical Center,https://www.openstreetmap.org/way/464016973,https://wvumedicine.org/locations/summersville-regional-medical-center/,1.0
+513027,way/464113457,Encompass Health Rehabilitation Hospital of Parkersburg,https://www.openstreetmap.org/way/464113457,https://www.encompasshealth.com/locations/parkersburg-rehab,0.857
+513028,way/1182768818,Encompass Health Rehabilitation Hospital of Huntington,https://www.openstreetmap.org/way/1182768818,https://encompasshealth.com/locations/huntingtonrehab,0.856
 514001,way/1158061301,Highland Hospital,https://www.openstreetmap.org/way/1158061301,http://www.highlandhosp.com/,1.0
 514008,way/338390425,River Park Hospital,https://www.openstreetmap.org/way/338390425,https://www.riverparkhospital.net/,1.0
 514009,way/789401790,Mildred Mitchell-Bateman Hospital,https://www.openstreetmap.org/way/789401790,https://dhhr.wv.gov/officeofhealthfacilities/Pages/Mildred-Mitchell-Bateman-Hospital.aspx,1.0
@@ -3988,7 +4223,7 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 520139,way/314009483,Aurora West Allis Medical Center,https://www.openstreetmap.org/way/314009483,https://www.aurorahealthcare.org/locations/hospital/aurora-west-allis-medical-center,1.0
 520160,way/295758083,ThedaCare Regional Medical Center-Appleton,https://www.openstreetmap.org/way/295758083,https://directory.thedacare.org/location/thedacare-regional-medical-center-appleton,1.0
 520177,way/282412131,Froedtert Hospital,https://www.openstreetmap.org/way/282412131,https://www.froedtert.com/,1.0
-520189,way/465800167,ClearSky Rehabilitation Hospital of Kenosha,https://www.openstreetmap.org/way/465800167,https://clearskyhealth.com/kenosha/,0.784
+520189,way/481396440,Aurora Medical Center,https://www.openstreetmap.org/way/481396440,https://www.aurorahealthcare.org/locations/hospital/aurora-medical-center-kenosha,0.777
 520193,relation/9288976,Aurora BayCare Medical Center,https://www.openstreetmap.org/relation/9288976,https://www.aurorabaycare.com/,1.0
 520194,way/385481749,Orthopaedic Hospital of Wisconsin,https://www.openstreetmap.org/way/385481749,http://www.ohow.com,1.0
 520196,way/585271279,OakLeaf Surgical Hospital,https://www.openstreetmap.org/way/585271279,https://www.oakleafsurgical.com/,1.0
@@ -4046,6 +4281,9 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 521357,way/605005063,Mercyhealth Hospital and Medical Center–Walworth,https://www.openstreetmap.org/way/605005063,https://www.mercyhealthsystem.org/locations/mercyhealth-hospital-and-medical-center-walworth/,0.79
 521358,way/37973634,Door County Medical Center,https://www.openstreetmap.org/way/37973634,https://dcmedical.org/,1.0
 521359,way/606531491,Tamarack Health Ashland Medical Center,https://www.openstreetmap.org/way/606531491,https://www.tamarackhealth.org/locations/tamarack-health-ashland-medical-center/,1.0
+522005,way/513805723,Lakeview Specialty Hospital and Rehab,https://www.openstreetmap.org/way/513805723,https://lakeviewsystem.com/,0.973
+523027,node/10920551682,Rehabilitation Hospital Of Wisconsin,https://www.openstreetmap.org/node/10920551682,https://www.rehabhospitalwi.com,1.0
+523032,way/465800167,ClearSky Rehabilitation Hospital of Kenosha,https://www.openstreetmap.org/way/465800167,https://clearskyhealth.com/kenosha/,1.0
 523300,way/662223394,Children’s Wisconsin,https://www.openstreetmap.org/way/662223394,https://www.chw.org/location-directory/locations/milwaukee-campus,1.0
 524000,way/428940215,Aurora Psychiatric Hospital,https://www.openstreetmap.org/way/428940215,https://www.aurorahealthcare.org/locations/hospital/aurora-psychiatric-hospital,1.0
 524002,relation/12253955,Winnebago Mental Health Institute,https://www.openstreetmap.org/relation/12253955,https://www.dhs.wisconsin.gov/winnebago/index.htm,1.0
@@ -4077,6 +4315,8 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 531316,way/444358862,Memorial Hospital of Carbon County,https://www.openstreetmap.org/way/444358862,https://www.imhcc.com/,1.0
 531318,way/584891248,Memorial Hospital of Sweetwater County,https://www.openstreetmap.org/way/584891248,https://www.sweetwatermemorial.com/,0.988
 531319,way/605260800,Evanston Regional Hospital,https://www.openstreetmap.org/way/605260800,http://www.evanstonregionalhospital.com/,1.0
+533027,way/1464947286,Elkhorn Valley Rehabilitation Hospital,https://www.openstreetmap.org/way/1464947286,https://evrh.ernesthealth.com,1.0
+534001,node/10914355899,Wyoming State Hospital,https://www.openstreetmap.org/node/10914355899,https://health.wyo.gov/behavioralhealth/statehospital/,1.0
 534004,way/32945434,Wyoming Behavioral Institute,https://www.openstreetmap.org/way/32945434,https://www.wbihelp.com/,1.0
 650001,way/585214438,Guam Memorial Hospital,https://www.openstreetmap.org/way/585214438,https://gmha.org/,0.769
 650003,way/547350935,Guam Regional Medical City,https://www.openstreetmap.org/way/547350935,https://www.grmc.gu/,1.0
@@ -4136,13 +4376,35 @@ ccn,osm_id,osm_name,osm_url,website,match_score
 670333,way/1431420029,Westover HIlls Baptist Hospital,https://www.openstreetmap.org/way/1431420029,https://www.baptisthealthsystem.com/locations/detail/westover-hills-baptist-hospital,1.0
 670340,way/1426145140,Methodist Celina Medical Center,https://www.openstreetmap.org/way/1426145140,https://www.methodisthealthsystem.org/methodist-celina-medical-center,1.0
 670342,node/13724313501,Houston Methodist Cypress Hospital,https://www.openstreetmap.org/node/13724313501,https://www.houstonmethodist.org/locations/cypress/,1.0
-670343,way/567038494,Baylor Scott & White Medical Center – Brenham,https://www.openstreetmap.org/way/567038494,https://www.bswhealth.com/locations/brenham,0.937
 670779,way/563969954,Crosbyton Clinic Hospital,https://www.openstreetmap.org/way/563969954,https://www.crosbytonclinichospital.com/,1.0
 670780,way/568806939,Falls Community Hospital and Clinic,https://www.openstreetmap.org/way/568806939,https://www.fallshospital.com/,1.0
 670781,way/564726099,Anson General Hospital,https://www.openstreetmap.org/way/564726099,https://ansongeneralhospital.com/,1.0
 670783,way/494754561,CHI St. Luke’s Health Memorial San Augustine,https://www.openstreetmap.org/way/494754561,https://www.stlukeshealth.org/locations/memorial-san-augustine-hospital,0.92
+670784,way/597952579,North Runnels Hospital,https://www.openstreetmap.org/way/597952579,https://northrunnelshospital.com/,1.0
+670785,way/568782730,Freestone Medical Center,https://www.openstreetmap.org/way/568782730,https://www.freestonemc.com/,1.0
+670786,way/564516680,Concho County Hospital,https://www.openstreetmap.org/way/564516680,https://www.conchocounty.hospital/,1.0
 671300,way/246412502,Graham Regional Medical Center,https://www.openstreetmap.org/way/246412502,https://grahamrmc.com/,1.0
 671301,way/563617797,Hemphill County Hospital,https://www.openstreetmap.org/way/563617797,https://hchdst.org/,1.0
 671302,way/565111636,Stephens Memorial Hospital,https://www.openstreetmap.org/way/565111636,https://www.smhtx.com/,1.0
 671303,way/565116010,Eastland Memorial Hospital,https://www.openstreetmap.org/way/565116010,https://www.eastlandmemorial.com/,1.0
 671304,way/566400058,Seton Smithville Regional Hospital,https://www.openstreetmap.org/way/566400058,https://www.seton.net/locations/seton-smithville-regional-hospital/,0.803
+673031,way/569496712,Methodist Rehabilitation Hospital,https://www.openstreetmap.org/way/569496712,https://www.methodist-rehab.com/,1.0
+673032,way/1159463228,Encompass Health Rehabilitation Hospital of Round Rock,https://www.openstreetmap.org/way/1159463228,https://encompasshealth.com/roundrockrehab,0.898
+673034,node/10917033715,Encompass Health Rehabilitation Hospital Vision Park,https://www.openstreetmap.org/node/10917033715,https://encompasshealth.com/locations/houston/visionparkrehab,0.819
+673036,way/1021119336,Select Rehabilitation Hospital - Denton,https://www.openstreetmap.org/way/1021119336,https://www.selectrehabilitationhospital.com/locations-and-tours/select-rehabilitation-hospital-of-denton/,0.988
+673038,node/10917030811,Memorial Hermann Rehabilitation Hospital Katy,https://www.openstreetmap.org/node/10917030811,https://memorialhermann.org/locations/rehabilitation-hospital-katy,1.0
+673045,way/750920061,Mesquite Rehabilitation Institute,https://www.openstreetmap.org/way/750920061,https://msh.ernesthealth.com/,1.0
+673049,node/10917028909,New Braunfels Regional Rehabilitation Hospital,https://www.openstreetmap.org/node/10917028909,https://nbrrh.ernesthealth.com,1.0
+673053,way/525293847,Corpus Christi Rehabilitation Hospital,https://www.openstreetmap.org/way/525293847,https://ccrh.ernesthealth.com/,1.0
+673056,way/566181991,PAM Rehabilitation Hospital of Victoria,https://www.openstreetmap.org/way/566181991,https://pamhealth.com/hospitals/pam-health-rehabilitation-hospital-of-victoria/,1.0
+673059,node/12055228825,Laredo Rehabilitation Hospital,https://www.openstreetmap.org/node/12055228825,https://lrh.ernesthealth.com/,1.0
+673061,node/10917006195,PAM Rehabilitation Hospital Of Clear Lake,https://www.openstreetmap.org/node/10917006195,https://pamhealth.com/hospitals/pam-health-rehabilitation-hospital-of-clear-lake-south/,1.0
+673063,way/472847541,Trustpoint Rehabilitation Hospital of Lubbock,https://www.openstreetmap.org/way/472847541,http://trhl.ernesthealth.com,0.85
+673066,node/10917048870,Encompass Health Rehabilitation Hospital Of Pearland,https://www.openstreetmap.org/node/10917048870,https://www.encompasshealth.com/locations/pearland-rehab,0.877
+673068,node/10916992315,PAM Health Rehabilitation Hospital of Sugar Land,https://www.openstreetmap.org/node/10916992315,https://pamhealth.com/hospitals/pam-health-rehabilitation-hospital-of-sugar-land/,1.0
+673074,node/10917032264,Everest Rehabilitation Hospital Temple,https://www.openstreetmap.org/node/10917032264,https://www.templerehabhospital.com/,0.848
+673076,way/707940437,ClearSky Rehabilitation Hospital of Flower Mound,https://www.openstreetmap.org/way/707940437,https://clearskyhealth.com/flowermound/,1.0
+673078,way/1174891388,Shannon Rehabilitation Hospital An Affiliate Of Encompass Health,https://www.openstreetmap.org/way/1174891388,https://encompasshealth.com/locations/sanangelorehab,0.785
+713025,node/10892111661,Northshore Rehabilitation Hospital,https://www.openstreetmap.org/node/10892111661,https://www.northshore-rehab.com/locations-and-tours/northshore-rehabilitation-hospital/,0.952
+713028,node/10892260911,Encompass Health Rehabilitation Hospital Of Shreveport,https://www.openstreetmap.org/node/10892260911,https://encompasshealth.com/locations/shreveportrehab,0.872
+743035,way/563854862,Vibra Rehabilitation Hospital of Amarillo,https://www.openstreetmap.org/way/563854862,https://www.vibrahealthcare.com/amarillo-rehabilitation/,0.86
