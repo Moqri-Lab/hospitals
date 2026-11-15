@@ -53,6 +53,8 @@ def latest_csv(sess, cat, title: str) -> str:
     want = set(title.lower().split())
     for ds in sorted(cat["dataset"], key=lambda d: len(d.get("title", ""))):
         if want <= set(re.sub(r"[^a-z ]", " ", ds.get("title", "").lower()).split()):
+            for x in ds.get("distribution", [])[:6]:
+                print("  dist:", {k: x.get(k) for k in ("title", "temporal", "modified", "format", "mediaType", "downloadURL", "accessURL")})
             d = [x for x in ds.get("distribution", []) if str(x.get("downloadURL", "")).endswith(".csv")]
             def when(x):  # date in the file name first (uploads can be re-dated), then temporal, modified
                 for v in (str(x.get("downloadURL", "")).rsplit("/", 1)[-1], x.get("temporal", ""),
