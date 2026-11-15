@@ -51,10 +51,10 @@ def norm(s: str) -> str:
 
 def latest_csv(sess, cat, title: str) -> str:
     want = set(title.lower().split())
-    for ds in sorted(cat["dataset"], key=lambda d: len(d.get("title", ""))):
+    # CMS publishes each monthly release as its own catalog entry, "<title> : YYYY-MM-DD": newest first.
+    for ds in sorted(cat["dataset"], key=lambda d: re.findall(r"\d{4}-\d\d-\d\d", d.get("title", "")) or [""],
+                     reverse=True):
         if want <= set(re.sub(r"[^a-z ]", " ", ds.get("title", "").lower()).split()):
-            for x in ds.get("distribution", [])[:6]:
-                print("  dist:", {k: x.get(k) for k in ("title", "temporal", "modified", "format", "mediaType", "downloadURL", "accessURL")})
             d = [x for x in ds.get("distribution", []) if str(x.get("downloadURL", "")).endswith(".csv")]
             def when(x):  # date in the file name first (uploads can be re-dated), then temporal, modified
                 for v in (str(x.get("downloadURL", "")).rsplit("/", 1)[-1], x.get("temporal", ""),
@@ -66,7 +66,7 @@ def latest_csv(sess, cat, title: str) -> str:
             d.sort(key=when, reverse=True)
             for x in d[:3]:
                 print(f"  candidate {when(x)}: {x.get('downloadURL')}")
-            print(f"{title}: {d[0]['downloadURL']}")
+            print(f"{ds.get('title')}: {d[0]['downloadURL']}")
             return d[0]["downloadURL"]
     near = [d.get("title") for d in cat["dataset"] if "hospital" in d.get("title", "").lower()]
     raise SystemExit(f"not in catalog: {title}; hospital titles: {near}")
