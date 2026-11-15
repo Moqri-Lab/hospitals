@@ -29,4 +29,5 @@ jobs:
             ti=$(grep -o "<title>[^<]*</title>" p.html | head -1 | cut -c1-110)
             hit=$(grep -c -e "$e" -e "${e:0:2}-${e:2}" p.html)
             echo "RES $u -> $r | $ti | ein mentions: $hit | bytes $(wc -c < p.html)"
+            grep -q "<html" p.html || { echo "BODY $(head -c 3000 p.html)"; }
           done; done
