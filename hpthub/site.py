@@ -225,6 +225,7 @@ def txt_check(g: pd.DataFrame, dead: set[str] = frozenset()) -> tuple[str, str]:
     # how many independent sources give the website we checked; a failure is only
     # blamed on the hospital when we are sure the website is really theirs
     agree = sum(1 for c in WEB_SOURCE_COLS if dom and dom in str(r.get(c, "")).split())
+    agree += (str(r.get("ccn", "")), dom) in _verified_websites()  # home page shows the hospital
     sure = matched or agree >= 2
     files = g[g["mrf_url"] != ""]
     codes = [str(x).split(".")[0] for x in files.get("mrf_http_status", [])]
