@@ -27,7 +27,7 @@ ROOT = registry.ROOT
 CATALOG_COLUMNS = [
     "ccn", "name", "pos_name", "address", "city", "state", "zip", "facility_type", "ownership", "beds", "n_campuses", "system",
     "hpt_exempt", "exempt_note", "web_claude", "web_system_rule", "web_wikidata", "wikidata_id", "web_tpafs", "web_sutton", "web_osm", "osm_id", "web_inferred", "web_llm", "hpt_txt_domain", "hpt_txt_found", "hpt_txt_source", "hpt_txt_access_issue", "location_name", "source_page_url", "mrf_url",
-    "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "contact_name",
+    "hpt_txt_url", "mrf_format", "mrf_size_mb", "mrf_last_modified", "mrf_http_status", "mrf_check_method", "contact_name",
     "contact_email", "ein", "npi", "match_status", "match_score", "confidence", "confidence_level", "txt_check", "txt_check_reason", "checked_at",
 ]
 
@@ -169,7 +169,8 @@ BYTES_PER_PRICE = {"csv": (120, 220, 400), "json": (180, 300, 500), "zip": (12, 
 
 def price_totals(cat: pd.DataFrame) -> dict:
     """Total price files and an estimate of the negotiated prices in them, from the
-    file sizes reported by HTTP HEAD requests only (files are never downloaded).
+    file sizes reported by HTTP HEAD requests (or a first-byte GET where HEAD is refused; files are
+    never downloaded).
     Files without a reported size get the median size of their format."""
     f = cat[cat["mrf_url"].astype(str) != ""].drop_duplicates("mrf_url")
     size = pd.to_numeric(f["mrf_size_mb"], errors="coerce")
@@ -215,8 +216,9 @@ def txt_check(g: pd.DataFrame, dead: set[str] = frozenset()) -> tuple[str, str]:
     files = g[g["mrf_url"] != ""]
     codes = [str(x).split(".")[0] for x in files.get("mrf_http_status", [])]
     if matched and len(files) and codes and all(c in ("404", "410") for c in codes):
-        # A file URL (…/x.csv) answering HEAD with 404 is missing. An API-style URL
-        # without a file name may only answer GET, which we never send.
+        # The crawl already retried a refused HEAD with a first-byte GET, so a 404 here is
+        # what the server answers to both. An API-style URL without a file name may still need
+        # a browser session, so it stays "unknown".
         is_file = any(re.search(r"\.(csv|json|zip|xlsx?|xml|txt|gz)$", urlparse(u).path, re.I)
                       for u in files["mrf_url"])
         hosts = {urlparse(u).netloc.lower() for u in files["mrf_url"]}
@@ -225,7 +227,7 @@ def txt_check(g: pd.DataFrame, dead: set[str] = frozenset()) -> tuple[str, str]:
                                "price file on that server; the server may not answer HEAD requests")
         if is_file:
             return "fail", (f"its cms-hpt.txt lists this hospital, but the price file link returns HTTP {codes[0]} "
-                            "(checked with an HTTP HEAD request)")
+                            "(checked with HTTP HEAD and a first-byte GET)")
         return "unknown", (f"price file link answered HTTP {codes[0]} to a HEAD request; it is an API link that may "
                            "only answer downloads, which this catalog never makes")
     if matched and src in ("live", "") and not iss and conf >= 60:

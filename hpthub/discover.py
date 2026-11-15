@@ -421,12 +421,34 @@ def plausible_size(n, content_type: str = "") -> bool:
     return int(n) >= 1024 and "html" not in (content_type or "").lower()
 
 
+REFUSES_HEAD = (400, 403, 404, 405, 501)
+
+
 def head_mrf(sess, url: str) -> dict:
-    """Metadata for an MRF URL via HTTP HEAD only (the price data itself is never downloaded)."""
+    """Metadata for an MRF URL via HTTP HEAD. Where a server refuses HEAD, a GET for the first
+    byte, closed after the headers, is used instead and marked in mrf_check_method. The price data
+    itself is never downloaded."""
     rec = {"mrf_url": url, "mrf_http_status": None, "mrf_content_type": "", "mrf_bytes": None,
-           "mrf_last_modified": "", "mrf_final_url": "", "mrf_filename": "", "mrf_error": ""}
+           "mrf_last_modified": "", "mrf_final_url": "", "mrf_filename": "", "mrf_error": "",
+           "mrf_check_method": ""}
     try:
         r = sess.head(url, allow_redirects=True, timeout=30)
+        rec["mrf_check_method"] = "HEAD"
+        if r.status_code in REFUSES_HEAD:
+            # Some hosts (Box, API gateways, some CDNs) refuse HEAD but serve the file. Ask for the
+            # first byte only and close the connection right after the headers (user-approved
+            # 2026-11-15); the price data itself is not read. Marked in mrf_check_method.
+            with sess.get(url, allow_redirects=True, timeout=30, stream=True,
+                          headers={"Range": "bytes=0-0"}) as g:
+                pass
+            if g.status_code < 400:
+                rec["mrf_check_method"] = "GET first byte (HEAD refused)"
+                r = g
+                total = re.search(r"/(\d+)\s*$", g.headers.get("Content-Range", ""))
+                if total:
+                    g.headers["Content-Length"] = total.group(1)
+                elif g.status_code != 200:
+                    g.headers.pop("Content-Length", None)
         cd = r.headers.get("Content-Disposition", "")
         mfn = re.search(r"filename\*?=(?:UTF-8'')?\"?([^\";]+)", cd, re.I)
         rec["mrf_filename"] = mfn.group(1).strip() if mfn else ""
@@ -463,7 +485,7 @@ def mrf_format(url: str, content_type: str = "", filename: str = "", final_url: 
 
 
 HEAD_COLS = ("mrf_http_status", "mrf_content_type", "mrf_bytes", "mrf_last_modified",
-             "mrf_final_url", "mrf_filename", "mrf_error")
+             "mrf_final_url", "mrf_filename", "mrf_error", "mrf_check_method")
 
 
 def _formats(m: pd.DataFrame) -> pd.DataFrame:
