@@ -22,7 +22,7 @@ files they need.
 | [`data/catalog.csv`](data/catalog.csv) | Full catalog, one row per hospital × price file |
 | [`data/ccn_ein.csv`](data/ccn_ein.csv) | CCN to EIN crosswalk, read from price-file names (`<EIN>_<name>_standardcharges`) |
 | [moqri-lab.org/hospitals](https://moqri-lab.org/hospitals/) | Map and searchable table ([`index.html`](index.html)); methods on the [About tab](https://moqri-lab.org/hospitals/about.html) |
-| [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 6,166 active Medicare-certified hospitals (5,845 covered by the price transparency rule; 321 exempt or possibly exempt: federal, and some state psychiatric), by state and then name |
+| [`data/registry/hospitals.csv`](data/registry/hospitals.csv) | All 6,166 active Medicare-certified hospitals (5,845 covered by the price transparency rule; 321 exempt: federal, and some state psychiatric), by state and then name |
 | [`data/discovery/`](data/discovery) | Raw crawl results: domains checked, every `cms-hpt.txt` entry |
 
 ## Sources

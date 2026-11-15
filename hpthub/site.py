@@ -406,7 +406,7 @@ def build() -> Path:
         "# Hospital Price Transparency Hub",
         "",
         f"{cat['ccn'].nunique():,} US hospitals active in the CMS Provider of Services file ({covered:,} covered by the "
-        f"price transparency rule; {cat['ccn'].nunique() - covered:,} exempt or possibly exempt), each with its website, its `cms-hpt.txt` "
+        f"price transparency rule; {cat['ccn'].nunique() - covered:,} exempt), each with its website, its `cms-hpt.txt` "
         f"and a direct link to every price file. Full table: [`data/catalog.csv`](data/catalog.csv). "
         "Sources: every active hospital in the CMS Provider of Services file Q3 2026, with bed counts "
         "(`BED_CNT`, per CCN), names from CMS [Hospital General Information]"
