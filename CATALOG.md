@@ -1,6 +1,6 @@
 # Hospital Price Transparency Hub
 
-5,845 US hospitals covered by the price transparency rule (of 6,166 active in the CMS Provider of Services file; the other 321 are exempt or possibly exempt), each with its website, its `cms-hpt.txt` and a direct link to every price file. Full table: [`data/catalog.csv`](data/catalog.csv). Sources: every active hospital in the CMS Provider of Services file Q3 2026, with bed counts (`BED_CNT`, per CCN), names from CMS [Hospital General Information](https://data.cms.gov/provider-data/dataset/xubh-q36u) where listed, price-file links from each hospital's own `cms-hpt.txt`. See [README](README.md#sources).
+6,166 US hospitals active in the CMS Provider of Services file (5,845 covered by the price transparency rule; 321 exempt or possibly exempt), each with its website, its `cms-hpt.txt` and a direct link to every price file. Full table: [`data/catalog.csv`](data/catalog.csv). Sources: every active hospital in the CMS Provider of Services file Q3 2026, with bed counts (`BED_CNT`, per CCN), names from CMS [Hospital General Information](https://data.cms.gov/provider-data/dataset/xubh-q36u) where listed, price-file links from each hospital's own `cms-hpt.txt`. See [README](README.md#sources).
 
 | # | Hospital | City, State | Beds (CCN) | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |
 |---|---|---|---:|---|---|---|---|---:|---|---|---|
