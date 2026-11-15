@@ -1,0 +1,38 @@
+# List every release CMS publishes for a data.cms.gov dataset (title words), with dates and URLs.
+name: cms-versions
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Dataset title words"
+        default: "Hospital All Owners"
+permissions:
+  contents: read
+jobs:
+  versions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Catalog entries and API versions
+        env:
+          TITLE: ${{ inputs.title }}
+        run: |
+          curl -sS --max-time 300 https://data.cms.gov/data.json -o data.json
+          python3 - <<'P'
+          import json, os, re, subprocess
+          want = set(os.environ["TITLE"].lower().split())
+          for ds in json.load(open("data.json"))["dataset"]:
+              t = ds.get("title", "")
+              if want <= set(re.sub(r"[^a-z ]", " ", t.lower()).split()):
+                  print("==", t, "| modified", ds.get("modified"), "| landing", ds.get("landingPage"))
+                  ids = set()
+                  for d in ds.get("distribution", []):
+                      print("  ", d.get("title"), d.get("modified"), d.get("downloadURL") or d.get("accessURL"))
+                      m = re.search(r"dataset/([0-9a-f-]{36})", str(d.get("accessURL")))
+                      if m: ids.add(m.group(1))
+                  for i in ids:
+                      for u in (f"https://data.cms.gov/data-api/v1/dataset/{i}/data-viewer?size=1",
+                                f"https://data.cms.gov/data-api/v1/dataset-type/{i}/versions"):
+                          out = subprocess.run(["curl", "-sS", "--max-time", "60", u], capture_output=True, text=True).stdout
+                          print("  API", u, "->", out[:1500])
+          P
