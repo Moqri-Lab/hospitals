@@ -93,7 +93,9 @@ def match_990(reg, fac) -> list[dict]:
         hits = []
         for h, ht, hz, hn in by_state.get(f.state, []):
             jac = len(ft & ht) / len(ft | ht) if ft and ht else 0.0
-            if hz == fz and ((fn and fn == hn and ft & ht) or jac >= 0.5):
+            # Same street number: the names must also agree (one set of words inside the other),
+            # since system returns often give every facility the headquarters address.
+            if hz == fz and ((fn and fn == hn and ft and ht and (ft <= ht or ht <= ft)) or jac >= 0.5):
                 hits.append((h, "zip+" + ("address" if fn and fn == hn else "name")))
             elif ft and ft == ht and str(h.city).upper() == str(f.city).upper():
                 hits.append((h, "name+city"))

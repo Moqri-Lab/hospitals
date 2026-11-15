@@ -101,7 +101,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 <div class="pager" id="pager"></div>
 <footer id="foot">Developed by <a href="https://moqri-lab.org/">Mahdi Moqri</a> in a personal capacity. <a href="about.html" target="_self">Learn more about the data sources and methods</a>.</footer>
 <script>
-const COLS=[["txt_check","cms-hpt.txt compliance"],["ccn","CCN"],["ein","EIN"],["name","Hospital"],["cms_name","CMS name"],["pos_name","POS name"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["confidence","Confidence"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_sutton","Web: nathansutton"],["web_osm","Web: OpenStreetMap"],["web_inferred","Web: inferred"],["web_llm","Web: LLM"],["web_claude","Web: Claude"]];
+const COLS=[["txt_check","cms-hpt.txt compliance"],["ccn","CCN"],["ein","EIN"],["name","Hospital"],["cms_name","CMS name"],["pos_name","POS name"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["owners","Owners (CMS)"],["public_parent","Public parent"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["confidence","Confidence"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_sutton","Web: nathansutton"],["web_osm","Web: OpenStreetMap"],["web_inferred","Web: inferred"],["web_llm","Web: LLM"],["web_claude","Web: Claude"]];
 // Consistent capitalization for hospital names. Brand and acronym casing (AdventHealth, UCSF, McAllen)
 // is learned from the mixed-case location names hospitals write in their own cms-hpt.txt files.
 const CASE={},SMALL=new Set(["of","and","the","at","for","in","on","by","a","an","de","del","la","las","los","y"]);
@@ -116,7 +116,7 @@ function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim().replace(/^\d[\d-
     if(CASE[k]&&!(SMALL.has(k)))return CASE[k];
     if(!/[aeiouy]/.test(k)&&/^[a-z]{2,4}$/.test(k)&&k!=="st"&&k!=="mt"&&k!=="ft"&&k!=="dr")return k.toUpperCase();
     return k.charAt(0).toUpperCase()+k.slice(1)})}
-let EXEMPT={},lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
+let EXEMPT={},FAC={},lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 // CCN link: the hospital's Medicare Care Compare profile (hospital, inpatient rehab or LTCH), when CMS lists one.
@@ -127,10 +127,19 @@ function cell(r,k){const v=r[k]??"";
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
   if(k==="ccn"){const L=ccnLink(r);return L?`<a style="white-space:nowrap" href="${esc(L[0])}" title="${esc(L[1])} for CCN ${esc(v)}">${esc(v)}</a>`:`<span style="white-space:nowrap" title="No CMS profile page for this CCN">${esc(v)}</span>`}
-  if(k==="ein"){const L=e=>{const t=EXEMPT[e],u=`https://projects.propublica.org/nonprofits/organizations/${+e.replace(/-/g,"")}`;
-      return t==="full"?`<a style="white-space:nowrap" href="${u}" title="ProPublica Nonprofit Explorer: Form 990 filings for EIN ${esc(e)}">${esc(e)}</a>`
-        :t?`<a style="white-space:nowrap;opacity:.6" href="${u}" title="EIN ${esc(e)} files no full Form 990 (postcard or group return), so its Nonprofit Explorer page has no finances">${esc(e)}</a>`
-        :`<span style="white-space:nowrap" title="Not a tax-exempt organization in the IRS master file, so no Nonprofit Explorer page">${esc(e)}</span>`};
+  if(k==="ein"){const gov=/^Government/.test(r.ownership||"")&&!/Federal/.test(r.ownership||"");
+    const L=e=>{const t=EXEMPT[e],f=FAC[e],n=+e.replace(/-/g,""),pp=`https://projects.propublica.org/nonprofits/organizations/${n}`,
+        a=(u,tt,dim)=>`<a style="white-space:nowrap${dim?";opacity:.6":""}" href="${esc(u)}" title="${esc(tt)}">${esc(e)}</a>`,
+        fu=f&&`https://app.fac.gov/dissemination/summary/${encodeURIComponent(f[0])}`;
+      if(t==="full")return a(pp,`ProPublica Nonprofit Explorer: Form 990 filings for EIN ${e}`);
+      if(t==="government"||(!t&&gov))return f?a(fu,`Government entity (no Form 990 required). Federal Audit Clearinghouse: single audit with financial statements, ${f[1]}`)
+        :t?a(pp,`Government entity: the IRS does not require a Form 990, so Nonprofit Explorer has no finances`,1)
+        :`<span style="white-space:nowrap" title="Government entity: no Form 990 required, and no Federal single audit found for this EIN">${esc(e)}</span>`;
+      if(t)return f?a(fu,`EIN ${e} files no full Form 990 (postcard or group return). Federal Audit Clearinghouse: single audit, ${f[1]}`)
+        :a(pp,`EIN ${e} files no full Form 990 (postcard or group return), so its Nonprofit Explorer page has no finances`,1);
+      if(r.public_parent)return a(`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=10-K&company=${encodeURIComponent(r.public_parent.replace(/,? (Inc|Corp|Corporation|Company, Inc)\.?$/i,""))}`,`Owned by ${r.public_parent}, a public company: its SEC filings (10-K) report this hospital's finances`);
+      if(f)return a(fu,`Federal Audit Clearinghouse: single audit, ${f[1]}`);
+      return `<span style="white-space:nowrap" title="Not a tax-exempt organization${r.owners?`. Owners (CMS): ${esc(r.owners)}`:""}">${esc(e)}</span>`};
     const es=(v||"").split(" ").filter(Boolean);let h=es.map(L).join("<br>");
     if(r.ein_990&&!es.includes(r.ein_990))h+=`${h?"<br>":""}<span class="small" title="Form 990 filer that lists this hospital on Schedule H">990: </span>${L(r.ein_990)}`;
     return h}
@@ -212,7 +221,7 @@ document.getElementById("colmenu").addEventListener("click",e=>{if(e.target.id!=
 drawHead();
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;page=0;render()};
 ["q","state","ftype","fcheck"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{page=0;render()}));
-const XCOLS=["ccn","name","cms_name","pos_name","facility_type","address","city","state","zip","beds","system","txt_check","txt_check_reason","hpt_txt_domain","hpt_txt_url","hpt_txt_access_issue","confidence","match_status","location_name","source_page_url","mrf_url","mrf_format","mrf_size_mb","mrf_last_modified","mrf_http_status","contact_name","contact_email","ein","ein_990","npi"];
+const XCOLS=["ccn","name","cms_name","pos_name","facility_type","address","city","state","zip","beds","system","txt_check","txt_check_reason","hpt_txt_domain","hpt_txt_url","hpt_txt_access_issue","confidence","match_status","location_name","source_page_url","mrf_url","mrf_format","mrf_size_mb","mrf_last_modified","mrf_http_status","contact_name","contact_email","ein","ein_990","npi","owners","public_parent"];
 document.getElementById("export").onclick=()=>{
   const q=v=>{v=String(v??"");return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
   const out=[XCOLS.join(",")];
@@ -220,7 +229,7 @@ document.getElementById("export").onclick=()=>{
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+out.join("\r\n")],{type:"text/csv"}));
   a.download=`hospital-price-files-${new Date().toISOString().slice(0,10)}.csv`;a.target="_self";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000)};
 fetch("data.json").then(r=>r.json()).then(d=>{
-  EXEMPT=Array.isArray(d.exempt_eins)?Object.fromEntries(d.exempt_eins.map(e=>[e,"full"])):(d.exempt_eins||{});
+  FAC=d.fac_audits||{};EXEMPT=Array.isArray(d.exempt_eins)?Object.fromEntries(d.exempt_eins.map(e=>[e,"full"])):(d.exempt_eins||{});
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();
   buildCasing(rows);

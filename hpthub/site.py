@@ -311,7 +311,7 @@ def care_compare_profiles() -> dict[str, str]:
 
 
 def exempt_eins() -> dict[str, str]:
-    """EIN -> 'full' or 'postcard' for tax-exempt organizations (IRS EO Business Master File, via
+    """EIN -> 'full', 'government' or 'postcard' for tax-exempt organizations (IRS EO Business Master File, via
     scripts/exempt_eins.py), the ones with a ProPublica Nonprofit Explorer page. 'full' means the
     EIN files Form 990 with financials: it filed Schedule H, or the master file shows revenue.
     'postcard' means only a 990-N postcard, a group return or no filing, so its page has no finances."""
@@ -320,7 +320,16 @@ def exempt_eins() -> dict[str, str]:
         return {}
     sched_h = set(_read(ROOT / "data" / "registry" / "irs990_hospital_facilities.csv").get("ein", []))
     rev = pd.to_numeric(df.get("revenue_amt", pd.Series("", index=df.index)), errors="coerce").fillna(0)
-    return {e: "full" if (e in sched_h or r > 0) else "postcard" for e, r in zip(df["ein"], rev)}
+    code = df.get("filing_req_cd", pd.Series("", index=df.index))
+    # Filing requirement 14: a government instrumentality, which files no Form 990.
+    return {e: "full" if (e in sched_h or r > 0) else "government" if c == "14" else "postcard"
+            for e, r, c in zip(df["ein"], rev, code)}
+
+
+def fac_audits() -> dict[str, list[str]]:
+    """EIN -> [report_id, audit_year] of its latest Federal single audit (scripts/fac_audits.py)."""
+    df = _read(ROOT / "data" / "registry" / "fac_audits.csv")
+    return {r.ein: [r.report_id, r.audit_year] for r in df.itertuples()} if len(df) else {}
 
 
 def build() -> Path:
@@ -332,7 +341,32 @@ def build() -> Path:
         cat = cat.copy()
         fill = cat["ccn"].isin(irs.index) & (cat["ein"] == "")
         cat.loc[fill, "ein"] = cat.loc[fill, "ccn"].map(irs)
-    cat["ein_990"] = cat["ccn"].map(irs).fillna("") if len(xw) else ""
+    cat["ein_990"] = ""
+    if len(xw):
+        # The Schedule H filer EIN is shown only when it adds something: not when one of the
+        # hospital's own price-file EINs already files a full Form 990, and never when it is
+        # another hospital's own price-file EIN (a sibling in the same system).
+        st = exempt_eins()
+        pf = xw[xw["source"] == "price-file name"]
+        own = pf.groupby("ccn")["ein"].agg(set)
+        owner_of = pf.groupby("ein")["ccn"].agg(set)
+        def fin(ccn):
+            e = irs.get(ccn, "")
+            mine = own.get(ccn, set())
+            if not e or e in mine or any(st.get(x) == "full" for x in mine):
+                return ""
+            return "" if owner_of.get(e, set()) - {ccn} else e
+        cat["ein_990"] = cat["ccn"].map(fin)
+    own = _read(ROOT / "data" / "registry" / "hospital_owners.csv")
+    if len(own):  # CMS Hospital All Owners (organizations): direct owners first, then indirect
+        own = own[own["role"].str.contains("OWNERSHIP|PARTNERSHIP", regex=True)].copy()
+        own["direct"] = ~own["role"].str.contains("INDIRECT")
+        own = own.sort_values(["ccn", "direct", "owner"], ascending=[True, False, True])
+        cat["owners"] = cat["ccn"].map(own.groupby("ccn")["owner"].agg(lambda x: "; ".join(dict.fromkeys(x)))).fillna("")
+        pub = own[own["sec_name"] != ""].drop_duplicates("ccn").set_index("ccn")["sec_name"]
+        cat["public_parent"] = cat["ccn"].map(pub).fillna("")
+    else:
+        cat["owners"] = cat["public_parent"] = ""
     cat = cat.copy()
     cat["care_compare"] = cat["ccn"].map(care_compare_profiles()).fillna("")
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
@@ -369,6 +403,7 @@ def build() -> Path:
         "columns": list(cat.columns),
         "rows": cat.values.tolist(),
         "exempt_eins": exempt_eins(),
+        "fac_audits": fac_audits(),
     }
     out = ROOT / "data.json"
     out.parent.mkdir(parents=True, exist_ok=True)
