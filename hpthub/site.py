@@ -273,17 +273,19 @@ def ein_crosswalk(cat: pd.DataFrame) -> pd.DataFrame:
     fac = _read(ROOT / "data" / "registry" / "irs990_hospital_facilities.csv")
     if not fac.empty:
         hosp = cat.drop_duplicates("ccn")
-        have = {r["ccn"] for r in rows}
         info = hosp.set_index("ccn")
+        pairs = {(r["ccn"], r["ein"]) for r in rows}
         for m in ein_mod.match_990(hosp[hosp["hpt_exempt"] != "True"], fac):
-            if m["ccn"] in have:
+            # Every Schedule H match is kept, also for hospitals whose price files name an EIN:
+            # the 990 filer is often the system that carries the finances (e.g. a group return).
+            if (m["ccn"], m["ein"]) in pairs:
                 continue
             h = info.loc[m["ccn"]]
             rows.append({"ccn": m["ccn"], "ein": m["ein"], "name": h["name"], "city": h["city"], "state": h["state"],
                          "npi": "", "n_price_files": 0, "ccns_with_this_ein": 0, "example_price_file": "",
                          "source": f"IRS 990 Schedule H ({m['irs_filer']}, tax year ending {m['irs_tax_period']}; "
                                    f"facility '{m['irs_facility']}', matched by {m['method']})"})
-            have.add(m["ccn"])
+            pairs.add((m["ccn"], m["ein"]))
     df = pd.DataFrame(rows, columns=["ccn", "ein", "name", "city", "state", "npi", "n_price_files",
                                      "ccns_with_this_ein", "example_price_file", "source"])
     if len(df):
@@ -308,11 +310,17 @@ def care_compare_profiles() -> dict[str, str]:
     return out
 
 
-def exempt_eins() -> list[str]:
-    """EINs of tax-exempt organizations (IRS EO Business Master File, via scripts/exempt_eins.py):
-    the ones with a ProPublica Nonprofit Explorer page."""
+def exempt_eins() -> dict[str, str]:
+    """EIN -> 'full' or 'postcard' for tax-exempt organizations (IRS EO Business Master File, via
+    scripts/exempt_eins.py), the ones with a ProPublica Nonprofit Explorer page. 'full' means the
+    EIN files Form 990 with financials: it filed Schedule H, or the master file shows revenue.
+    'postcard' means only a 990-N postcard, a group return or no filing, so its page has no finances."""
     df = _read(ROOT / "data" / "registry" / "exempt_eins.csv")
-    return sorted(df["ein"]) if len(df) else []
+    if df.empty:
+        return {}
+    sched_h = set(_read(ROOT / "data" / "registry" / "irs990_hospital_facilities.csv").get("ein", []))
+    rev = pd.to_numeric(df.get("revenue_amt", pd.Series("", index=df.index)), errors="coerce").fillna(0)
+    return {e: "full" if (e in sched_h or r > 0) else "postcard" for e, r in zip(df["ein"], rev)}
 
 
 def build() -> Path:
@@ -320,10 +328,11 @@ def build() -> Path:
     xw = ein_crosswalk(cat)
     xw.to_csv(ROOT / "data" / "ccn_ein.csv", index=False)
     if len(xw):  # hospitals whose EIN comes from IRS 990 only: show it in the table too
-        irs = xw[xw["source"].str.startswith("IRS")].set_index("ccn")["ein"]
+        irs = xw[xw["source"].str.startswith("IRS")].drop_duplicates("ccn").set_index("ccn")["ein"]
         cat = cat.copy()
         fill = cat["ccn"].isin(irs.index) & (cat["ein"] == "")
         cat.loc[fill, "ein"] = cat.loc[fill, "ccn"].map(irs)
+    cat["ein_990"] = cat["ccn"].map(irs).fillna("") if len(xw) else ""
     cat = cat.copy()
     cat["care_compare"] = cat["ccn"].map(care_compare_profiles()).fillna("")
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
