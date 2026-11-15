@@ -374,10 +374,13 @@ def build() -> Path:
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
 
     crawled = cat[cat["match_status"] != ""]
+    h1 = cat.drop_duplicates("ccn")
+    covered = int(((h1["hpt_exempt"] != "True") & ~h1["exempt_note"].str.startswith("possibly")).sum())
     lines = [
         "# Hospital Price Transparency Hub",
         "",
-        f"{crawled['ccn'].nunique()} of {cat['ccn'].nunique()} CMS hospitals, each with its website, its `cms-hpt.txt` "
+        f"{covered:,} US hospitals covered by the price transparency rule (of {cat['ccn'].nunique():,} active in the CMS "
+        f"Provider of Services file; the other {cat['ccn'].nunique() - covered:,} are exempt or possibly exempt), each with its website, its `cms-hpt.txt` "
         f"and a direct link to every price file. Full table: [`data/catalog.csv`](data/catalog.csv). "
         "Sources: every active hospital in the CMS Provider of Services file Q3 2026, with bed counts "
         "(`BED_CNT`, per CCN), names from CMS [Hospital General Information]"
