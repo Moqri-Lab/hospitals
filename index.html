@@ -119,13 +119,9 @@ function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim().replace(/^\d[\d-
 let EXEMPT=new Set(),lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
-// CCN link: acute care hospitals (paid under Medicare's inpatient system) -> CMS inpatient hospital look-up;
-// every other type -> its Medicare Care Compare profile (hospital, inpatient rehab or LTCH), when one exists.
+// CCN link: the hospital's Medicare Care Compare profile (hospital, inpatient rehab or LTCH), when CMS lists one.
 const CC_LABEL={"hospital":"Medicare Care Compare hospital profile","inpatient-rehabilitation":"Medicare Care Compare inpatient rehabilitation profile","long-term-care-hospital":"Medicare Care Compare long-term care hospital profile"};
-function ccnLink(r){const c=encodeURIComponent(r.ccn||"");
-  if(r.facility_type==="Acute Care Hospitals")return[`https://data.cms.gov/tools/medicare-inpatient-hospital-look-up-tool/provider/${c}`,"CMS Medicare inpatient hospital look-up"];
-  if(r.care_compare)return[`https://www.medicare.gov/care-compare/details/${r.care_compare}/${c}/`+(r.state?`?state=${encodeURIComponent(r.state)}`:""),CC_LABEL[r.care_compare]||"Medicare Care Compare"];
-  return null}
+function ccnLink(r){return r.care_compare?[`https://www.medicare.gov/care-compare/details/${r.care_compare}/${encodeURIComponent(r.ccn||"")}/`,CC_LABEL[r.care_compare]||"Medicare Care Compare"]:null}
 function cell(r,k){const v=r[k]??"";
   if(k==="name")return (r.hpt_txt_domain?`<a href="https://${esc(r.hpt_txt_domain)}" title="Hospital website: ${esc(r.hpt_txt_domain)}">${esc(v)}</a>`:esc(v))+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
