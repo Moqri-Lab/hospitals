@@ -202,6 +202,13 @@ function drawMap(){
 }
 document.getElementById("usmap").onclick=e=>{const t=e.target.closest(".st");if(!t)return;const s=document.getElementById("state");s.value=s.value===t.dataset.st?"":t.dataset.st;page=0;render()};
 document.getElementById("pager").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;page=+b.dataset.p;render();document.querySelector(".controls").scrollIntoView({behavior:"smooth"})};
+// Type options: when "Exclude exempt" is ticked, leave out types that only exempt hospitals have.
+function fillTypes(){const sel=document.getElementById("ftype"),cur=sel.value,noEx=document.getElementById("noexempt").checked;
+  const isEx=r=>r.hpt_exempt==="True"||String(r.exempt_note).startsWith("possibly");
+  const ts=[...new Set(hosps.filter(h=>!noEx||!isEx(h)).map(h=>h.facility_type))].sort();
+  sel.querySelectorAll("option:not([value=''])").forEach(o=>o.remove());
+  ts.forEach(t=>{const o=document.createElement("option");o.value=o.textContent=t;sel.appendChild(o)});
+  sel.value=ts.includes(cur)?cur:""}
 function render(){
   const q=document.getElementById("q").value.toLowerCase().trim(),st=document.getElementById("state").value,ty=document.getElementById("ftype").value,ck=document.getElementById("fcheck").value;
   const isEx=r=>r.hpt_exempt==="True"||String(r.exempt_note).startsWith("possibly");
@@ -232,7 +239,7 @@ document.getElementById("colmenu").addEventListener("click",e=>{if(e.target.id!=
   try{localStorage.removeItem("hpt-cols")}catch(_){};document.querySelectorAll("#colmenu input").forEach(i=>i.checked=shown.includes(i.dataset.col));drawHead();render()});
 drawHead();
 document.getElementById("head").onclick=e=>{const k=e.target.dataset.k;if(!k)return;sortDir=k===sortKey?-sortDir:(num(k)?-1:1);sortKey=k;page=0;render()};
-["q","state","ftype","fcheck","noexempt"].forEach(id=>document.getElementById(id).addEventListener(id==="noexempt"?"change":"input",()=>{page=0;render()}));
+["q","state","ftype","fcheck","noexempt"].forEach(id=>document.getElementById(id).addEventListener(id==="noexempt"?"change":"input",()=>{page=0;if(id==="noexempt")fillTypes();render()}));
 const XCOLS=["ccn","name","cms_name","pos_name","facility_type","exempt_note","address","city","state","zip","beds","system","txt_check","txt_check_reason","hpt_txt_domain","hpt_txt_url","hpt_txt_access_issue","confidence","match_status","location_name","source_page_url","mrf_url","mrf_format","mrf_size_mb","mrf_last_modified","mrf_http_status","mrf_check_method","contact_name","contact_email","ein","ein_990","npi","owners","public_parent"];
 document.getElementById("export").onclick=()=>{
   const q=v=>{v=String(v??"");return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
@@ -248,7 +255,7 @@ fetch("data.json").then(r=>r.json()).then(d=>{
   buildCasing(rows);
   for(const r of rows){if(!by.has(r.ccn))by.set(r.ccn,{...r,files:[]});if(r.mrf_url)by.get(r.ccn).files.push(r)}
   hosps=[...by.values()];hosps.forEach(h=>{h.n_files=h.files.length;h.cms_name=h.name;{const L=h.files.map(x=>String(x.location_name).split(";")[0].trim()).filter(Boolean);if(L.length&&!/^\d+\s+\S.*\b(rd|road|st|street|ave|avenue|hwy|highway|dr|drive|blvd|ln|lane|way|pkwy|parkway)\.?\b/i.test(L[0]))h.name=L[0]}h.name=nameCase(h.name);h.ein=[...new Set((h.files.length?h.files:[h]).map(x=>x.ein).filter(Boolean))].join(" ");const cs=h.files.map(x=>+x.confidence).filter(x=>!isNaN(x)&&x>0);h.confidence=cs.length?String(Math.max(...cs)):(h.confidence||"")});
-  [...new Set(hosps.map(h=>h.facility_type))].sort().forEach(t=>{const o=document.createElement("option");o.value=o.textContent=t;document.getElementById("ftype").appendChild(o)});
+  fillTypes();
   [...new Set(rows.map(r=>r.state))].sort().forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;document.getElementById("state").appendChild(o)});
   const T=d.totals;if(T){const fb=n=>(n/1e9).toFixed(1);const fmt=n=>n>=1e9?(n/1e9).toFixed(1)+" billion":n>=1e6?Math.round(n/1e6)+" million":n.toLocaleString();
     const nall=hosps.length,ex=h=>h.hpt_exempt==="True"||String(h.exempt_note).startsWith("possibly"),nh=hosps.filter(h=>!ex(h)).length,nx=nall-nh;
