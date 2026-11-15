@@ -291,6 +291,23 @@ def ein_crosswalk(cat: pd.DataFrame) -> pd.DataFrame:
     return df.sort_values(["state", "name", "ccn"]).reset_index(drop=True) if len(df) else df
 
 
+def care_compare_profiles() -> dict[str, str]:
+    """CCN -> Medicare Care Compare profile type (hospital, inpatient-rehabilitation,
+    long-term-care-hospital), only for CCNs that have that profile. From data/cms/care_compare_ccns.csv
+    (scripts/care_compare_ccns.py); hospital profiles fall back to Hospital General Information."""
+    out: dict[str, str] = {}
+    hgi = ROOT / "data" / "cms" / "hospital_general_information.csv"
+    if hgi.exists():
+        for c in _read(hgi).get("Facility ID", []):
+            out[str(c).zfill(6)] = "hospital"
+    cc = ROOT / "data" / "cms" / "care_compare_ccns.csv"
+    if cc.exists():
+        for r in _read(cc).itertuples():  # a rehab or LTCH profile is the more specific page
+            if r.profile != "hospital" or r.ccn not in out:
+                out[r.ccn] = r.profile
+    return out
+
+
 def build() -> Path:
     cat = catalog()
     xw = ein_crosswalk(cat)
@@ -300,6 +317,8 @@ def build() -> Path:
         cat = cat.copy()
         fill = cat["ccn"].isin(irs.index) & (cat["ein"] == "")
         cat.loc[fill, "ein"] = cat.loc[fill, "ccn"].map(irs)
+    cat = cat.copy()
+    cat["care_compare"] = cat["ccn"].map(care_compare_profiles()).fillna("")
     cat.to_csv(ROOT / "data" / "catalog.csv", index=False)
 
     crawled = cat[cat["match_status"] != ""]
@@ -331,7 +350,7 @@ def build() -> Path:
     payload = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "totals": price_totals(cat),
-        "columns": CATALOG_COLUMNS,
+        "columns": list(cat.columns),
         "rows": cat.values.tolist(),
     }
     out = ROOT / "data.json"

@@ -119,11 +119,18 @@ function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim().replace(/^\d[\d-
 let lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
+// CCN link: acute care hospitals (paid under Medicare's inpatient system) -> CMS inpatient hospital look-up;
+// every other type -> its Medicare Care Compare profile (hospital, inpatient rehab or LTCH), when one exists.
+const CC_LABEL={"hospital":"Medicare Care Compare hospital profile","inpatient-rehabilitation":"Medicare Care Compare inpatient rehabilitation profile","long-term-care-hospital":"Medicare Care Compare long-term care hospital profile"};
+function ccnLink(r){const c=encodeURIComponent(r.ccn||"");
+  if(r.facility_type==="Acute Care Hospitals")return[`https://data.cms.gov/tools/medicare-inpatient-hospital-look-up-tool/provider/${c}`,"CMS Medicare inpatient hospital look-up"];
+  if(r.care_compare)return[`https://www.medicare.gov/care-compare/details/${r.care_compare}/${c}`+(r.state?`?state=${encodeURIComponent(r.state)}`:""),CC_LABEL[r.care_compare]||"Medicare Care Compare"];
+  return null}
 function cell(r,k){const v=r[k]??"";
   if(k==="name")return (r.hpt_txt_domain?`<a href="https://${esc(r.hpt_txt_domain)}" title="Hospital website: ${esc(r.hpt_txt_domain)}">${esc(v)}</a>`:esc(v))+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
-  if(k==="ccn")return `<a style="white-space:nowrap" href="https://data.cms.gov/tools/medicare-inpatient-hospital-look-up-tool/provider/${encodeURIComponent(v)}" title="CMS Medicare inpatient hospital look-up for CCN ${esc(v)}">${esc(v)}</a>`;
+  if(k==="ccn"){const L=ccnLink(r);return L?`<a style="white-space:nowrap" href="${esc(L[0])}" title="${esc(L[1])} for CCN ${esc(v)}">${esc(v)}</a>`:`<span style="white-space:nowrap" title="No CMS profile page for this CCN">${esc(v)}</span>`}
   if(k==="ein")return (v||"").split(" ").filter(Boolean).map(e=>`<span style="white-space:nowrap">${esc(e)}</span>`).join("<br>");
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
     let h=ds.map(d=>d===r.hpt_txt_domain?`<span class="ok" title="${esc(d)}: the website whose cms-hpt.txt was read">✓</span>`:`<span class="t" title="${esc(d)}">${esc(d)}</span>`).join(" ");

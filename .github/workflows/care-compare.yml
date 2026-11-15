@@ -21,9 +21,12 @@ jobs:
       - run: python scripts/care_compare_ccns.py
       - name: Spot-check pages
         run: |
+          UA="hpt-hub/0.1 (+https://github.com/Moqri-Lab/hospitals)"
           for p in ${{ inputs.sample }}; do
-            curl -sS -o /dev/null -w "medicare.gov/care-compare/details/$p -> %{http_code}\n" --max-time 60 \
-              -A "hpt-hub/0.1 (+https://github.com/Moqri-Lab/hospitals)" "https://www.medicare.gov/care-compare/details/$p" || true
+            u="https://www.medicare.gov/care-compare/details/$p"
+            curl -sS -o /dev/null -A "$UA" --max-time 60 -w "$p -> %{http_code} %{redirect_url}\n" "$u" || true
+            curl -sSL -o page.html -A "$UA" --max-time 60 -w "  followed -> %{http_code} %{url_effective}\n" "$u" || true
+            grep -o "<title>[^<]*</title>" page.html | head -1 || true
           done
       - name: Commit results
         run: |
