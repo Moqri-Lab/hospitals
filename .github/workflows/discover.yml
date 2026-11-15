@@ -92,12 +92,13 @@ jobs:
           git add data data.json CATALOG.md
           git diff --cached --quiet || git commit -m "data: discovery run $(date -u +%F), price files"
           git pull --rebase -X theirs origin main && git push
-      # Publishing needs Settings > Pages > Source = GitHub Actions; skip quietly until then.
+      # Publish dev (main) and prod at once; prod stays at its own branch.
       - uses: actions/configure-pages@v5
         id: pages
         continue-on-error: true
-      - name: Add data files to the site
-        run: mkdir -p _site && cp -r index.html about.html exempt.html data.json CATALOG.md .nojekyll data _site/ && python3 scripts/dir_index.py _site/data
+      - name: Build prod (root) and dev (/dev/)
+        if: steps.pages.outcome == 'success'
+        run: bash scripts/build_pages.sh
       - uses: actions/upload-pages-artifact@v3
         if: steps.pages.outcome == 'success'
         with:

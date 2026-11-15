@@ -1,0 +1,27 @@
+# Promote the development version to the public site: point `prod` at the current `main`, then publish.
+name: promote
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Commit or branch to publish as prod (default: main)"
+        default: "main"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Move prod to ${{ inputs.ref }}
+        run: |
+          sha=$(git rev-parse "origin/${{ inputs.ref }}" 2>/dev/null || git rev-parse "${{ inputs.ref }}")
+          git push --force origin "$sha:refs/heads/prod"
+          echo "prod -> $sha"
+  publish:
+    needs: promote
+    uses: ./.github/workflows/pages.yml

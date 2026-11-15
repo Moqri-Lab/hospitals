@@ -1,9 +1,11 @@
+# Publish the site: the `prod` branch at moqri-lab.org/hospitals/ (stable) and `main` at /dev/.
 name: pages
 on:
   push:
     branches: [main]
-    paths: ["*.html", "data.json", "data/**"]
+    paths: ["*.html", "data.json", "data/**", "scripts/build_pages.sh"]
   workflow_dispatch:
+  workflow_call:
 permissions:
   contents: read
   pages: write
@@ -19,9 +21,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/configure-pages@v5
-      - name: Add data files to the site
-        run: mkdir -p _site && cp -r index.html about.html exempt.html data.json CATALOG.md .nojekyll data _site/ && python3 scripts/dir_index.py _site/data
+      - name: Build prod (root) and dev (/dev/)
+        run: bash scripts/build_pages.sh
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
