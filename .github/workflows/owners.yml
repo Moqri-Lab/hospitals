@@ -19,6 +19,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/registry/hospital_owners.csv
+          git add data/registry/hospital_owners.csv data/registry/ccn_npi.csv
           git commit -m "data: hospital owners (CMS) and SEC parents" || exit 0
           for i in 1 2 3 4; do git pull --rebase -X theirs origin main && git push && break; sleep $((i*10)); done

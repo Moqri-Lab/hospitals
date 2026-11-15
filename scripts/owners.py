@@ -5,6 +5,8 @@
 2. Publicly traded hospital companies (PUBLIC below) matched by owner name, for a link to their
    SEC EDGAR filings.
 
+Also writes data/registry/ccn_npi.csv (ccn, npi, enrolled_name) from the enrollments file.
+
 Writes data/registry/hospital_owners.csv (ccn, owner, role, pct, for_profit, sec_name). The site links non-tax-exempt EINs to the parent company's SEC filings.
 
 Usage: python scripts/owners.py
@@ -94,6 +96,18 @@ def main() -> None:
     cat = s.get(CATALOG, timeout=300).json()
     enr = rows(s, latest_csv(s, cat, "Hospital Enrollments"))
     own = rows(s, latest_csv(s, cat, "Hospital All Owners"))
+    npis = {}  # (ccn, npi) -> enrolled organization name
+    for r in enr:
+        ccn, npi = col(r, "CCN", "PROVIDER CCN"), col(r, "NPI")
+        if ccn and re.fullmatch(r"[12]\d{9}", npi):
+            npis[(ccn.zfill(6), npi)] = col(r, "ORGANIZATION NAME")
+    npi_out = ROOT / "data" / "registry" / "ccn_npi.csv"
+    with npi_out.open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["ccn", "npi", "enrolled_name"])
+        for (c, n), name in sorted(npis.items()):
+            w.writerow([c, n, name])
+    print(f"{len(npis)} CCN-NPI pairs for {len({c for c, _ in npis})} CCNs -> {npi_out}")
     ccn_of: dict[str, set[str]] = {}
     for r in enr:
         ccn = col(r, "CCN", "PROVIDER CCN")
