@@ -2,11 +2,10 @@
 
 1. CMS Hospital Enrollments (CCN -> enrollment) and Hospital All Owners (enrollment -> owners), both
    public on data.cms.gov. Only organization owners are kept (no individuals).
-2. SEC EDGAR company list: an organization owner flagged as a parent company is matched by name
-   to an EDGAR registrant, and the registrant's EIN is read from its EDGAR record.
+2. Publicly traded hospital companies (PUBLIC below) matched by owner name, for a link to their
+   SEC EDGAR filings.
 
-Writes data/registry/hospital_owners.csv (ccn, owner, role, pct, parent, for_profit, cik, sec_name,
-sec_ein). The site links non-tax-exempt EINs to the parent company's SEC filings.
+Writes data/registry/hospital_owners.csv (ccn, owner, role, pct, for_profit, sec_name). The site links non-tax-exempt EINs to the parent company's SEC filings.
 
 Usage: python scripts/owners.py
 """
@@ -15,6 +14,7 @@ from __future__ import annotations
 
 import csv
 import io
+import json
 import re
 import time
 from pathlib import Path
@@ -30,6 +30,20 @@ STOP = {"INC", "INCORPORATED", "CORP", "CORPORATION", "CO", "COMPANY", "LLC", "L
         "HOLDINGS", "HOLDING", "GROUP", "PLC", "NV", "DE", "OF", "AND"}
 
 
+PUBLIC = [  # (EDGAR registrant name, pattern on the CMS owner name)
+    ("HCA Healthcare, Inc.", r"^HCA HEALTHCARE\b|^HCA,? INC\b"),
+    ("Tenet Healthcare Corp", r"^TENET HEALTHCARE CORP"),
+    ("Community Health Systems Inc", r"^COMMUNITY HEALTH SYSTEMS,? INC|^CHS/COMMUNITY HEALTH SYSTEMS"),
+    ("Universal Health Services Inc", r"^UNIVERSAL HEALTH SERVICES,? INC"),
+    ("Encompass Health Corp", r"^ENCOMPASS HEALTH CORP"),
+    ("Select Medical Holdings Corp", r"^SELECT MEDICAL (HOLDINGS )?CORP"),
+    ("Acadia Healthcare Company, Inc.", r"^ACADIA HEALTHCARE COMPANY"),
+    ("Ardent Health, Inc.", r"^ARDENT HEALTH(,? INC| PARTNERS)"),
+    ("Surgery Partners, Inc.", r"^SURGERY PARTNERS,? INC"),
+    ("Nutex Health Inc.", r"^NUTEX HEALTH"),
+]
+
+
 def norm(s: str) -> str:
     w = re.sub(r"[^A-Z0-9 ]", " ", s.upper().replace("&", " AND ")).split()
     return " ".join(x for x in w if x not in STOP)
@@ -40,7 +54,16 @@ def latest_csv(sess, cat, title: str) -> str:
     for ds in sorted(cat["dataset"], key=lambda d: len(d.get("title", ""))):
         if want <= set(re.sub(r"[^a-z ]", " ", ds.get("title", "").lower()).split()):
             d = [x for x in ds.get("distribution", []) if str(x.get("downloadURL", "")).endswith(".csv")]
-            d.sort(key=lambda x: x.get("temporal", "") or x.get("modified", ""), reverse=True)
+            def when(x):  # date in the file name first (uploads can be re-dated), then temporal, modified
+                for v in (str(x.get("downloadURL", "")).rsplit("/", 1)[-1], x.get("temporal", ""),
+                          x.get("modified", ""), json.dumps(x)):
+                    ds = re.findall(r"(20\d\d)[-._/]?(\d\d)(?:[-._/]?(\d\d))?", str(v))
+                    if ds:
+                        return max((a, b, c or "00") for a, b, c in ds)
+                return ("",)
+            d.sort(key=when, reverse=True)
+            for x in d[:3]:
+                print(f"  candidate {when(x)}: {x.get('downloadURL')}")
             print(f"{title}: {d[0]['downloadURL']}")
             return d[0]["downloadURL"]
     near = [d.get("title") for d in cat["dataset"] if "hospital" in d.get("title", "").lower()]
@@ -82,35 +105,17 @@ def main() -> None:
         for ccn in ccn_of.get(col(r, "ENROLLMENT ID"), ()):
             out.append({"ccn": ccn, "owner": col(r, "ORGANIZATION NAME - OWNER"),
                         "role": col(r, "ROLE TEXT - OWNER"), "pct": col(r, "PERCENTAGE OWNERSHIP"),
-                        "parent": col(r, "PARENT COMPANY - OWNER"), "for_profit": col(r, "FOR PROFIT - OWNER")})
+                        "for_profit": col(r, "FOR PROFIT - OWNER")})
     print(f"{len(out)} organization owner rows for {len({o['ccn'] for o in out})} CCNs")
 
-    # SEC EDGAR: match owner names to registrants, read each match's EIN.
-    sec = {}
-    try:
-        t = s.get("https://www.sec.gov/files/company_tickers.json", timeout=120)
-        print(f"SEC company list: HTTP {t.status_code}")
-        if t.ok:
-            for v in t.json().values():
-                sec.setdefault(norm(v["title"]), (str(v["cik_str"]).zfill(10), v["title"]))
-    except requests.RequestException as e:
-        print(f"SEC company list failed: {e}")
-    eins: dict[str, str] = {}
+    # Public companies that own US hospitals, matched by owner name. Each links to its SEC EDGAR
+    # filings (the site builds the EDGAR company link from the name). SEC's API is not called.
     for o in out:
-        m = sec.get(norm(o["owner"])) if o["owner"] else None
-        o.update(cik="", sec_name="", sec_ein="")
-        if not m:
-            continue
-        cik, name = m
-        if cik not in eins:
-            time.sleep(0.2)  # SEC asks for at most 10 requests a second
-            j = s.get(f"https://data.sec.gov/submissions/CIK{cik}.json", timeout=60)
-            eins[cik] = (j.json().get("ein") or "") if j.ok else ""
-        o.update(cik=cik, sec_name=name, sec_ein=eins[cik])
-    print(f"{len({o['ccn'] for o in out if o['cik']})} CCNs with an SEC-registered owner; "
-          f"registrants: {sorted({o['sec_name'] for o in out if o['cik']})}")
+        o["sec_name"] = next((name for name, pat in PUBLIC if re.search(pat, o["owner"].upper())), "")
+    print(f"{len({o['ccn'] for o in out if o['sec_name']})} CCNs with a publicly traded owner: "
+          f"{sorted({o['sec_name'] for o in out if o['sec_name']})}")
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    cols = ["ccn", "owner", "role", "pct", "parent", "for_profit", "cik", "sec_name", "sec_ein"]
+    cols = ["ccn", "owner", "role", "pct", "for_profit", "sec_name"]
     with OUT.open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=cols)
         w.writeheader()
