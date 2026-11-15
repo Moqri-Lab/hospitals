@@ -21,6 +21,7 @@ jobs:
           EINS: ${{ inputs.eins }}
           TPL: ${{ inputs.templates }}
         run: |
+          set +e
           UA="hpt-hub/0.1 (+https://github.com/Moqri-Lab/hospitals)"
           for t in $TPL; do for e in $EINS; do
             u=${t//\{ein\}/$e}; u=${u//\{ein2\}/${e:0:2}-${e:2}}
