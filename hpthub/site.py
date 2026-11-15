@@ -133,6 +133,7 @@ def confidence(r) -> tuple[str, str]:
             "matched-sole": 65}.get(st, sc * 60)
     dom = r["hpt_txt_domain"]
     agree = sum(1 for c in WEB_SOURCE_COLS if dom and dom in str(r.get(c, "")).split())
+    agree += (str(r.get("ccn", "")), dom) in _verified_websites()  # home page shows the hospital
     base += 5 * min(3, max(0, agree - 1))
     src = str(r.get("hpt_txt_source", ""))
     if src.startswith(("Internet Archive", "Common Crawl")):
@@ -188,6 +189,18 @@ def price_totals(cat: pd.DataFrame) -> dict:
     return {"price_files": int(len(f)), "hospitals_with_files": int(cat.loc[cat["mrf_url"].astype(str) != "", "ccn"].nunique()),
             "sized_files": int(size.notna().sum()), "total_gb": round(total_mb / 1000, 1),
             "est_prices_low": int(est["low"]), "est_prices": int(est["mid"]), "est_prices_high": int(est["high"])}
+
+
+_VERIFIED: set | None = None
+
+
+def _verified_websites() -> set:
+    """(ccn, domain) pairs whose home page shows the hospital (scripts/verify_websites.py)."""
+    global _VERIFIED
+    if _VERIFIED is None:
+        df = _read(ROOT / "data" / "registry" / "verified_websites.csv")
+        _VERIFIED = set(zip(df["ccn"], df["domain"])) if len(df) else set()
+    return _VERIFIED
 
 
 def txt_check(g: pd.DataFrame, dead: set[str] = frozenset()) -> tuple[str, str]:
