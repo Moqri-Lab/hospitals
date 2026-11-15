@@ -542,6 +542,9 @@ def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
     return pd.DataFrame(out)
 
 
+ARCHIVE_MINUTES = 15
+
+
 def archive_pass(reg: pd.DataFrame, dom_df: pd.DataFrame, ent_df: pd.DataFrame,
                  workers: int = 16) -> tuple[pd.DataFrame, pd.DataFrame]:
     """For hospitals where no live cms-hpt.txt could be read, try public archive
@@ -560,15 +563,19 @@ def archive_pass(reg: pd.DataFrame, dom_df: pd.DataFrame, ent_df: pd.DataFrame,
     sess = http.session(retries=1)
     new_entries = []
     res = {}
-    with ThreadPoolExecutor(max_workers=min(workers, 16)) as ex:
-        futs = {ex.submit(archived_copy, sess, d): d for d in todo}
-        for i, fut in enumerate(as_completed(futs), 1):
+    ex = ThreadPoolExecutor(max_workers=min(workers, 16))
+    futs = {ex.submit(archived_copy, sess, d): d for d in todo}
+    try:  # archives can be very slow: stop after ARCHIVE_MINUTES and keep what came back
+        for i, fut in enumerate(as_completed(futs, timeout=ARCHIVE_MINUTES * 60), 1):
             try:
                 res[futs[fut]] = fut.result()
             except Exception:  # noqa: BLE001
                 res[futs[fut]] = None
             progress.report("step 1 of 2, archived copies (Internet Archive, Common Crawl) tried "
                             "for unreadable websites", i, len(todo), force=i == len(todo))
+    except TimeoutError:
+        print(f"  archive pass stopped after {ARCHIVE_MINUTES} min: {len(res)} of {len(todo)} tried", flush=True)
+    ex.shutdown(wait=False, cancel_futures=True)
     for d, alt in res.items():
         if not alt:
             continue
