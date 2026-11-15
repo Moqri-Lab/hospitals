@@ -250,7 +250,8 @@ def crawl(domains: list[str], workers: int = 16) -> tuple[pd.DataFrame, pd.DataF
             dom_rows.append(res["domain"])
             entry_rows.extend(res["entries"])
             if i % 50 == 0 or i == len(domains):
-                progress.report("step 1 of 2, websites (cms-hpt.txt) checked", i, len(domains))
+                progress.report("step 1 of 2, websites (cms-hpt.txt) checked", i, len(domains),
+                                force=i == len(domains))
     return pd.DataFrame(dom_rows), pd.DataFrame(entry_rows)
 
 
@@ -537,7 +538,7 @@ def head_all(urls: list[str], workers: int = 8) -> pd.DataFrame:
         for i, rec in enumerate(ex.map(lambda u: head_mrf(sess, u), urls), 1):
             out.append(rec)
             if i % 100 == 0 or i == len(urls):
-                progress.report("step 2 of 2, price-file links checked", i, len(urls))
+                progress.report("step 2 of 2, price-file links checked", i, len(urls), force=i == len(urls))
     return pd.DataFrame(out)
 
 
@@ -558,8 +559,16 @@ def archive_pass(reg: pd.DataFrame, dom_df: pd.DataFrame, ent_df: pd.DataFrame,
     print(f"trying archive copies for {len(todo)} unreadable domains", flush=True)
     sess = http.session(retries=1)
     new_entries = []
+    res = {}
     with ThreadPoolExecutor(max_workers=min(workers, 16)) as ex:
-        res = dict(zip(todo, ex.map(lambda d: archived_copy(sess, d), todo)))
+        futs = {ex.submit(archived_copy, sess, d): d for d in todo}
+        for i, fut in enumerate(as_completed(futs), 1):
+            try:
+                res[futs[fut]] = fut.result()
+            except Exception:  # noqa: BLE001
+                res[futs[fut]] = None
+            progress.report("step 1 of 2, archived copies (Internet Archive, Common Crawl) tried "
+                            "for unreadable websites", i, len(todo), force=i == len(todo))
     for d, alt in res.items():
         if not alt:
             continue
