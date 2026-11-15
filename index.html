@@ -95,7 +95,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
   <select id="state"><option value="">All states</option></select>
   <select id="ftype"><option value="">All types</option></select>
   <select id="fcheck"><option value="">Any compliance</option><option value="pass">Compliant</option><option value="amber">Not machine readable</option><option value="fail">Not compliant</option></select>
-  <select id="fweb" title="Website unknown: no website could be found in any source (these count as not machine readable)"><option value="">Any website</option><option value="known">Website known</option><option value="unknown">Website unknown</option></select>
+  <select id="fweb" title="Website unknown: no website could be found in any source (these count as not machine readable)"><option value="">Any website state</option><option value="known" selected>Website known</option><option value="unknown">Website unknown</option></select>
   <label class="small" style="white-space:nowrap;display:inline-flex;align-items:center;gap:4px" title="Federal (VA, military, Indian Health Service) hospitals are exempt from the price transparency rule; some state psychiatric hospitals may be"><input type="checkbox" id="noexempt" checked> Exclude exempt</label>
   <button type="button" id="export" class="xbtn" title="Download the hospitals shown (current search and filters) as a CSV file, one row per price file">⬇ Export CSV</button>
   <details class="colmenu"><summary>Columns ▾</summary><div class="menu" id="colmenu"></div></details>
@@ -215,7 +215,7 @@ function render(){
   const isEx=r=>r.hpt_exempt==="True"||String(r.exempt_note).startsWith("possibly");
   const match=r=>(!ty||r.facility_type===ty)&&(!st||r.state===st)&&(!q||[r.name,r.cms_name,r.pos_name,r.city,r.system,r.ccn,r.hpt_txt_domain,...r.files.map(x=>x.location_name)].join(" ").toLowerCase().includes(q));
   const noEx=document.getElementById("noexempt").checked,fw=document.getElementById("fweb").value;
-  let f=hosps.filter(r=>match(r)&&(!fw||(fw==="known")===!!r.hpt_txt_domain)&&(isEx(r)?!noEx&&!ck:(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))));
+  let f=hosps.filter(r=>match(r)&&(!fw||isEx(r)||(fw==="known")===!!r.hpt_txt_domain)&&(isEx(r)?!noEx&&!ck:(!ck||(ck==="amber"?["blocked","unknown"].includes(r.txt_check):r.txt_check===ck))));
   const nEx=f.filter(isEx).length;
   f.sort((a,b)=>{let x=a[sortKey]??"",y=b[sortKey]??"";if(num(sortKey)){x=+x||0;y=+y||0;return (x>y?1:x<y?-1:0)*sortDir}return String(x).localeCompare(String(y),"en",{sensitivity:"base",numeric:true})*sortDir});
   lastF=f;
