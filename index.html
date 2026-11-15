@@ -26,6 +26,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 a{color:var(--accent)}
 .chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);font-size:12px;white-space:nowrap}
 .ftype{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:4px;background:var(--chip);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.flag.sym{padding:0;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%;font-size:12px}
 .flag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap}.flag.pass{background:var(--passbg);color:var(--accent)}.flag.fail{background:var(--failbg);color:var(--bad)}.flag.blocked{background:var(--blockbg);color:var(--warn)}.flag.unknown{background:var(--chip);color:var(--muted)}
 tr.pass td:first-child{box-shadow:inset 4px 0 var(--accent)}tr.fail td:first-child{box-shadow:inset 4px 0 var(--bad)}tr.blocked td:first-child{box-shadow:inset 4px 0 var(--warn)}
 .ok{color:var(--accent)}.low{color:var(--warn)}.no{color:var(--bad)}
@@ -40,7 +41,7 @@ details.locs summary{cursor:pointer;list-style:none;color:var(--accent)}
 details.locs summary::-webkit-details-marker{display:none}
 details.locs ul{margin:4px 0 0;padding-left:16px}
 td.hosp{min-width:180px;max-width:260px}
-td.chk{min-width:150px;max-width:200px}
+td.chk{width:28px;padding-left:4px;padding-right:4px;text-align:center}
 .top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;padding-top:16px}
 .top h1{margin:0}
 .nav{display:flex;flex-wrap:wrap;gap:14px;font-size:13px}
@@ -102,7 +103,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 32px;color:var(--muted);font-
 <div class="pager" id="pager"></div>
 <footer id="foot">Developed by <a href="https://moqri-lab.org/">Mahdi Moqri</a> in a personal capacity. <a href="about.html" target="_self">Learn more about the data sources and methods</a>.</footer>
 <script>
-const COLS=[["txt_check","cms-hpt.txt compliance"],["ccn","CCN"],["ein","EIN"],["name","Hospital"],["cms_name","CMS name"],["pos_name","POS name"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["owners","Owners (CMS)"],["public_parent","Public parent"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["confidence","Confidence"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_sutton","Web: nathansutton"],["web_osm","Web: OpenStreetMap"],["web_inferred","Web: inferred"],["web_llm","Web: LLM"],["web_claude","Web: Claude"]];
+const COLS=[["name","Hospital"],["txt_check","✓"],["ccn","CCN"],["ein","EIN"],["cms_name","CMS name"],["pos_name","POS name"],["facility_type","Type"],["city","City"],["state","St"],["beds","Beds (CCN)"],["n_campuses","Campuses"],["system","System"],["owners","Owners (CMS)"],["public_parent","Public parent"],["web_wikidata","Web: Wikidata"],["hpt_txt_domain","cms-hpt.txt"],["n_files","Price files"],["contact_name","Contact"],["confidence","Confidence"],["match_status","Match"],["web_system_rule","Web: system rule"],["web_tpafs","Web: TPAFS"],["web_sutton","Web: nathansutton"],["web_osm","Web: OpenStreetMap"],["web_inferred","Web: inferred"],["web_llm","Web: LLM"],["web_claude","Web: Claude"]];
 // Consistent capitalization for hospital names. Brand and acronym casing (AdventHealth, UCSF, McAllen)
 // is learned from the mixed-case location names hospitals write in their own cms-hpt.txt files.
 const CASE={},SMALL=new Set(["of","and","the","at","for","in","on","by","a","an","de","del","la","las","los","y"]);
@@ -128,7 +129,8 @@ function cell(r,k){const v=r[k]??"";
   if(k==="facility_type")return v?`<span class="ftype" title="Hospital type (CMS): ${esc(v)}">${esc(FTYPE[v]||v)}</span>`:"";
   if(k==="name")return (r.hpt_txt_domain?`<a href="https://${esc(r.hpt_txt_domain)}" title="Hospital website: ${esc(r.hpt_txt_domain)}">${esc(v)}</a>`:esc(v))+(r.exempt_note?`<span class="chip ${r.exempt_note.startsWith("exempt")?"ok":"low"}" title="${esc(r.exempt_note)}">${r.exempt_note.startsWith("exempt")?"exempt":"possibly exempt"}</span>`:"");
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
-    return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
+    const sym={pass:"✓",fail:"✗"}[v]||"⚠";
+    return `<span class="flag sym ${v==="unknown"?"blocked":esc(v)}" title="${esc(L.slice(2))}: ${esc(r.txt_check_reason)}" aria-label="${esc(L.slice(2))}">${sym}</span>`}
   if(k==="ccn"){const L=ccnLink(r);return L?`<a style="white-space:nowrap" href="${esc(L[0])}" title="${esc(L[1])} for CCN ${esc(v)}">${esc(v)}</a>`:`<span style="white-space:nowrap" title="No CMS profile page for this CCN">${esc(v)}</span>`}
   if(k==="ein"){const gov=/^Government/.test(r.ownership||"")&&!/Federal/.test(r.ownership||"");
     const L=e=>{const t=EXEMPT[e],f=FAC[e],n=+e.replace(/-/g,""),pp=`https://projects.propublica.org/nonprofits/organizations/${n}`,
@@ -206,17 +208,17 @@ function render(){
   const files=f.reduce((n,r)=>n+r.files.length,0);
   drawMap();
   const cnt=k=>f.filter(r=>r.txt_check===k).length;
-  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · <span class="ok">${cnt("pass")} compliant</span> · <span class="low">${cnt("blocked")+cnt("unknown")} not machine readable</span> · <span class="no">${cnt("fail")} not compliant</span>`;
+  document.getElementById("stats").innerHTML=`${f.length.toLocaleString()} hospitals · <span class="ok"><span class="flag sym pass">✓</span> ${cnt("pass").toLocaleString()} compliant</span> · <span class="low"><span class="flag sym blocked">⚠</span> ${(cnt("blocked")+cnt("unknown")).toLocaleString()} not machine readable</span> · <span class="no"><span class="flag sym fail">✗</span> ${cnt("fail").toLocaleString()} not compliant</span>`;
   const pages=Math.max(1,Math.ceil(f.length/PAGE));if(page>=pages)page=pages-1;
   document.getElementById("pager").innerHTML=f.length>PAGE?`<button data-p="0"${page?"":" disabled"}>« First</button><button data-p="${page-1}"${page?"":" disabled"}>‹ Prev</button><span>Page ${page+1} of ${pages} (${(page*PAGE+1).toLocaleString()}–${Math.min(f.length,(page+1)*PAGE).toLocaleString()} of ${f.length.toLocaleString()})</span><button data-p="${page+1}"${page<pages-1?"":" disabled"}>Next ›</button><button data-p="${pages-1}"${page<pages-1?"":" disabled"}>Last »</button>`:"";
   document.getElementById("body").innerHTML=f.slice(page*PAGE,(page+1)*PAGE).map(r=>`<tr class="${r.txt_check==="unknown"?"blocked":esc(r.txt_check)}">`+vis().map(([k])=>`<td class="${k==="txt_check"?"chk":k==="n_files"?"loc":num(k)?"num":k==="contact_name"||k==="hpt_txt_domain"||k.startsWith("web_")?"clip":k==="n_files"?"loc":k==="name"?"hosp":""}">${cell(r,k)}</td>`).join("")+"</tr>").join("");
 }
 const TIPS={"name": "Hospital name as the hospital itself gives it (location-name in its cms-hpt.txt); when it has none, the CMS name", "cms_name": "Name in CMS Hospital General Information, or the Provider of Services file when that list leaves the hospital out", "pos_name": "Name in the CMS Provider of Services file, the source of the hospital list and its CCN", "ein": "Employer Identification Number(s), read from the price-file names (CMS naming rule EIN_hospital-name_standardcharges). One EIN can cover several hospitals of a system", "txt_check": "Whether a machine-readable cms-hpt.txt at the hospital website root lists this hospital (45 CFR 180.50(d)(6)); checks only this file, not the price data itself", "ccn": "CMS Certification Number, the Medicare provider ID", "beds": "Total beds for the CCN (CMS Provider of Services); one CCN can cover several campuses", "n_campuses": "Distinct locations listed under this CCN in the hospital's cms-hpt.txt", "hpt_txt_domain": "Website whose cms-hpt.txt was read, and whether it could be read", "location_name": "The location-name the hospital itself gives in its cms-hpt.txt for this price file (click for the hospital's price transparency page)", "n_files": "Each price file the hospital lists in its cms-hpt.txt, under the location name the hospital gives it", "match_status": "How the CMS hospital was matched to the cms-hpt.txt entry", "confidence": "0-100 confidence that the listed price files belong to this CMS hospital (highest across its files); hover a value for details", "web_claude": "Website found by Claude (AI) on review; still verified by its cms-hpt.txt", "web_system_rule": "Website from a health-system name rule", "web_wikidata": "Official website (P856) from Wikidata", "web_tpafs": "Website from TPAFS/DoltHub transparency-data", "web_sutton": "Website from the nathansutton/hospital-price-transparency URL list", "web_osm": "Website tag of the matching hospital in OpenStreetMap", "web_llm": "Website proposed by a large language model (LLM) and checked against the hospital's cms-hpt.txt", "web_inferred": "Website inferred from the hospital name or another website's cms-hpt.txt, kept only if its home page shows the hospital's address (or an exact name match on a same-state system website)"};
-const DEFAULT_COLS=["txt_check","ccn","ein","name","facility_type","state","beds","hpt_txt_domain","n_files","confidence"];
+const DEFAULT_COLS=["name","txt_check","ccn","ein","facility_type","state","beds","hpt_txt_domain","n_files","confidence"];
 let shown;try{shown=JSON.parse(localStorage.getItem("hpt-cols"))}catch(e){}
 if(!Array.isArray(shown)||!shown.length)shown=DEFAULT_COLS.slice();
 const vis=()=>COLS.filter(([k])=>shown.includes(k));
-function drawHead(){document.getElementById("head").innerHTML=vis().map(([k,l])=>`<th data-k="${k}" title="${esc(TIPS[k]||"")}">${l}</th>`).join("")}
+function drawHead(){document.getElementById("head").innerHTML=vis().map(([k,l])=>`<th data-k="${k}" title="${esc(TIPS[k]||"")}"${k==="txt_check"?' style="width:1%;padding-left:4px;padding-right:4px;text-align:center"':""}>${l}</th>`).join("")}
 document.getElementById("colmenu").innerHTML=COLS.map(([k,l])=>`<label><input type="checkbox" data-col="${k}"${shown.includes(k)?" checked":""}> ${esc(l)}</label>`).join("")+'<label style="margin-top:6px"><a href="#" id="colreset" target="_self">Reset to default</a></label>';
 document.getElementById("colmenu").addEventListener("change",e=>{const k=e.target.dataset.col;if(!k)return;
   shown=e.target.checked?[...shown,k]:shown.filter(x=>x!==k);try{localStorage.setItem("hpt-cols",JSON.stringify(shown))}catch(_){};drawHead();render()});
