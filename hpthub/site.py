@@ -308,6 +308,13 @@ def care_compare_profiles() -> dict[str, str]:
     return out
 
 
+def exempt_eins() -> list[str]:
+    """EINs of tax-exempt organizations (IRS EO Business Master File, via scripts/exempt_eins.py):
+    the ones with a ProPublica Nonprofit Explorer page."""
+    df = _read(ROOT / "data" / "registry" / "exempt_eins.csv")
+    return sorted(df["ein"]) if len(df) else []
+
+
 def build() -> Path:
     cat = catalog()
     xw = ein_crosswalk(cat)
@@ -352,6 +359,7 @@ def build() -> Path:
         "totals": price_totals(cat),
         "columns": list(cat.columns),
         "rows": cat.values.tolist(),
+        "exempt_eins": exempt_eins(),
     }
     out = ROOT / "data.json"
     out.parent.mkdir(parents=True, exist_ok=True)

@@ -116,7 +116,7 @@ function nameCase(s){s=String(s||"").replace(/\s+/g," ").trim().replace(/^\d[\d-
     if(CASE[k]&&!(SMALL.has(k)))return CASE[k];
     if(!/[aeiouy]/.test(k)&&/^[a-z]{2,4}$/.test(k)&&k!=="st"&&k!=="mt"&&k!=="ft"&&k!=="dr")return k.toUpperCase();
     return k.charAt(0).toUpperCase()+k.slice(1)})}
-let lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
+let EXEMPT=new Set(),lastF=[],rows=[],hosps=[],sortKey="name",sortDir=1,page=0;const PAGE=100;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num=k=>k==="beds"||k==="n_files"||k==="n_campuses"||k==="confidence";
 // CCN link: acute care hospitals (paid under Medicare's inpatient system) -> CMS inpatient hospital look-up;
@@ -131,7 +131,7 @@ function cell(r,k){const v=r[k]??"";
   if(k==="txt_check"){if(!v)return"";const L={pass:"✓ compliant",fail:"✗ not compliant",blocked:"⚠ not machine readable",unknown:"⚠ not machine readable"}[v]||v;
     return `<span class="flag ${v==="unknown"?"blocked":esc(v)}" title="${esc(r.txt_check_reason)}">${L}</span><div class="small">${esc(r.txt_check_reason)}</div>`}
   if(k==="ccn"){const L=ccnLink(r);return L?`<a style="white-space:nowrap" href="${esc(L[0])}" title="${esc(L[1])} for CCN ${esc(v)}">${esc(v)}</a>`:`<span style="white-space:nowrap" title="No CMS profile page for this CCN">${esc(v)}</span>`}
-  if(k==="ein")return (v||"").split(" ").filter(Boolean).map(e=>`<span style="white-space:nowrap">${esc(e)}</span>`).join("<br>");
+  if(k==="ein")return (v||"").split(" ").filter(Boolean).map(e=>EXEMPT.has(e)?`<a style="white-space:nowrap" href="https://projects.propublica.org/nonprofits/organizations/${+e.replace(/-/g,"")}" title="ProPublica Nonprofit Explorer: Form 990 filings for EIN ${esc(e)}">${esc(e)}</a>`:`<span style="white-space:nowrap" title="Not a tax-exempt organization in the IRS master file, so no Nonprofit Explorer page">${esc(e)}</span>`).join("<br>");
   if(k.startsWith("web_")){if(!v)return"";const ds=String(v).split(/\s+/).filter(Boolean);
     let h=ds.map(d=>d===r.hpt_txt_domain?`<span class="ok" title="${esc(d)}: the website whose cms-hpt.txt was read">✓</span>`:`<span class="t" title="${esc(d)}">${esc(d)}</span>`).join(" ");
     if(k==="web_osm"&&r.osm_id)h+=` <a class="small" href="https://www.openstreetmap.org/${esc(r.osm_id)}">OSM</a>`;
@@ -218,6 +218,7 @@ document.getElementById("export").onclick=()=>{
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+out.join("\r\n")],{type:"text/csv"}));
   a.download=`hospital-price-files-${new Date().toISOString().slice(0,10)}.csv`;a.target="_self";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000)};
 fetch("data.json").then(r=>r.json()).then(d=>{
+  EXEMPT=new Set(d.exempt_eins||[]);
   rows=d.rows.map(a=>Object.fromEntries(d.columns.map((c,i)=>[c,a[i]])));
   const by=new Map();
   buildCasing(rows);
