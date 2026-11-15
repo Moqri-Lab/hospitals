@@ -399,7 +399,7 @@ def build() -> Path:
         "(https://data.cms.gov/provider-data/dataset/xubh-q36u) where listed, price-file links from each hospital's own `cms-hpt.txt`. "
         "See [README](README.md#sources).",
         "",
-        "| # | Hospital | City, State | Beds (CCN) | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |",
+        "| # | Hospital | City, State | Beds | cms-hpt.txt | Location name (from txt) | Price file | Format | Size (MB) | Last modified | Contact | Match |",
         "|---|---|---|---:|---|---|---|---|---:|---|---|---|",
     ]
     for i, r in enumerate(crawled.itertuples(index=False), 1):
