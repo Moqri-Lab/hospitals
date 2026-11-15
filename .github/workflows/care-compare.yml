@@ -1,0 +1,34 @@
+# List which CCNs have a Medicare Care Compare profile (hospital, rehab, LTCH), and spot-check pages.
+name: care-compare
+on:
+  workflow_dispatch:
+    inputs:
+      sample:
+        description: "Care Compare paths to spot-check, e.g. hospital/421301"
+        default: "hospital/421301 hospital/190034 inpatient-rehabilitation/033028 long-term-care-hospital/012006"
+permissions:
+  contents: write
+jobs:
+  ccns:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python scripts/care_compare_ccns.py
+      - name: Spot-check pages
+        run: |
+          for p in ${{ inputs.sample }}; do
+            curl -sS -o /dev/null -w "medicare.gov/care-compare/details/$p -> %{http_code}\n" --max-time 60 \
+              -A "hpt-hub/0.1 (+https://github.com/Moqri-Lab/hospitals)" "https://www.medicare.gov/care-compare/details/$p" || true
+          done
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cms/care_compare_ccns.csv
+          git commit -m "data: CCNs with a Care Compare profile" || exit 0
+          for i in 1 2 3 4; do git pull --rebase -X theirs origin main && git push && break; sleep $((i*10)); done
