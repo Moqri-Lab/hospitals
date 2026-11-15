@@ -36,13 +36,15 @@ def norm(s: str) -> str:
 
 
 def latest_csv(sess, cat, title: str) -> str:
-    for ds in cat["dataset"]:
-        if ds.get("title", "").strip().lower() == title.lower():
+    want = set(title.lower().split())
+    for ds in sorted(cat["dataset"], key=lambda d: len(d.get("title", ""))):
+        if want <= set(re.sub(r"[^a-z ]", " ", ds.get("title", "").lower()).split()):
             d = [x for x in ds.get("distribution", []) if str(x.get("downloadURL", "")).endswith(".csv")]
             d.sort(key=lambda x: x.get("temporal", "") or x.get("modified", ""), reverse=True)
             print(f"{title}: {d[0]['downloadURL']}")
             return d[0]["downloadURL"]
-    raise SystemExit(f"not in catalog: {title}")
+    near = [d.get("title") for d in cat["dataset"] if "hospital" in d.get("title", "").lower()]
+    raise SystemExit(f"not in catalog: {title}; hospital titles: {near}")
 
 
 def rows(sess, url: str) -> list[dict]:
