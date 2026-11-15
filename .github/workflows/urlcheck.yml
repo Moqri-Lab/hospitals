@@ -1,0 +1,31 @@
+# Spot-check URL templates: status, final URL, page title, and whether the page mentions the EIN.
+name: urlcheck
+on:
+  workflow_dispatch:
+    inputs:
+      eins:
+        description: "EIN digits"
+        default: "720574846 576000003 042312909 825359949 900656139"
+      templates:
+        description: "URL templates; {ein} = digits, {ein2} = 12-3456789"
+        default: "https://www.guidestar.org/profile/{ein2} https://www.charitynavigator.org/ein/{ein} https://apps.irs.gov/app/eos/details/?ein={ein} https://www.causeiq.com/search/organizations/?q={ein}"
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check
+        env:
+          EINS: ${{ inputs.eins }}
+          TPL: ${{ inputs.templates }}
+        run: |
+          UA="hpt-hub/0.1 (+https://github.com/Moqri-Lab/hospitals)"
+          for t in $TPL; do for e in $EINS; do
+            u=${t//\{ein\}/$e}; u=${u//\{ein2\}/${e:0:2}-${e:2}}
+            r=$(curl -sSL -o p.html -A "$UA" --max-time 40 -w "%{http_code} %{url_effective}" "$u" 2>&1)
+            ti=$(grep -o "<title>[^<]*</title>" p.html | head -1 | cut -c1-110)
+            hit=$(grep -c -e "$e" -e "${e:0:2}-${e:2}" p.html)
+            echo "RES $u -> $r | $ti | ein mentions: $hit | bytes $(wc -c < p.html)"
+          done; done
